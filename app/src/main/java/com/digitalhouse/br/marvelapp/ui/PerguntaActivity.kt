@@ -1,4 +1,4 @@
-package com.digitalhouse.br.marvelapp
+package com.digitalhouse.br.marvelapp.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.digitalhouse.br.marvelapp.Alternativa
+import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.ui.QuizActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_pergunta.*

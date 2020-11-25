@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 
-class BPersonagemAdapter(var listPersonagens: ArrayList<EntesMarvel>, val listener: OnBPersonagemClickListener): RecyclerView.Adapter<BPersonagemAdapter.BPersonagemViewHolder>(){
+class BPersonagemAdapter(var listPersonagens: ArrayList<Characters>, val listener: OnBPersonagemClickListener): RecyclerView.Adapter<BPersonagemAdapter.BPersonagemViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):BPersonagemAdapter.BPersonagemViewHolder {
         var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
@@ -20,8 +20,8 @@ class BPersonagemAdapter(var listPersonagens: ArrayList<EntesMarvel>, val listen
 
     override fun onBindViewHolder(holder: BPersonagemAdapter.BPersonagemViewHolder, position: Int) {
         var personagens = listPersonagens.get(position)
-        holder.imgCard.setImageResource(personagens.img)
-        holder.nomeCard.text = personagens.nome
+        holder.imgCard.setImageResource(personagens.imagemCharacter)
+        holder.nomeCard.text = personagens.nomeCharacter
     }
 
     interface OnBPersonagemClickListener{

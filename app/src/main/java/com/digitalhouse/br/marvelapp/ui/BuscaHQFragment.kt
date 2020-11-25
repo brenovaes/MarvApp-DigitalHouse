@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_busca_h_q.*
 import kotlinx.android.synthetic.main.fragment_busca_personagem.*
 
 class BuscaHQFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClickListener {
-    var listHQ:ArrayList<EntesMarvel> = getHQ()
+    var listHQ:ArrayList<Characters> = getHQ()
 
     var adapterB = BPersonagemAdapter(listHQ, this)
 
@@ -39,16 +39,21 @@ class BuscaHQFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClickListene
     }
 
 
-    fun getHQ():ArrayList<EntesMarvel>{
+    fun getHQ():ArrayList<Characters>{
         return arrayListOf(
-                EntesMarvel("HQ1",R.drawable.teste),
-                EntesMarvel("HQ12",R.drawable.teste),
-                EntesMarvel("HQ3",R.drawable.teste),
-                EntesMarvel("HQ4",R.drawable.teste),
-                EntesMarvel("HQ5",R.drawable.teste),
-                EntesMarvel("HQ5",R.drawable.teste),
-                EntesMarvel("HQ5",R.drawable.teste),
-                EntesMarvel("HQ5",R.drawable.teste)
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1"),
+            Characters(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1")
         )
     }
 
