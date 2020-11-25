@@ -4,14 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
-import com.digitalhouse.br.marvelapp.QuizActivity
 import com.digitalhouse.br.marvelapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_home.toolbarH
+
 import kotlinx.android.synthetic.main.activity_perfil.*
 
 class PerfilActivity : AppCompatActivity() {
@@ -24,34 +21,34 @@ class PerfilActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.btnNavigationPerfil)
 
         //Setar Botão para tela atual
-        bottomNavigationView.selectedItemId = R.id.navigation_perfil
+        bottomNavigationView.selectedItemId = R.id.menu_perfil
 
         setSupportActionBar(toolbarH)
 
 
         btnNavigationPerfil.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.navigation_home -> {
+                R.id.menu_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_busca-> {
+                R.id.menu_busca-> {
                     startActivity(Intent(this, BuscaActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_quiz -> {
+                R.id.menu_quiz -> {
                     startActivity(Intent(this, QuizActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
                 //mudar activity
-                R.id.navigation_favorito -> {
+                R.id.menu_favoritos -> {
                     startActivity(Intent(this, HomeActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
                 //mudar activity
-                R.id.navigation_perfil -> {
+                R.id.menu_perfil -> {
                     startActivity(Intent(this, PerfilActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }

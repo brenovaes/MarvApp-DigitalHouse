@@ -2,16 +2,11 @@ package com.digitalhouse.br.marvelapp.ui
 
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.digitalhouse.br.marvelapp.QuizActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.digitalhouse.br.marvelapp.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_busca.*
-import kotlinx.android.synthetic.main.activity_quiz.*
-import kotlinx.android.synthetic.main.activity_quiz.tlQuiz
-import kotlinx.android.synthetic.main.activity_quiz.vpQuiz
 
 class BuscaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,33 +15,33 @@ class BuscaActivity : AppCompatActivity() {
 
         setUpTabs()
 
-        btnNavigationBusca.selectedItemId = R.id.navigation_busca
+        btnNavigationBusca.selectedItemId = R.id.menu_busca
 
         //Transição entre activity's
         btnNavigationBusca.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.navigation_home -> {
+                R.id.menu_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_busca-> {
+                R.id.menu_busca-> {
                     startActivity(Intent(this, BuscaActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_quiz -> {
+                R.id.menu_quiz -> {
                     startActivity(Intent(this, QuizActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
-                //mudar activity
-                R.id.navigation_favorito -> {
-                    startActivity(Intent(this, HomeActivity::class.java))
+
+                R.id.menu_favoritos -> {
+                    startActivity(Intent(this, FavoritoActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
-                //mudar activity
-                R.id.navigation_perfil -> {
-                    startActivity(Intent(this, HomeActivity::class.java))
+
+                R.id.menu_perfil -> {
+                    startActivity(Intent(this, PerfilActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
             }
@@ -75,7 +70,5 @@ class BuscaActivity : AppCompatActivity() {
             }
         })
     }
-
-
 }
 

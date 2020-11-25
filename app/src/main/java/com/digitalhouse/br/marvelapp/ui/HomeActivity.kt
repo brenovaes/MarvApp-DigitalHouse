@@ -7,27 +7,23 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
-import com.digitalhouse.br.marvelapp.QuizActivity
 import com.digitalhouse.br.marvelapp.R
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener, SugestoesAdapter.OnSugestoesClickListener, HistoricoAdapter.OnHistoricoClickListener {
 
-    var listPopulares: ArrayList<EntesMarvel> = getPopular()
+    var listPopulares: ArrayList<Characters> = getPopular()
     var adapterPopular = PopularAdapter(listPopulares, this)
    //modigicar funcao de pegar tamanho sugestões
-    var listSugestoes: ArrayList<EntesMarvel> = getPopular()
+    var listSugestoes: ArrayList<Characters> = getPopular()
     var adapterSugestoes = SugestoesAdapter(listSugestoes, this)
     //modigicar funcao de pegar tamanho do historico
-    var listHistorico: ArrayList<EntesMarvel> = getPopular()
+    var listHistorico: ArrayList<Characters> = getPopular()
     var adapterHistorico = HistoricoAdapter(listHistorico, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-        setSupportActionBar(toolbarH)
-
 
         rvMaisPopulares.adapter = adapterPopular
         rvMaisPopulares.setHasFixedSize(true)
@@ -41,27 +37,27 @@ class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener,
 
         btnNavigationHome.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.navigation_home -> {
+                R.id.menu_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_busca-> {
+                R.id.menu_busca-> {
                     startActivity(Intent(this, BuscaActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_quiz -> {
+                R.id.menu_quiz -> {
                     startActivity(Intent(this, QuizActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
-                //mudar activity
-                R.id.navigation_favorito -> {
-                    startActivity(Intent(this, HomeActivity::class.java))
+
+                R.id.menu_favoritos -> {
+                    startActivity(Intent(this, FavoritoActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
-                //mudar activity
-                R.id.navigation_perfil -> {
+
+                R.id.menu_perfil -> {
                     startActivity(Intent(this, PerfilActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -71,30 +67,38 @@ class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener,
     }
 
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_configuracao, menu)
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
+    //arrumar o menu que nao esta abrindo os itens
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var itemView = item.itemId
 
         when(itemView){
-            R.id.navigaton_configuracao -> showToast("configurações")
+            R.id.help -> {
+                startActivity(Intent(this, LoginActivity::class.java))
+                return true
+            }
+            R.id.itTema -> {
+                showToast("Clicado para mudar o tema!!")
+                return true
+            }
         }
-        return false
+        return super.onOptionsItemSelected(item)
     }
 
-    fun getPopular():ArrayList<EntesMarvel>{
+    fun getPopular():ArrayList<Characters>{
         return arrayListOf(
-            EntesMarvel("Nome1",R.drawable.teste),
-            EntesMarvel("Nome2",R.drawable.teste),
-            EntesMarvel("Nome3",R.drawable.teste),
-            EntesMarvel("Nome4",R.drawable.teste),
-            EntesMarvel("Nome5",R.drawable.teste),
-            EntesMarvel("Nome6",R.drawable.teste)
+            Characters(1,R.drawable.omiranha,"Personagem1",),
+            Characters(2,R.drawable.omiranha,"Personagem1",),
+            Characters(3,R.drawable.omiranha,"Personagem1",),
+            Characters(4,R.drawable.omiranha,"Personagem1",),
+            Characters(5,R.drawable.omiranha,"Personagem1",),
+            Characters(6,R.drawable.omiranha,"Personagem1",),
+            Characters(7,R.drawable.omiranha,"Personagem1",)
         )
     }
 
@@ -103,33 +107,32 @@ class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener,
     }
 
 
-    fun callDetalheCard(ente: EntesMarvel) {
-//        var intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("nome",ente.nome)
+    fun callDetalheCard(ente: Characters) {
+        intent.putExtra("nome",ente.nomeCharacter)
         startActivity( intent)
 
     }
 
     override fun popularClick(position: Int) {
         val ente = listPopulares.get(position)
-        var nomeEnte = ente.nome
-        var imgEnte = ente.img
+        var nomeEnte = ente.nomeCharacter
+        var imgEnte = ente.imagemCharacter
         adapterPopular.notifyItemChanged(position)
         callDetalheCard(ente)
     }
 
     override fun sugestoesClick(position: Int) {
         val ente = listSugestoes.get(position)
-        var nomeEnte = ente.nome
-        var imgEnte = ente.img
+        var nomeEnte = ente.nomeCharacter
+        var imgEnte = ente.imagemCharacter
         adapterSugestoes.notifyItemChanged(position)
         callDetalheCard(ente)
     }
 
     override fun historicoClick(position: Int) {
         val ente = listHistorico.get(position)
-        var nomeEnte = ente.nome
-        var imgEnte = ente.img
+        var nomeEnte = ente.nomeCharacter
+        var imgEnte = ente.imagemCharacter
         adapterHistorico.notifyItemChanged(position)
         callDetalheCard(ente)
     }

@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:logo="@drawable/marvapp_light"
+        app:logo="@drawable/toolbar_marvapp_branco"
         app:menu="@menu/menu_superior">
 
 

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_busca_personagem.*
 import kotlinx.android.synthetic.main.fragment_busca_personagem.view.*
 
 class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClickListener {
-    var listPersonagens:ArrayList<EntesMarvel> = getPersonagens()
+    var listPersonagens:ArrayList<Characters> = getPersonagens()
 
     var adapterB = BPersonagemAdapter(listPersonagens, this)
 
@@ -35,9 +35,6 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
             // set the custom adapter to the RecyclerView
             adapter = adapterB
         }
-
-
-
     }
 
     companion object {
@@ -45,18 +42,16 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
         fun newInstance() =  BuscaPersonagemFragment()
     }
 
-    fun getPersonagens():ArrayList<EntesMarvel>{
+    fun getPersonagens():ArrayList<Characters>{
         return arrayListOf(
-            EntesMarvel("Personagem1",R.drawable.teste),
-            EntesMarvel("Personagem2",R.drawable.teste),
-            EntesMarvel("Personagem3",R.drawable.teste),
-            EntesMarvel("Personagem4",R.drawable.teste),
-            EntesMarvel("Personagem5",R.drawable.teste),
-            EntesMarvel("Personagem5",R.drawable.teste),
-            EntesMarvel("Personagem5",R.drawable.teste),
-            EntesMarvel("Personagem5",R.drawable.teste),
-            EntesMarvel("Personagem6",R.drawable.teste),
-            EntesMarvel("Personagem6",R.drawable.teste)
+            Characters(1,R.drawable.omiranha,"Personagem1",),
+            Characters(2,R.drawable.omiranha,"Personagem1",),
+            Characters(3,R.drawable.omiranha,"Personagem1",),
+            Characters(4,R.drawable.omiranha,"Personagem1",),
+            Characters(5,R.drawable.omiranha,"Personagem1",),
+            Characters(6,R.drawable.omiranha,"Personagem1",),
+            Characters(7,R.drawable.omiranha,"Personagem1",)
+
         )
     }
 

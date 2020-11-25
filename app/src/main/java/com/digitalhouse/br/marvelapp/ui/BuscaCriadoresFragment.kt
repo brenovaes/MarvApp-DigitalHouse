@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_busca_h_q.*
 
 
 class BuscaCriadoresFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClickListener {
-    var listCriadores:ArrayList<EntesMarvel> = getCriadores()
+    var listCriadores:ArrayList<Characters> = getCriadores()
 
     var adapterB = BPersonagemAdapter(listCriadores, this)
 
@@ -39,16 +39,13 @@ class BuscaCriadoresFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClick
         fun newInstance() = BuscaCriadoresFragment()
     }
 
-    fun getCriadores():ArrayList<EntesMarvel>{
+    fun getCriadores():ArrayList<Characters>{
         return arrayListOf(
-                EntesMarvel("Criador1",R.drawable.teste),
-                EntesMarvel("Criador2",R.drawable.teste),
-                EntesMarvel("Criador3",R.drawable.teste),
-                EntesMarvel("Criador4",R.drawable.teste),
-                EntesMarvel("Criador5",R.drawable.teste),
-                EntesMarvel("Criador5",R.drawable.teste),
-                EntesMarvel("Criador5",R.drawable.teste),
-                EntesMarvel("Criador5",R.drawable.teste)
+            Characters(1,R.drawable.stanlee, "Stan Lee"),
+            Characters(1,R.drawable.stanlee, "Stan Lee"),
+            Characters(1,R.drawable.stanlee, "Stan Lee"),
+            Characters(1,R.drawable.stanlee, "Stan Lee"),
+            Characters(1,R.drawable.stanlee, "Stan Lee" )
         )
     }
 

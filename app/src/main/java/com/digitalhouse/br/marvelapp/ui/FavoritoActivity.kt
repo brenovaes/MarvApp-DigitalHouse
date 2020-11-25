@@ -14,32 +14,32 @@ class FavoritoActivity: AppCompatActivity() {
 
         setUpTabs()
 
-        btnNavigationFavoritoBusca.selectedItemId = R.id.navigation_favorito
+        btnNavigationFavoritoBusca.selectedItemId = R.id.menu_favoritos
 
         //Transição entre activity's
         //TODO
         btnNavigationFavoritoBusca.setOnNavigationItemSelectedListener {
             when(it.itemId){
-//                R.id.navigation_home -> {
-//                    startActivity(Intent(this, HomeActivity::class.java))
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-//                R.id.navigation_busca -> {
-//                    startActivity(Intent(this, BuscaActivity::class.java))
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-//                R.id.navigation_quiz -> {
-//                    startActivity(Intent(this, QuizActivity::class.java))
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-                R.id.navigation_favorito -> {
+                R.id.menu_home -> {
+                   startActivity(Intent(this, HomeActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.menu_busca -> {
+                    startActivity(Intent(this, BuscaActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.menu_quiz -> {
+                    startActivity(Intent(this, QuizActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.menu_favoritos -> {
                     startActivity(Intent(this, FavoritoActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
-//                R.id.navigation_perfil -> {
-//                    startActivity(Intent(this, ProfileActivity::class.java))
-//                    return@setOnNavigationItemSelectedListener true
-//                }
+                R.id.menu_perfil -> {
+                    startActivity(Intent(this, PerfilActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
             }
             false
         }
