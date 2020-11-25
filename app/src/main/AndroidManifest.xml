@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MarvelApp">
         <activity android:name=".ui.FavoritoActivity" />
+        <activity android:name=".ui.PerguntaActivity" />
+        <activity android:name=".ui.QuizActivity" />
+        <activity android:name=".ui.EsqueceuSenha" />
         <activity android:name=".ui.BuscaActivity" />
         <activity android:name=".ui.HomeActivity" />
         <activity android:name=".ui.LoginActivity" />

@@ -19,7 +19,7 @@
         app:labelVisibilityMode="labeled"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menu_inferior"
+        app:menu="@menu/menu_bottom_navigation"
         android:layout_alignParentBottom="true"/>
 
 

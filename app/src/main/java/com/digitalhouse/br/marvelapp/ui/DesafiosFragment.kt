@@ -19,6 +19,7 @@ import androidx.appcompat.view.menu.MenuView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.digitalhouse.br.marvelapp.R.color
+import com.digitalhouse.br.marvelapp.ui.PerguntaActivity
 import kotlinx.android.synthetic.main.activity_quiz.*
 import kotlinx.android.synthetic.main.balao_pergunta_quiz.view.*
 import kotlinx.android.synthetic.main.fragment_desafios.*

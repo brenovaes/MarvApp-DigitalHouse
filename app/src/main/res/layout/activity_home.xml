@@ -8,26 +8,35 @@
     android:background="@color/white"
     tools:context=".ui.HomeActivity">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarH"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/tbHome"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:titleTextColor="@color/white"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="-2dp"
-        android:paddingLeft="145dp"
-        app:logo="@drawable/toolbar_marvapp_branco"
-        app:menu="@menu/menu_superior">
+        android:background="@color/white">
 
-    </androidx.appcompat.widget.Toolbar>
+        <include
+            android:id="@+id/toolbarPrincipal"
+            layout="@layout/toolbar_principal">
+        </include>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tbHome1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:tabSelectedTextColor="@color/destaqueVermelho"
+            app:tabIndicatorColor="@color/destaqueVermelho"
+            app:tabTextColor="@color/black"
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_below="@id/toolbarH"
+        android:layout_below="@id/tbHome"
         android:layout_above="@+id/btnNavigationHome">
 
         <LinearLayout
@@ -196,11 +205,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/white"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_bottom_navigation"
-        tools:layout_editor_absoluteX="0dp" />
-
-
+        tools:layout_editor_absoluteX="0dp"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"/>
 </RelativeLayout>
