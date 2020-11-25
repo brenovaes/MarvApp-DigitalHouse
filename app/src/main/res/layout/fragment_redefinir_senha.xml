@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="324dp"
+    android:layout_height="380dp"
+    tools:context=".ui.RedefinirSenhaFragment">
+
+
+    <include
+        android:id="@+id/llbodyCadastro"
+        layout="@layout/body_login"
+        android:layout_width="324dp"
+        android:layout_height="380dp"
+     />
+
+    <LinearLayout
+        android:layout_width="324dp"
+        android:layout_height="380dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="27dp">
+
+        <TextView
+            android:id="@+id/tvRedefinirSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_redefinirSenha"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTextoRedefinirSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_textoRedefinirSenha"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/tv_email"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/destaqueVermelho"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black" />
+
+
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="218dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/btn_login_radius"
+            android:backgroundTint="@color/destaqueVermelho"
+            android:text="@string/btn_enviar"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

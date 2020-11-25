@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:src="@drawable/gambit"
+           />
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="@color/startColorLight"
+                android:centerColor="@color/centerColorLight"
+                android:endColor="@color/endColorLight"
+                android:angle="-90"/>
+
+        </shape>
+    </item>
+
+
+
+</layer-list>
