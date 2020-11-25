@@ -201,6 +201,4 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_bottom_navigation"
         tools:layout_editor_absoluteX="0dp" />
-
-
 </RelativeLayout>
