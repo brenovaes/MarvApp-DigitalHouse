@@ -13,23 +13,23 @@
     <string name="tv_usuario">Username</string>
     <string name="tv_password">Password</string>
     <string name="btn_login">LOGIN</string>
-    <string name="tv_esqueceuSenha">Esqueceu a senha?</string>
-    <string name="tv_nTemConta">Não tem conta?</string>
-    <string name="tv_cadastre_se">Cadastre-se.</string>
+    <string name="tv_esqueceuSenha">Forgot password?</string>
+    <string name="tv_nTemConta">Don\'t have an account?</string>
+    <string name="tv_cadastre_se">Register.</string>
 
     <string name="tv_email">Email</string>
     <string name="tv_rpassword">Repeat Password</string>
-    <string name="btn_cadastrar">CADASTRAR</string>
-    <string name="tv_redefinirSenha">Redefinir senha</string>
-    <string name="tv_textoRedefinirSenha">Insira o email associado à sua conta e enviaremos um email com instruções para redefinir sua senha.</string>
-    <string name="btn_enviar">ENVIAR</string>
+    <string name="btn_cadastrar">SIGN UP</string>
+    <string name="tv_redefinirSenha">Redefine password</string>
+    <string name="tv_textoRedefinirSenha">Enter the email associated with your account and we will send you an email with instructions to reset your password.</string>
+    <string name="btn_enviar">SEND</string>
     <!-- TODO: Remove or change this placeholder text -->
 
-    <string name="tv_textoVerificarEmail">Enviamos instruções de como redefinir sua senha, por favor verifique o email inserido anteriormente.</string>
-    <string name="tv_verificarEmail">Verificar email</string>
-    <string name="tv_criarSenha">Criar nova senha</string>
-    <string name="tv_textoCriarSenha">Sua nova senha deve ser diferente da senha usada anteriormente.</string>
-    <string name="btn_redefinirSenha">REDEFINIR SENHA</string>
+    <string name="tv_textoVerificarEmail">We have sent instructions on how to reset your password, please check the email previously entered.</string>
+    <string name="tv_verificarEmail">Check email</string>
+    <string name="tv_criarSenha">Create new password</string>
+    <string name="tv_textoCriarSenha">Your new password must be different from the password used previously.</string>
+    <string name="btn_redefinirSenha">REDEFINE PASSWORD</string>
     <string name="settings">Settings</string>
     <string name="HeroiDoDia">Hero of the day</string>
     <string name="MaisPopulares">Most popular</string>
