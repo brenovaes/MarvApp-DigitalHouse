@@ -23,5 +23,5 @@
     <!--theme light-->
     <color name="cinzaClaroL">#F4F4F4</color>
     <color name="barra_busca">#80000000</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFED1D24</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#ED1D24</color>
 </resources>
