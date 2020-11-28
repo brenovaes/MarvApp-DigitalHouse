@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">MarvelApp</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="desc_person">Bitten by a radioactive spider, high school student Peter Parker gained the speed, strength and powers of a spider. Adopting the name Spider-Man, Peter hoped to start a career using his new abilities. Taught that with great power comes great responsibility, Spidey has vowed to use his powers to help people.</string>
+
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+
+    <!-- Login -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="tv_usuario">Username</string>
+    <string name="tv_password">Password</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="tv_esqueceuSenha">Esqueceu a senha?</string>
+    <string name="tv_nTemConta">Não tem conta?</string>
+    <string name="tv_cadastre_se">Cadastre-se.</string>
+
+    <string name="tv_email">Email</string>
+    <string name="tv_rpassword">Repeat Password</string>
+    <string name="btn_cadastrar">CADASTRAR</string>
+    <string name="tv_redefinirSenha">Redefinir senha</string>
+    <string name="tv_textoRedefinirSenha">Insira o email associado à sua conta e enviaremos um email com instruções para redefinir sua senha.</string>
+    <string name="btn_enviar">ENVIAR</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="tv_textoVerificarEmail">Enviamos instruções de como redefinir sua senha, por favor verifique o email inserido anteriormente.</string>
+    <string name="tv_verificarEmail">Verificar email</string>
+    <string name="tv_criarSenha">Criar nova senha</string>
+    <string name="tv_textoCriarSenha">Sua nova senha deve ser diferente da senha usada anteriormente.</string>
+    <string name="btn_redefinirSenha">REDEFINIR SENHA</string>
+    <string name="settings">Settings</string>
+    <string name="HeroiDoDia">Hero of the day</string>
+    <string name="MaisPopulares">Most popular</string>
+    <string name="Sugestoes">Suggested for you</string>
+    <string name="Historico">Browsing history</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
+    <string name="quiz">Quiz</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
+    <string name="pontuacao_quiz">400</string>
+    <string name="conquista_quiz">2/5</string>
+
+
+    <!-- Menu Inferior -->
+    <string name="menu_home">Home</string>
+    <string name="menu_busca">Search</string>
+    <string name="menu_quiz">Quiz</string>
+    <string name="menu_favorito">Favorite</string>
+    <string name="menu_perfil">Profile</string>
+    <string name="icone_configuracao">Configuração</string>
+
+    <!-- Fragment -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_barraBusca">Search Result</string>
+    <string name="tv_titleBBusca">Search</string>
+
+    <!--  Menu Configurações  -->
+    <string name="itConfiguracao">Settings</string>
+    <string name="itTema">Change theme</string>
+    <string name="itSair">Logout</string>
+
+</resources>

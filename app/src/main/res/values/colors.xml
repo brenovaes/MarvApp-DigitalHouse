@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <!--    cores do gradiente-->
+    <color name="startColorLight">#36FFFFFF</color>
+    <color name="centerColorLight">#D9FCFCFC</color>
+    <color name="endColorLight">#FFF2F2F2</color>
+    <color name="startColorDark">#36FFFFFF</color>
+    <color name="centerColorDark">#D9FCFCFC</color>
+    <color name="endColorDark">#FFF2F2F2</color>
+    <!--    cores do body login-->
+    <color name="loginBodyColor">#CCFCFCFC</color>
+    <!--theme dark-->
+    <color name="cinzaEscuro">#212121</color>
+    <color name="destaqueVermelho">#ED1D24 </color>
+    <color name="cinzaClaro">#C4C4C4</color>
+    <!--theme light-->
+    <color name="cinzaClaroL">#F4F4F4</color>
+    <color name="barra_busca">#80000000</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFED1D24</color>
+</resources>
