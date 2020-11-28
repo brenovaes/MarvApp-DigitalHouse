@@ -12,13 +12,13 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener, SugestoesAdapter.OnSugestoesClickListener, HistoricoAdapter.OnHistoricoClickListener {
 
-    var listPopulares: ArrayList<Characters> = getPopular()
+    var listPopulares: ArrayList<EntesMarvel> = getPopular()
     var adapterPopular = PopularAdapter(listPopulares, this)
    //modigicar funcao de pegar tamanho sugestões
-    var listSugestoes: ArrayList<Characters> = getPopular()
+    var listSugestoes: ArrayList<EntesMarvel> = getPopular()
     var adapterSugestoes = SugestoesAdapter(listSugestoes, this)
     //modigicar funcao de pegar tamanho do historico
-    var listHistorico: ArrayList<Characters> = getPopular()
+    var listHistorico: ArrayList<EntesMarvel> = getPopular()
     var adapterHistorico = HistoricoAdapter(listHistorico, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,15 +90,15 @@ class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener,
         return super.onOptionsItemSelected(item)
     }
 
-    fun getPopular():ArrayList<Characters>{
+    fun getPopular():ArrayList<EntesMarvel>{
         return arrayListOf(
-            Characters(1,R.drawable.omiranha,"Personagem1",),
+            Characters(1,R.drawable.omiranha,"Personagem1"),
+            Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
+            Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
             Characters(2,R.drawable.omiranha,"Personagem1",),
-            Characters(3,R.drawable.omiranha,"Personagem1",),
-            Characters(4,R.drawable.omiranha,"Personagem1",),
-            Characters(5,R.drawable.omiranha,"Personagem1",),
-            Characters(6,R.drawable.omiranha,"Personagem1",),
-            Characters(7,R.drawable.omiranha,"Personagem1",)
+            Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
+            Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
+            Characters(3,R.drawable.omiranha,"Personagem1")
         )
     }
 
@@ -107,33 +107,34 @@ class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener,
     }
 
 
-    fun callDetalheCard(ente: Characters) {
+    fun callDetalheCard(ente: EntesMarvel) {
+        //adicionar variavel ou outro identificador de tipo de obj para redirecionar pela maneira correta
         var intent:Intent = Intent(this,DetalhePersonagemActivity::class.java)
-        intent.putExtra("nome",ente.nomeCharacter)
-        startActivity( intent)
+        intent.putExtra("nome",ente.nome)
+        startActivity(intent)
 
     }
 
     override fun popularClick(position: Int) {
         val ente = listPopulares.get(position)
-        var nomeEnte = ente.nomeCharacter
-        var imgEnte = ente.imagemCharacter
+        var nomeEnte = ente.nome
+        var imgEnte = ente.img
         adapterPopular.notifyItemChanged(position)
         callDetalheCard(ente)
     }
 
     override fun sugestoesClick(position: Int) {
         val ente = listSugestoes.get(position)
-        var nomeEnte = ente.nomeCharacter
-        var imgEnte = ente.imagemCharacter
+        var nomeEnte = ente.nome
+        var imgEnte = ente.img
         adapterSugestoes.notifyItemChanged(position)
         callDetalheCard(ente)
     }
 
     override fun historicoClick(position: Int) {
         val ente = listHistorico.get(position)
-        var nomeEnte = ente.nomeCharacter
-        var imgEnte = ente.imagemCharacter
+        var nomeEnte = ente.nome
+        var imgEnte = ente.img
         adapterHistorico.notifyItemChanged(position)
         callDetalheCard(ente)
     }

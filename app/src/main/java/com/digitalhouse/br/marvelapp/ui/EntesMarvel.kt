@@ -1,4 +1,4 @@
 package com.digitalhouse.br.marvelapp.ui
 
-data class EntesMarvel(var nome: String, var img:Int) {
+open class EntesMarvel(val idt:Int, var nome: String, var img:Int) {
 }
