@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,26 +8,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.PerfilActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarH"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:paddingLeft="145dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:logo="@drawable/toolbar_marvapp_branco"
-        app:menu="@menu/menu_superior"
-        app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
+    <include
+        android:id="@+id/toolbarPrincipal"
+        layout="@layout/toolbar_principal">
+    </include>
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="423dp"
-        android:layout_height="534dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +110,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvEmailP"
+                    android:id="@+id/tvPasswordP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
@@ -128,18 +119,24 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/etPasswordP"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/destaqueVermelho"
-                    android:drawableRight="@drawable/ic_visibility_off"
-                    android:drawableTint="@color/black"
-                    android:inputType="textPassword"
-                    android:textColor="@color/black" />
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/black"
+                    app:boxStrokeColor="@color/destaqueVermelho" >
+
+                    <EditText
+                        android:id="@+id/etPasswordL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/black"
+                        app:backgroundTint="@color/destaqueVermelho"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/tvPasswordP"
+                    android:id="@+id/tvPasswordPR"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
@@ -148,15 +145,22 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/etPasswordPR"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/destaqueVermelho"
-                    android:drawableRight="@drawable/ic_visibility_off"
-                    android:drawableTint="@color/black"
-                    android:inputType="textPassword"
-                    android:textColor="@color/black" />
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/black"
+                    app:boxStrokeColor="@color/destaqueVermelho" >
+
+                    <EditText
+                        android:id="@+id/etPasswordPR"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/black"
+                        app:backgroundTint="@color/destaqueVermelho"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <Button
                     android:id="@+id/btnRedefinirSenha"
@@ -188,4 +192,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_bottom_navigation" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

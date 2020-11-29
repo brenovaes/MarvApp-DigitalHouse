@@ -23,9 +23,6 @@ class PerfilActivity : AppCompatActivity() {
         //Setar Botão para tela atual
         bottomNavigationView.selectedItemId = R.id.menu_perfil
 
-        setSupportActionBar(toolbarH)
-
-
         btnNavigationPerfil.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home -> {
