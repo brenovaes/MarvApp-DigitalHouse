@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PerguntaActivity"
+    tools:context="ui.PerguntaActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -14,7 +14,7 @@
         android:background="@color/white">
 
         <include
-            android:id="@+id/toolbarPrincipal"
+            android:id="@+id/tbPergunta"
             layout="@layout/toolbar_principal">
         </include>
 

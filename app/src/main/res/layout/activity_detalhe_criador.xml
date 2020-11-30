@@ -12,7 +12,7 @@
         android:id="@+id/tbDetalheCriador"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/ic_back_light"
+        app:navigationIcon="@drawable/ic_back_red"
         app:menu="@menu/menu_share">
         <ImageView
             android:layout_width="match_parent"

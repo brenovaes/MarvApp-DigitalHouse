@@ -3,12 +3,13 @@ package com.digitalhouse.br.marvelapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.*
+import android.widget.PopupMenu
 import android.widget.Toast
 import com.digitalhouse.br.marvelapp.R
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_perfil.*
+import kotlinx.android.synthetic.main.toolbar_principal.*
 
 class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener, SugestoesAdapter.OnSugestoesClickListener, HistoricoAdapter.OnHistoricoClickListener {
 
@@ -24,6 +25,10 @@ class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        btnSetting.setOnClickListener {
+            showPopup(btnSetting)
+        }
 
         rvMaisPopulares.adapter = adapterPopular
         rvMaisPopulares.setHasFixedSize(true)
@@ -69,15 +74,13 @@ class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener,
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu_configuracao, menu)
+        inflater.inflate(R.menu.menu_setting, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     //arrumar o menu que nao esta abrindo os itens
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var itemView = item.itemId
-
-        when(itemView){
+        when(item.itemId){
             R.id.help -> {
                 startActivity(Intent(this, LoginActivity::class.java))
                 return true
@@ -137,5 +140,20 @@ class HomeActivity : AppCompatActivity(), PopularAdapter.OnPopularClickListener,
         var imgEnte = ente.img
         adapterHistorico.notifyItemChanged(position)
         callDetalheCard(ente)
+    }
+
+    private fun showPopup(view: View) {
+        val popupMenu: PopupMenu = PopupMenu(this, toolbarPrincipal, Gravity.RIGHT)
+        popupMenu.menuInflater.inflate(R.menu.menu_setting,popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+            when(item.itemId){
+                R.id.itTema ->
+                    Toast.makeText(this@HomeActivity, "Changed", Toast.LENGTH_SHORT).show()
+                R.id.help ->
+                    startActivity(Intent(this, SplashActivity::class.java))
+            }
+            true
+        })
+        popupMenu.show()
     }
 }

@@ -9,9 +9,9 @@
     tools:context=".ui.PerfilActivity">
 
     <include
-        android:id="@+id/toolbarPrincipal"
-        layout="@layout/toolbar_principal">
-    </include>
+        android:id="@+id/tbPerfil"
+        layout="@layout/toolbar_principal"
+        />
 
     <ScrollView
         android:id="@+id/scrollView2"

@@ -2,22 +2,32 @@ package com.digitalhouse.br.marvelapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.digitalhouse.br.marvelapp.R
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_favorito.*
+import kotlinx.android.synthetic.main.activity_perfil.*
+import kotlinx.android.synthetic.main.toolbar_principal.*
 
 class FavoritoActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorito)
 
+
+        btnSetting.setOnClickListener {
+            showPopup(btnSetting)
+        }
+
         setUpTabs()
 
         btnNavigationFavoritoBusca.selectedItemId = R.id.menu_favoritos
 
         //Transição entre activity's
-        //TODO
         btnNavigationFavoritoBusca.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home -> {
@@ -65,5 +75,20 @@ class FavoritoActivity: AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
         })
+    }
+
+    private fun showPopup(view: View) {
+        val popupMenu: PopupMenu = PopupMenu(this, toolbarPrincipal, Gravity.RIGHT)
+        popupMenu.menuInflater.inflate(R.menu.menu_setting,popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+            when(item.itemId){
+                R.id.itTema ->
+                    Toast.makeText(this@FavoritoActivity, "Changed", Toast.LENGTH_SHORT).show()
+                R.id.help ->
+                    startActivity(Intent(this, SplashActivity::class.java))
+            }
+            true
+        })
+        popupMenu.show()
     }
 }

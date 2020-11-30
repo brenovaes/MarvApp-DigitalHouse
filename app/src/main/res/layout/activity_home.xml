@@ -15,7 +15,7 @@
         android:background="@color/white">
 
         <include
-            android:id="@+id/toolbarPrincipal"
+            android:id="@+id/tbHome"
             layout="@layout/toolbar_principal">
         </include>
 

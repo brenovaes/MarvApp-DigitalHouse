@@ -1,15 +1,18 @@
 package com.digitalhouse.br.marvelapp.ui
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.Gravity
+import android.view.View
+import android.widget.PopupMenu
+import android.widget.PopupWindow
 import android.widget.Toast
 import com.digitalhouse.br.marvelapp.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import kotlinx.android.synthetic.main.activity_perfil.*
+import kotlinx.android.synthetic.main.toolbar_principal.*
 
 class PerfilActivity : AppCompatActivity() {
 
@@ -17,11 +20,12 @@ class PerfilActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
 
-        //Criar botão
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.btnNavigationPerfil)
+        btnSetting.setOnClickListener {
+            showPopup(btnSetting)
+        }
 
         //Setar Botão para tela atual
-        bottomNavigationView.selectedItemId = R.id.menu_perfil
+        btnNavigationPerfil.selectedItemId = R.id.menu_perfil
 
         btnNavigationPerfil.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -41,7 +45,7 @@ class PerfilActivity : AppCompatActivity() {
                 }
                 //mudar activity
                 R.id.menu_favoritos -> {
-                    startActivity(Intent(this, HomeActivity::class.java))
+                    startActivity(Intent(this, FavoritoActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
                 //mudar activity
@@ -52,25 +56,21 @@ class PerfilActivity : AppCompatActivity() {
             }
             false
         }
-
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_superior,menu)
-        return true
-    }
-
-    fun showToast(msg:String){
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var itemView = item.itemId
-
-        when(itemView){
-//            R.id.navigaton_configuracao ->
-        }
-        return false
+    private fun showPopup(view: View) {
+        val popupMenu: PopupMenu = PopupMenu(this, toolbarPrincipal, Gravity.RIGHT)
+        popupMenu.menuInflater.inflate(R.menu.menu_setting,popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+            when(item.itemId){
+                R.id.itTema ->
+                    Toast.makeText(this@PerfilActivity, "Changed", Toast.LENGTH_SHORT).show()
+                R.id.help ->
+                    startActivity(Intent(this, SplashActivity::class.java))
+            }
+            true
+        })
+        popupMenu.show()
     }
 
 }

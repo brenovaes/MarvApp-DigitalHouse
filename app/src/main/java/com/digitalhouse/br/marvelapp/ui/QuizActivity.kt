@@ -4,11 +4,17 @@ package com.digitalhouse.br.marvelapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.ViewPagerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_perfil.*
 import kotlinx.android.synthetic.main.activity_quiz.*
+import kotlinx.android.synthetic.main.toolbar_principal.*
 
 
 class QuizActivity : AppCompatActivity() {
@@ -17,17 +23,16 @@ class QuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
+        btnSetting.setOnClickListener {
+            showPopup(btnSetting)
+        }
+
         setUpTabs()
 
-        //Criar botão
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.btnNavigationQuiz)
-
-        //Setar Botão para tela atual
-        bottomNavigationView.selectedItemId = R.id.menu_quiz
+        btnNavigationQuiz.selectedItemId = R.id.menu_quiz
 
         //Transição entre activity's
-        //TODO
-        bottomNavigationView.setOnNavigationItemSelectedListener {
+        btnNavigationQuiz.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
@@ -76,6 +81,20 @@ class QuizActivity : AppCompatActivity() {
         })
     }
 
+    private fun showPopup(view: View) {
+        val popupMenu: PopupMenu = PopupMenu(this, toolbarPrincipal, Gravity.RIGHT)
+        popupMenu.menuInflater.inflate(R.menu.menu_setting,popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+            when(item.itemId){
+                R.id.itTema ->
+                    Toast.makeText(this@QuizActivity, "Changed", Toast.LENGTH_SHORT).show()
+                R.id.help ->
+                    startActivity(Intent(this, SplashActivity::class.java))
+            }
+            true
+        })
+        popupMenu.show()
+    }
 
 }
 
