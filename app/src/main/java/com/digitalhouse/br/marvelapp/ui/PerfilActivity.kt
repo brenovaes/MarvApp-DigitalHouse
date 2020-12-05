@@ -24,6 +24,10 @@ class PerfilActivity : AppCompatActivity() {
             showPopup(btnSetting)
         }
 
+        btnSalvarPerfil.setOnClickListener {
+            Toast.makeText(this,"Salved", Toast.LENGTH_SHORT).show()
+        }
+
         //Setar Botão para tela atual
         btnNavigationPerfil.selectedItemId = R.id.menu_perfil
 
@@ -57,6 +61,7 @@ class PerfilActivity : AppCompatActivity() {
             false
         }
     }
+
 
     private fun showPopup(view: View) {
         val popupMenu: PopupMenu = PopupMenu(this, toolbarPrincipal, Gravity.RIGHT)

@@ -43,7 +43,7 @@ class PerguntaActivity : AppCompatActivity(), AlternativaAdapter.OnItemClickList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pergunta)
 
-        tvEnunciadoTexto.text = "Qual era o nome da editora predecessora da Marvel?"
+        tvEnunciadoTexto.text = "What was the name of Marvel's predecessor publisher?"
         cvNumeroPergunta.tvNumeroDaPergunta.text = "1/5"
 
         rvAlternativa.adapter = adapter

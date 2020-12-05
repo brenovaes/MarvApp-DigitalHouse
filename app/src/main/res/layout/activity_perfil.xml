@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/destaqueVermelho"
                     android:drawableTint="@color/black"
-                    android:inputType="textPassword"
+                    android:inputType="textPersonName"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/destaqueVermelho"
                     android:drawableTint="@color/black"
-                    android:inputType="textPassword"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -163,7 +163,7 @@
 
 
                 <Button
-                    android:id="@+id/btnRedefinirSenha"
+                    android:id="@+id/btnSalvarPerfil"
                     android:layout_width="218dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="32dp"

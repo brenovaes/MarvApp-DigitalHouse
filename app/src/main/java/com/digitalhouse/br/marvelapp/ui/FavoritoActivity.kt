@@ -8,12 +8,13 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_favorito.*
 import kotlinx.android.synthetic.main.activity_perfil.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 
-class FavoritoActivity: AppCompatActivity() {
+class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorito)
@@ -75,6 +76,18 @@ class FavoritoActivity: AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
         })
+    }
+
+    override fun callDetalhesPCards() {
+        startActivity(Intent(this,DetalhePersonagemActivity::class.java))
+    }
+
+    override fun callDetalhesHQCards() {
+        startActivity(Intent(this,DetalheHqActivity::class.java))
+    }
+
+    override fun callDetalhesCCards() {
+        startActivity(Intent(this,DetalheCriadorActivity::class.java))
     }
 
     private fun showPopup(view: View) {
