@@ -8,29 +8,28 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 
+class BCriadoresAdapter(var listCriadores: ArrayList<Creators>, val listener: OnBCriadoresClickListener): RecyclerView.Adapter<BCriadoresAdapter.BCriadoresViewHolder>(){
 
-class SugestoesAdapter(var listSugestoes: ArrayList<EntesMarvel>, val listener: OnSugestoesClickListener): RecyclerView.Adapter<SugestoesAdapter.SugestoesViewHolder>(){
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):SugestoesAdapter.SugestoesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):BCriadoresAdapter.BCriadoresViewHolder {
         var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
-        return SugestoesViewHolder(itemView)
+        return BCriadoresViewHolder(itemView)
     }
 
 
-    override fun getItemCount() = listSugestoes.size
+    override fun getItemCount() = listCriadores.size
 
-    override fun onBindViewHolder(holder: SugestoesAdapter.SugestoesViewHolder, position: Int) {
-        var sugestoes = listSugestoes.get(position)
-        holder.imgCard.setImageResource(sugestoes.img)
-        holder.nomeCard.text = sugestoes.nome
+    override fun onBindViewHolder(holder: BCriadoresAdapter.BCriadoresViewHolder, position: Int) {
+        var criador = listCriadores.get(position)
+        holder.imgCard.setImageResource(criador.imagemCriador)
+        holder.nomeCard.text = criador.nomeCriador
     }
 
-    interface OnSugestoesClickListener{
-        fun sugestoesClick(position: Int)
+    interface OnBCriadoresClickListener{
+        fun bCriadoresClick(position: Int)
     }
 
-    inner class SugestoesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    inner class BCriadoresViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
         //falta a parte das estrelas
@@ -43,7 +42,7 @@ class SugestoesAdapter(var listSugestoes: ArrayList<EntesMarvel>, val listener: 
         override fun onClick(v: View?) {
             val position = adapterPosition
             if (RecyclerView.NO_POSITION != position)
-                listener.sugestoesClick(position)
+                listener.bCriadoresClick(position)
             //redirecionar para o detalhe do card (personagem, criador ou HQ)
 
         }

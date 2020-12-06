@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.card_perfil_ranking.view.*
-import kotlinx.android.synthetic.main.card_selo.view.*
 
 class UserAdapter (private val listaUsers: ArrayList<User>):
                    RecyclerView.Adapter<UserAdapter.CardViewHolder>() {
@@ -25,7 +24,7 @@ class UserAdapter (private val listaUsers: ArrayList<User>):
         holder.tvPontuacaoPerfil.text = currentItem.pontuacao
 
         if(position == 5){
-            holder.ivComartilhar.setImageResource(R.drawable.ic_share_vermelho)
+            holder.ivComartilhar.setImageResource(R.drawable.ic_share_red)
         }
     }
 

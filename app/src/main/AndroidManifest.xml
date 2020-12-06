@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MarvelApp">
+
         <activity android:name=".ui.FavoritoActivity" />
         <activity android:name=".ui.PerguntaActivity" />
         <activity android:name=".ui.QuizActivity" />
-        <activity android:name=".ui.EsqueceuSenha" />
         <activity android:name=".ui.BuscaActivity" />
+        <activity android:name=".ui.EsqueceuSenhaActivity"/>
+        <activity android:name=".ui.DetalheCardsActivity" />
         <activity android:name=".ui.HomeActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.PerfilActivity" />

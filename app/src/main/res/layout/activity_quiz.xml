@@ -5,18 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizActivity">
-
-
+    tools:context="ui.QuizActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-
         <include
-            android:id="@+id/toolbarPrincipal"
+            android:id="@+id/tbQuiz"
             layout="@layout/toolbar_principal">
         </include>
 

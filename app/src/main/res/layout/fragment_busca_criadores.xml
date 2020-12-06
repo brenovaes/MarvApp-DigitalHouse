@@ -37,7 +37,7 @@
                 android:id="@+id/ivBBuscaCr"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/ic_busca_black"
+                android:background="@drawable/ic_search_black"
                 android:backgroundTint="@color/barra_busca"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -12,12 +12,12 @@
         android:id="@+id/tbDetalhePersonagem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/ic_back_light"
+        app:navigationIcon="@drawable/ic_back_red"
         app:menu="@menu/menu_share">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/marvapp_light"
+            android:src="@drawable/toolbar_marvapp_branco"
             android:layout_marginRight="20dp"/>
     </androidx.appcompat.widget.Toolbar>
     <ScrollView

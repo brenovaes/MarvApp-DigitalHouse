@@ -75,7 +75,7 @@ class DetalheCriadorActivity :
 
         when (item.itemId) {
             R.id.menu_share -> {
-                Toast.makeText(this, "Compartilhar Criador", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Share Creator", Toast.LENGTH_SHORT).show()
                 return true
             }
         }

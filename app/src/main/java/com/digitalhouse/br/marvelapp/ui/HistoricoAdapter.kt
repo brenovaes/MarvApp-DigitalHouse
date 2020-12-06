@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 
-class HistoricoAdapter(var listHistorico: ArrayList<Characters>, val listener: OnHistoricoClickListener): RecyclerView.Adapter<HistoricoAdapter.HistoricoViewHolder>(){
+
+class HistoricoAdapter(var listHistorico: ArrayList<EntesMarvel>, val listener: OnHistoricoClickListener): RecyclerView.Adapter<HistoricoAdapter.HistoricoViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):HistoricoAdapter.HistoricoViewHolder {
         var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
@@ -20,8 +21,8 @@ class HistoricoAdapter(var listHistorico: ArrayList<Characters>, val listener: O
 
     override fun onBindViewHolder(holder: HistoricoAdapter.HistoricoViewHolder, position: Int) {
         var historico = listHistorico.get(position)
-        holder.imgCard.setImageResource(historico.imagemCharacter)
-        holder.nomeCard.text = historico.nomeCharacter
+        holder.imgCard.setImageResource(historico.img)
+        holder.nomeCard.text = historico.nome
     }
 
     interface OnHistoricoClickListener{
