@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".QuestaoSelecionadaActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -13,7 +14,7 @@
         android:background="@color/white">
 
         <include
-            android:id="@+id/toolbarPrincipal"
+            android:id="@+id/tbQuestaoSelecioonada"
             layout="@layout/toolbar_principal">
         </include>
 

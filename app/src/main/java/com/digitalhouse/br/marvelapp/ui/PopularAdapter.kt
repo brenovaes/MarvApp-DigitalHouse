@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 
-class PopularAdapter(var listPopulares: ArrayList<Characters>, val listener: OnPopularClickListener): RecyclerView.Adapter<PopularAdapter.PopularViewHolder>(){
+
+class PopularAdapter(var listPopulares: ArrayList<EntesMarvel>, val listener: OnPopularClickListener): RecyclerView.Adapter<PopularAdapter.PopularViewHolder>(){
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):PopularAdapter.PopularViewHolder {
             var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
@@ -20,8 +21,8 @@ class PopularAdapter(var listPopulares: ArrayList<Characters>, val listener: OnP
 
         override fun onBindViewHolder(holder: PopularAdapter.PopularViewHolder, position: Int) {
             var popular = listPopulares.get(position)
-            holder.imgCard.setImageResource(popular.imagemCharacter)
-            holder.nomeCard.text = popular.nomeCharacter
+            holder.imgCard.setImageResource(popular.img)
+            holder.nomeCard.text = popular.nome
         }
 
         interface OnPopularClickListener{

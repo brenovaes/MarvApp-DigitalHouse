@@ -3,8 +3,6 @@ package com.digitalhouse.br.marvelapp.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.models.User
 import kotlinx.android.synthetic.main.activity_login.*
@@ -45,9 +43,10 @@ class LoginActivity:  AppCompatActivity() {
     }
 
     fun callEsqueceuSenha() {
-        var intent = Intent(this, EsqueceuSenha::class.java)
+        var intent = Intent(this, EsqueceuSenhaActivity::class.java)
         startActivity(intent)
     }
+
     fun getInformationUser():User{
         val email = tvUsuarioL.text.toString()
         val senha = tvPasswordL.text.toString()

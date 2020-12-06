@@ -10,14 +10,19 @@
         android:id="@+id/toolbarPrincipal"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:paddingLeft="145dp"
+        android:paddingLeft="155dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:logo="@drawable/toolbar_marvapp_branco"
-        app:menu="@menu/menu_superior">
+        app:logo="@drawable/toolbar_marvapp_branco">
 
+            <Button
+                android:id="@+id/btnSetting"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:background="@drawable/ic_setting_red"
+                android:layout_marginLeft="110dp"/>
 
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

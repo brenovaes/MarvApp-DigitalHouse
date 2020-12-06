@@ -5,30 +5,30 @@
     <item
         android:id="@+id/menu_home"
         android:title="Home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_home_black"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/menu_busca"
         android:title="Search"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_search_black"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_quiz"
         android:title="Quiz"
-        android:icon="@drawable/ic_quiz"
+        android:icon="@drawable/ic_quiz_black"
         android:iconTint="@color/black"
         app:showAsAction="always"/>
     <item
         android:id="@+id/menu_favoritos"
         android:title="Favorites"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_favorite_black"
         android:iconTint="@color/black"
         app:showAsAction="always"/>
     <item
         android:id="@+id/menu_perfil"
         android:title="Profile"
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/ic_person_black"
         android:iconTint="@color/black"
         app:showAsAction="always"/>
 
