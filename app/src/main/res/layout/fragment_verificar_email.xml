@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="324dp"
     android:layout_height="146dp"
-    tools:context=".ui.VerificarEmailFragment">
+    tools:context=".ui.iniciais.VerificarEmailFragment">
 
 
 
