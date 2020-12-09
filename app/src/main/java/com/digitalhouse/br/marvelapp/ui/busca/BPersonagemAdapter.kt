@@ -7,9 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.models.Characters
+import com.squareup.picasso.Picasso
 
-class BPersonagemAdapter(var listPersonagens: ArrayList<Characters>, val listener: OnBPersonagemClickListener): RecyclerView.Adapter<BPersonagemAdapter.BPersonagemViewHolder>(){
+class BPersonagemAdapter(var listPersonagens: ArrayList<ResultsCh>, val listener: OnBPersonagemClickListener): RecyclerView.Adapter<BPersonagemAdapter.BPersonagemViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BPersonagemViewHolder {
         var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
@@ -21,8 +23,12 @@ class BPersonagemAdapter(var listPersonagens: ArrayList<Characters>, val listene
 
     override fun onBindViewHolder(holder: BPersonagemViewHolder, position: Int) {
         var personagens = listPersonagens.get(position)
-        holder.imgCard.setImageResource(personagens.imagemCharacter)
-        holder.nomeCard.text = personagens.nomeCharacter
+
+        holder.nomeCard.text = personagens.name
+
+
+        var img = personagens.thumbnail.path + "." + personagens.thumbnail.extension
+        Picasso.get().load(img).resize(115,100).into(holder.imgCard)
     }
 
     interface OnBPersonagemClickListener{
