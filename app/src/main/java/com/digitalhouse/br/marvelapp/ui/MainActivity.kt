@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.creators.Results
+import com.digitalhouse.br.marvelapp.service.serviceB
 import com.digitalhouse.br.marvelapp.service.serviceCh
+import com.digitalhouse.br.marvelapp.service.serviceCo
 import com.digitalhouse.br.marvelapp.service.serviceCr
 
 
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     val viewModel by viewModels<MainViewModel>{
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(serviceCr, serviceCh, serviceCo) as T
+                return MainViewModel(serviceCr, serviceCh, serviceCo, serviceB) as T
             }
         }
     }
@@ -57,6 +59,11 @@ class MainActivity : AppCompatActivity() {
 //        viewModel.getComicCharacters(iCo)
 //        viewModel.getComicEvents(iCo)
         viewModel.getComicCreator(iCo)
+
+        // FUNÇÕES DE BUSCA COMICS CHARACTERS CREATORS
+//        viewModel.getComics()
+//        viewModel.getCharacters()
+//        viewModel.getCreators()
 
 
     }
