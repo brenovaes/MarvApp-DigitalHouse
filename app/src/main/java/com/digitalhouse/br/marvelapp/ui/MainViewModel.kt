@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
+import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
-import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
-import com.digitalhouse.br.marvelapp.service.RepositoryCreators
-import com.digitalhouse.br.marvelapp.service.serviceCr
+import com.digitalhouse.br.marvelapp.service.*
 import kotlinx.coroutines.launch
 
-class MainViewModel(val serviceCre: RepositoryCreators, val serviceCharacter: RepositoryCharacters, val serviceComic: RepositoryComics) : ViewModel() {
+class MainViewModel(val serviceCre: RepositoryCreators, val serviceCharacter: RepositoryCharacters, val serviceComic: RepositoryComics,
+                    val serviceBusca: RepositoryBusca) : ViewModel() {
 
     var retornoAllCreators = MutableLiveData<ResCreators>()
     var retornoCreatorSeries = MutableLiveData<ResCreators>()
@@ -33,6 +33,10 @@ class MainViewModel(val serviceCre: RepositoryCreators, val serviceCharacter: Re
     var retornoComicsEvents = MutableLiveData<ResComics>()
     var retornoComicsStories = MutableLiveData<ResComics>()
     var retornoComicsCreators = MutableLiveData<ResComics>()
+
+    var retornoCreators = MutableLiveData<ResCreators>()
+    var retornoCharacters = MutableLiveData<ResCharacters>()
+    var retornoComics = MutableLiveData<ResComics>()
 
 
     fun getAllCreators() {
@@ -341,6 +345,61 @@ class MainViewModel(val serviceCre: RepositoryCreators, val serviceCharacter: Re
             Log.i("getComicCreator", e.toString())
         }
     }
+
+    //    ..............................................................................................................
+    //     CHAMADAS DE BUSCA
+
+    fun getCreators(){
+        try {
+            viewModelScope.launch {
+                retornoCreators.value = serviceBusca.getCreatorsRepo(
+                        1,
+                        10,
+                        "1601900859",
+                        "da0b41050b1361bf58011d9e4bb93ec3",
+                        "cc144618fe69492faf88410cc664f62e"
+                )
+                Log.i("getCreator", retornoComics.value.toString())
+            }
+        }catch (e: Exception){
+            Log.i("getCreator", e.toString())
+        }
+    }
+
+    fun getCharacters(){
+        try {
+            viewModelScope.launch {
+                retornoCharacters.value = serviceBusca.getCharactersRepo(
+                        1,
+                        10,
+                        "1601900859",
+                        "da0b41050b1361bf58011d9e4bb93ec3",
+                        "cc144618fe69492faf88410cc664f62e"
+                )
+                Log.i("getCharacters", retornoCharacters.value.toString())
+            }
+        }catch (e: Exception){
+            Log.i("getCharacters", e.toString())
+        }
+    }
+
+    fun getComics(){
+        try {
+            viewModelScope.launch {
+                retornoComics.value = serviceBusca.getComicsRepo(
+                        1,
+                        10,
+                        "1601900859",
+                        "da0b41050b1361bf58011d9e4bb93ec3",
+                        "cc144618fe69492faf88410cc664f62e"
+                )
+                Log.i("getComics", retornoComics.value.toString())
+            }
+        }catch (e: Exception){
+            Log.i("getComics", e.toString())
+        }
+    }
+
 
 
 }
