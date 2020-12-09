@@ -1,31 +1,70 @@
-package com.digitalhouse.br.marvelapp
+package com.digitalhouse.br.marvelapp.ui
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.creators.Results
+import com.digitalhouse.br.marvelapp.service.serviceB
+import com.digitalhouse.br.marvelapp.service.serviceCh
+import com.digitalhouse.br.marvelapp.service.serviceCo
+import com.digitalhouse.br.marvelapp.service.serviceCr
+
+
 
 class MainActivity : AppCompatActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
+
+    val viewModel by viewModels<MainViewModel>{
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(serviceCr, serviceCh, serviceCo, serviceB) as T
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        var retornoCreator = arrayListOf<Results>()
+//        var retornoCh = MutableLiveData<BaseCh>()
+//        var retornoCo = MutableLiveData<BaseCo>()
+
+
+        var iCr = 30
+        var iCh = 1010354
+        var iCo = 10021
+//                82970
+
+
+        // FUNÇÕES DE CREATORS
+//        viewModel.getAllCreators()
+//        viewModel.getCreatorComics(iCr)
+//        viewModel.getCreatorSeries(iCr)
+//        viewModel.getCreatorStories(iCr)
+//        viewModel.getCreatorEvents(iCr)
 //
-//        //Criar botão
-//        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.btnNavigationMain)
+        // FUNÇÕES DE CHARACTERS
+//        viewModel.getAllCharacters()
+//        viewModel.getCharacterComics(iCh)
+//        viewModel.getCharacterEvents(iCh)
+//        viewModel.getCharacterSeries(iCh)
+//        viewModel.getCharacterStories(iCh)
+
+//        viewModel.getAllComics()
 //
-//        //Setar Botão para tela atual
-//        bottomNavigationView.selectedItemId = R.id.menu_home
-//
-//        //Transição entre activity's
-//        //TODO
-//        bottomNavigationView.setOnNavigationItemSelectedListener {
-//            when(it.itemId){
-//                R.id.menu_quiz -> {
-//                    startActivity(Intent(this, QuizActivity::class.java))
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-//            }
-//            false
-//        }
-//    }
+//        viewModel.getComicCharacters(iCo)
+//        viewModel.getComicEvents(iCo)
+        viewModel.getComicCreator(iCo)
+
+        // FUNÇÕES DE BUSCA COMICS CHARACTERS CREATORS
+//        viewModel.getComics()
+//        viewModel.getCharacters()
+//        viewModel.getCreators()
+
+
+    }
 }
