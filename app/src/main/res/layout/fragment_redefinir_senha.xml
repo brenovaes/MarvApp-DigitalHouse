@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="324dp"
     android:layout_height="380dp"
-    tools:context=".ui.RedefinirSenhaFragment">
+    tools:context=".ui.iniciais.RedefinirSenhaFragment">
 
 
     <include

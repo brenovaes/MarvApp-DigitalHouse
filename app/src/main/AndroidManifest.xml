@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.digitalhouse.br.marvelapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,21 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MarvelApp">
 
-        <activity android:name=".ui.FavoritoActivity" />
-        <activity android:name=".ui.PerguntaActivity" />
-        <activity android:name=".ui.QuizActivity" />
-        <activity android:name=".ui.BuscaActivity" />
-        <activity android:name=".ui.EsqueceuSenhaActivity"/>
-        <activity android:name=".ui.DetalheCardsActivity" />
-        <activity android:name=".ui.HomeActivity" />
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.PerfilActivity" />
-        <activity android:name=".ui.RedefinirSenhaActivity" />
-        <activity android:name=".ui.CadastroActivity" />
-        <activity android:name=".ui.DetalheHqActivity" />
-        <activity android:name=".ui.DetalheCriadorActivity" />
-        <activity android:name=".ui.DetalhePersonagemActivity" />
-        <activity android:name=".ui.SplashActivity">
+        <activity android:name=".ui.favoritos.FavoritoActivity" />
+        <activity android:name=".ui.quiz.PerguntaActivity" />
+        <activity android:name=".ui.quiz.QuizActivity" />
+        <activity android:name=".ui.busca.BuscaActivity" />
+        <activity android:name=".ui.iniciais.EsqueceuSenhaActivity"/>
+        <activity android:name=".ui.home.HomeActivity" />
+        <activity android:name=".ui.iniciais.LoginActivity" />
+        <activity android:name=".ui.perfil.PerfilActivity" />
+        <activity android:name=".ui.iniciais.RedefinirSenhaActivity" />
+        <activity android:name=".ui.iniciais.CadastroActivity" />
+        <activity android:name=".ui.hqs.DetalheHqActivity" />
+        <activity android:name=".ui.criadores.DetalheCriadorActivity" />
+        <activity android:name=".ui.personagens.DetalhePersonagemActivity" />
+        <activity android:name=".ui.iniciais.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
