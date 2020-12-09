@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.creators.Results
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
-import com.digitalhouse.br.marvelapp.models.Creators
 import com.digitalhouse.br.marvelapp.service.serviceB
 import kotlinx.android.synthetic.main.fragment_busca_criadores.*
 
@@ -62,16 +61,6 @@ class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickLi
         fun newInstance() = BuscaCriadoresFragment()
     }
 
-    fun getCriadores():ArrayList<Creators>{
-        return arrayListOf(
-                Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
-                Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
-                Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
-                Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
-                Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
-                Creators(1,R.drawable.stanlee, "Stan Lee", "Writer")
-        )
-    }
 
     override fun bCriadoresClick(position: Int) {
         adapterC.notifyItemChanged(position)
