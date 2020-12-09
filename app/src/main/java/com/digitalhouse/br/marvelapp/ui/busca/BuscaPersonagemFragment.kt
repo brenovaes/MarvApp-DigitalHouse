@@ -6,20 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
-import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.service.serviceB
-import com.digitalhouse.br.marvelapp.service.serviceCh
-import com.digitalhouse.br.marvelapp.service.serviceCo
-import com.digitalhouse.br.marvelapp.service.serviceCr
-import com.digitalhouse.br.marvelapp.ui.MainViewModel
 import kotlinx.android.synthetic.main.fragment_busca_personagem.*
 
 class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClickListener {
@@ -71,19 +64,6 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
         fun newInstance() =  BuscaPersonagemFragment()
     }
 
-
-    fun getPersonagens():ArrayList<Characters>{
-        return arrayListOf(
-                Characters(1,R.drawable.omiranha,"Personagem1",),
-                Characters(2,R.drawable.omiranha,"Personagem1",),
-                Characters(3,R.drawable.omiranha,"Personagem1",),
-                Characters(4,R.drawable.omiranha,"Personagem1",),
-                Characters(5,R.drawable.omiranha,"Personagem1",),
-                Characters(6,R.drawable.omiranha,"Personagem1",),
-                Characters(7,R.drawable.omiranha,"Personagem1",)
-
-        )
-    }
 
     override fun bPersonagemClick(position: Int) {
         adapterB.notifyItemChanged(position)
