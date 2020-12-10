@@ -110,4 +110,3 @@ class ComicsViewModel(val serviceComics: RepositoryComics) : ViewModel() {
 
 }
 
-
