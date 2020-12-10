@@ -119,6 +119,7 @@ data class EventsCo (
 data class Items (
 
         val resourceURI : String,
+        val role : String,
         val name : String,
         val type : String
 )

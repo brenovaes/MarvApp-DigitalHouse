@@ -29,7 +29,8 @@ import com.squareup.picasso.Picasso
 class DetalheHqActivity :
     AppCompatActivity(),
         StoriesAdapter.OnStoriesClickListener,
-    CreatorsAdapter.OnCreatorsClickListener,
+//    CreatorsAdapter.OnCreatorsClickListener,
+        CreatorsComicsAdapter.OnCreatorsComicsClickListener,
         CharactersAdapter.OnCharactersClickListener,
         SeriesAdapter.OnSeriesClickListener,
         EventsAdapter.OnEventsClickListener {
@@ -40,7 +41,7 @@ class DetalheHqActivity :
     lateinit var adapterSeries: SeriesAdapter
     lateinit var adapterEventos: EventsAdapter
     lateinit var adapterCharacters: CharactersAdapter
-    lateinit var adapterCreators: CreatorsAdapter
+    lateinit var adapterCreators: CreatorsComicsAdapter
 
 
     val viewModelComics by viewModels<ComicsViewModel> {
@@ -94,19 +95,27 @@ class DetalheHqActivity :
             adapterCharacters= CharactersAdapter(characters, this)
             rvPersonagensHq.adapter = adapterCharacters
 
-            adapterCreators = CreatorsAdapter(creators, this)
-            rvCriadoresHq.adapter = adapterCharacters
 
 
-            tvQtdCriadoresHq.text = creators.size.toString()
+
             tvQtdHistoriasHq.text = stories.size.toString()
             tvQtdSeriesHq.text =  1.toString()
             tvQtdEventosHq.text = events.size.toString()
             tvQtdPersonagensHq.text = characters.size.toString()
 
+            viewModelComics.retornoComicsCreator.observe(this){
+                tvQtdCriadoresHq.text = it.data.results.size.toString()
+                adapterCreators =  CreatorsComicsAdapter(it.data.results,this, creators)
+                rvCriadoresHq.adapter = adapterCreators
+            }
+
         }
 
-        viewModelComics.getCharacter(idComic)
+
+
+        viewModelComics.getCreatorsComic(idComic)
+
+        viewModelComics.getComic(idComic)
 
 
         rvHistoriasHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
@@ -149,14 +158,14 @@ class DetalheHqActivity :
         TODO("Not yet implemented")
     }
 
-    override fun creatorsClick(position: Int) {
-//        val creator = listaCreators.get(position)
-//        var imagem = creator.imagemCriador
-//        var nome = creator.nomeCriador
-//        var funcao = creator.funcaoCriador
-//        adapterCreators.notifyItemChanged(position)
-//        ActivityDetalheCriador(creator)
-    }
+//    override fun creatorsClick(position: Int) {
+////        val creator = listaCreators.get(position)
+////        var imagem = creator.imagemCriador
+////        var nome = creator.nomeCriador
+////        var funcao = creator.funcaoCriador
+////        adapterCreators.notifyItemChanged(position)
+////        ActivityDetalheCriador(creator)
+//    }
 
     private fun ActivityDetalheCriador(creator: Creators) {
         var intent = Intent(this, DetalheCriadorActivity::class.java)
@@ -183,6 +192,10 @@ class DetalheHqActivity :
     }
 
     override fun eventsClick(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun creatorsComicsClick(position: Int) {
         TODO("Not yet implemented")
     }
 }
