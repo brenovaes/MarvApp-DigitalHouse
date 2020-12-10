@@ -51,3 +51,4 @@ val retrofitB: Retrofit = Retrofit.Builder()
     .build()
 
 val serviceB:RepositoryBusca = retrofitB.create(RepositoryBusca::class.java)
+

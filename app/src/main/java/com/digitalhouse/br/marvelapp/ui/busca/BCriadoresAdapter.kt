@@ -7,9 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.creators.Results
 import com.digitalhouse.br.marvelapp.models.Creators
+import com.squareup.picasso.Picasso
 
-class BCriadoresAdapter(var listCriadores: ArrayList<Creators>, val listener: OnBCriadoresClickListener): RecyclerView.Adapter<BCriadoresAdapter.BCriadoresViewHolder>(){
+class BCriadoresAdapter(var listCriadores: ArrayList<Results>, val listener: OnBCriadoresClickListener): RecyclerView.Adapter<BCriadoresAdapter.BCriadoresViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BCriadoresViewHolder {
@@ -22,8 +24,11 @@ class BCriadoresAdapter(var listCriadores: ArrayList<Creators>, val listener: On
 
     override fun onBindViewHolder(holder: BCriadoresViewHolder, position: Int) {
         var criador = listCriadores.get(position)
-        holder.imgCard.setImageResource(criador.imagemCriador)
-        holder.nomeCard.text = criador.nomeCriador
+
+        holder.nomeCard.text = criador.fullName
+
+        var img = criador.thumbnail.path + "." + criador.thumbnail.extension
+        Picasso.get().load(img).resize(115,100).into(holder.imgCard)
     }
 
     interface OnBCriadoresClickListener{

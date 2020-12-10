@@ -6,15 +6,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
-import com.digitalhouse.br.marvelapp.models.Characters
+import com.digitalhouse.br.marvelapp.service.serviceB
 import kotlinx.android.synthetic.main.fragment_busca_personagem.*
 
 class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClickListener {
-    var listPersonagens:ArrayList<Characters> = getPersonagens()
+
+    var listPersonagens = arrayListOf<ResultsCh>()
     private lateinit var cf: ContractDetalheCardsFragments
-    var adapterB = BPersonagemAdapter(listPersonagens, this)
+    lateinit var adapterB: BPersonagemAdapter
+
+
+    val viewModelBusca by viewModels<BuscaViewModel>{
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return BuscaViewModel(serviceB) as T
+            }
+        }
+    }
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +49,14 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvBuscaP.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
-            // set the custom adapter to the RecyclerView
-            adapter = adapterB
+
+        viewModelBusca.retornoAllCharacters.observe(viewLifecycleOwner){
+            listPersonagens.addAll(it.data.results)
+            adapterB = BPersonagemAdapter(listPersonagens, this)
+            rvBuscaP.adapter = adapterB
         }
+
+        viewModelBusca.getAllCharactersBusca()
     }
 
     companion object {
@@ -47,18 +64,6 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
         fun newInstance() =  BuscaPersonagemFragment()
     }
 
-    fun getPersonagens():ArrayList<Characters>{
-        return arrayListOf(
-                Characters(1,R.drawable.omiranha,"Personagem1",),
-                Characters(2,R.drawable.omiranha,"Personagem1",),
-                Characters(3,R.drawable.omiranha,"Personagem1",),
-                Characters(4,R.drawable.omiranha,"Personagem1",),
-                Characters(5,R.drawable.omiranha,"Personagem1",),
-                Characters(6,R.drawable.omiranha,"Personagem1",),
-                Characters(7,R.drawable.omiranha,"Personagem1",)
-
-        )
-    }
 
     override fun bPersonagemClick(position: Int) {
         adapterB.notifyItemChanged(position)
