@@ -7,12 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
+import com.digitalhouse.br.marvelapp.entities.creators.ItemsCr
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.models.Comics
 
 
-class ComicsAdapter (var listaComics: ArrayList<ResultsCo>, val listener: OnComicsClickListener): RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
+class ComicsAdapter (var listaComics: ArrayList<ItemsCr?>, val listener: OnComicsClickListener, var name: String): RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,13 +26,17 @@ class ComicsAdapter (var listaComics: ArrayList<ResultsCo>, val listener: OnComi
     override fun onBindViewHolder(holder: ComicsViewHolder, position: Int) {
         var comic = listaComics.get(position)
 //        holder.ivImagemComic.setImageResource(comic.imagemComic)
-        holder.tvNomeComic.text = comic.title
-        holder.tvDataVendaComic.text = comic.dates[0].toString()
-        holder.tvCriador.text = comic.creators.items[0]?.name
+        if (comic != null) {
+            holder.tvNomeComic.text = comic.name
+        }
+//        holder.tvDataVendaComic.text = comic.dates[0].toString()
+        holder.tvCriador.text = name
 
     }
 
     override fun getItemCount() = listaComics.size
+
+
 
     interface OnComicsClickListener{
         fun comicsClick (position: Int)

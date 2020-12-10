@@ -7,9 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.creators.ItemsCr
 import com.digitalhouse.br.marvelapp.models.Series
 
-class SeriesAdapter (var listaSeries: ArrayList<Series>, val listener: OnSeriesClickListener): RecyclerView.Adapter<SeriesAdapter.SeriesViewHolder>() {
+class SeriesAdapter (var listaSeries: ArrayList<ItemsCr?>, val listener: OnSeriesClickListener): RecyclerView.Adapter<SeriesAdapter.SeriesViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -20,9 +21,11 @@ class SeriesAdapter (var listaSeries: ArrayList<Series>, val listener: OnSeriesC
 
     override fun onBindViewHolder(holder: SeriesViewHolder, position: Int) {
         var serie = listaSeries.get(position)
-        holder.ivImagemSerie.setImageResource(serie.imagemSerie)
-        holder.tvNomeSerie.text = serie.nomeSerie
-        holder.tvDataSerie.text = serie.dataSerie.toString()
+//        holder.ivImagemSerie.setImageResource(serie.imagemSerie)
+        if (serie != null) {
+            holder.tvNomeSerie.text = serie.name
+        }
+//        holder.tvDataSerie.text = serie.dataSerie.toString()
     }
 
     override fun getItemCount() = listaSeries.size

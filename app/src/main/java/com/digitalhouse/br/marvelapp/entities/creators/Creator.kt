@@ -31,7 +31,7 @@ data class ResultsCr(
         val series: SeriesCr,
         val stories : StoriesCr,
         val events : EventsCr,
-        val urls: List<UrlsCr>
+        val urls: ArrayList<UrlsCr>
 
 )
 
@@ -39,7 +39,7 @@ data class ComicsCr (
 
         val available : Int,
         val collectionURI : String,
-        val items: List<ItemsCr>,
+        var items: ArrayList<ItemsCr?>,
         val returned : Int
 )
 
@@ -47,7 +47,7 @@ data class SeriesCr (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<ItemsCr?>,
+        val items : ArrayList<ItemsCr?>,
         val returned : Int
 )
 
@@ -56,7 +56,7 @@ data class EventsCr (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<ItemsCr?>,
+        val items : ArrayList<ItemsCr?>,
         val returned : Int
 )
 
@@ -64,7 +64,7 @@ data class StoriesCr (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<ItemsCr?>,
+        val items : ArrayList<ItemsCr?>,
         val returned : Int
 )
 

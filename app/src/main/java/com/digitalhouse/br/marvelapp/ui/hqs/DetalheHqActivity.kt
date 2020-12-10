@@ -56,8 +56,8 @@ class DetalheHqActivity :
     }
 
     var adapterStories: StoriesAdapter = StoriesAdapter(listaStories, this)
-    var adapterSeries: SeriesAdapter = SeriesAdapter(listaSeries, this)
-    var adapterEventos: EventsAdapter = EventsAdapter(listaEventos, this)
+//    var adapterSeries: SeriesAdapter = SeriesAdapter(listaSeries, this)
+//    var adapterEventos: EventsAdapter = EventsAdapter(listaEventos, this)
     var adapterCharacters: CharactersAdapter = CharactersAdapter(listaCharacters, this)
     var adapterCreators: CreatorsAdapter = CreatorsAdapter(listaCreators, this)
 
@@ -81,11 +81,11 @@ class DetalheHqActivity :
         rvHistoriasHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvHistoriasHq.setHasFixedSize(true)
 
-        rvSeriesHq.adapter = adapterSeries
+//        rvSeriesHq.adapter = adapterSeries
         rvSeriesHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvSeriesHq.setHasFixedSize(true)
 
-        rvEventosHq.adapter = adapterEventos
+//        rvEventosHq.adapter = adapterEventos
         rvEventosHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvEventosHq.setHasFixedSize(true)
 

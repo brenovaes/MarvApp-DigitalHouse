@@ -1,6 +1,7 @@
 package com.digitalhouse.br.marvelapp.service
 
 
+import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,8 +11,9 @@ import retrofit2.http.Query
 
 interface RepositoryCreators {
 
-    @GET("creators")
-    suspend fun getAllCreatorsRepo(
+    @GET("creators/{id}")
+    suspend fun getCreatorRepo(
+            @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
             @Query("ts") ps3: String,

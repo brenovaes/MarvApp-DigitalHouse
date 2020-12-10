@@ -43,8 +43,9 @@ class DetalhePersonagemActivity :
     }
 
 //    var adapterComics: ComicsAdapter = ComicsAdapter(listaComics, this)
-    var adapterSeries: SeriesAdapter = SeriesAdapter(listaSeries, this)
-    var adapterEventos: EventsAdapter = EventsAdapter(listaEventos, this)
+    lateinit var adapterSeries: SeriesAdapter
+//        = SeriesAdapter(listaSeries, this)
+//    var adapterEventos: EventsAdapter = EventsAdapter(listaEventos, this)
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +69,7 @@ class DetalhePersonagemActivity :
         rvSeriesPersonagem.layoutManager = LinearLayoutManager(this,HORIZONTAL,false)
         rvSeriesPersonagem.setHasFixedSize(true)
 
-        rvEventosPersonagem.adapter = adapterEventos
+//        rvEventosPersonagem.adapter = adapterEventos
         rvEventosPersonagem.layoutManager = LinearLayoutManager(this,HORIZONTAL,false)
         rvEventosPersonagem.setHasFixedSize(true)
     }
