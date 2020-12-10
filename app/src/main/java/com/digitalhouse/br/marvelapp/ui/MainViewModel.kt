@@ -58,25 +58,25 @@ class MainViewModel(val serviceCre: RepositoryCreators, val serviceCharacter: Re
 
     }
 
+//
+//    fun getCreatorComics(id: Int) {
+//        try {
+//            viewModelScope.launch {
+//                retornoCreatorComics.value = serviceCre.getCreatorComicsRepo(
+//                    id,
+//                    0,
+//                    10,
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
+//                )
 
-    fun getCreatorComics(id: Int) {
-        try {
-            viewModelScope.launch {
-                retornoCreatorComics.value = serviceCre.getCreatorComicsRepo(
-                    id,
-                    0,
-                    10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
-                )
-
-                Log.i("getCreatorComics", retornoCreatorComics.value.toString())
-            }
-        } catch (e: Exception) {
-            Log.i("getCreatorComics", e.toString())
-        }
-    }
+//                Log.i("getCreatorComics", retornoCreatorComics.value.toString())
+//            }
+//        } catch (e: Exception) {
+//            Log.i("getCreatorComics", e.toString())
+//        }
+//    }
 
 
     fun getCreatorSeries(id: Int) {

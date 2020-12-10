@@ -7,11 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.Results
-import com.digitalhouse.br.marvelapp.models.Comics
+import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.squareup.picasso.Picasso
 
-class BHQAdapter(var listHQ: ArrayList<Results>, val listener: OnBHQClickListener): RecyclerView.Adapter<BHQAdapter.BHQViewHolder>(){
+class BHQAdapter(var listHQ: ArrayList<ResultsCo>, val listener: OnBHQClickListener): RecyclerView.Adapter<BHQAdapter.BHQViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BHQViewHolder {

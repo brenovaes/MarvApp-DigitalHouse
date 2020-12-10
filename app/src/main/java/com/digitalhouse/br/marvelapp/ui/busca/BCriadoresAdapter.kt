@@ -7,11 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.creators.Results
-import com.digitalhouse.br.marvelapp.models.Creators
+import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.squareup.picasso.Picasso
 
-class BCriadoresAdapter(var listCriadores: ArrayList<Results>, val listener: OnBCriadoresClickListener): RecyclerView.Adapter<BCriadoresAdapter.BCriadoresViewHolder>(){
+class BCriadoresAdapter(var listCriadores: ArrayList<ResultsCr>, val listener: OnBCriadoresClickListener): RecyclerView.Adapter<BCriadoresAdapter.BCriadoresViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BCriadoresViewHolder {

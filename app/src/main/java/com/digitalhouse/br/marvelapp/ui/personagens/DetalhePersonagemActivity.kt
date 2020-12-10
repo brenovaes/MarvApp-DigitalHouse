@@ -42,7 +42,7 @@ class DetalhePersonagemActivity :
         return arrayListOf(series,series,series,series)
     }
 
-    var adapterComics: ComicsAdapter = ComicsAdapter(listaComics, this)
+//    var adapterComics: ComicsAdapter = ComicsAdapter(listaComics, this)
     var adapterSeries: SeriesAdapter = SeriesAdapter(listaSeries, this)
     var adapterEventos: EventsAdapter = EventsAdapter(listaEventos, this)
 
@@ -60,7 +60,7 @@ class DetalhePersonagemActivity :
         tvQtdEventosPersonagem.text = listaEventos.size.toString()
         tvQtdSeriesPersonagem.text = listaSeries.size.toString()
 
-        rvComicsPersonagem.adapter = adapterComics
+//        rvComicsPersonagem.adapter = adapterComics
         rvComicsPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvComicsPersonagem.setHasFixedSize(true)
 
@@ -94,7 +94,7 @@ class DetalhePersonagemActivity :
         var nome = comic.nomeComic
         var data = comic.dataVendaComic
         var criador = comic.criadorComic
-        adapterComics.notifyItemChanged(position)
+//        adapterComics.notifyItemChanged(position)
         ActivityDetalheHq(comic)
     }
 

@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.creators.Results
+import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
 import com.digitalhouse.br.marvelapp.service.serviceB
 import kotlinx.android.synthetic.main.fragment_busca_criadores.*
@@ -18,9 +18,11 @@ import kotlinx.android.synthetic.main.fragment_busca_criadores.*
 
 
 class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickListener {
-    var listCriadores = arrayListOf<Results>()
+    var listCriadores = arrayListOf<ResultsCr>()
     private lateinit var cf: ContractDetalheCardsFragments
     lateinit var adapterC: BCriadoresAdapter
+
+
 
 
     val viewModelBusca by viewModels<BuscaViewModel>{
@@ -51,6 +53,7 @@ class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickLi
             listCriadores.addAll(it.data.results)
             adapterC = BCriadoresAdapter(listCriadores, this)
             rvBuscaCr.adapter = adapterC
+
         }
 
         viewModelBusca.getAllCreatorsBusca()
@@ -64,6 +67,10 @@ class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickLi
 
     override fun bCriadoresClick(position: Int) {
         adapterC.notifyItemChanged(position)
-        cf.callDetalhesCCards()
+        viewModelBusca.retornoAllCreators.observe(this){
+
+            cf.callDetalhesCCards(it.data.results[position].id)
+        }
+
     }
 }

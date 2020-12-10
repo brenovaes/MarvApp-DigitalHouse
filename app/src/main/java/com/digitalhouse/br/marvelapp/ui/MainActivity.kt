@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.creators.Results
 import com.digitalhouse.br.marvelapp.service.serviceB
 import com.digitalhouse.br.marvelapp.service.serviceCh
 import com.digitalhouse.br.marvelapp.service.serviceCo
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var retornoCreator = arrayListOf<Results>()
+//        var retornoCreator = arrayListOf<Results>()
 //        var retornoCh = MutableLiveData<BaseCh>()
 //        var retornoCo = MutableLiveData<BaseCo>()
 

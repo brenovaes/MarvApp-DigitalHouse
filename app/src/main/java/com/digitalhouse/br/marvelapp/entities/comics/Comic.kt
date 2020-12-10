@@ -7,18 +7,18 @@ data class ResComics(
         val attributionText : String,
         val attributionHTML : String,
         val etag : String,
-        val data : Data
+        val data : DataCo
 )
 
-data class Data (
+data class DataCo (
 
         val offset : Int,
         val limit : Int,
         val total : Int,
         val count : Int,
-        val results : List<Results>
+        val results : List<ResultsCo>
 )
-data class Results (
+data class ResultsCo (
 
         val id : Int,
         val digitalId : Int,
@@ -28,93 +28,93 @@ data class Results (
         val modified : String,
         val pageCount : Int,
         val resourceURI : String,
-        val urls : List<Urls>,
-        val series : Series,
-        val dates : List<Dates>,
-        val prices : List<Prices>,
-        val thumbnail : Thumbnail,
-        val images : List<Images>,
-        val creators : Creators,
-        val characters : Characters,
-        val stories : Stories,
-        val events : Events
+        val urls : List<UrlsCo>,
+        val series : SeriesCo,
+        val dates : List<DatesCo>,
+        val prices : List<PricesCo>,
+        val thumbnail : ThumbnailCo,
+        val images : List<ImagesCo>,
+        val creators : CreatorsCo,
+        val characters : CharactersCo,
+        val stories : StoriesCo,
+        val events : EventsCo
 
 )
 
-data class Urls (
+data class UrlsCo (
 
         val type : String,
         val url : String
 )
 
-data class Series (
+data class SeriesCo (
 
         val resourceURI : String,
         val name : String
 )
 
-data class Variants (
+data class VariantsCo (
 
         val resourceURI : String,
         val name : String
 )
 
-data class Dates (
+data class DatesCo (
 
         val type : String,
         val date : String
 )
 
-data class Prices (
+data class PricesCo (
 
         val type : String,
         val price : Double
 )
 
-data class Thumbnail (
+data class ThumbnailCo (
 
         val path : String,
         val extension : String
 )
 
-data class Images (
+data class ImagesCo (
         val path : String,
         val extension : String
 )
 
 
-data class Creators (
+data class CreatorsCo (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<Items?>,
+        val items : List<ItemsCo?>,
         val returned : Int
 )
 
-data class Characters (
+data class CharactersCo (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<Items?>,
+        val items : List<ItemsCo?>,
         val returned : Int
 )
 
-data class Stories (
+data class StoriesCo (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<Items?>,
+        val items : List<ItemsCo?>,
         val returned : Int
 )
 
-data class Events (
+data class EventsCo (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<Items?>,
+        val items : List<ItemsCo?>,
         val returned : Int
 )
-data class Items (
+data class ItemsCo (
 
         val resourceURI : String,
         val name : String,
