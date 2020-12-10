@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_criador.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.comics.Items
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
-import com.digitalhouse.br.marvelapp.entities.creators.ItemsCr
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.models.Events
@@ -35,7 +35,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
         SeriesAdapter.OnSeriesClickListener,
         EventsAdapter.OnEventsClickListener {
 
-    lateinit var listaComics: ArrayList<ItemsCr?>
+    lateinit var listaComics: ArrayList<Items?>
 
 
 

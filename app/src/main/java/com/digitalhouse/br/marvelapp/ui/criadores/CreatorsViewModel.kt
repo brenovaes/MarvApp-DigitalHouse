@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
-import com.digitalhouse.br.marvelapp.entities.creators.ItemsCr
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.service.RepositoryCreators
 import kotlinx.coroutines.launch

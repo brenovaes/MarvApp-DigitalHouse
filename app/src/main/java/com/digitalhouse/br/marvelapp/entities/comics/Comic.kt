@@ -16,7 +16,7 @@ data class DataCo (
         val limit : Int,
         val total : Int,
         val count : Int,
-        val results : List<ResultsCo>
+        val results : ArrayList<ResultsCo>
 )
 data class ResultsCo (
 
@@ -28,12 +28,12 @@ data class ResultsCo (
         val modified : String,
         val pageCount : Int,
         val resourceURI : String,
-        val urls : List<UrlsCo>,
+        val urls : ArrayList<UrlsCo>,
         val series : SeriesCo,
-        val dates : List<DatesCo>,
-        val prices : List<PricesCo>,
+        val dates : ArrayList<DatesCo>,
+        val prices : ArrayList<PricesCo>,
         val thumbnail : ThumbnailCo,
-        val images : List<ImagesCo>,
+        val images : ArrayList<ImagesCo>,
         val creators : CreatorsCo,
         val characters : CharactersCo,
         val stories : StoriesCo,
@@ -87,7 +87,7 @@ data class CreatorsCo (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<ItemsCo?>,
+        val items : ArrayList<Items?>,
         val returned : Int
 )
 
@@ -95,7 +95,7 @@ data class CharactersCo (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<ItemsCo?>,
+        val items : ArrayList<Items?>,
         val returned : Int
 )
 
@@ -103,7 +103,7 @@ data class StoriesCo (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<ItemsCo?>,
+        val items : ArrayList<Items?>,
         val returned : Int
 )
 
@@ -111,10 +111,10 @@ data class EventsCo (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<ItemsCo?>,
+        val items : ArrayList<Items?>,
         val returned : Int
 )
-data class ItemsCo (
+data class Items (
 
         val resourceURI : String,
         val name : String,

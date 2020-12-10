@@ -6,18 +6,27 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.models.Events
 import com.digitalhouse.br.marvelapp.models.Series
+import com.digitalhouse.br.marvelapp.service.serviceCh
+import com.digitalhouse.br.marvelapp.service.serviceCr
+import com.digitalhouse.br.marvelapp.ui.criadores.CreatorsViewModel
 import com.digitalhouse.br.marvelapp.ui.events.EventsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.ComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.series.SeriesAdapter
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_detalhe_criador.*
 
 class DetalhePersonagemActivity :
     AppCompatActivity(),
@@ -25,51 +34,80 @@ class DetalhePersonagemActivity :
         SeriesAdapter.OnSeriesClickListener,
         EventsAdapter.OnEventsClickListener {
 
-    var listaComics: ArrayList<Comics> = getComics()
-    var listaSeries: ArrayList<Series> = getSeries()
-    var listaEventos: ArrayList<Events> = getEvents()
+    var character = arrayListOf<ResultsCh>()
+//    var listaComics: ArrayList<Comics> = getComics()
+//    var listaSeries: ArrayList<Series> = getSeries()
+//    var listaEventos: ArrayList<Events> = getEvents()
 
-    private fun getEvents(): ArrayList<Events> {
-        var eventos = Events(1, (R.drawable.events),"Acts of Vengeance!","Start: 10/12/1989", "End: 04/01/2008")
-        return arrayListOf(eventos, eventos, eventos, eventos, eventos, eventos)
-    }
-    private fun getComics(): ArrayList<Comics> {
-        var comics = Comics(1,(R.drawable.comic),"Spider-Man: 101 Ways to End the Clone Saga (1997) #1","Sale date: 01/01/1997","Creator: Mark Bernardo")
-        return arrayListOf(comics,comics,comics,comics,comics,comics,comics)
-    }
-    private fun getSeries(): ArrayList<Series> {
-        var series = Series(1,(R.drawable.serie),"Superior Spider-Man Vol. 2: Otto-matic (2019)","Sale date: 01/01/1997")
-        return arrayListOf(series,series,series,series)
+    val viewModelCharacters by viewModels<CharactersViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return CharactersViewModel(serviceCh) as T
+            }
+        }
     }
 
-//    var adapterComics: ComicsAdapter = ComicsAdapter(listaComics, this)
+
+
+    lateinit var adapterComics: ComicsAdapter
     lateinit var adapterSeries: SeriesAdapter
-//        = SeriesAdapter(listaSeries, this)
-//    var adapterEventos: EventsAdapter = EventsAdapter(listaEventos, this)
+   lateinit var adapterEventos: EventsAdapter
+
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhe_personagem)
 
+        var idCharacter = intent.getIntExtra("idCh", 0)
+
         setSupportActionBar(tbDetalhePersonagem)
         tbDetalhePersonagem.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        tvQtdComicsPersonagem.text = listaComics.size.toString()
-        tvQtdEventosPersonagem.text = listaEventos.size.toString()
-        tvQtdSeriesPersonagem.text = listaSeries.size.toString()
+        viewModelCharacters.retornoCharacterComics.observe(this){
+            character = it.data.results
+            var comics = character[0].comics.items
+            var series = character[0].series.items
+            var events = character[0].events.items
 
-//        rvComicsPersonagem.adapter = adapterComics
+            tvNomePersonagemDetalhe.text = character[0].name
+            tvDescricaoPersonagemDetalhe.text = character[0].description
+
+            var img = character[0].thumbnail.path + "." + character[0].thumbnail.extension
+            Picasso.get().load(img).resize(360,280).into(ivPersonagemDetalhe)
+
+
+
+            adapterComics = ComicsAdapter(comics, this, null)
+            rvComicsPersonagem.adapter = adapterComics
+
+            adapterSeries = SeriesAdapter(series,this)
+            rvSeriesPersonagem.adapter = adapterSeries
+
+            adapterEventos = EventsAdapter(events, this)
+            rvEventosPersonagem.adapter = adapterEventos
+
+
+            tvQtdComicsPersonagem.text = comics.size.toString()
+//            tvQtdEventosPersonagem.text = listaEventos.size.toString()
+//            tvQtdSeriesPersonagem.text = listaSeries.size.toString()
+        }
+
+        viewModelCharacters.getCharacter(idCharacter)
+
+
+
+
         rvComicsPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvComicsPersonagem.setHasFixedSize(true)
 
-        rvSeriesPersonagem.adapter = adapterSeries
+
         rvSeriesPersonagem.layoutManager = LinearLayoutManager(this,HORIZONTAL,false)
         rvSeriesPersonagem.setHasFixedSize(true)
 
-//        rvEventosPersonagem.adapter = adapterEventos
+
         rvEventosPersonagem.layoutManager = LinearLayoutManager(this,HORIZONTAL,false)
         rvEventosPersonagem.setHasFixedSize(true)
     }
@@ -90,13 +128,13 @@ class DetalhePersonagemActivity :
     }
 
     override fun comicsClick(position: Int) {
-        val comic = listaComics.get(position)
-        var imagem = comic.imagemComic
-        var nome = comic.nomeComic
-        var data = comic.dataVendaComic
-        var criador = comic.criadorComic
+//        val comic = listaComics.get(position)
+//        var imagem = comic.imagemComic
+//        var nome = comic.nomeComic
+//        var data = comic.dataVendaComic
+//        var criador = comic.criadorComic
 //        adapterComics.notifyItemChanged(position)
-        ActivityDetalheHq(comic)
+//        ActivityDetalheHq(comic)
     }
 
     override fun seriesClick(position: Int) {
