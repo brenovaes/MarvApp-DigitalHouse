@@ -65,7 +65,9 @@ class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
 
     override fun bHQClick(position: Int) {
         adapterCo.notifyItemChanged(position)
-        cf.callDetalhesHQCards()
+        viewModelBusca.retornoAllComics.observe(this){
+            cf.callDetalhesHQCards(it.data.results[position].id)
+        }
     }
 
 }

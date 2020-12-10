@@ -50,7 +50,9 @@ data class UrlsCo (
 data class SeriesCo (
 
         val resourceURI : String,
+        val items : ArrayList<Items?>,
         val name : String
+
 )
 
 data class VariantsCo (

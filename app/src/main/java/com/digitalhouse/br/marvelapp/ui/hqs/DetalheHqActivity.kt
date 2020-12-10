@@ -6,12 +6,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_hq.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.models.*
+import com.digitalhouse.br.marvelapp.service.serviceCo
 import com.digitalhouse.br.marvelapp.ui.criadores.CreatorsAdapter
 import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.events.EventsAdapter
@@ -19,6 +24,7 @@ import com.digitalhouse.br.marvelapp.ui.personagens.CharactersAdapter
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.series.SeriesAdapter
 import com.digitalhouse.br.marvelapp.ui.stories.StoriesAdapter
+import com.squareup.picasso.Picasso
 
 class DetalheHqActivity :
     AppCompatActivity(),
@@ -28,72 +34,97 @@ class DetalheHqActivity :
         SeriesAdapter.OnSeriesClickListener,
         EventsAdapter.OnEventsClickListener {
 
-    var listaStories: ArrayList<Stories> = getStories()
-    var listaSeries: ArrayList<Series> = getSeries()
-    var listaEventos: ArrayList<Events> = getEvents()
-    var listaCharacters: ArrayList<Characters> = getCharacters()
-    var listaCreators: ArrayList<Creators> = getCreators()
 
-    private fun getEvents(): ArrayList<Events> {
-        var eventos = Events(1, (R.drawable.events),"Acts of Vengeance!","Start: 10/12/1989", "End: 04/01/2008")
-        return arrayListOf(eventos, eventos, eventos, eventos, eventos, eventos)
-    }
-    private fun getStories(): ArrayList<Stories> {
-        var storie = Stories(1,(R.drawable.serie),"Superior Spider-Man Vol. 2: Otto-matic (2019)","Texto que representa algo da história")
-        return arrayListOf(storie,storie,storie,storie,storie,storie,storie)
-    }
-    private fun getSeries(): ArrayList<Series> {
-        var series = Series(1,(R.drawable.serie),"Superior Spider-Man Vol. 2: Otto-matic (2019)","Start: 10/12/1989")
-        return arrayListOf(series,series,series,series)
-    }
-    private fun getCharacters(): ArrayList<Characters> {
-        var chars = Characters(1,(R.drawable.omiranha),"Spider-Man")
-        return arrayListOf(chars,chars,chars,chars,chars,chars,chars)
-    }
-    private fun getCreators(): ArrayList<Creators> {
-        var creator = Creators(1,(R.drawable.stanlee),"Stan Lee","Writter")
-        return arrayListOf(creator,creator,creator,creator)
+    var comics = arrayListOf<ResultsCo>()
+    lateinit var adapterStories: StoriesAdapter
+    lateinit var adapterSeries: SeriesAdapter
+    lateinit var adapterEventos: EventsAdapter
+    lateinit var adapterCharacters: CharactersAdapter
+    lateinit var adapterCreators: CreatorsAdapter
+
+
+    val viewModelComics by viewModels<ComicsViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ComicsViewModel(serviceCo) as T
+            }
+        }
     }
 
-    var adapterStories: StoriesAdapter = StoriesAdapter(listaStories, this)
-//    var adapterSeries: SeriesAdapter = SeriesAdapter(listaSeries, this)
-//    var adapterEventos: EventsAdapter = EventsAdapter(listaEventos, this)
-    var adapterCharacters: CharactersAdapter = CharactersAdapter(listaCharacters, this)
-    var adapterCreators: CreatorsAdapter = CreatorsAdapter(listaCreators, this)
+
+
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhe_hq)
+        var idComic = intent.getIntExtra("idCo", 0)
 
         setSupportActionBar(tbDetalheHq)
         tbDetalheHq.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        tvQtdCriadoresHq.text = listaCreators.size.toString()
-        tvQtdHistoriasHq.text = listaStories.size.toString()
-        tvQtdSeriesHq.text = listaSeries.size.toString()
-        tvQtdEventosHq.text = listaEventos.size.toString()
-        tvQtdPersonagensHq.text = listaCharacters.size.toString()
+        viewModelComics.retornoComic.observe(this) {
+            comics.addAll(it.data.results)
+            var creators = comics[0].creators.items
+            var characters = comics[0].characters.items
+            var series = comics[0].series.items
+            var events = comics[0].events.items
+            var stories = comics[0].stories.items
 
-        rvHistoriasHq.adapter = adapterStories
+            tvNomeHqDetalhe.text = comics[0].title
+            tvDescricaoHqDetalhe.text = comics[0].description
+
+            var img = comics[0].thumbnail.path + "." + comics[0].thumbnail.extension
+            Picasso.get().load(img).resize(360,280).into(ivHqDetalhe)
+
+
+            adapterStories= StoriesAdapter(stories, this)
+            rvHistoriasHq.adapter = adapterStories
+
+
+//            adapterSeries = SeriesAdapter(series,this)
+//            rvSeriesHq.adapter = adapterSeries
+
+
+            adapterEventos = EventsAdapter(events, this)
+            rvEventosHq.adapter = adapterEventos
+
+            adapterCharacters= CharactersAdapter(characters, this)
+            rvPersonagensHq.adapter = adapterCharacters
+
+            adapterCreators = CreatorsAdapter(creators, this)
+            rvCriadoresHq.adapter = adapterCharacters
+
+
+            tvQtdCriadoresHq.text = creators.size.toString()
+            tvQtdHistoriasHq.text = stories.size.toString()
+            tvQtdSeriesHq.text =  1.toString()
+            tvQtdEventosHq.text = events.size.toString()
+            tvQtdPersonagensHq.text = characters.size.toString()
+
+        }
+
+        viewModelComics.getCharacter(idComic)
+
+
         rvHistoriasHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvHistoriasHq.setHasFixedSize(true)
 
-//        rvSeriesHq.adapter = adapterSeries
+
         rvSeriesHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvSeriesHq.setHasFixedSize(true)
 
-//        rvEventosHq.adapter = adapterEventos
+
         rvEventosHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvEventosHq.setHasFixedSize(true)
 
-        rvPersonagensHq.adapter = adapterCharacters
+
         rvPersonagensHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvPersonagensHq.setHasFixedSize(true)
 
-        rvCriadoresHq.adapter = adapterCreators
+
         rvCriadoresHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvCriadoresHq.setHasFixedSize(true)
 
@@ -119,12 +150,12 @@ class DetalheHqActivity :
     }
 
     override fun creatorsClick(position: Int) {
-        val creator = listaCreators.get(position)
-        var imagem = creator.imagemCriador
-        var nome = creator.nomeCriador
-        var funcao = creator.funcaoCriador
-        adapterCreators.notifyItemChanged(position)
-        ActivityDetalheCriador(creator)
+//        val creator = listaCreators.get(position)
+//        var imagem = creator.imagemCriador
+//        var nome = creator.nomeCriador
+//        var funcao = creator.funcaoCriador
+//        adapterCreators.notifyItemChanged(position)
+//        ActivityDetalheCriador(creator)
     }
 
     private fun ActivityDetalheCriador(creator: Creators) {
@@ -134,11 +165,11 @@ class DetalheHqActivity :
     }
 
     override fun charactersClick(position: Int) {
-        val char = listaCharacters.get(position)
-        var imagem = char.imagemCharacter
-        var nome = char.nomeCharacter
-        adapterCharacters.notifyItemChanged(position)
-        ActivityDetalheCharacter(char)
+//        val char = listaCharacters.get(position)
+//        var imagem = char.imagemCharacter
+//        var nome = char.nomeCharacter
+//        adapterCharacters.notifyItemChanged(position)
+//        ActivityDetalheCharacter(char)
     }
 
     private fun ActivityDetalheCharacter(char: Characters) {

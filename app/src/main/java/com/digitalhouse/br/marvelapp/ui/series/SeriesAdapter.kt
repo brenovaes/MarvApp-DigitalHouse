@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.comics.Items
-import com.digitalhouse.br.marvelapp.models.Series
+
+
 
 class SeriesAdapter (var listaSeries: ArrayList<Items?>, val listener: OnSeriesClickListener): RecyclerView.Adapter<SeriesAdapter.SeriesViewHolder>() {
     override fun onCreateViewHolder(

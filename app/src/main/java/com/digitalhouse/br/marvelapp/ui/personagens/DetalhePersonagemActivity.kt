@@ -16,17 +16,12 @@ import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.models.Comics
-import com.digitalhouse.br.marvelapp.models.Events
-import com.digitalhouse.br.marvelapp.models.Series
 import com.digitalhouse.br.marvelapp.service.serviceCh
-import com.digitalhouse.br.marvelapp.service.serviceCr
-import com.digitalhouse.br.marvelapp.ui.criadores.CreatorsViewModel
 import com.digitalhouse.br.marvelapp.ui.events.EventsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.ComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.series.SeriesAdapter
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detalhe_criador.*
 
 class DetalhePersonagemActivity :
     AppCompatActivity(),
@@ -35,9 +30,9 @@ class DetalhePersonagemActivity :
         EventsAdapter.OnEventsClickListener {
 
     var character = arrayListOf<ResultsCh>()
-//    var listaComics: ArrayList<Comics> = getComics()
-//    var listaSeries: ArrayList<Series> = getSeries()
-//    var listaEventos: ArrayList<Events> = getEvents()
+    lateinit var adapterComics: ComicsAdapter
+    lateinit var adapterSeries: SeriesAdapter
+    lateinit var adapterEventos: EventsAdapter
 
     val viewModelCharacters by viewModels<CharactersViewModel> {
         object : ViewModelProvider.Factory {
@@ -48,10 +43,6 @@ class DetalhePersonagemActivity :
     }
 
 
-
-    lateinit var adapterComics: ComicsAdapter
-    lateinit var adapterSeries: SeriesAdapter
-   lateinit var adapterEventos: EventsAdapter
 
 
     @SuppressLint("WrongConstant")
@@ -66,7 +57,7 @@ class DetalhePersonagemActivity :
             onBackPressed()
         }
 
-        viewModelCharacters.retornoCharacterComics.observe(this){
+        viewModelCharacters.retornoCharacter.observe(this){
             character = it.data.results
             var comics = character[0].comics.items
             var series = character[0].series.items
@@ -91,8 +82,8 @@ class DetalhePersonagemActivity :
 
 
             tvQtdComicsPersonagem.text = comics.size.toString()
-//            tvQtdEventosPersonagem.text = listaEventos.size.toString()
-//            tvQtdSeriesPersonagem.text = listaSeries.size.toString()
+            tvQtdEventosPersonagem.text = events.size.toString()
+            tvQtdSeriesPersonagem.text = series.size.toString()
         }
 
         viewModelCharacters.getCharacter(idCharacter)

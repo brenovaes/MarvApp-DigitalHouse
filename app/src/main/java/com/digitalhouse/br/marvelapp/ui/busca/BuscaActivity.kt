@@ -106,8 +106,10 @@ class BuscaActivity : AppCompatActivity(), ContractDetalheCardsFragments {
 
     }
 
-    override fun callDetalhesHQCards() {
-        startActivity(Intent(this, DetalheHqActivity::class.java))
+    override fun callDetalhesHQCards(idComics:Int) {
+        var intent = Intent(this, DetalheHqActivity::class.java)
+        intent.putExtra("idCo", idComics)
+        startActivity(intent)
     }
 
     override fun callDetalhesCCards(idCreators:Int) {

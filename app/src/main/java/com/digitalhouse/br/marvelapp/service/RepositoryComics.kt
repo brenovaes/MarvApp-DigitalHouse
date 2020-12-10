@@ -9,8 +9,9 @@ import retrofit2.http.Query
 
 interface RepositoryComics{
 
-    @GET("comics")
-    suspend fun getAllComicsRepo(
+    @GET("comics/{id}")
+    suspend fun getComicRepo(
+            @Path("id")id:Int,
             @Query("offset")ps1:Int,
             @Query("limit")ps2:Int,
             @Query("ts")ps3:String,

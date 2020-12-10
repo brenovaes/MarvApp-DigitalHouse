@@ -1,18 +1,17 @@
-package com.digitalhouse.br.marvelapp.ui.personagens
+package com.digitalhouse.br.marvelapp.ui.hqs
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
-import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
+import com.digitalhouse.br.marvelapp.entities.comics.ResComics
+import com.digitalhouse.br.marvelapp.service.RepositoryComics
 import kotlinx.coroutines.launch
 
-
-class CharactersViewModel(val serviceCharacters: RepositoryCharacters): ViewModel() {
+class ComicsViewModel(val serviceComics: RepositoryComics): ViewModel() {
 
     //    var retornoCreatorSeries = MutableLiveData<ResCreators>()
-    var retornoCharacter = MutableLiveData<ResCharacters>()
+    var retornoComic = MutableLiveData<ResComics>()
 //    var retornoCreatorEvents = MutableLiveData<ResCreators>()
 //    var retornoCreatorStories = MutableLiveData<ResCreators>()
 //    var retornoCreator = MutableLiveData<ResCreators>()
@@ -21,7 +20,7 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters): ViewMode
     fun getCharacter(id: Int) {
         try {
             viewModelScope.launch {
-                retornoCharacter.value = serviceCharacters.getCharacterRepo(
+                retornoComic.value = serviceComics.getComicRepo(
                     id,
                     0,
                     10,
@@ -30,12 +29,11 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters): ViewMode
                     "cc144618fe69492faf88410cc664f62e"
                 )
 
-//                Log.i("getCreator", retornoCreator.value.toString())
+//                Log.i("getCharacter", retornoComics.value.toString())
             }
         } catch (e: Exception) {
-            Log.i("getCreator", e.toString())
+            Log.i("getCharacter", e.toString())
         }
     }
 
 }
-

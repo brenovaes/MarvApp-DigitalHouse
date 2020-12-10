@@ -90,7 +90,7 @@ class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
         startActivity(Intent(this, DetalhePersonagemActivity::class.java))
     }
 
-    override fun callDetalhesHQCards() {
+    override fun callDetalhesHQCards(idComic:Int) {
         startActivity(Intent(this, DetalheHqActivity::class.java))
     }
 
