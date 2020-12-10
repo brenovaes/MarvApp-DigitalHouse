@@ -40,7 +40,6 @@ class ComicsViewModel(val serviceComics: RepositoryComics): ViewModel() {
     fun getCreatorsComic(id: Int){
         viewModelScope.launch {
             retornoComicsCreator.value = serviceComics.getComicCreatorsRepo(
-
                 id,
             0,
             10,

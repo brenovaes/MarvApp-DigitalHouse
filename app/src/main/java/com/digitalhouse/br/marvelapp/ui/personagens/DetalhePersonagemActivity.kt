@@ -23,14 +23,17 @@ import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.series.SeriesAdapter
 import com.squareup.picasso.Picasso
 
+
+
 class DetalhePersonagemActivity :
     AppCompatActivity(),
-    ComicsAdapter.OnComicsClickListener,
+        //ComicsAdapter.OnComicsClickListener,
+        CharactersComicsAdapter.OnCharactersComicsClickListener,
         SeriesAdapter.OnSeriesClickListener,
         EventsAdapter.OnEventsClickListener {
 
     var character = arrayListOf<ResultsCh>()
-    lateinit var adapterComics: ComicsAdapter
+    lateinit var adapterComics: CharactersComicsAdapter
     lateinit var adapterSeries: SeriesAdapter
     lateinit var adapterEventos: EventsAdapter
 
@@ -58,7 +61,7 @@ class DetalhePersonagemActivity :
         }
 
         viewModelCharacters.retornoCharacter.observe(this){
-            character = it.data.results
+            character.addAll(it.data.results)
             var comics = character[0].comics.items
             var series = character[0].series.items
             var events = character[0].events.items
@@ -70,9 +73,8 @@ class DetalhePersonagemActivity :
             Picasso.get().load(img).resize(360,280).into(ivPersonagemDetalhe)
 
 
-
-            adapterComics = ComicsAdapter(comics, this, null)
-            rvComicsPersonagem.adapter = adapterComics
+//            adapterComics = ComicsAdapter(comics, this, null)
+//            rvComicsPersonagem.adapter = adapterComics
 
             adapterSeries = SeriesAdapter(series,this)
             rvSeriesPersonagem.adapter = adapterSeries
@@ -81,14 +83,19 @@ class DetalhePersonagemActivity :
             rvEventosPersonagem.adapter = adapterEventos
 
 
-            tvQtdComicsPersonagem.text = comics.size.toString()
+//            tvQtdComicsPersonagem.text = comics.size.toString()
             tvQtdEventosPersonagem.text = events.size.toString()
             tvQtdSeriesPersonagem.text = series.size.toString()
+
+            viewModelCharacters.retornoCharactersComic.observe(this){
+                tvQtdComicsPersonagem.text = it.data.results.size.toString()
+                adapterComics = CharactersComicsAdapter(it.data.results, this)
+                rvComicsPersonagem.adapter = adapterComics
+            }
         }
 
         viewModelCharacters.getCharacter(idCharacter)
-
-
+        viewModelCharacters.getCharactersComics(idCharacter)
 
 
         rvComicsPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
@@ -118,7 +125,7 @@ class DetalhePersonagemActivity :
         return false
     }
 
-    override fun comicsClick(position: Int) {
+    override fun charactersComicsClick(position: Int) {
 //        val comic = listaComics.get(position)
 //        var imagem = comic.imagemComic
 //        var nome = comic.nomeComic

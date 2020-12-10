@@ -21,6 +21,9 @@ class CharactersAdapter (var listaCharacters: ArrayList<Items?>, val listener: O
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         var char = listaCharacters.get(position)
+        if(char != null){
+            holder.tvNomeCharacter.text = char.name
+        }
 //        holder.ivImagemCharacter.setImageResource(char.imagemCharacter)
 //        holder.tvNomeCharacter.text = char.nomeCharacter.toString()
     }
