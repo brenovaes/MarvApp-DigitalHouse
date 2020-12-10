@@ -67,6 +67,8 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
 
     override fun bPersonagemClick(position: Int) {
         adapterB.notifyItemChanged(position)
-        cf.callDetalhesPCards()
+        viewModelBusca.retornoAllCharacters.observe(this) {
+            cf.callDetalhesPCards(it.data.results[position].id)
+        }
     }
 }

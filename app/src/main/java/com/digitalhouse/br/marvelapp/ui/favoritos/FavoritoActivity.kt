@@ -86,15 +86,15 @@ class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
         })
     }
 
-    override fun callDetalhesPCards() {
+    override fun callDetalhesPCards(idCharacter:Int) {
         startActivity(Intent(this, DetalhePersonagemActivity::class.java))
     }
 
-    override fun callDetalhesHQCards() {
+    override fun callDetalhesHQCards(idComic:Int) {
         startActivity(Intent(this, DetalheHqActivity::class.java))
     }
 
-    override fun callDetalhesCCards() {
+    override fun callDetalhesCCards(idCreator:Int) {
         startActivity(Intent(this, DetalheCriadorActivity::class.java))
     }
 

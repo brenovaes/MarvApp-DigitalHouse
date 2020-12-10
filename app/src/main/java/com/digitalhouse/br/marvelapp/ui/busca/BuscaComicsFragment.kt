@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.Results
+import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
 import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.service.serviceB
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_busca_criadores.*
 import kotlinx.android.synthetic.main.fragment_busca_h_q.*
 
 class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
-    var listHQ = arrayListOf<Results>()
+    var listHQ = arrayListOf<ResultsCo>()
     private lateinit var cf: ContractDetalheCardsFragments
     lateinit var adapterCo: BHQAdapter
 
@@ -65,7 +65,9 @@ class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
 
     override fun bHQClick(position: Int) {
         adapterCo.notifyItemChanged(position)
-        cf.callDetalhesHQCards()
+        viewModelBusca.retornoAllComics.observe(this){
+            cf.callDetalhesHQCards(it.data.results[position].id)
+        }
     }
 
 }

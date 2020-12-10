@@ -1,6 +1,7 @@
 package com.digitalhouse.br.marvelapp.service
 
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
+import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -9,8 +10,9 @@ import retrofit2.http.Query
 
 interface RepositoryComics{
 
-    @GET("comics")
-    suspend fun getAllComicsRepo(
+    @GET("comics/{id}")
+    suspend fun getComicRepo(
+            @Path("id")id:Int,
             @Query("offset")ps1:Int,
             @Query("limit")ps2:Int,
             @Query("ts")ps3:String,
@@ -68,7 +70,7 @@ interface RepositoryComics{
             @Query("ts")ps3:String,
             @Query("apikey")ps4:String,
             @Query("hash")ps5:String,
-    ): ResComics
+    ): ResCreators
 
 
 }
