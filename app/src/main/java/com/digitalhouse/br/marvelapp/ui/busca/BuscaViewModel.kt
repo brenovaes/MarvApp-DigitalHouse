@@ -23,7 +23,7 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllCreators.value = serviceBusca.getCreatorsRepo(
                     0,
-                    10,
+                    20,
                     "1601900859",
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
@@ -41,7 +41,7 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllCharacters.value = serviceBusca.getCharactersRepo(
                     0,
-                    10,
+                    20,
                     "1601900859",
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
@@ -59,7 +59,7 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllComics.value = serviceBusca.getComicsRepo(
                     1,
-                    10,
+                    20,
                     "1601900859",
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
