@@ -7,10 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
 import com.digitalhouse.br.marvelapp.models.EntesMarvel
 
 
-class SugestoesAdapter(var listSugestoes: ArrayList<EntesMarvel>, val listener: OnSugestoesClickListener): RecyclerView.Adapter<SugestoesAdapter.SugestoesViewHolder>(){
+class SugestoesAdapter(var listSugestoes: ArrayList<ResSugestao>, val listener: OnSugestoesClickListener): RecyclerView.Adapter<SugestoesAdapter.SugestoesViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SugestoesViewHolder {
@@ -23,8 +24,8 @@ class SugestoesAdapter(var listSugestoes: ArrayList<EntesMarvel>, val listener: 
 
     override fun onBindViewHolder(holder: SugestoesViewHolder, position: Int) {
         var sugestoes = listSugestoes.get(position)
-        holder.imgCard.setImageResource(sugestoes.img)
-        holder.nomeCard.text = sugestoes.nome
+//        holder.imgCard.setImageResource(sugestoes.)
+//        holder.nomeCard.text = sugestoes.
     }
 
     interface OnSugestoesClickListener{

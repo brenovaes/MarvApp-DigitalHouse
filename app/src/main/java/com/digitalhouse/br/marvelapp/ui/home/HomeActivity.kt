@@ -9,16 +9,19 @@ import android.view.*
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
+import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
 import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.models.Creators
 import com.digitalhouse.br.marvelapp.models.EntesMarvel
 import com.digitalhouse.br.marvelapp.service.serviceCh
+import com.digitalhouse.br.marvelapp.service.serviceS
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
@@ -34,10 +37,11 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.card_perfil_ranking.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 import java.util.*
+import kotlin.collections.ArrayList
 
-class HomeActivity : AppCompatActivity()
+class HomeActivity : AppCompatActivity(),
 //    PopularAdapter.OnPopularClickListener,
-//    SugestoesAdapter.OnSugestoesClickListener
+    SugestoesAdapter.OnSugestoesClickListener
 //    HistoricoAdapter.OnHistoricoClickListener
 
 {
@@ -46,7 +50,7 @@ class HomeActivity : AppCompatActivity()
 //    var adapterPopular = PopularAdapter(listPopulares, this)
 //    //modigicar funcao de pegar tamanho sugestões
 //    var listSugestoes: ArrayList<EntesMarvel> = getPopular()
-//    lateinit var adapterSugestoes: SugestoesAdapter
+    lateinit var adapterSugestoes: SugestoesAdapter
 //    //modigicar funcao de pegar tamanho do historico
 //    var listHistorico: ArrayList<EntesMarvel> = getPopular()
 //    var adapterHistorico = HistoricoAdapter(listHistorico, this)
@@ -54,7 +58,7 @@ class HomeActivity : AppCompatActivity()
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel(serviceCh) as T
+                return HomeViewModel(serviceCh, serviceS) as T
             }
         }
     }
@@ -69,31 +73,49 @@ class HomeActivity : AppCompatActivity()
         }
         viewModelHome.getCharacter()
 
-        viewModelHome.retornoHeroiDia.observe(this){
+        viewModelHome.retornoHeroiDia.observe(this) {
 
             var char = viewModelHome.retornoHeroiDia.value?.data
-            var img = char?.results?.get(0)?.thumbnail?.path + "." + char?.results?.get(0)?.thumbnail?.extension
-            Picasso.get().load(img).resize(150,150).into(ivHeroiDoDia)
+            var img =
+                char?.results?.get(0)?.thumbnail?.path + "." + char?.results?.get(0)?.thumbnail?.extension
+            Picasso.get().load(img).resize(150, 150).into(ivHeroiDoDia)
             tvNomeHeroiDoDia.text = char?.results?.get(0)?.name
             tvComHeroiDoDia.text = "Comics: " + char?.results?.get(0)?.comics?.available?.toString()
             tvSerHeroiDoDia.text = "Series: " + char?.results?.get(0)?.series?.available?.toString()
-            tvStoHeroiDoDia.text = "Stories: " + char?.results?.get(0)?.stories?.available?.toString()
+            tvStoHeroiDoDia.text =
+                "Stories: " + char?.results?.get(0)?.stories?.available?.toString()
         }
 
         cvHeroiDoDia.setOnClickListener {
             viewModelHome.retornoHeroiDia.observe(this) {
                 var id = it.data.results[0].id
-                var intent:Intent = Intent(this, DetalhePersonagemActivity::class.java)
-                intent.putExtra("idCh",id)
+                var intent: Intent = Intent(this, DetalhePersonagemActivity::class.java)
+                intent.putExtra("idCh", id)
                 startActivity(intent)
             }
         }
 
-//        viewModelHome.retornoHeroiDia.observe(this){
-//            adapterSugestoes = SugestoesAdapter(it.data.results, this)
-//            rvSugestoes.adapter = adapterSugestoes
-//            rvSugestoes.setHasFixedSize(true)
-//        }
+        viewModelHome.getAllCharactersSugestao()
+        viewModelHome.getAllComicsSugestao()
+        viewModelHome.getAllCreatorsSugestao()
+
+        viewModelHome.retornoCom.observe(this){
+            var lista = arrayListOf<ResSugestao>()
+            lista.addAll(it.data.results)
+            viewModelHome.retornoCrea.observe(this){
+                lista.add(it)
+                viewModelHome.retornoChar.observe(this){
+                    lista.add(it)
+                }
+            }
+            adapterSugestoes = SugestoesAdapter(lista, this)
+            rvSugestoes.adapter = adapterSugestoes
+            rvSugestoes.setHasFixedSize(true)
+        }
+
+
+
+
 
 
 
@@ -232,6 +254,10 @@ class HomeActivity : AppCompatActivity()
             true
         })
         popupMenu.show()
+    }
+
+    override fun sugestoesClick(position: Int) {
+        TODO("Not yet implemented")
     }
 
 

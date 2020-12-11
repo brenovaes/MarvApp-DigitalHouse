@@ -1,8 +1,9 @@
 package com.digitalhouse.br.marvelapp.entities.characters
 
+import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
 
 
-data class ResCharacters(
+class ResCharacters(
         val code : Int,
         val status : String,
         val copyright : String,
@@ -10,7 +11,7 @@ data class ResCharacters(
         val attributionHTML : String,
         val etag : String,
         val data : DataCh
-)
+): ResSugestao(tipo = 0)
 
 data class DataCh(
         val offset : Int,

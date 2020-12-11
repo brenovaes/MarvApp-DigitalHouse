@@ -1,6 +1,8 @@
 package com.digitalhouse.br.marvelapp.entities.comics
 
-data class ResComics(
+import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
+
+class ResComics(
         val code : Int,
         val status : String,
         val copyright : String,
@@ -8,7 +10,7 @@ data class ResComics(
         val attributionHTML : String,
         val etag : String,
         val data : DataCo
-)
+) : ResSugestao(tipo = 1)
 
 data class DataCo (
 
