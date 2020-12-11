@@ -182,6 +182,7 @@ class DetalheHqActivity :
 
     override fun charactersComicsClick(position: Int) {
         viewModelComics.retornoComicsCharacters.observe(this) {
+            Log.i("haractersComicsClick",it.data.results[0].id.toString() )
             activityDetalheCharacter(it.data.results[position].id)
         }
     }
