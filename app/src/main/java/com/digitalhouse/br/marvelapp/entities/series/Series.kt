@@ -1,6 +1,5 @@
 package com.digitalhouse.br.marvelapp.entities.series
 
-import com.digitalhouse.br.marvelapp.entities.comics.Items
 
 data class ResSeries (
 
@@ -49,7 +48,7 @@ data class CreatorsSe (
 
     val available : Int,
     val collectionURI : String,
-    val items : ArrayList<Items>,
+    val items : ArrayList<ItemsSe?>,
     val returned : Int
 )
 
@@ -57,7 +56,7 @@ data class CharactersSe (
 
     val available : Int,
     val collectionURI : String,
-    val items : ArrayList<Items>,
+    val items : ArrayList<ItemsSe?>,
     val returned : Int
 )
 
@@ -65,7 +64,7 @@ data class StoriesSe (
 
     val available : Int,
     val collectionURI : String,
-    val items : ArrayList<Items>,
+    val items : ArrayList<ItemsSe?>,
     val returned : Int
 )
 
@@ -73,7 +72,7 @@ data class ComicsSe(
 
     val available : Int,
     val collectionURI : String,
-    val items : ArrayList<Items>,
+    val items : ArrayList<ItemsSe?>,
     val returned : Int
 )
 
@@ -81,7 +80,7 @@ data class EventsSe (
 
     val available : Int,
     val collectionURI : String,
-    val items : ArrayList<String>,
+    val items : ArrayList<ItemsSe?>,
     val returned : Int
 )
 

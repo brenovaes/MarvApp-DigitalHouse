@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.Items
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_comics.view.*

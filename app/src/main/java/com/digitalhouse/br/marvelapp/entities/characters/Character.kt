@@ -1,6 +1,5 @@
 package com.digitalhouse.br.marvelapp.entities.characters
 
-import com.digitalhouse.br.marvelapp.entities.comics.Items
 
 
 data class ResCharacters(
@@ -38,7 +37,7 @@ data class ResultsCh (
 data class ComicsCh (
         val available : Int,
         val collectionURI : String,
-        val items : ArrayList<Items?>,
+        val items : ArrayList<ItemsCh?>,
         val returned : Int
 )
 
@@ -47,26 +46,26 @@ data class ComicsCh (
 data class EventsCh (
         val available : Int,
         val collectionURI : String,
-        val items : ArrayList<Items?>,
+        val items : ArrayList<ItemsCh?>,
         val returned : Int
 )
 
-//data class ItemsCh (
-//        val resourceURI : String,
-//        val name : String
-//)
+data class ItemsCh (
+        val resourceURI : String,
+        val name : String
+)
 
 data class SeriesCh (
         val available : Int,
         val collectionURI : String,
-        val items : ArrayList<Items?>,
+        val items : ArrayList<ItemsCh?>,
         val returned : Int
 )
 
 data class StoriesCh (
         val available : Int,
         val collectionURI : String,
-        val items : ArrayList<Items?>,
+        val items : ArrayList<ItemsCh?>,
         val returned : Int
 )
 

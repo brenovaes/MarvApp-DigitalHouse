@@ -76,10 +76,10 @@ class DetalhePersonagemActivity :
 //            adapterComics = ComicsAdapter(comics, this, null)
 //            rvComicsPersonagem.adapter = adapterComics
 
-            adapterSeries = SeriesAdapter(series,this)
+//            adapterSeries = SeriesAdapter(series,this)
             rvSeriesPersonagem.adapter = adapterSeries
 
-            adapterEventos = EventsAdapter(events, this)
+//            adapterEventos = EventsAdapter(events, this)
             rvEventosPersonagem.adapter = adapterEventos
 
 

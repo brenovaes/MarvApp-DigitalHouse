@@ -7,14 +7,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.Items
+
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
+import com.digitalhouse.br.marvelapp.entities.creators.ItemsCr
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.models.Comics
 
 
-class ComicsAdapter (var listaComics: ArrayList<Items?>, val listener: OnComicsClickListener, var name: String?): RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
+class ComicsAdapter (var listaComics: ArrayList<ItemsCr?>, val listener: OnComicsClickListener, var name: String?): RecyclerView.Adapter<ComicsAdapter.ComicsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

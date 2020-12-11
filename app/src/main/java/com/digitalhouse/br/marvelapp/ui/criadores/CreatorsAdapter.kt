@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.Items
+import com.digitalhouse.br.marvelapp.entities.creators.ItemsCr
 import com.digitalhouse.br.marvelapp.models.Creators
 
-class CreatorsAdapter (var listaCreators: ArrayList<Items?>, val listener: OnCreatorsClickListener): RecyclerView.Adapter<CreatorsAdapter.CreatorsViewHolder>() {
+class CreatorsAdapter (var listaCreators: ArrayList<ItemsCr?>, val listener: OnCreatorsClickListener): RecyclerView.Adapter<CreatorsAdapter.CreatorsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
