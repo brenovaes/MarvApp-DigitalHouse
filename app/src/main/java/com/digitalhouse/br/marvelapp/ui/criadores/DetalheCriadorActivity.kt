@@ -1,7 +1,10 @@
 package com.digitalhouse.br.marvelapp.ui.criadores
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,6 +19,7 @@ import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.service.serviceCr
+import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.squareup.picasso.Picasso
 
 
@@ -123,23 +127,35 @@ class DetalheCriadorActivity : AppCompatActivity(),
     }
 
     override fun comicsCreatorsClick(position: Int) {
-//        val comic = listaComics.get(position)
-//        adapterComics.notifyItemChanged(position)
-//        ActivityDetalheHq(comic)
-    }
-
-    override fun seriesCreatorsClick(position: Int) {
-        TODO("Not yet implemented")
+        viewModelCreators.retornoCreatorComics.observe(this) {
+            activityDetalheHq(it.data.results[position].id)
+        }
     }
 
     override fun eventsCreatorsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelCreators.retornoCreatorEvents.observe(this){
+            url = it.data.results[position].urls[0].url
+            Log.i("eventsCreatorsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 
-    fun ActivityDetalheHq(detalheHq: Comics) {
-//        var intent = Intent(this, DetalheHqActivity::class.java)
-//        intent.putExtra("ComicsCh", detalheHq)
-//        startActivity(intent)
+    override fun seriesCreatorsClick(position: Int) {
+        var url: String
+        viewModelCreators.retornoCreatorSeries.observe(this) {
+            url = it.data.results[position].urls[0].url
+            Log.i("seriesCreatorsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
+    }
+
+    fun activityDetalheHq(id: Int){
+        var intent = Intent(this, DetalheHqActivity::class.java)
+        intent.putExtra("idCo", id)
+        startActivity(intent)
     }
 
 }
