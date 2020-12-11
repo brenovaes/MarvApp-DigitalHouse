@@ -1,12 +1,9 @@
 package com.digitalhouse.br.marvelapp.ui.criadores
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,35 +13,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_criador.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.ItemsCo
-import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.models.Comics
-import com.digitalhouse.br.marvelapp.models.Events
-import com.digitalhouse.br.marvelapp.models.Series
 import com.digitalhouse.br.marvelapp.service.serviceCr
-import com.digitalhouse.br.marvelapp.ui.events.EventsAdapter
-import com.digitalhouse.br.marvelapp.ui.hqs.ComicsAdapter
-import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
-import com.digitalhouse.br.marvelapp.ui.series.SeriesAdapter
 import com.squareup.picasso.Picasso
 
 
 class DetalheCriadorActivity : AppCompatActivity(),
-        ComicsAdapter.OnComicsClickListener,
-        SeriesAdapter.OnSeriesClickListener,
-        EventsAdapter.OnEventsClickListener {
+        ComicsCreatorsAdapter.OnComicsCreatorsClickListener,
+        SeriesCreatorsAdapter.OnSeriesCreatorsClickListener,
+        EventsCreatorsAdapter.OnEventsCreatorsClickListener {
 
-    lateinit var listaComics: ArrayList<ItemsCo?>
-
-
+    //lateinit var listaComics: ArrayList<ItemsCo?>
 
     var creator = arrayListOf<ResultsCr>()
-//    var nome = context.tvNomeCriadorDetalhe)
-
-    lateinit var adapterComics: ComicsAdapter
-    lateinit var adapterSeries: SeriesAdapter
-    lateinit var adapterEventos: EventsAdapter
+    lateinit var adapterComics: ComicsCreatorsAdapter
+    lateinit var adapterSeries: SeriesCreatorsAdapter
+    lateinit var adapterEventos: EventsCreatorsAdapter
 
     val viewModelCreators by viewModels<CreatorsViewModel> {
         object : ViewModelProvider.Factory {
@@ -82,46 +67,29 @@ class DetalheCriadorActivity : AppCompatActivity(),
             Picasso.get().load(img).resize(360,280).into(ivCriadorDetalhe)
             tvNomeCriadorDetalhe.text = name
 
+            viewModelCreators.retornoCreatorComics.observe(this){
+                tvQtdComicsCriador.text = it.data.results.size.toString()
+                adapterComics = ComicsCreatorsAdapter(it.data.results, this)
+                rvComicsCriador.adapter = adapterComics
+            }
 
-            adapterComics = ComicsAdapter(comics, this, name)
-            rvComicsCriador.adapter = adapterComics
+            viewModelCreators.retornoCreatorEvents.observe(this) {
+                tvQtdEventosCriador.text = it.data.results.size.toString()
+                adapterEventos = EventsCreatorsAdapter(it.data.results, this)
+                rvEventosCriador.adapter = adapterEventos
+            }
 
-            adapterSeries = SeriesAdapter(series,this)
-            rvSeriesCriador.adapter = adapterSeries
-
-            adapterEventos = EventsAdapter(events, this)
-            rvEventosCriador.adapter = adapterEventos
-
-
-            tvQtdComicsCriador.text = comics.size.toString()
-            tvQtdSeriesCriador.text = series.size.toString()
-            tvQtdEventosCriador.text = events.size.toString()
-
-
+            viewModelCreators.retornoCreatorSeries.observe(this){
+                tvQtdSeriesCriador.text = it.data.results.size.toString()
+                adapterSeries = SeriesCreatorsAdapter(it.data.results, this)
+                rvSeriesCriador.adapter = adapterSeries
+            }
         }
+
         viewModelCreators.getCreator(idCreator)
-
-//        var img = creator[0].thumbnail.path + "." + creator[0].thumbnail.extension
-//
-
-//        this.tvNomeCriadorDetalhe.text = creator[0].fullName
-//        nome = creator[0].fullName
-
-
-//
-//        viewModelCreators.retornoCreatorComics.observe(this) {
-//            listaComics = arrayListOf(it.data.results.first().comics.items)
-//            Log.i("ID", idCreator.toString())
-//            adapterComics = ComicsAdapter(listaComics, this)
-//            rvComicsCriador.adapter = adapterComics
-//        }
-
-
-//        viewModelCreators.getCreatorComics(idCreator)
-
-
-
-
+        viewModelCreators.getCreatorComics(idCreator)
+        viewModelCreators.getCreatorEvents(idCreator)
+        viewModelCreators.getCreatorSeries(idCreator)
 
 
         rvComicsCriador.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
@@ -154,28 +122,24 @@ class DetalheCriadorActivity : AppCompatActivity(),
         return false
     }
 
-    override fun comicsClick(position: Int) {
-        val comic = listaComics.get(position)
-//        var imagem = comic.imagemComic
-//        var nome = comic.nomeComic
-//        var data = comic.dataVendaComic
-//        var criador = comic.criadorComic
-        adapterComics.notifyItemChanged(position)
+    override fun comicsCreatorsClick(position: Int) {
+//        val comic = listaComics.get(position)
+//        adapterComics.notifyItemChanged(position)
 //        ActivityDetalheHq(comic)
     }
 
-    override fun seriesClick(position: Int) {
+    override fun seriesCreatorsClick(position: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun eventsClick(position: Int) {
+    override fun eventsCreatorsClick(position: Int) {
         TODO("Not yet implemented")
     }
 
     fun ActivityDetalheHq(detalheHq: Comics) {
-        var intent = Intent(this, DetalheHqActivity::class.java)
-        intent.putExtra("ComicsCh", detalheHq)
-        startActivity(intent)
+//        var intent = Intent(this, DetalheHqActivity::class.java)
+//        intent.putExtra("ComicsCh", detalheHq)
+//        startActivity(intent)
     }
 
 }

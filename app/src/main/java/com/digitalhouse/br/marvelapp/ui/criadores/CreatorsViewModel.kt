@@ -6,16 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
+import com.digitalhouse.br.marvelapp.entities.events.ResEvents
+import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.service.RepositoryCreators
 import kotlinx.coroutines.launch
 
 class CreatorsViewModel(val serviceCreators: RepositoryCreators):ViewModel() {
 
-    var retornoCreatorSeries = MutableLiveData<ResCreators>()
-    var retornoCreatorComics = MutableLiveData<ResCreators>()
-    var retornoCreatorEvents = MutableLiveData<ResCreators>()
-    var retornoCreatorStories = MutableLiveData<ResCreators>()
     var retornoCreator = MutableLiveData<ResCreators>()
+    var retornoCreatorSeries = MutableLiveData<ResSeries>()
+    var retornoCreatorComics = MutableLiveData<ResComics>()
+    var retornoCreatorEvents = MutableLiveData<ResEvents>()
+    //var retornoCreatorStories = MutableLiveData<ResCreators>()
 
 
     fun getCreator(id: Int) {
