@@ -58,42 +58,47 @@ data class NextSe (
 
 data class CreatorsSe (
 
-        val available : Int,
-        val collectionURI : String,
-        val items : ArrayList<ItemsSe?>,
-        val returned : Int
+    val available : Int,
+    val collectionURI : String,
+    val items : ArrayList<ItemsSe?>,
+    val returned : Int
+
 )
 
 data class CharactersSe (
 
-        val available : Int,
-        val collectionURI : String,
-        val items : ArrayList<ItemsSe?>,
-        val returned : Int
+    val available : Int,
+    val collectionURI : String,
+    val items : ArrayList<ItemsSe?>,
+    val returned : Int
+
 )
 
 data class StoriesSe (
 
-        val available : Int,
-        val collectionURI : String,
-        val items : ArrayList<ItemsSe?>,
-        val returned : Int
+    val available : Int,
+    val collectionURI : String,
+    val items : ArrayList<ItemsSe?>,
+    val returned : Int
+
 )
 
 data class ComicsSe(
 
-        val available : Int,
-        val collectionURI : String,
-        val items : ArrayList<ItemsSe?>,
-        val returned : Int
+    val available : Int,
+    val collectionURI : String,
+    val items : ArrayList<ItemsSe?>,
+    val returned : Int
+
 )
 
 data class EventsSe (
 
-        val available : Int,
-        val collectionURI : String,
-        val items : ArrayList<ItemsSe?>,
-        val returned : Int
+    val available : Int,
+    val collectionURI : String,
+    val items : ArrayList<ItemsSe?>,
+    val returned : Int
+  
 )
 
 data class UrlsSe (

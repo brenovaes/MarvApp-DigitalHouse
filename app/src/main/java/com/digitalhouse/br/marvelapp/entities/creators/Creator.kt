@@ -1,6 +1,6 @@
 package com.digitalhouse.br.marvelapp.entities.creators
 
-import com.digitalhouse.br.marvelapp.entities.comics.Items
+
 
 
 data class ResCreators(
@@ -40,7 +40,7 @@ data class ComicsCr (
 
         val available : Int,
         val collectionURI : String,
-        var items: ArrayList<Items?>,
+        var items: ArrayList<ItemsCr?>,
         val returned : Int
 )
 
@@ -48,7 +48,7 @@ data class SeriesCr (
 
         val available : Int,
         val collectionURI : String,
-        val items : ArrayList<Items?>,
+        val items : ArrayList<ItemsCr?>,
         val returned : Int
 )
 
@@ -57,7 +57,7 @@ data class EventsCr (
 
         val available : Int,
         val collectionURI : String,
-        val items : ArrayList<Items?>,
+        val items : ArrayList<ItemsCr?>,
         val returned : Int
 )
 
@@ -65,17 +65,17 @@ data class StoriesCr (
 
         val available : Int,
         val collectionURI : String,
-        val items : ArrayList<Items?>,
+        val items : ArrayList<ItemsCr?>,
         val returned : Int
 )
 
 
 
-//data class Items (
-//
-//        val resourceURI : String,
-//        val name : String
-//)
+data class ItemsCr (
+
+        val resourceURI : String,
+        val name : String
+)
 
 
 data class ThumbnailCr (

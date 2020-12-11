@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
-import com.digitalhouse.br.marvelapp.entities.comics.Items
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.squareup.picasso.Picasso
 

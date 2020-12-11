@@ -10,6 +10,7 @@ import com.digitalhouse.br.marvelapp.entities.comics.SeriesCo
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
+import com.digitalhouse.br.marvelapp.entities.stories.ResStories
 import com.digitalhouse.br.marvelapp.service.RepositoryComics
 import kotlinx.coroutines.launch
 
@@ -18,8 +19,8 @@ class ComicsViewModel(val serviceComics: RepositoryComics) : ViewModel() {
     var retornoComicsSeries = MutableLiveData<ResSeries>()
     var retornoComic = MutableLiveData<ResComics>()
 
-        var retornoComicsEvents = MutableLiveData<ResEvents>()
-//    var retornoCreatorStories = MutableLiveData<ResCreators>()
+    var retornoComicsEvents = MutableLiveData<ResEvents>()
+    var retornoComicsStories = MutableLiveData<ResStories>()
     var retornoComicsCreator = MutableLiveData<ResCreators>()
     var retornoComicsCharacters = MutableLiveData<ResCharacters>()
     var idSerie = 0
@@ -107,6 +108,18 @@ class ComicsViewModel(val serviceComics: RepositoryComics) : ViewModel() {
         }
     }
 
+    fun getStoriesComic(id:Int){
+        viewModelScope.launch {
+            retornoComicsStories.value = serviceComics.getComicStoriesRepo(
+                id,
+                0,
+                10,
+                "1601900859",
+                "da0b41050b1361bf58011d9e4bb93ec3",
+                "cc144618fe69492faf88410cc664f62e"
+            )
+        }
+    }
 
 }
 
