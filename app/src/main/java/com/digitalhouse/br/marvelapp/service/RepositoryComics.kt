@@ -5,6 +5,7 @@ import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
+import com.digitalhouse.br.marvelapp.entities.stories.ResStories
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -63,7 +64,7 @@ interface RepositoryComics{
             @Query("ts")ps3:String,
             @Query("apikey")ps4:String,
             @Query("hash")ps5:String,
-    ): ResComics
+    ): ResStories
 
     @GET("comics/{id}/creators")
     suspend fun getComicCreatorsRepo(

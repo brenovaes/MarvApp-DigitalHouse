@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.Items
+import com.digitalhouse.br.marvelapp.entities.comics.ItemsCo
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.service.serviceCo
@@ -18,7 +18,7 @@ import com.digitalhouse.br.marvelapp.ui.criadores.CreatorsAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe_hq.*
 
-class CreatorsComicsAdapter (var listaCreators: ArrayList<ResultsCr>, val listener: OnCreatorsComicsClickListener, val funcao: ArrayList<Items?>): RecyclerView.Adapter<CreatorsComicsAdapter.CreatorsComicsViewHolder>() {
+class CreatorsComicsAdapter (var listaCreators: ArrayList<ResultsCr>, val listener: OnCreatorsComicsClickListener, var funcao: ArrayList<ItemsCo?>): RecyclerView.Adapter<CreatorsComicsAdapter.CreatorsComicsViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,6 +34,7 @@ class CreatorsComicsAdapter (var listaCreators: ArrayList<ResultsCr>, val listen
         var criador = listaCreators[position]
 
         holder.tvNomeCreator.text = criador.fullName
+
 
         if (funcao.get(position)?.role != null){
             holder.tvFuncaoCreator.text = funcao[position]?.role

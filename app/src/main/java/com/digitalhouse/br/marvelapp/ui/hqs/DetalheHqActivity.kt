@@ -3,7 +3,6 @@ package com.digitalhouse.br.marvelapp.ui.hqs
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -15,20 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_hq.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.EventsCo
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.models.*
 import com.digitalhouse.br.marvelapp.service.serviceCo
 import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
-import com.digitalhouse.br.marvelapp.ui.events.EventsAdapter
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
-import com.digitalhouse.br.marvelapp.ui.stories.StoriesAdapter
 import com.squareup.picasso.Picasso
-import kotlin.math.log
+
 
 class DetalheHqActivity :
     AppCompatActivity(),
-        StoriesAdapter.OnStoriesClickListener,
+        StoriesComicsAdapter.OnStoriesComicsClickListener,
         CreatorsComicsAdapter.OnCreatorsComicsClickListener,
        CharactersComicsAdapter.OnCharactersComicsClickListener,
         SeriesComicsAdapter.OnSeriesComicsClickListener,
@@ -36,7 +32,7 @@ class DetalheHqActivity :
 
 
     var comics = arrayListOf<ResultsCo>()
-    lateinit var adapterStories: StoriesAdapter
+    lateinit var adapterStories: StoriesComicsAdapter
     lateinit var adapterSeries: SeriesComicsAdapter
     lateinit var adapterEventos: EventsComicsAdapter
     lateinit var adapterCharacters: CharactersComicsAdapter
@@ -68,11 +64,6 @@ class DetalheHqActivity :
         viewModelComics.retornoComic.observe(this) {
             comics.addAll(it.data.results)
             var creators = comics[0].creators.items
-            var urlSeries = comics[0].series.resourceURI
-
-            var series = comics[0].series.items
-            var events = comics[0].events.items
-            var stories = comics[0].stories.items
 
             tvNomeHqDetalhe.text = comics[0].title
             tvDescricaoHqDetalhe.text = comics[0].description
@@ -81,25 +72,11 @@ class DetalheHqActivity :
             Picasso.get().load(img).resize(360,280).into(ivHqDetalhe)
 
 
-            adapterStories= StoriesAdapter(stories, this)
-            rvHistoriasHq.adapter = adapterStories
-
-
-
-
-
-
-
-
-            tvQtdHistoriasHq.text = stories.size.toString()
-
-
-
-
             viewModelComics.retornoComicsCreator.observe(this){
                 tvQtdCriadoresHq.text = it.data.results.size.toString()
                 adapterCreators =  CreatorsComicsAdapter(it.data.results,this, creators)
                 rvCriadoresHq.adapter = adapterCreators
+
             }
 
             viewModelComics.retornoComicsCharacters.observe(this){
@@ -124,6 +101,13 @@ class DetalheHqActivity :
 
             }
 
+            viewModelComics.retornoComicsStories.observe(this) {
+                tvQtdHistoriasHq.text = it.data.results.size.toString()
+                adapterStories = StoriesComicsAdapter(it.data.results, this)
+                rvHistoriasHq.adapter = adapterStories
+
+            }
+
         }
 
 
@@ -133,6 +117,7 @@ class DetalheHqActivity :
         //series ta em espera
 //        viewModelComics.getSeriesComic(id)
         viewModelComics.getEventsComic(idComic)
+        viewModelComics.getStoriesComic(idComic)
 
 
         rvHistoriasHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
@@ -171,9 +156,6 @@ class DetalheHqActivity :
         return false
     }
 
-    override fun storiesClick(position: Int) {
-        TODO("Not yet implemented")
-    }
 
 
     private fun ActivityDetalheCriador(creator: Creators) {
@@ -203,6 +185,10 @@ class DetalheHqActivity :
     }
 
     override fun eventsComicsClick(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun storiesComicsClick(position: Int) {
         TODO("Not yet implemented")
     }
 }

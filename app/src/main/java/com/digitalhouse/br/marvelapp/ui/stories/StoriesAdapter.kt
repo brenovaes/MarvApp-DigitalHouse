@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.Items
-import com.digitalhouse.br.marvelapp.models.Stories
+import com.digitalhouse.br.marvelapp.entities.creators.ItemsCr
 
-class StoriesAdapter (var listaStories: ArrayList<Items?>, val listener: OnStoriesClickListener): RecyclerView.Adapter<StoriesAdapter.StoriesViewHolder>() {
+
+class StoriesAdapter (var listaStories: ArrayList<ItemsCr?>, val listener: OnStoriesClickListener): RecyclerView.Adapter<StoriesAdapter.StoriesViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
