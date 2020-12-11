@@ -22,8 +22,11 @@ class CharactersComicsAdapter (var listaComics: ArrayList<ResultsCo>, val listen
     override fun onBindViewHolder(holder: CharactersComicsAdapter.CharactersComicsViewHolder, position: Int) {
         var comic = listaComics[position]
 
-        holder.tvNomeComic.text = comic.title
-        //holder.tvDataComic.text = comic.dates[0]?.date
+        if(comic != null) {
+
+            holder.tvNomeComic.text = comic.title
+            //holder.tvDataComic.text = comic.dates[0]?.date
+        }
 
         holder.tvDataComic.text = "Sale date: " + comic.dates[0]?.date.split("T")[0]
         holder.tvCriadorComic.text = "Creator(s): " + comic.creators.items[0]?.name
