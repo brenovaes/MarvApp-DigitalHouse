@@ -13,6 +13,15 @@ import retrofit2.http.Query
 
 interface RepositoryCharacters {
 
+    @GET("characters")
+    suspend fun getAllCharacterRepo(
+        @Query("offset") ps1: Int,
+        @Query("limit") ps2: Int,
+        @Query("ts") ps3: String,
+        @Query("apikey") ps4: String,
+        @Query("hash") ps5: String
+    ):  ResCharacters
+
     @GET("characters/{id}")
     suspend fun getCharacterRepo(
         @Path("id") id: Int,
