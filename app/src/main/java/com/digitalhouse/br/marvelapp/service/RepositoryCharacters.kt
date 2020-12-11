@@ -2,6 +2,7 @@ package com.digitalhouse.br.marvelapp.service
 
 
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
+import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -10,14 +11,15 @@ import retrofit2.http.Query
 
 interface RepositoryCharacters {
 
-    @GET("characters")
-    suspend fun getAllCharacters(
-            @Query("offset") ps1: Int,
-            @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String,
-    ): ResCharacters
+    @GET("characters/{id}")
+    suspend fun getCharacterRepo(
+        @Path("id") id: Int,
+        @Query("offset") ps1: Int,
+        @Query("limit") ps2: Int,
+        @Query("ts") ps3: String,
+        @Query("apikey") ps4: String,
+        @Query("hash") ps5: String
+    ):  ResCharacters
 
 
     @GET("characters/{id}/comics")
@@ -28,7 +30,7 @@ interface RepositoryCharacters {
             @Query("ts") ps3: String,
             @Query("apikey") ps4: String,
             @Query("hash") ps5: String,
-    ): ResCharacters
+    ): ResComics
 
     @GET("characters/{id}/series")
     suspend fun getCharacterSeriesRepo(

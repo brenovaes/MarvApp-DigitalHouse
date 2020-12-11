@@ -7,9 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.comics.Items
+
 import com.digitalhouse.br.marvelapp.models.Events
 
-class EventsAdapter (var listaEvents: ArrayList<Events>, val listener: OnEventsClickListener): RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
+class EventsAdapter (var listaEvents: ArrayList<Items?>, val listener: OnEventsClickListener): RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -20,10 +22,12 @@ class EventsAdapter (var listaEvents: ArrayList<Events>, val listener: OnEventsC
 
     override fun onBindViewHolder(holder: EventsViewHolder, position: Int) {
         var evento = listaEvents.get(position)
-        holder.ivImagemEvent.setImageResource(evento.imagemEvent)
-        holder.tvNomeEvent.text = evento.nomeEvent
-        holder.tvDataInicioEvent.text = evento.dataInicioEvent.toString()
-        holder.tvDataFimEvent.text = evento.dataFimEvent.toString()
+//        holder.ivImagemEvent.setImageResource(evento.imagemEvent)
+        if (evento != null) {
+            holder.tvNomeEvent.text = evento.name
+        }
+//        holder.tvDataInicioEvent.text = evento.dataInicioEvent.toString()
+//        holder.tvDataFimEvent.text = evento.dataFimEvent.toString()
 
     }
 

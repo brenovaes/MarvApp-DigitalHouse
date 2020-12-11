@@ -6,17 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
 import com.digitalhouse.br.marvelapp.models.Comics
+import com.digitalhouse.br.marvelapp.service.serviceB
+import kotlinx.android.synthetic.main.fragment_busca_criadores.*
 import kotlinx.android.synthetic.main.fragment_busca_h_q.*
 
 class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
-    var listHQ:ArrayList<Comics> = getHQ()
+    var listHQ = arrayListOf<ResultsCo>()
     private lateinit var cf: ContractDetalheCardsFragments
+    lateinit var adapterCo: BHQAdapter
 
 
-    var adapterB = BHQAdapter(listHQ, this)
+    val viewModelBusca by viewModels<BuscaViewModel>{
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return BuscaViewModel(serviceB) as T
+            }
+        }
+    }
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +48,13 @@ class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvBuscaHQ.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
-            // set the custom adapter to the RecyclerView
-            adapter = adapterB
+        viewModelBusca.retornoAllComics.observe(viewLifecycleOwner){
+            listHQ.addAll(it.data.results)
+            adapterCo= BHQAdapter(listHQ, this)
+            rvBuscaHQ.adapter = adapterCo
         }
+
+        viewModelBusca.getAllComicsBusca()
     }
 
     companion object {
@@ -47,26 +62,12 @@ class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
     }
 
 
-    fun getHQ():ArrayList<Comics>{
-        return arrayListOf(
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee")
-        )
-    }
 
     override fun bHQClick(position: Int) {
-        adapterB.notifyItemChanged(position)
-        cf.callDetalhesHQCards()
+        adapterCo.notifyItemChanged(position)
+        viewModelBusca.retornoAllComics.observe(this){
+            cf.callDetalhesHQCards(it.data.results[position].id)
+        }
     }
 
 }

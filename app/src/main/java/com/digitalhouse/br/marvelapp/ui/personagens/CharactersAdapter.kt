@@ -7,9 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.comics.Items
 import com.digitalhouse.br.marvelapp.models.Characters
 
-class CharactersAdapter (var listaCharacters: ArrayList<Characters>, val listener: OnCharactersClickListener): RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
+class CharactersAdapter (var listaCharacters: ArrayList<Items?>, val listener: OnCharactersClickListener): RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -20,8 +21,11 @@ class CharactersAdapter (var listaCharacters: ArrayList<Characters>, val listene
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         var char = listaCharacters.get(position)
-        holder.ivImagemCharacter.setImageResource(char.imagemCharacter)
-        holder.tvNomeCharacter.text = char.nomeCharacter.toString()
+        if(char != null){
+            holder.tvNomeCharacter.text = char.name
+        }
+//        holder.ivImagemCharacter.setImageResource(char.imagemCharacter)
+//        holder.tvNomeCharacter.text = char.nomeCharacter.toString()
     }
 
     override fun getItemCount() = listaCharacters.size

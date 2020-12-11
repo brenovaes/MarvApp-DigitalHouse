@@ -1,7 +1,7 @@
 package com.digitalhouse.br.marvelapp.interfac
 
 interface ContractDetalheCardsFragments {
-    fun callDetalhesPCards()
-    fun callDetalhesHQCards()
-    fun callDetalhesCCards()
+    fun callDetalhesPCards(idCharacter:Int)
+    fun callDetalhesHQCards(idComic:Int)
+    fun callDetalhesCCards(idCreator:Int)
 }

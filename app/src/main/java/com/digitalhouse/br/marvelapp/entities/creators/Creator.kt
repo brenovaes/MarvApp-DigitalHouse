@@ -1,5 +1,6 @@
 package com.digitalhouse.br.marvelapp.entities.creators
 
+import com.digitalhouse.br.marvelapp.entities.comics.Items
 
 
 data class ResCreators(
@@ -9,81 +10,81 @@ data class ResCreators(
         val attributionText : String,
         val attributionHTML : String,
         val etag : String,
-        val data: Data
+        val data: DataCr
 )
 
-data class Data(
+data class DataCr(
         val offset : Int,
         val limit : Int,
         val total : Int,
         val count : Int,
-        val results : ArrayList<Results>)
+        val results : ArrayList<ResultsCr>)
 
 
-data class Results(
+data class ResultsCr(
 
         val id : Int,
         val fullName : String,
         val modified : String,
-        val thumbnail : Thumbnail,
+        val thumbnail : ThumbnailCr,
         val resourceURI : String,
-        val comics : Comics,
-        val series: Series,
-        val stories : Stories,
-        val events : Events,
-        val urls: List<Urls>
+        val comics : ComicsCr,
+        val series: SeriesCr,
+        val stories : StoriesCr,
+        val events : EventsCr,
+        val urls: ArrayList<UrlsCr>
 
 )
 
-data class Comics (
+data class ComicsCr (
 
         val available : Int,
         val collectionURI : String,
-        val items: List<Items>,
+        var items: ArrayList<Items?>,
         val returned : Int
 )
 
-data class Series (
+data class SeriesCr (
 
         val available : Int,
         val collectionURI : String,
-        val items : List<Items>,
-        val returned : Int
-)
-
-
-data class Events (
-
-        val available : Int,
-        val collectionURI : String,
-        val items : List<String>,
-        val returned : Int
-)
-
-data class Stories (
-
-        val available : Int,
-        val collectionURI : String,
-        val items : List<Items>,
+        val items : ArrayList<Items?>,
         val returned : Int
 )
 
 
+data class EventsCr (
 
-data class Items (
+        val available : Int,
+        val collectionURI : String,
+        val items : ArrayList<Items?>,
+        val returned : Int
+)
 
-        val resourceURI : String,
-        val name : String
+data class StoriesCr (
+
+        val available : Int,
+        val collectionURI : String,
+        val items : ArrayList<Items?>,
+        val returned : Int
 )
 
 
-data class Thumbnail (
+
+//data class Items (
+//
+//        val resourceURI : String,
+//        val name : String
+//)
+
+
+data class ThumbnailCr (
 
         val path : String,
         val extension : String
 )
 
-data class Urls (
+data class UrlsCr (
 
         val type : String,
         val url : String

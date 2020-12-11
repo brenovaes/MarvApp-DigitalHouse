@@ -7,9 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.entities.comics.Items
 import com.digitalhouse.br.marvelapp.models.Creators
 
-class CreatorsAdapter (var listaCreators: ArrayList<Creators>, val listener: OnCreatorsClickListener): RecyclerView.Adapter<CreatorsAdapter.CreatorsViewHolder>() {
+class CreatorsAdapter (var listaCreators: ArrayList<Items?>, val listener: OnCreatorsClickListener): RecyclerView.Adapter<CreatorsAdapter.CreatorsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -20,9 +21,9 @@ class CreatorsAdapter (var listaCreators: ArrayList<Creators>, val listener: OnC
 
     override fun onBindViewHolder(holder: CreatorsViewHolder, position: Int) {
         var criador = listaCreators.get(position)
-        holder.ivImagemCreator.setImageResource(criador.imagemCriador)
-        holder.tvNomeCreator.text = criador.nomeCriador
-        holder.tvFuncaoCreator.text = criador.funcaoCriador
+//        holder.ivImagemCreator.setImageResource(criador.imagemCriador)
+//        holder.tvNomeCreator.text = criador.nomeCriador
+//        holder.tvFuncaoCreator.text = criador.funcaoCriador
 
     }
 

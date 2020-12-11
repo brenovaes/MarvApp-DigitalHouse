@@ -7,9 +7,14 @@ import android.view.Gravity
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
+import com.digitalhouse.br.marvelapp.service.serviceB
 import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
@@ -20,9 +25,11 @@ import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_busca.*
+import kotlinx.android.synthetic.main.fragment_busca_criadores.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 
 class BuscaActivity : AppCompatActivity(), ContractDetalheCardsFragments {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +73,8 @@ class BuscaActivity : AppCompatActivity(), ContractDetalheCardsFragments {
             }
             false
         }
+
+
     }
 
     private fun setUpTabs(){
@@ -90,16 +99,23 @@ class BuscaActivity : AppCompatActivity(), ContractDetalheCardsFragments {
         })
     }
 
-    override fun callDetalhesPCards() {
-        startActivity(Intent(this, DetalhePersonagemActivity::class.java))
+    override fun callDetalhesPCards(idCharacter:Int) {
+        var intent = Intent(this, DetalhePersonagemActivity::class.java)
+        intent.putExtra("idCh", idCharacter)
+        startActivity(intent)
+
     }
 
-    override fun callDetalhesHQCards() {
-        startActivity(Intent(this, DetalheHqActivity::class.java))
+    override fun callDetalhesHQCards(idComics:Int) {
+        var intent = Intent(this, DetalheHqActivity::class.java)
+        intent.putExtra("idCo", idComics)
+        startActivity(intent)
     }
 
-    override fun callDetalhesCCards() {
-        startActivity(Intent(this, DetalheCriadorActivity::class.java))
+    override fun callDetalhesCCards(idCreators:Int) {
+        var intent = Intent(this, DetalheCriadorActivity::class.java)
+        intent.putExtra("id", idCreators)
+        startActivity(intent)
     }
 
     private fun showPopup(view: View) {
