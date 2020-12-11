@@ -20,22 +20,26 @@ import com.digitalhouse.br.marvelapp.service.serviceCh
 import com.digitalhouse.br.marvelapp.ui.events.EventsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.ComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
+import com.digitalhouse.br.marvelapp.ui.hqs.EventsComicsAdapter
+import com.digitalhouse.br.marvelapp.ui.hqs.SeriesComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.series.SeriesAdapter
 import com.squareup.picasso.Picasso
-
+import kotlinx.android.synthetic.main.activity_detalhe_hq.*
 
 
 class DetalhePersonagemActivity :
     AppCompatActivity(),
-        //ComicsAdapter.OnComicsClickListener,
         CharactersComicsAdapter.OnCharactersComicsClickListener,
-        SeriesAdapter.OnSeriesClickListener,
-        EventsAdapter.OnEventsClickListener {
+      SeriesComicsAdapter.OnSeriesComicsClickListener,
+//        SeriesAdapter.OnSeriesClickListener,
+      EventsComicsAdapter.OnEventsComicsClickListener
+//        EventsAdapter.OnEventsClickListener
+{
 
     var character = arrayListOf<ResultsCh>()
     lateinit var adapterComics: CharactersComicsAdapter
-    lateinit var adapterSeries: SeriesAdapter
-    lateinit var adapterEventos: EventsAdapter
+    lateinit var adapterSeries: SeriesComicsAdapter
+    lateinit var adapterEventos: EventsComicsAdapter
 
     val viewModelCharacters by viewModels<CharactersViewModel> {
         object : ViewModelProvider.Factory {
@@ -76,26 +80,40 @@ class DetalhePersonagemActivity :
 //            adapterComics = ComicsAdapter(comics, this, null)
 //            rvComicsPersonagem.adapter = adapterComics
 
-            adapterSeries = SeriesAdapter(series,this)
-            rvSeriesPersonagem.adapter = adapterSeries
+//            adapterSeries = SeriesAdapter(series,this)
+//            rvSeriesPersonagem.adapter = adapterSeries
 
-            adapterEventos = EventsAdapter(events, this)
-            rvEventosPersonagem.adapter = adapterEventos
+//            adapterEventos = EventsAdapter(events, this)
+//            rvEventosPersonagem.adapter = adapterEventos
 
 
-//            tvQtdComicsPersonagem.text = comics.size.toString()
-            tvQtdEventosPersonagem.text = events.size.toString()
-            tvQtdSeriesPersonagem.text = series.size.toString()
+//              tvQtdComicsPersonagem.text = comics.size.toString()
+//              tvQtdEventosPersonagem.text = events.size.toString()
+//              tvQtdSeriesPersonagem.text = series.size.toString()
 
             viewModelCharacters.retornoCharactersComic.observe(this){
                 tvQtdComicsPersonagem.text = it.data.results.size.toString()
                 adapterComics = CharactersComicsAdapter(it.data.results, this)
                 rvComicsPersonagem.adapter = adapterComics
             }
+
+            viewModelCharacters.retornoCharactersEvents.observe(this) {
+                tvQtdEventosPersonagem.text = it.data.results.size.toString()
+                adapterEventos = EventsComicsAdapter(it.data.results, this)
+                rvEventosPersonagem.adapter = adapterEventos
+            }
+
+            viewModelCharacters.retornoCharactesSeries.observe(this){
+                tvQtdSeriesPersonagem.text = it.data.results.size.toString()
+                adapterSeries = SeriesComicsAdapter(it.data.results, this)
+                rvSeriesPersonagem.adapter = adapterSeries
+            }
         }
 
         viewModelCharacters.getCharacter(idCharacter)
         viewModelCharacters.getCharactersComics(idCharacter)
+        viewModelCharacters.getCharactersEvents(idCharacter)
+        viewModelCharacters.getCharacterSeries(idCharacter)
 
 
         rvComicsPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
@@ -135,13 +153,21 @@ class DetalhePersonagemActivity :
 //        ActivityDetalheHq(comic)
     }
 
-    override fun seriesClick(position: Int) {
+    override fun seriesComicsClick(position: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun eventsClick(position: Int) {
+//    override fun seriesClick(position: Int) {
+//        TODO("Not yet implemented")
+//    }
+
+    override fun eventsComicsClick(position: Int) {
         TODO("Not yet implemented")
     }
+
+//    override fun eventsClick(position: Int) {
+//        TODO("Not yet implemented")
+//    }
 
     fun ActivityDetalheHq (detalheHq: Comics){
         var intent = Intent(this, DetalheHqActivity::class.java)
