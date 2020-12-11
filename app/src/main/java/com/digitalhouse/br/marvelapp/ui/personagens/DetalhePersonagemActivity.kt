@@ -30,16 +30,14 @@ import kotlinx.android.synthetic.main.activity_detalhe_hq.*
 class DetalhePersonagemActivity :
     AppCompatActivity(),
         CharactersComicsAdapter.OnCharactersComicsClickListener,
-      SeriesComicsAdapter.OnSeriesComicsClickListener,
-//        SeriesAdapter.OnSeriesClickListener,
-      EventsComicsAdapter.OnEventsComicsClickListener
-//        EventsAdapter.OnEventsClickListener
-{
+        SeriesComicsAdapter.OnSeriesComicsClickListener,
+        EventsComicsAdapter.OnEventsComicsClickListener{
 
     var character = arrayListOf<ResultsCh>()
     lateinit var adapterComics: CharactersComicsAdapter
     lateinit var adapterSeries: SeriesComicsAdapter
     lateinit var adapterEventos: EventsComicsAdapter
+
 
     val viewModelCharacters by viewModels<CharactersViewModel> {
         object : ViewModelProvider.Factory {
@@ -75,21 +73,6 @@ class DetalhePersonagemActivity :
 
             var img = character[0].thumbnail.path + "." + character[0].thumbnail.extension
             Picasso.get().load(img).resize(360,280).into(ivPersonagemDetalhe)
-
-
-//            adapterComics = ComicsAdapter(comics, this, null)
-//            rvComicsPersonagem.adapter = adapterComics
-
-//            adapterSeries = SeriesAdapter(series,this)
-//            rvSeriesPersonagem.adapter = adapterSeries
-
-//            adapterEventos = EventsAdapter(events, this)
-//            rvEventosPersonagem.adapter = adapterEventos
-
-
-//              tvQtdComicsPersonagem.text = comics.size.toString()
-//              tvQtdEventosPersonagem.text = events.size.toString()
-//              tvQtdSeriesPersonagem.text = series.size.toString()
 
             viewModelCharacters.retornoCharactersComic.observe(this){
                 tvQtdComicsPersonagem.text = it.data.results.size.toString()
@@ -144,34 +127,21 @@ class DetalhePersonagemActivity :
     }
 
     override fun charactersComicsClick(position: Int) {
-//        val comic = listaComics.get(position)
-//        var imagem = comic.imagemComic
-//        var nome = comic.nomeComic
-//        var data = comic.dataVendaComic
-//        var criador = comic.criadorComic
-//        adapterComics.notifyItemChanged(position)
-//        ActivityDetalheHq(comic)
+        activityDetalheHq()
     }
 
     override fun seriesComicsClick(position: Int) {
         TODO("Not yet implemented")
     }
 
-//    override fun seriesClick(position: Int) {
-//        TODO("Not yet implemented")
-//    }
-
     override fun eventsComicsClick(position: Int) {
         TODO("Not yet implemented")
     }
 
-//    override fun eventsClick(position: Int) {
-//        TODO("Not yet implemented")
-//    }
 
-    fun ActivityDetalheHq (detalheHq: Comics){
+    fun activityDetalheHq (){
         var intent = Intent(this, DetalheHqActivity::class.java)
-        intent.putExtra("ComicsCh", detalheHq)
+        //intent.putExtra("idCo", 0)
         startActivity(intent)
     }
 }
