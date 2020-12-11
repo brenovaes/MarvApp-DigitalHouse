@@ -19,7 +19,7 @@ class ComicsCreatorsAdapter (var listaComics: ArrayList<ResultsCo>, val listener
         parent: ViewGroup,
         viewType: Int
     ): ComicsCreatorsViewHolder {
-        var itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_series, parent, false)
+        var itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_comics, parent, false)
         return ComicsCreatorsViewHolder(itemView)
     }
 
