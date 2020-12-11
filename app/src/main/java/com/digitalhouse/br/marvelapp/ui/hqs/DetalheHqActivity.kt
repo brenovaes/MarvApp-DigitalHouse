@@ -2,7 +2,9 @@ package com.digitalhouse.br.marvelapp.ui.hqs
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -158,38 +160,60 @@ class DetalheHqActivity :
 
 
 
-    private fun ActivityDetalheCriador(creator: Creators) {
+    private fun activityDetalheCriador(id: Int) {
         var intent = Intent(this, DetalheCriadorActivity::class.java)
-        intent.putExtra("ComicsCh", creator)
+        intent.putExtra("id",id)
         startActivity(intent)
     }
 
 
-    private fun ActivityDetalheCharacter(char: Characters) {
+    private fun activityDetalheCharacter(id: Int) {
         var intent = Intent(this, DetalhePersonagemActivity::class.java)
-        intent.putExtra("ComicsCh", char)
+        intent.putExtra("idCh", id)
         startActivity(intent)
     }
 
 
     override fun creatorsComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        viewModelComics.retornoComicsCreator.observe(this) {
+            activityDetalheCriador(it.data.results[position].id)
+        }
     }
 
     override fun charactersComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        viewModelComics.retornoComicsCharacters.observe(this) {
+            activityDetalheCharacter(it.data.results[position].id)
+        }
     }
 
     override fun seriesComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelComics.retornoComicsSeries.observe(this){
+            url = it.data.results[position].urls[0].url
+            Log.i("seriesComicsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 
     override fun eventsComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelComics.retornoComicsEvents.observe(this){
+            url = it.data.results[position].urls[0].url
+            Log.i("eventsComicsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 
     override fun storiesComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelComics.retornoComic.observe(this){
+            url = it.data.results[0].urls[0].url
+            Log.i("storiesComicsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 }
 

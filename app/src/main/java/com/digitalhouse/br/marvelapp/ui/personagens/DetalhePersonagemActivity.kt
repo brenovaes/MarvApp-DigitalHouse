@@ -2,7 +2,9 @@ package com.digitalhouse.br.marvelapp.ui.personagens
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -11,20 +13,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
-import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.service.serviceCh
-import com.digitalhouse.br.marvelapp.ui.events.EventsAdapter
-import com.digitalhouse.br.marvelapp.ui.hqs.ComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.hqs.EventsComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.SeriesComicsAdapter
-import com.digitalhouse.br.marvelapp.ui.series.SeriesAdapter
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detalhe_hq.*
+import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
 
 
 class DetalhePersonagemActivity :
@@ -72,7 +69,7 @@ class DetalhePersonagemActivity :
             tvDescricaoPersonagemDetalhe.text = character[0].description
 
             var img = character[0].thumbnail.path + "." + character[0].thumbnail.extension
-            Picasso.get().load(img).resize(360,280).into(ivPersonagemDetalhe)
+            Picasso.get().load(img).resize(360, 280).into(ivPersonagemDetalhe)
 
             viewModelCharacters.retornoCharactersComic.observe(this){
                 tvQtdComicsPersonagem.text = it.data.total.toString()
@@ -99,20 +96,20 @@ class DetalhePersonagemActivity :
         viewModelCharacters.getCharacterSeries(idCharacter)
 
 
-        rvComicsPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
+        rvComicsPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         rvComicsPersonagem.setHasFixedSize(true)
 
 
-        rvSeriesPersonagem.layoutManager = LinearLayoutManager(this,HORIZONTAL,false)
+        rvSeriesPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         rvSeriesPersonagem.setHasFixedSize(true)
 
 
-        rvEventosPersonagem.layoutManager = LinearLayoutManager(this,HORIZONTAL,false)
+        rvEventosPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         rvEventosPersonagem.setHasFixedSize(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_share,menu)
+        menuInflater.inflate(R.menu.menu_share, menu)
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -127,21 +124,35 @@ class DetalhePersonagemActivity :
     }
 
     override fun charactersComicsClick(position: Int) {
-        activityDetalheHq()
+        viewModelCharacters.retornoCharactersComic.observe(this) {
+            activityDetalheHq(it.data.results[position].id)
+        }
+
     }
 
     override fun seriesComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelCharacters.retornoCharactesSeries.observe(this) {
+            url = it.data.results[position].urls[0].url
+            Log.i("seriesComicsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 
     override fun eventsComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelCharacters.retornoCharactersEvents.observe(this){
+            url = it.data.results[position].urls[0].url
+            Log.i("eventsComicsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 
-
-    fun activityDetalheHq (){
+    fun activityDetalheHq(id: Int){
         var intent = Intent(this, DetalheHqActivity::class.java)
-        //intent.putExtra("idCo", 0)
+        intent.putExtra("idCo", id)
         startActivity(intent)
     }
 }
