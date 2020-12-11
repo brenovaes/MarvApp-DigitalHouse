@@ -3,44 +3,56 @@ package com.digitalhouse.br.marvelapp.entities.series
 
 data class ResSeries (
 
-    val code : Int,
-    val status : String,
-    val copyright : String,
-    val attributionText : String,
-    val attributionHTML : String,
-    val etag : String,
-    val data : DataSe
+        val code : Int,
+        val status : String,
+        val copyright : String,
+        val attributionText : String,
+        val attributionHTML : String,
+        val etag : String,
+        val data : DataSe
 )
 
 data class DataSe (
 
-    val offset : Int,
-    val limit : Int,
-    val total : Int,
-    val count : Int,
-    val results : ArrayList<ResultsSe>
+        val offset : Int,
+        val limit : Int,
+        val total : Int,
+        val count : Int,
+        val results : ArrayList<ResultsSe>
 )
 
 data class ResultsSe (
 
-    val id : Int,
-    val title : String,
-    val description : String,
-    val resourceURI : String,
-    val urls : ArrayList<UrlsSe>,
-    val startYear : Int,
-    val endYear : Int,
-    val rating : String,
-    val type : String,
-    val modified : String,
-    val thumbnail : ThumbnailSe,
-    val creators : CreatorsSe,
-    val characters : CharactersSe,
-    val stories : StoriesSe,
-    val comics : ComicsSe,
-    val events : EventsSe,
-    val next : String,
-    val previous : String
+        val id : Int,
+        val title : String,
+        val description : String,
+        val resourceURI : String,
+        val urls : ArrayList<UrlsSe>,
+        val startYear : Int,
+        val endYear : Int,
+        val rating : String,
+        val type : String,
+        val modified : String,
+        val thumbnail : ThumbnailSe,
+        val creators : CreatorsSe,
+        val characters : CharactersSe,
+        val stories : StoriesSe,
+        val comics : ComicsSe,
+        val events : EventsSe,
+        val next : NextSe,
+        val previous : PreviousSe
+)
+
+data class PreviousSe (
+
+        val resourceURI : String,
+        val name : String
+)
+
+data class NextSe (
+
+        val resourceURI : String,
+        val name : String
 )
 
 
@@ -50,6 +62,7 @@ data class CreatorsSe (
     val collectionURI : String,
     val items : ArrayList<ItemsSe?>,
     val returned : Int
+
 )
 
 data class CharactersSe (
@@ -58,6 +71,7 @@ data class CharactersSe (
     val collectionURI : String,
     val items : ArrayList<ItemsSe?>,
     val returned : Int
+
 )
 
 data class StoriesSe (
@@ -66,6 +80,7 @@ data class StoriesSe (
     val collectionURI : String,
     val items : ArrayList<ItemsSe?>,
     val returned : Int
+
 )
 
 data class ComicsSe(
@@ -74,6 +89,7 @@ data class ComicsSe(
     val collectionURI : String,
     val items : ArrayList<ItemsSe?>,
     val returned : Int
+
 )
 
 data class EventsSe (
@@ -82,23 +98,24 @@ data class EventsSe (
     val collectionURI : String,
     val items : ArrayList<ItemsSe?>,
     val returned : Int
+  
 )
 
 data class UrlsSe (
 
-    val type : String,
-    val url : String
+        val type : String,
+        val url : String
 )
 
 data class ThumbnailSe (
 
-    val path : String,
-    val extension : String
+        val path : String,
+        val extension : String
 )
 
 
 data class ItemsSe (
 
-    val resourceURI : String,
-    val name : String
+        val resourceURI : String,
+        val name : String
 )

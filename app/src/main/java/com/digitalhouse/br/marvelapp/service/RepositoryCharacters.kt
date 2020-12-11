@@ -3,6 +3,8 @@ package com.digitalhouse.br.marvelapp.service
 
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
+import com.digitalhouse.br.marvelapp.entities.events.ResEvents
+import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -40,7 +42,7 @@ interface RepositoryCharacters {
             @Query("ts") ps3: String,
             @Query("apikey") ps4: String,
             @Query("hash") ps5: String,
-    ): ResCharacters
+    ): ResSeries
 
     @GET("characters/{id}/events")
     suspend fun getCharacterEventsRepo(
@@ -50,7 +52,7 @@ interface RepositoryCharacters {
             @Query("ts") ps3: String,
             @Query("apikey") ps4: String,
             @Query("hash") ps5: String,
-    ): ResCharacters
+    ): ResEvents
 
 
     @GET("characters/{id}/stories")
