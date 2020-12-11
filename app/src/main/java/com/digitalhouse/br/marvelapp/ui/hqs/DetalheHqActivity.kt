@@ -2,7 +2,9 @@ package com.digitalhouse.br.marvelapp.ui.hqs
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -185,15 +187,33 @@ class DetalheHqActivity :
     }
 
     override fun seriesComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelComics.retornoComicsSeries.observe(this){
+            url = it.data.results[position].urls[0].url
+            Log.i("seriesComicsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 
     override fun eventsComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelComics.retornoComicsEvents.observe(this){
+            url = it.data.results[position].urls[0].url
+            Log.i("eventsComicsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 
     override fun storiesComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        var url: String
+        viewModelComics.retornoComic.observe(this){
+            url = it.data.results[0].urls[0].url
+            Log.i("storiesComicsClick", url)
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
     }
 }
 
