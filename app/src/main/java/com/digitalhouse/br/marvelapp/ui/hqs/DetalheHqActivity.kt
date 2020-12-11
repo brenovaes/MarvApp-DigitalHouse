@@ -73,14 +73,14 @@ class DetalheHqActivity :
 
 
             viewModelComics.retornoComicsCreator.observe(this){
-                tvQtdCriadoresHq.text = it.data.results.size.toString()
+                tvQtdCriadoresHq.text = it.data.total.toString()
                 adapterCreators =  CreatorsComicsAdapter(it.data.results,this, creators)
                 rvCriadoresHq.adapter = adapterCreators
 
             }
 
             viewModelComics.retornoComicsCharacters.observe(this){
-                tvQtdPersonagensHq.text = it.data.results.size.toString()
+                tvQtdPersonagensHq.text = it.data.total.toString()
                 adapterCharacters = CharactersComicsAdapter(it.data.results, this)
                 rvPersonagensHq.adapter = adapterCharacters
 
@@ -88,21 +88,21 @@ class DetalheHqActivity :
 
             //sem valor pois a função n está sendo chamada
             viewModelComics.retornoComicsSeries.observe(this) {
-                tvQtdSeriesHq.text = it.data.results.size.toString()
+                tvQtdSeriesHq.text = it.data.total.toString()
                 adapterSeries = SeriesComicsAdapter(it.data.results, this)
                 rvSeriesHq.adapter = adapterSeries
 
             }
 
             viewModelComics.retornoComicsEvents.observe(this) {
-                tvQtdEventosHq.text = it.data.results.size.toString()
+                tvQtdEventosHq.text = it.data.total.toString()
                 adapterEventos = EventsComicsAdapter(it.data.results, this)
                 rvEventosHq.adapter = adapterEventos
 
             }
 
             viewModelComics.retornoComicsStories.observe(this) {
-                tvQtdHistoriasHq.text = it.data.results.size.toString()
+                tvQtdHistoriasHq.text = it.data.total.toString()
                 adapterStories = StoriesComicsAdapter(it.data.results, this)
                 rvHistoriasHq.adapter = adapterStories
 

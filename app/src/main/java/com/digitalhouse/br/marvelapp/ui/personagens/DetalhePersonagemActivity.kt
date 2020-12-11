@@ -75,19 +75,19 @@ class DetalhePersonagemActivity :
             Picasso.get().load(img).resize(360,280).into(ivPersonagemDetalhe)
 
             viewModelCharacters.retornoCharactersComic.observe(this){
-                tvQtdComicsPersonagem.text = it.data.results.size.toString()
+                tvQtdComicsPersonagem.text = it.data.total.toString()
                 adapterComics = CharactersComicsAdapter(it.data.results, this)
                 rvComicsPersonagem.adapter = adapterComics
             }
 
             viewModelCharacters.retornoCharactersEvents.observe(this) {
-                tvQtdEventosPersonagem.text = it.data.results.size.toString()
+                tvQtdEventosPersonagem.text = it.data.total.toString()
                 adapterEventos = EventsComicsAdapter(it.data.results, this)
                 rvEventosPersonagem.adapter = adapterEventos
             }
 
             viewModelCharacters.retornoCharactesSeries.observe(this){
-                tvQtdSeriesPersonagem.text = it.data.results.size.toString()
+                tvQtdSeriesPersonagem.text = it.data.total.toString()
                 adapterSeries = SeriesComicsAdapter(it.data.results, this)
                 rvSeriesPersonagem.adapter = adapterSeries
             }

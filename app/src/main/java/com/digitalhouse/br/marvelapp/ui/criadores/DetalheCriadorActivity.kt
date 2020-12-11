@@ -68,19 +68,19 @@ class DetalheCriadorActivity : AppCompatActivity(),
             tvNomeCriadorDetalhe.text = name
 
             viewModelCreators.retornoCreatorComics.observe(this){
-                tvQtdComicsCriador.text = it.data.results.size.toString()
+                tvQtdComicsCriador.text = it.data.total.toString()
                 adapterComics = ComicsCreatorsAdapter(it.data.results, this)
                 rvComicsCriador.adapter = adapterComics
             }
 
             viewModelCreators.retornoCreatorEvents.observe(this) {
-                tvQtdEventosCriador.text = it.data.results.size.toString()
+                tvQtdEventosCriador.text = it.data.total.toString()
                 adapterEventos = EventsCreatorsAdapter(it.data.results, this)
                 rvEventosCriador.adapter = adapterEventos
             }
 
             viewModelCreators.retornoCreatorSeries.observe(this){
-                tvQtdSeriesCriador.text = it.data.results.size.toString()
+                tvQtdSeriesCriador.text = it.data.total.toString()
                 adapterSeries = SeriesCreatorsAdapter(it.data.results, this)
                 rvSeriesCriador.adapter = adapterSeries
             }
