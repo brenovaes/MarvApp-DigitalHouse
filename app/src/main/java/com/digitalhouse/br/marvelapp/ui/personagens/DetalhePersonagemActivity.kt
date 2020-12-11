@@ -127,7 +127,10 @@ class DetalhePersonagemActivity :
     }
 
     override fun charactersComicsClick(position: Int) {
-        activityDetalheHq()
+        viewModelCharacters.retornoCharactersComic.observe(this) {
+            activityDetalheHq(it.data.results[position].id)
+        }
+
     }
 
     override fun seriesComicsClick(position: Int) {
@@ -138,10 +141,9 @@ class DetalhePersonagemActivity :
         TODO("Not yet implemented")
     }
 
-
-    fun activityDetalheHq (){
+    fun activityDetalheHq (id: Int){
         var intent = Intent(this, DetalheHqActivity::class.java)
-        //intent.putExtra("idCo", 0)
+        intent.putExtra("idCo",id)
         startActivity(intent)
     }
 }

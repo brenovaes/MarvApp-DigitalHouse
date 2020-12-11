@@ -158,26 +158,30 @@ class DetalheHqActivity :
 
 
 
-    private fun ActivityDetalheCriador(creator: Creators) {
+    private fun activityDetalheCriador(id: Int) {
         var intent = Intent(this, DetalheCriadorActivity::class.java)
-        intent.putExtra("ComicsCh", creator)
+        intent.putExtra("id",id)
         startActivity(intent)
     }
 
 
-    private fun ActivityDetalheCharacter(char: Characters) {
+    private fun activityDetalheCharacter(id: Int) {
         var intent = Intent(this, DetalhePersonagemActivity::class.java)
-        intent.putExtra("ComicsCh", char)
+        intent.putExtra("idCh", id)
         startActivity(intent)
     }
 
 
     override fun creatorsComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        viewModelComics.retornoComicsCreator.observe(this) {
+            activityDetalheCriador(it.data.results[position].id)
+        }
     }
 
     override fun charactersComicsClick(position: Int) {
-        TODO("Not yet implemented")
+        viewModelComics.retornoComicsCharacters.observe(this) {
+            activityDetalheCharacter(it.data.results[position].id)
+        }
     }
 
     override fun seriesComicsClick(position: Int) {
