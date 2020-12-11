@@ -3,6 +3,9 @@ package com.digitalhouse.br.marvelapp.service
 
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
+import com.digitalhouse.br.marvelapp.entities.events.ResEvents
+import com.digitalhouse.br.marvelapp.entities.series.ResSeries
+import com.digitalhouse.br.marvelapp.entities.stories.ResStories
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -22,26 +25,26 @@ interface RepositoryCreators {
     ): ResCreators
 
 
-    @GET("creators/id/comics")
+    @GET("creators/{id}/comics")
     suspend fun getCreatorComicsRepo(
-            @Query("id") id: Int,
+            @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
             @Query("ts") ps3: String,
             @Query("apikey") ps4: String,
             @Query("hash") ps5: String
-    ): ResCreators
+    ): ResComics
 
 
-    @GET("creators/id/series")
+    @GET("creators/{id}/series")
     suspend fun getCreatorSeriesRepo(
-            @Query("id") id: Int,
+            @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
             @Query("ts") ps3: String,
             @Query("apikey") ps4: String,
             @Query("hash") ps5: String,
-    ): ResCreators
+    ): ResSeries
 
     @GET("creators/{id}/events")
     suspend fun getCreatorEventsRepo(
@@ -51,18 +54,18 @@ interface RepositoryCreators {
             @Query("ts") ps3: String,
             @Query("apikey") ps4: String,
             @Query("hash") ps5: String,
-    ): ResCreators
+    ): ResEvents
 
 
-    @GET("creators/id/stories")
+    @GET("creators/{id}/stories")
     suspend fun getCreatorStoriesRepo(
-            @Query("id") id: Int,
+            @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
             @Query("ts") ps3: String,
             @Query("apikey") ps4: String,
             @Query("hash") ps5: String,
-    ): ResCreators
+    ): ResStories
 
 
 }
