@@ -95,23 +95,23 @@ class HomeActivity : AppCompatActivity(),
             }
         }
 
-        viewModelHome.getAllCharactersSugestao()
-        viewModelHome.getAllComicsSugestao()
-        viewModelHome.getAllCreatorsSugestao()
-
-        viewModelHome.retornoCom.observe(this){
-            var lista = arrayListOf<ResSugestao>()
-            lista.addAll(it.data.results)
-            viewModelHome.retornoCrea.observe(this){
-                lista.add(it)
-                viewModelHome.retornoChar.observe(this){
-                    lista.add(it)
-                }
-            }
-            adapterSugestoes = SugestoesAdapter(lista, this)
-            rvSugestoes.adapter = adapterSugestoes
-            rvSugestoes.setHasFixedSize(true)
-        }
+//        viewModelHome.getAllCharactersSugestao()
+//        viewModelHome.getAllComicsSugestao()
+//        viewModelHome.getAllCreatorsSugestao()
+//
+//        viewModelHome.retornoCom.observe(this){
+//            var lista = arrayListOf<ResSugestao>()
+//            lista.addAll(it.data.results)
+//            viewModelHome.retornoCrea.observe(this){
+//                lista.add(it)
+//                viewModelHome.retornoChar.observe(this){
+//                    lista.add(it)
+//                }
+//            }
+//            adapterSugestoes = SugestoesAdapter(lista, this)
+//            rvSugestoes.adapter = adapterSugestoes
+//            rvSugestoes.setHasFixedSize(true)
+//        }
 
 
 
