@@ -22,7 +22,7 @@
                     android:id="@+id/cvImagemComic"
                     android:layout_width="65dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/comic"
+
                     android:layout_margin="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -37,20 +37,20 @@
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
                     android:textStyle="bold"
-                    android:text="Spider-Man: 101 Ways to End the Clone Saga (1997) #1"
+                    android:text=""
                     android:layout_marginBottom="5dp"/>
                 <TextView
                     android:id="@+id/cvDataComic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
-                    android:text="Sale date: 01/01/1997"/>
+                    android:text=""/>
                 <TextView
                     android:id="@+id/cvCriadorComic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
-                    android:text="Creator: Mark Bernardo"/>
+                    android:text=""/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

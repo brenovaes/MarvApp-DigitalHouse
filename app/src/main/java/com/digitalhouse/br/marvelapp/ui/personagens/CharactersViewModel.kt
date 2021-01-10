@@ -18,8 +18,7 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters): ViewMode
     var retornoCharactersComic = MutableLiveData<ResComics>()
     var retornoCharactersEvents = MutableLiveData<ResEvents>()
     var retornoCharactesSeries = MutableLiveData<ResSeries>()
-//    var retornoCharactersSerie = MutableLiveData<ResComics>()
-//    var retornoCharactersEvents = MutableLiveData<ResComics>()
+
 
 
     fun getCharacter(id: Int) {

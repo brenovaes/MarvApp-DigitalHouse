@@ -56,7 +56,21 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
             rvBuscaP.adapter = adapterB
         }
 
-        viewModelBusca.getAllCharactersBusca()
+        viewModelBusca.getAllCharacters()
+
+
+
+        ivBBuscaP.setOnClickListener {
+            viewModelBusca.retornoAllCharactersBusca.observe(viewLifecycleOwner) {
+                listPersonagens.clear()
+                listPersonagens.addAll(it.data.results)
+                adapterB = BPersonagemAdapter(listPersonagens, this)
+                rvBuscaP.adapter = adapterB
+            }
+
+            viewModelBusca.getAllCharactersBusca(etBBuscaP.text.toString())
+
+        }
     }
 
     companion object {

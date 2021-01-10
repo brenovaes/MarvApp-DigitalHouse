@@ -61,9 +61,9 @@ class DetalhePersonagemActivity :
 
         viewModelCharacters.retornoCharacter.observe(this){
             character.addAll(it.data.results)
-            var comics = character[0].comics.items
-            var series = character[0].series.items
-            var events = character[0].events.items
+//            var comics = character[0].comics.items
+//            var series = character[0].series.items
+//            var events = character[0].events.items
 
             tvNomePersonagemDetalhe.text = character[0].name
             tvDescricaoPersonagemDetalhe.text = character[0].description

@@ -12,12 +12,22 @@ import retrofit2.http.Query
 interface RepositoryBusca{
 
     @GET("characters")
-    suspend fun getCharactersRepo(
+    suspend fun getCharactersBuscaRepo(
         @Query("offset")ps1:Int,
         @Query("limit")ps2:Int,
         @Query("ts")ps3:String,
         @Query("apikey")ps4:String,
         @Query("hash")ps5:String,
+        @Query("nameStartsWith")ps6:String
+    ): ResCharacters
+
+    @GET("characters")
+    suspend fun getCharactersBuscaRepo(
+        @Query("offset")ps1:Int,
+        @Query("limit")ps2:Int,
+        @Query("ts")ps3:String,
+        @Query("apikey")ps4:String,
+        @Query("hash")ps5:String
     ): ResCharacters
 
 
@@ -28,6 +38,17 @@ interface RepositoryBusca{
         @Query("ts")ps3:String,
         @Query("apikey")ps4:String,
         @Query("hash")ps5:String,
+        @Query("nameStartsWith")ps6:String
+
+    ): ResCreators
+
+    @GET("creators")
+    suspend fun getCreatorsRepo(
+        @Query("offset")ps1:Int,
+        @Query("limit")ps2:Int,
+        @Query("ts")ps3:String,
+        @Query("apikey")ps4:String,
+        @Query("hash")ps5:String
     ): ResCreators
 
 
@@ -38,6 +59,16 @@ interface RepositoryBusca{
         @Query("ts")ps3:String,
         @Query("apikey")ps4:String,
         @Query("hash")ps5:String,
+        @Query("titleStartsWith")ps6:String
+    ): ResComics
+
+    @GET("comics")
+    suspend fun getComicsRepo(
+        @Query("offset")ps1:Int,
+        @Query("limit")ps2:Int,
+        @Query("ts")ps3:String,
+        @Query("apikey")ps4:String,
+        @Query("hash")ps5:String
     ): ResComics
 
 }
