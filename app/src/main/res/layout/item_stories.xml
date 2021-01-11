@@ -22,7 +22,7 @@
                     android:id="@+id/cvImagemHistoria"
                     android:layout_width="65dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/serie"
+             
                     android:layout_margin="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -37,14 +37,14 @@
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
                     android:textStyle="bold"
-                    android:text="Superior Spider-Man Vol. 2: Otto-matic (2019)"
+                    android:text=""
                     android:layout_marginBottom="5dp"/>
                 <TextView
                     android:id="@+id/cvDescricaoHistoria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
-                    android:text="Texto que representa algo da história"/>
+                    android:text=""/>
 
             </LinearLayout>
         </LinearLayout>

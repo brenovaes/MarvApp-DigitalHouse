@@ -35,7 +35,7 @@
                     android:id="@+id/ivHqDetalhe"
                     android:layout_width="360dp"
                     android:layout_height="280dp"
-                    android:src="@drawable/hq"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +71,7 @@
                                 android:id="@+id/tvNomeHqDetalhe"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="The Amazing Spider-Man True Companions Part II"
+                                android:text=""
                                 android:textSize="25dp"
                                 android:textStyle="bold"/>
                             <LinearLayout
@@ -83,7 +83,7 @@
                             android:id="@+id/tvDescricaoHqDetalhe"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="@string/desc_person"
+                            android:text=""
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"/>
 
@@ -162,7 +162,7 @@
                             android:id="@+id/tvQtdCriadoresHq"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="10"
+                            android:text=""
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -203,7 +203,7 @@
                             android:id="@+id/tvQtdPersonagensHq"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="28"
+                            android:text=""
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -244,7 +244,7 @@
                             android:id="@+id/tvQtdSeriesHq"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="1003"
+                            android:text=""
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -286,7 +286,7 @@
                             android:id="@+id/tvQtdEventosHq"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="38"
+                            android:text=""
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout

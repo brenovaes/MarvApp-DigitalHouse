@@ -22,7 +22,7 @@
                     android:id="@+id/cvImagemEvento"
                     android:layout_width="65dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/events"
+
                     android:layout_margin="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -37,20 +37,20 @@
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
                     android:textStyle="bold"
-                    android:text="Acts of Vengeance!"
+                    android:text=""
                     android:layout_marginBottom="5dp"/>
                 <TextView
                     android:id="@+id/cvDataInicioEvento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
-                    android:text="Start: 10/12/1989"/>
+                    android:text=""/>
                 <TextView
                     android:id="@+id/cvDataFinalEvento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
-                    android:text="End: 04/01/2008"/>
+                    android:text=""/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

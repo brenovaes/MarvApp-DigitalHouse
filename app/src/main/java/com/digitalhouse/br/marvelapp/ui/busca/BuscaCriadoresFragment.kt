@@ -16,7 +16,6 @@ import com.digitalhouse.br.marvelapp.service.serviceB
 import kotlinx.android.synthetic.main.fragment_busca_criadores.*
 
 
-
 class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickListener {
     var listCriadores = arrayListOf<ResultsCr>()
     private lateinit var cf: ContractDetalheCardsFragments
@@ -56,7 +55,22 @@ class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickLi
 
         }
 
-        viewModelBusca.getAllCreatorsBusca()
+        viewModelBusca.getAllCreators()
+
+
+        ivBBuscaCre.setOnClickListener{
+
+            viewModelBusca.retornoAllCreatorsBusca.observe(viewLifecycleOwner) {
+                listCriadores.clear()
+                listCriadores.addAll(it.data.results)
+                adapterC = BCriadoresAdapter(listCriadores, this)
+                rvBuscaCr.adapter = adapterC
+            }
+
+            viewModelBusca.getAllCreatorsBusca(etBBuscaCr.text.toString())
+
+        }
+
     }
 
 
