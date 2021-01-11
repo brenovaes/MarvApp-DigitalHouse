@@ -1,14 +1,14 @@
 package com.digitalhouse.br.marvelapp.models
 
-import java.io.Serializable
+import android.text.Editable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class User(val id:Int, var username:String, var password: String):Serializable {
-    lateinit var email:String
-
-    constructor ( id: Int, username: String, email: String, password: String): this(id, username,password){
-        this.email= email
-    }
-    override fun toString(): String {
-        return "User(id=$id, username='$username', email='$email', password='$password')"
-    }
+@Entity(tableName = "user")
+data class User(
+    @PrimaryKey(autoGenerate = true)
+    val id:Int = 0,
+    val username: String = "",
+    val password: String = "",
+    val email: String = "") {
 }
