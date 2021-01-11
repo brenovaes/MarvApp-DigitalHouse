@@ -35,7 +35,7 @@
                     android:id="@+id/ivCriadorDetalhe"
                     android:layout_width="360dp"
                     android:layout_height="280dp"
-                    android:src="@drawable/stanlee"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +71,7 @@
                                 android:id="@+id/tvNomeCriadorDetalhe"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Stan Lee"
+                                android:text=""
                                 android:textSize="25dp"
                                 android:textStyle="bold"/>
                             <LinearLayout
@@ -155,7 +155,7 @@
                             android:id="@+id/tvQtdComicsCriador"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="3952"
+                            android:text=""
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -196,7 +196,7 @@
                             android:id="@+id/tvQtdSeriesCriador"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="1003"
+                            android:text=""
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout

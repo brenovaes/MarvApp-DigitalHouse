@@ -17,7 +17,6 @@
           android:layout_height="75dp"
           android:layout_marginBottom="15dp">
 
-
           <EditText
               android:id="@+id/etBBuscaP"
               android:layout_width="340dp"

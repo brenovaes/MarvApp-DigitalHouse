@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.service.serviceB
 import kotlinx.android.synthetic.main.fragment_busca_criadores.*
 import kotlinx.android.synthetic.main.fragment_busca_h_q.*
+import kotlinx.android.synthetic.main.fragment_busca_personagem.*
 
 class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
     var listHQ = arrayListOf<ResultsCo>()
@@ -48,13 +50,28 @@ class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModelBusca.retornoAllComics.observe(viewLifecycleOwner){
             listHQ.addAll(it.data.results)
             adapterCo= BHQAdapter(listHQ, this)
             rvBuscaHQ.adapter = adapterCo
         }
 
-        viewModelBusca.getAllComicsBusca()
+
+        viewModelBusca.getAllComics()
+
+        ivBBuscaHQ.setOnClickListener {
+            viewModelBusca.retornoAllComicsBusca.observe(viewLifecycleOwner) {
+                listHQ.clear()
+                listHQ.addAll(it.data.results)
+                adapterCo= BHQAdapter(listHQ, this)
+                rvBuscaHQ.adapter = adapterCo
+            }
+
+            viewModelBusca.getAllComicsBusca(etBBuscaHQ.text.toString())
+
+        }
+
     }
 
     companion object {
@@ -69,5 +86,7 @@ class BuscaComicsFragment : Fragment(), BHQAdapter.OnBHQClickListener {
             cf.callDetalhesHQCards(it.data.results[position].id)
         }
     }
+
+
 
 }
