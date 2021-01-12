@@ -20,7 +20,7 @@ class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickLi
     var listCriadores = arrayListOf<ResultsCr>()
     private lateinit var cf: ContractDetalheCardsFragments
     lateinit var adapterC: BCriadoresAdapter
-
+    var busca = 0
 
 
 
@@ -63,11 +63,12 @@ class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickLi
             viewModelBusca.retornoAllCreatorsBusca.observe(viewLifecycleOwner) {
                 listCriadores.clear()
                 listCriadores.addAll(it.data.results)
-                adapterC = BCriadoresAdapter(listCriadores, this)
-                rvBuscaCr.adapter = adapterC
+                rvBuscaCr.adapter = BCriadoresAdapter(listCriadores, this)
+                busca = 1
             }
 
             viewModelBusca.getAllCreatorsBusca(etBBuscaCr.text.toString())
+
 
         }
 
@@ -81,9 +82,16 @@ class BuscaCriadoresFragment : Fragment(), BCriadoresAdapter.OnBCriadoresClickLi
 
     override fun bCriadoresClick(position: Int) {
         adapterC.notifyItemChanged(position)
-        viewModelBusca.retornoAllCreators.observe(this){
+        if (busca != 0){
+            viewModelBusca.retornoAllCreatorsBusca.observe(this){
 
-            cf.callDetalhesCCards(it.data.results[position].id)
+                cf.callDetalhesCCards(it.data.results[position].id)
+            }
+        }else{
+            viewModelBusca.retornoAllCreators.observe(this){
+
+                cf.callDetalhesCCards(it.data.results[position].id)
+            }
         }
 
     }

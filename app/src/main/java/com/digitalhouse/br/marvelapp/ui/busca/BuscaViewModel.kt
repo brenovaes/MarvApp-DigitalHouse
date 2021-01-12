@@ -21,6 +21,7 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
     var retornoAllCreatorsBusca = MutableLiveData<ResCreators>()
 
 
+
     fun getAllCreatorsBusca(word:String) {
         try {
             viewModelScope.launch {

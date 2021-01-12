@@ -20,6 +20,7 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
     var listPersonagens = arrayListOf<ResultsCh>()
     private lateinit var cf: ContractDetalheCardsFragments
     lateinit var adapterB: BPersonagemAdapter
+    var busca = 0
 
 
     val viewModelBusca by viewModels<BuscaViewModel>{
@@ -64,8 +65,8 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
             viewModelBusca.retornoAllCharactersBusca.observe(viewLifecycleOwner) {
                 listPersonagens.clear()
                 listPersonagens.addAll(it.data.results)
-                adapterB = BPersonagemAdapter(listPersonagens, this)
-                rvBuscaP.adapter = adapterB
+                rvBuscaP.adapter = BPersonagemAdapter(listPersonagens, this)
+                busca = 1
             }
 
             viewModelBusca.getAllCharactersBusca(etBBuscaP.text.toString())
@@ -81,8 +82,15 @@ class BuscaPersonagemFragment : Fragment(), BPersonagemAdapter.OnBPersonagemClic
 
     override fun bPersonagemClick(position: Int) {
         adapterB.notifyItemChanged(position)
-        viewModelBusca.retornoAllCharacters.observe(this) {
-            cf.callDetalhesPCards(it.data.results[position].id)
+        if (busca != 0){
+            viewModelBusca.retornoAllCharactersBusca.observe(this){
+                cf.callDetalhesPCards(it.data.results[position].id)
+            }
+        }else{
+            viewModelBusca.retornoAllCharacters.observe(this) {
+                cf.callDetalhesPCards(it.data.results[position].id)
+            }
         }
+
     }
 }

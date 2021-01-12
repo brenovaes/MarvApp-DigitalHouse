@@ -21,6 +21,7 @@ import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.service.serviceCr
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
 
 
 class DetalheCriadorActivity : AppCompatActivity(),
@@ -34,6 +35,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
     lateinit var adapterComics: ComicsCreatorsAdapter
     lateinit var adapterSeries: SeriesCreatorsAdapter
     lateinit var adapterEventos: EventsCreatorsAdapter
+    var fav = 0
 
     val viewModelCreators by viewModels<CreatorsViewModel> {
         object : ViewModelProvider.Factory {
@@ -107,6 +109,9 @@ class DetalheCriadorActivity : AppCompatActivity(),
         rvEventosCriador.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         rvEventosCriador.setHasFixedSize(true)
 
+        ivFavoritoDetalheCriador.setOnClickListener {
+            checkfavorite()
+        }
 
     }
 
@@ -156,6 +161,21 @@ class DetalheCriadorActivity : AppCompatActivity(),
         var intent = Intent(this, DetalheHqActivity::class.java)
         intent.putExtra("idCo", id)
         startActivity(intent)
+    }
+
+    fun checkfavorite() {
+        when(fav){
+            0->  {
+                ivFavoritoDetalheCriador.setImageResource(R.drawable.heart_filled)
+                fav = 1
+            }
+
+            1-> {
+                ivFavoritoDetalheCriador.setImageResource(R.drawable.heart)
+                fav = 0
+            }
+        }
+
     }
 
 }

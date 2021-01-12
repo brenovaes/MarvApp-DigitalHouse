@@ -23,7 +23,7 @@ class BHQAdapter(var listHQ: ArrayList<ResultsCo>, val listener: OnBHQClickListe
 
     override fun onBindViewHolder(holder: BHQViewHolder, position: Int) {
         var comic = listHQ.get(position)
-        holder.nomeCard.text = comic.title
+        holder.nomeCard.text = comic!!.title
 
         var img = comic.thumbnail.path + "." + comic.thumbnail.extension
         Picasso.get().load(img).resize(115,100).into(holder.imgCard)
