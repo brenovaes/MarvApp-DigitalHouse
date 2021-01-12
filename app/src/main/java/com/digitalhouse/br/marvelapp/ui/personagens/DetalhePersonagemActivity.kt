@@ -2,6 +2,7 @@ package com.digitalhouse.br.marvelapp.ui.personagens
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,18 +24,20 @@ import com.digitalhouse.br.marvelapp.ui.hqs.EventsComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.SeriesComicsAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
+import kotlin.math.log
 
 
 class DetalhePersonagemActivity :
-    AppCompatActivity(),
+        AppCompatActivity(),
         CharactersComicsAdapter.OnCharactersComicsClickListener,
         SeriesComicsAdapter.OnSeriesComicsClickListener,
-        EventsComicsAdapter.OnEventsComicsClickListener{
+        EventsComicsAdapter.OnEventsComicsClickListener {
 
     var character = arrayListOf<ResultsCh>()
     lateinit var adapterComics: CharactersComicsAdapter
     lateinit var adapterSeries: SeriesComicsAdapter
     lateinit var adapterEventos: EventsComicsAdapter
+    var fav = 0
 
 
     val viewModelCharacters by viewModels<CharactersViewModel> {
@@ -45,12 +49,11 @@ class DetalhePersonagemActivity :
     }
 
 
-
-
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhe_personagem)
+
 
         var idCharacter = intent.getIntExtra("idCh", 0)
 
@@ -59,7 +62,7 @@ class DetalhePersonagemActivity :
             onBackPressed()
         }
 
-        viewModelCharacters.retornoCharacter.observe(this){
+        viewModelCharacters.retornoCharacter.observe(this) {
             character.addAll(it.data.results)
 //            var comics = character[0].comics.items
 //            var series = character[0].series.items
@@ -71,7 +74,7 @@ class DetalhePersonagemActivity :
             var img = character[0].thumbnail.path + "." + character[0].thumbnail.extension
             Picasso.get().load(img).resize(360, 280).into(ivPersonagemDetalhe)
 
-            viewModelCharacters.retornoCharactersComic.observe(this){
+            viewModelCharacters.retornoCharactersComic.observe(this) {
                 tvQtdComicsPersonagem.text = it.data.total.toString()
                 adapterComics = CharactersComicsAdapter(it.data.results, this)
                 rvComicsPersonagem.adapter = adapterComics
@@ -83,7 +86,7 @@ class DetalhePersonagemActivity :
                 rvEventosPersonagem.adapter = adapterEventos
             }
 
-            viewModelCharacters.retornoCharactesSeries.observe(this){
+            viewModelCharacters.retornoCharactesSeries.observe(this) {
                 tvQtdSeriesPersonagem.text = it.data.total.toString()
                 adapterSeries = SeriesComicsAdapter(it.data.results, this)
                 rvSeriesPersonagem.adapter = adapterSeries
@@ -106,12 +109,19 @@ class DetalhePersonagemActivity :
 
         rvEventosPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         rvEventosPersonagem.setHasFixedSize(true)
+
+
+        ivFavoritoDetalhePersonagem.setOnClickListener {
+            checkfavorite()
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_share, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
@@ -142,7 +152,7 @@ class DetalhePersonagemActivity :
 
     override fun eventsComicsClick(position: Int) {
         var url: String
-        viewModelCharacters.retornoCharactersEvents.observe(this){
+        viewModelCharacters.retornoCharactersEvents.observe(this) {
             url = it.data.results[position].urls[0].url
             Log.i("eventsComicsClick", url)
             val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
@@ -150,9 +160,25 @@ class DetalhePersonagemActivity :
         }
     }
 
-    fun activityDetalheHq(id: Int){
+    fun activityDetalheHq(id: Int) {
         var intent = Intent(this, DetalheHqActivity::class.java)
         intent.putExtra("idCo", id)
         startActivity(intent)
+    }
+
+
+    fun checkfavorite() {
+        when(fav){
+            0->  {
+                ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart_filled)
+                fav = 1
+            }
+
+            1-> {
+                ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart)
+                fav = 0
+            }
+        }
+
     }
 }
