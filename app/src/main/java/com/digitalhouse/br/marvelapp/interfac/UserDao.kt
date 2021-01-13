@@ -13,4 +13,5 @@ interface UserDao {
 
     @Query("SELECT * FROM user")
     suspend fun getUser(): List<User>
+
 }

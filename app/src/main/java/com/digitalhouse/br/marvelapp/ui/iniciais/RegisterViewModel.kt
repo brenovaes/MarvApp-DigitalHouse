@@ -23,6 +23,6 @@ class RegisterViewModel (val repositoryDB: RepositoryDB) : ViewModel() {
     }
 
     fun checkPassword(s1: String, s2: String): Boolean {
-        return s1 != s2
+        return s1 == s2
     }
 }

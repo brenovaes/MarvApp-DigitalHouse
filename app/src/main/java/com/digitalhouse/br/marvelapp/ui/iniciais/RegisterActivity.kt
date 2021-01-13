@@ -3,6 +3,7 @@ package com.digitalhouse.br.marvelapp.ui.iniciais
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -41,18 +42,17 @@ class RegisterActivity : AppCompatActivity() {
         })
 
         btnCadastrar.setOnClickListener() {
-//            if (registerViewModel.checkPassword(etPasswordC.text.toString(), etRPasswordC.text.toString())) {
+            if (registerViewModel.checkPassword(etPasswordC.text.toString(), etRPasswordC.text.toString())) {
                 registerViewModel.addNewUser(
                     User(
-                        username = tvUsuario.text.toString(),
+                        username = etUsuario.text.toString(),
                         password = etPasswordC.text.toString(),
-                        email = tvEmail.text.toString()
+                        email = etEmail.text.toString()
                     )
                 )
-            registerViewModel.getAllUser()
-//            } else {
-//                showToast("Senhas diferentes!")
-//            }
+            } else {
+                showToast("Senhas diferentes!")
+            }
         }
     }
 

@@ -1,6 +1,5 @@
 package com.digitalhouse.br.marvelapp.models
 
-import android.text.Editable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,5 +9,5 @@ data class User(
     val id:Int = 0,
     val username: String = "",
     val password: String = "",
-    val email: String = "") {
+    val email: String = ""){
 }
