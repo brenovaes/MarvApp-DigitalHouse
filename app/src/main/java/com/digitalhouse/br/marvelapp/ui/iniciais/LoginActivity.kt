@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.models.User
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -39,7 +38,7 @@ class LoginActivity:  AppCompatActivity() {
 
     //falta imlementar passagem de parâmetros do user
     fun callCadastro() {
-        var intent = Intent(this, CadastroActivity::class.java)
+        var intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 
@@ -48,11 +47,11 @@ class LoginActivity:  AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun getInformationUser():User{
-        val email = tvUsuarioL.text.toString()
-        val senha = tvPasswordL.text.toString()
-
-        return User(1, email, senha)
-    }
+//    fun getInformationUser():User{
+//        val email = tvUsuarioL.text.toString()
+//        val senha = tvPasswordL.text.toString()
+//
+//        return User(1, email, senha)
+//    }
 
 }

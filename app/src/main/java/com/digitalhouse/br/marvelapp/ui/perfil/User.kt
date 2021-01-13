@@ -10,7 +10,7 @@ data class User(val id:Int, var username:String, var password: String):Serializa
     constructor ( id: Int, username: String, email: String, password: String): this(id, username,password){
         this.email= email
     }
-    override fun toString(): String {
-        return "User(id=$id, username='$username', email='$email', password='$password')"
-    }
+//    override fun toString(): String {
+//        return "User(id=$id, username='$username', email='$email', password='$password')"
+//    }
 }

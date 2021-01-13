@@ -21,7 +21,7 @@
         <activity android:name=".ui.iniciais.LoginActivity" />
         <activity android:name=".ui.perfil.PerfilActivity" />
         <activity android:name=".ui.iniciais.RedefinirSenhaActivity" />
-        <activity android:name=".ui.iniciais.CadastroActivity" />
+        <activity android:name=".ui.iniciais.RegisterActivity" />
         <activity android:name=".ui.hqs.DetalheHqActivity" />
         <activity android:name=".ui.criadores.DetalheCriadorActivity" />
         <activity android:name=".ui.personagens.DetalhePersonagemActivity" />

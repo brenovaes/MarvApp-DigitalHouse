@@ -1,6 +1,6 @@
 package com.digitalhouse.br.marvelapp.entities.creators
 
-
+import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
 
 
 data class ResCreators(
@@ -11,7 +11,7 @@ data class ResCreators(
         val attributionHTML : String,
         val etag : String,
         val data: DataCr
-)
+) : ResSugestao(tipo=2)
 
 data class DataCr(
         val offset : Int,
