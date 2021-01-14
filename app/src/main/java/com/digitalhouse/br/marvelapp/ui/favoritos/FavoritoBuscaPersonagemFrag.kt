@@ -45,16 +45,16 @@ class FavoritoBuscaPersonagemFrag : Fragment(), FavoritoAdapter.OnFavoritoPerson
 
     fun getPersonagens():ArrayList<Characters>{
         return arrayListOf(
-            Characters( 1, R.drawable.omiranha,"Nome1"),
-            Characters(2, R.drawable.omiranha,"Nome1"),
-            Characters(3, R.drawable.omiranha,"Nome2"),
-            Characters(4, R.drawable.omiranha,"Nome3"),
-            Characters(5, R.drawable.omiranha,"Nome4"),
-            Characters(6, R.drawable.omiranha,"Nome5"),
-            Characters(7, R.drawable.omiranha,"Nome6"),
-            Characters(8, R.drawable.omiranha,"Nome7"),
-            Characters(9, R.drawable.omiranha,"Nome8"),
-            Characters(10, R.drawable.omiranha,"Nome9")
+//            Characters( 1, R.drawable.omiranha,"Nome1"),
+//            Characters(2, R.drawable.omiranha,"Nome1"),
+//            Characters(3, R.drawable.omiranha,"Nome2"),
+//            Characters(4, R.drawable.omiranha,"Nome3"),
+//            Characters(5, R.drawable.omiranha,"Nome4"),
+//            Characters(6, R.drawable.omiranha,"Nome5"),
+//            Characters(7, R.drawable.omiranha,"Nome6"),
+//            Characters(8, R.drawable.omiranha,"Nome7"),
+//            Characters(9, R.drawable.omiranha,"Nome8"),
+//            Characters(10, R.drawable.omiranha,"Nome9")
         )
     }
 

@@ -1,6 +1,20 @@
 package com.digitalhouse.br.marvelapp.models
 
-import java.io.Serializable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.sql.Date
 
-data class Characters(var id: Int, var imagemCharacter: Int, var nomeCharacter: String): EntesMarvel(id, nomeCharacter, imagemCharacter),Serializable
-
+//Caso n ponha o update, deletar o posit
+@Entity
+data class Characters(
+    @PrimaryKey(autoGenerate = false)
+    val idCharacter: Int,
+    val posit: Int = 0,
+    val name: String,
+    val extension: String,
+    val path: String,
+    val comics: Int,
+    val series: Int,
+    val stories: Int,
+    val dateT:String
+)

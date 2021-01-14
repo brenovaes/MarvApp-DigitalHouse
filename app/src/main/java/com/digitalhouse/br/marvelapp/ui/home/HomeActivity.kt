@@ -4,49 +4,41 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
+import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
-import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
-import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
+import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.models.Characters
-import com.digitalhouse.br.marvelapp.models.Comics
-import com.digitalhouse.br.marvelapp.models.Creators
-import com.digitalhouse.br.marvelapp.models.EntesMarvel
-import com.digitalhouse.br.marvelapp.service.serviceCh
-import com.digitalhouse.br.marvelapp.service.serviceS
+import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
-import com.digitalhouse.br.marvelapp.ui.personagens.CharactersComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.personagens.CharactersViewModel
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.card_perfil_ranking.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
-import java.util.*
-import kotlin.collections.ArrayList
+import java.time.LocalDate
 
 class HomeActivity : AppCompatActivity(),
 //    PopularAdapter.OnPopularClickListener,
-    SugestoesAdapter.OnSugestoesClickListener
+        SugestoesAdapter.OnSugestoesClickListener
 //    HistoricoAdapter.OnHistoricoClickListener
 
 {
+    private lateinit var db: AppDataBase
+    private lateinit var repositoryHero: RepositoryHero
 
-//    var listPopulares: ArrayList<EntesMarvel> = getPopular()
+
+    //    var listPopulares: ArrayList<EntesMarvel> = getPopular()
 //    var adapterPopular = PopularAdapter(listPopulares, this)
 //    //modigicar funcao de pegar tamanho sugestões
 //    var listSugestoes: ArrayList<EntesMarvel> = getPopular()
@@ -58,7 +50,16 @@ class HomeActivity : AppCompatActivity(),
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel(serviceCh, serviceS) as T
+                return HomeViewModel(serviceCh, serviceS, repositoryHero) as T
+            }
+        }
+    }
+
+
+    val viewModelCharacters by viewModels<CharactersViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return CharactersViewModel(serviceCh) as T
             }
         }
     }
@@ -67,31 +68,64 @@ class HomeActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        initDB()
+        repositoryHero = RepositoryImplHero(db.heroDayDao())
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
         }
-        viewModelHome.getCharacter()
 
-        viewModelHome.retornoHeroiDia.observe(this) {
+        viewModelHome.getAllH()
+        viewModelHome.getHDay()
+//        viewModelCharacters.getCharacter(viewModelHome.getIdH())
 
-            var char = viewModelHome.retornoHeroiDia.value?.data
-            var img =
-                char?.results?.get(0)?.thumbnail?.path + "." + char?.results?.get(0)?.thumbnail?.extension
-            Picasso.get().load(img).resize(150, 150).into(ivHeroiDoDia)
-            tvNomeHeroiDoDia.text = char?.results?.get(0)?.name
-            tvComHeroiDoDia.text = "Comics: " + char?.results?.get(0)?.comics?.available?.toString()
-            tvSerHeroiDoDia.text = "Series: " + char?.results?.get(0)?.series?.available?.toString()
-            tvStoHeroiDoDia.text =
-                "Stories: " + char?.results?.get(0)?.stories?.available?.toString()
+
+        viewModelHome.r.observe(this) {
+            when (it) {
+                true -> viewModelHome.getCharacter()
+                false -> {
+                    viewModelHome.retornodataHSaved.observe(this) {
+
+                        when (viewModelHome.compareDate(LocalDate.now(), it)) {
+                            true -> {
+                                viewModelHome.characterSaved.observe(this) {
+                                    infoHeroDay(it)
+                                }
+                            }
+                            false -> {
+                                viewModelHome.delHero()
+                                viewModelHome.getCharacter()
+                                Log.i("Home", "DATA n é igual")
+
+                            }
+                        }
+
+                    }
+                }
+
+
+            }
+//            else {
+//                viewModelHome.retornodataHSaved.observe(this) {
+//                    if (viewModelHome.compareDate(LocalDate.now(), it)) {
+//                        viewModelHome.characterSaved.observe(this) {
+//                            infoHeroDay(it)
+//                        }
+//                    } else {
+//                        viewModelHome.delHero()
+//                        viewModelHome.getCharacter()
+//                        Log.i("Home", "DATA n é igual")
+//
+//                    }
+//                }
+//
+//            }
+
         }
 
+
         cvHeroiDoDia.setOnClickListener {
-            viewModelHome.retornoHeroiDia.observe(this) {
-                var id = it.data.results[0].id
-                var intent: Intent = Intent(this, DetalhePersonagemActivity::class.java)
-                intent.putExtra("idCh", id)
-                startActivity(intent)
+            viewModelHome.characterSaved.observe(this) {
+                detalheHeroDay(it.idCharacter)
             }
         }
 
@@ -112,12 +146,6 @@ class HomeActivity : AppCompatActivity(),
 //            rvSugestoes.adapter = adapterSugestoes
 //            rvSugestoes.setHasFixedSize(true)
 //        }
-
-
-
-
-
-
 
 
 //            character.addAll(it.data.results)
@@ -141,13 +169,13 @@ class HomeActivity : AppCompatActivity(),
 
 
         btnNavigationHome.setOnNavigationItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.menu_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.menu_busca-> {
+                R.id.menu_busca -> {
                     startActivity(Intent(this, BuscaActivity::class.java))
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -171,6 +199,7 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_setting, menu)
@@ -179,7 +208,7 @@ class HomeActivity : AppCompatActivity(),
 
     //arrumar o menu que nao esta abrindo os itens
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.help -> {
                 startActivity(Intent(this, LoginActivity::class.java))
                 return true
@@ -204,7 +233,7 @@ class HomeActivity : AppCompatActivity(),
 //        )
 //    }
 
-    fun showToast(msg:String){
+    fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
@@ -243,9 +272,9 @@ class HomeActivity : AppCompatActivity(),
 
     private fun showPopup(view: View) {
         val popupMenu: PopupMenu = PopupMenu(this, toolbarPrincipal, Gravity.RIGHT)
-        popupMenu.menuInflater.inflate(R.menu.menu_setting,popupMenu.menu)
+        popupMenu.menuInflater.inflate(R.menu.menu_setting, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.itTema ->
                     Toast.makeText(this@HomeActivity, "Changed", Toast.LENGTH_SHORT).show()
                 R.id.help ->
@@ -258,6 +287,25 @@ class HomeActivity : AppCompatActivity(),
 
     override fun sugestoesClick(position: Int) {
         TODO("Not yet implemented")
+    }
+
+    fun initDB() {
+        db = AppDataBase.invoke(this)
+    }
+
+    fun infoHeroDay(character: Characters){
+        var img = character.path + "." + character.extension
+        Picasso.get().load(img).resize(150, 150).into(ivHeroiDoDia)
+        tvNomeHeroiDoDia.text = character.name
+        tvComHeroiDoDia.text = "Comics: " + character.comics?.toString()
+        tvSerHeroiDoDia.text = "Series: " + character.series?.toString()
+        tvStoHeroiDoDia.text = "Stories: " + character.stories?.toString()
+    }
+
+    fun detalheHeroDay(id:Int){
+        var intent: Intent = Intent(this, DetalhePersonagemActivity::class.java)
+        intent.putExtra("idCh", id)
+        startActivity(intent)
     }
 
 
