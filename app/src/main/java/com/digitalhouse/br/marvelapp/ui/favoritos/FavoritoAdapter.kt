@@ -20,8 +20,8 @@ class FavoritoAdapter (var listPersonagens: ArrayList<Characters>, val listener:
 
     override fun onBindViewHolder(holder: FPersonagemViewHolder, position: Int) {
         var personagens = listPersonagens.get(position)
-        holder.imgCard.setImageResource(personagens.imagemCharacter)
-        holder.nomeCard.text = personagens.nomeCharacter
+//        holder.imgCard.setImageResource(personagens.imagemCharacter)
+//        holder.nomeCard.text = personagens.nomeCharacter
     }
 
     interface OnFavoritoPersonagemClickListener{

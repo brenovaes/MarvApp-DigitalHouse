@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.digitalhouse.br.marvelapp.interfac.HeroDayDao
 import com.digitalhouse.br.marvelapp.interfac.UserDao
+import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.User
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, Characters::class], version = 1)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun heroDayDao(): HeroDayDao
 
     companion object {
         @Volatile

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
-import com.digitalhouse.br.marvelapp.models.Characters
 import com.squareup.picasso.Picasso
 
 class BPersonagemAdapter(var listPersonagens: ArrayList<ResultsCh>, val listener: OnBPersonagemClickListener): RecyclerView.Adapter<BPersonagemAdapter.BPersonagemViewHolder>(){
