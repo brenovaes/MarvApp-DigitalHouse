@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.sql.Date
 
 //Caso n ponha o update, deletar o posit
-@Entity
+@Entity(tableName = "characters")
 data class Characters(
     @PrimaryKey(autoGenerate = false)
     val idCharacter: Int,

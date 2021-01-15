@@ -3,7 +3,6 @@ package com.digitalhouse.br.marvelapp.ui.iniciais
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -29,6 +28,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
@@ -41,6 +42,10 @@ class RegisterActivity : AppCompatActivity() {
             onBackPressed()
         })
 
+        ivLogo.setOnClickListener(){
+            registerViewModel.deleteUser()
+        }
+
         btnCadastrar.setOnClickListener() {
             if (registerViewModel.checkPassword(etPasswordC.text.toString(), etRPasswordC.text.toString())) {
                 registerViewModel.addNewUser(
@@ -50,6 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                         email = etEmail.text.toString()
                     )
                 )
+
             } else {
                 showToast("Senhas diferentes!")
             }
@@ -59,6 +65,10 @@ class RegisterActivity : AppCompatActivity() {
     fun initDB() {
         db = AppDataBase.invoke(this)
     }
+
+
+
+
 
 //    fun getInformationUser(): User {
 //        val name = tvUsuario.text.toString()

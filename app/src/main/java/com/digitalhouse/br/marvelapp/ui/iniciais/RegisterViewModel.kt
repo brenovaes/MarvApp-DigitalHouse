@@ -16,6 +16,20 @@ class RegisterViewModel (val repositoryDB: RepositoryDB) : ViewModel() {
             repositoryDB.addUserTask(user)
         }
     }
+
+    fun deleteUser() {
+        viewModelScope.launch {
+            repositoryDB.deleteByUserIdTask()
+            update()
+        }
+    }
+
+    fun update() {
+        viewModelScope.launch {
+            repositoryDB.updateTask()
+        }
+    }
+
     fun getAllUser(){
         viewModelScope.launch {
             listaUser.value = repositoryDB.getAllUserTask()

@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.models.EntesMarvel
+import com.digitalhouse.br.marvelapp.models.HistoryDB
 
 
-class PopularAdapter(var listPopulares: ArrayList<EntesMarvel>, val listener: OnPopularClickListener): RecyclerView.Adapter<PopularAdapter.PopularViewHolder>(){
+class PopularAdapter(var listPopulares: ArrayList<HistoryDB>, val listener: OnPopularClickListener): RecyclerView.Adapter<PopularAdapter.PopularViewHolder>(){
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
             var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
@@ -22,7 +22,7 @@ class PopularAdapter(var listPopulares: ArrayList<EntesMarvel>, val listener: On
 
         override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
             var popular = listPopulares.get(position)
-            holder.imgCard.setImageResource(popular.img)
+//            holder.imgCard.setImageResource(popular.img)
             holder.nomeCard.text = popular.nome
         }
 

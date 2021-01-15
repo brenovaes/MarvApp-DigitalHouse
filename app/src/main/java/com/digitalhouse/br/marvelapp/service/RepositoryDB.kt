@@ -9,6 +9,8 @@ import java.time.LocalDate
 interface RepositoryDB {
     suspend fun addUserTask(user: User)
     suspend fun getAllUserTask() : List<User>
+    suspend fun deleteByUserIdTask()
+    suspend fun updateTask()
 
 }
 
@@ -26,6 +28,10 @@ class RepositoryImpl (val userDao: UserDao): RepositoryDB {
     override suspend fun addUserTask(user: User) = userDao.addUser(user)
 
     override suspend fun getAllUserTask() = userDao.getUser()
+
+    override suspend fun deleteByUserIdTask() = userDao.deleteByUserId()
+
+    override suspend fun updateTask() = userDao.update()
 
 }
 
