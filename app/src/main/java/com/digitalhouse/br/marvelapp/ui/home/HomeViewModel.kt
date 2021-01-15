@@ -10,14 +10,10 @@ import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
 import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
-import com.digitalhouse.br.marvelapp.service.RepositoryDB
 import com.digitalhouse.br.marvelapp.service.RepositoryHero
 import com.digitalhouse.br.marvelapp.service.RepositorySugestao
 import kotlinx.coroutines.launch
-import java.sql.Date
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class HomeViewModel(
@@ -34,7 +30,7 @@ class HomeViewModel(
     var retornoChar = MutableLiveData<ResCharacters>()
     var retornoCrea = MutableLiveData<ResCreators>()
     var retornoCom = MutableLiveData<ResComics>()
-    var r = MutableLiveData<Boolean>()
+    var retornoHeroDB = MutableLiveData<Boolean>()
 
 
     var retornodataHSaved = MutableLiveData<String>()
@@ -83,8 +79,8 @@ class HomeViewModel(
 
     fun getAllH(){
         viewModelScope.launch {
-             r.value = repositoryDB.getAll() == null
-            if (r.value != null)
+             retornoHeroDB.value = repositoryDB.getAll() == null
+            if (retornoHeroDB.value != null)
                 characterSaved.value = repositoryDB.getAll()
 
         }
@@ -96,6 +92,7 @@ class HomeViewModel(
         }
     }
 
+    //Pega data que o heroi foi gerado
     fun getHDay(){
       viewModelScope.launch {
           retornodataHSaved.value = repositoryDB.getHeroDay()
@@ -130,22 +127,7 @@ class HomeViewModel(
         val rand = Random()
         return rand.nextInt(to - from) + from
     }
-//
-//    fun addNewHeroDay(){
-//        viewModelScope.launch {
-//            var id = retornoHeroiDia.value!!.data.results[0].id
-//            var name =  retornoHeroiDia.value!!.data.results[0].name
-//            var extension = retornoHeroiDia.value!!.data.results[0].thumbnail.extension
-//            var path = retornoHeroiDia.value!!.data.results[0].thumbnail.path
-//            var comics = retornoHeroiDia.value!!.data.results[0].comics.available
-//            var series = retornoHeroiDia.value!!.data.results[0].series.available
-//            var stories = retornoHeroiDia.value!!.data.results[0].stories.available
-//
-//            repositoryDB.addHeroDay(Characters(id, name, extension, path, comics, series, stories))
-//
-//        }
-//
-//    }
+
 
 
     fun getAllCreatorsSugestao() {

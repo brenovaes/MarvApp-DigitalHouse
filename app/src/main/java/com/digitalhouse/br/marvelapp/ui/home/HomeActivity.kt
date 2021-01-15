@@ -1,7 +1,10 @@
 package com.digitalhouse.br.marvelapp.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +23,6 @@ import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
-import com.digitalhouse.br.marvelapp.ui.personagens.CharactersViewModel
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.squareup.picasso.Picasso
@@ -56,30 +58,29 @@ class HomeActivity : AppCompatActivity(),
     }
 
 
-    val viewModelCharacters by viewModels<CharactersViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return CharactersViewModel(serviceCh) as T
-            }
-        }
-    }
 
     @SuppressLint("WrongConstant", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        Log.i("NETWORK", netOnline(this).toString())
+
+
         initDB()
         repositoryHero = RepositoryImplHero(db.heroDayDao())
+
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
         }
 
+        var context:Context = this
         viewModelHome.getAllH()
         viewModelHome.getHDay()
-//        viewModelCharacters.getCharacter(viewModelHome.getIdH())
 
 
-        viewModelHome.r.observe(this) {
+
+        viewModelHome.retornoHeroDB.observe(this) {
             when (it) {
                 true -> viewModelHome.getCharacter()
                 false -> {
@@ -92,9 +93,9 @@ class HomeActivity : AppCompatActivity(),
                                 }
                             }
                             false -> {
+                                Log.i("Home", "DATA n é igual")
                                 viewModelHome.delHero()
                                 viewModelHome.getCharacter()
-                                Log.i("Home", "DATA n é igual")
 
                             }
                         }
@@ -102,23 +103,7 @@ class HomeActivity : AppCompatActivity(),
                     }
                 }
 
-
             }
-//            else {
-//                viewModelHome.retornodataHSaved.observe(this) {
-//                    if (viewModelHome.compareDate(LocalDate.now(), it)) {
-//                        viewModelHome.characterSaved.observe(this) {
-//                            infoHeroDay(it)
-//                        }
-//                    } else {
-//                        viewModelHome.delHero()
-//                        viewModelHome.getCharacter()
-//                        Log.i("Home", "DATA n é igual")
-//
-//                    }
-//                }
-//
-//            }
 
         }
 
@@ -308,5 +293,10 @@ class HomeActivity : AppCompatActivity(),
         startActivity(intent)
     }
 
-
+    fun netOnline(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
+    }
 }
+
