@@ -41,7 +41,6 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
                 )
-                var id = retornoComic.value!!.data.results[0].id
                 var nome = retornoComic.value!!.data.results[0].title
                 var path = retornoComic.value!!.data.results[0].thumbnail.path
                 var extension = retornoComic.value!!.data.results[0].thumbnail.extension

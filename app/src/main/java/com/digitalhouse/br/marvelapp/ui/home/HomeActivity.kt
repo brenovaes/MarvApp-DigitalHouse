@@ -28,29 +28,29 @@ import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.card_perfil_ranking.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 import java.time.LocalDate
 
 class HomeActivity : AppCompatActivity(),
 //    PopularAdapter.OnPopularClickListener,
-        SugestoesAdapter.OnSugestoesClickListener
-//    HistoricoAdapter.OnHistoricoClickListener
+    SugestoesAdapter.OnSugestoesClickListener,
+    HistoryAdapter.OnHistoricoClickListener {
 
-{
     private lateinit var db: AppDataBase
     private lateinit var repositoryHero: RepositoryHero
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var adapterHistory: HistoryAdapter
+    var listHistory =  arrayListOf<HistoryDB>()
 
 
     //    var listPopulares: ArrayList<EntesMarvel> = getPopular()
 //    var adapterPopular = PopularAdapter(listPopulares, this)
 //    //modigicar funcao de pegar tamanho sugestões
 //    var listSugestoes: ArrayList<EntesMarvel> = getPopular()
-    lateinit var adapterSugestoes: SugestoesAdapter
+//    lateinit var adapterSugestoes: SugestoesAdapter
 //    //modigicar funcao de pegar tamanho do historico
-//    var listHistorico: ArrayList<EntesMarvel> = getPopular()
-//    var adapterHistorico = HistoricoAdapter(listHistorico, this)
+
 
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
@@ -77,7 +77,7 @@ class HomeActivity : AppCompatActivity(),
             showPopup(btnSetting)
         }
 
-        var context:Context = this
+        var context: Context = this
         viewModelHome.getAllH()
         viewModelHome.getHDay()
 
@@ -153,8 +153,15 @@ class HomeActivity : AppCompatActivity(),
 //
 
 //
-//        rvHistorico.adapter = adapterHistorico
-//        rvHistorico.setHasFixedSize(true)
+        viewModelHome.getAllHistory()
+
+        viewModelHome.retornoHistory.observe(this) {
+            listHistory.addAll(it)
+            adapterHistory = HistoryAdapter(listHistory, this)
+            rvHistorico.adapter = adapterHistory
+            rvHistorico.setHasFixedSize(true)
+        }
+
 
 
         btnNavigationHome.setOnNavigationItemSelectedListener {
@@ -282,7 +289,7 @@ class HomeActivity : AppCompatActivity(),
         db = AppDataBase.invoke(this)
     }
 
-    fun infoHeroDay(character: Characters){
+    fun infoHeroDay(character: Characters) {
         var img = character.path + "." + character.extension
         Picasso.get().load(img).resize(150, 150).into(ivHeroiDoDia)
         tvNomeHeroiDoDia.text = character.name
@@ -291,7 +298,7 @@ class HomeActivity : AppCompatActivity(),
         tvStoHeroiDoDia.text = "Stories: " + character.stories?.toString()
     }
 
-    fun detalheHeroDay(id:Int){
+    fun detalheHeroDay(id: Int) {
         var intent: Intent = Intent(this, DetalhePersonagemActivity::class.java)
         intent.putExtra("idCh", id)
         startActivity(intent)
@@ -301,6 +308,10 @@ class HomeActivity : AppCompatActivity(),
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         return activeNetwork?.isConnectedOrConnecting == true
+    }
+
+    override fun historicoClick(position: Int) {
+
     }
 }
 

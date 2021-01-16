@@ -40,7 +40,6 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
                 )
-                var id = retornoCharacter.value!!.data.results[0].id
                 var nome = retornoCharacter.value!!.data.results[0].name
                 var path = retornoCharacter.value!!.data.results[0].thumbnail.path
                 var extension = retornoCharacter.value!!.data.results[0].thumbnail.extension

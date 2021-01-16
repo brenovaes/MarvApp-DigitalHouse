@@ -34,7 +34,7 @@ class HomeViewModel(
     var retornoCrea = MutableLiveData<ResCreators>()
     var retornoCom = MutableLiveData<ResComics>()
     var retornoHeroDB = MutableLiveData<Boolean>()
-    var retornoHistory = MutableLiveData<HistoryDB>()
+    var retornoHistory = MutableLiveData<List<HistoryDB>>()
 
 
     var retornodataHSaved = MutableLiveData<String>()
@@ -132,7 +132,11 @@ class HomeViewModel(
         return rand.nextInt(to - from) + from
     }
 
-
+    fun getAllHistory(){
+        viewModelScope.launch {
+            retornoHistory.value = repositoryHistory.getAllHistoryTask()
+        }
+    }
 
     fun getAllCreatorsSugestao() {
         viewModelScope.launch {

@@ -38,7 +38,6 @@ class CreatorsViewModel(
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
                 )
-                var id = retornoCreator.value!!.data.results[0].id
                 var nome = retornoCreator.value!!.data.results[0].fullName
                 var path = retornoCreator.value!!.data.results[0].thumbnail.path
                 var extension = retornoCreator.value!!.data.results[0].thumbnail.extension

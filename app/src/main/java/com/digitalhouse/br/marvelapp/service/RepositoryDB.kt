@@ -46,7 +46,7 @@ class RepositoryImplHero(val heroDayDao: HeroDayDao):RepositoryHero{
 }
 
 class RepositoryImplHistory (val historyDao: HistoryDao): RepositoryHistory{
-    override suspend fun getAllHistoryTask() = historyDao.getAllHistory()
+    override suspend fun getAllHistoryTask(): List<HistoryDB> = historyDao.getAllHistory()
     override suspend fun addHistoryTask(historyDB: HistoryDB) = historyDao.addHistory(historyDB)
     override suspend fun getCountHistoryTask(): Int = historyDao.getCountHistory()
     override suspend fun updateNewHistoryTask() = historyDao.updateNewHistory()
