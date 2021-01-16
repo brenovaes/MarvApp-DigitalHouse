@@ -17,7 +17,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
+import com.digitalhouse.br.marvelapp.service.RepositoryHistory
+import com.digitalhouse.br.marvelapp.service.RepositoryImplHistory
 import com.digitalhouse.br.marvelapp.service.serviceCh
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.hqs.EventsComicsAdapter
@@ -37,13 +40,14 @@ class DetalhePersonagemActivity :
     lateinit var adapterComics: CharactersComicsAdapter
     lateinit var adapterSeries: SeriesComicsAdapter
     lateinit var adapterEventos: EventsComicsAdapter
+    private lateinit var repositoryHistory: RepositoryHistory
     var fav = 0
 
 
     val viewModelCharacters by viewModels<CharactersViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return CharactersViewModel(serviceCh) as T
+                return CharactersViewModel(serviceCh, repositoryHistory) as T
             }
         }
     }
@@ -54,6 +58,7 @@ class DetalhePersonagemActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhe_personagem)
 
+        repositoryHistory = RepositoryImplHistory(AppDataBase.invoke(this).historyDao())
 
         var idCharacter = intent.getIntExtra("idCh", 0)
 

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
-import com.digitalhouse.br.marvelapp.models.EntesMarvel
 
 
 class SugestoesAdapter(var listSugestoes: ArrayList<ResSugestao>, val listener: OnSugestoesClickListener): RecyclerView.Adapter<SugestoesAdapter.SugestoesViewHolder>(){

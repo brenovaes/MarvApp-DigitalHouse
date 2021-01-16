@@ -10,16 +10,16 @@ interface HeroDayDao {
     @Insert
     suspend fun addHeroDay(character: Characters)
 
-    @Query("SELECT dateT FROM Characters WHERE posit = 0")
+    @Query("SELECT dateT FROM characters WHERE posit = 0")
     suspend fun getHeroDay():String
 
-    @Query("SELECT idCharacter FROM Characters WHERE posit = 0")
+    @Query("SELECT idCharacter FROM characters WHERE posit = 0")
     suspend fun getIdHero():Int
 
-    @Query("SELECT * FROM Characters")
+    @Query("SELECT * FROM characters")
     suspend fun getAll():Characters?
 
-    @Query("DELETE FROM Characters WHERE posit = 0")
+    @Query("DELETE FROM characters WHERE posit = 0")
     suspend fun deleteHeroDay()
 
 //    @Update(entity = Characters::class )

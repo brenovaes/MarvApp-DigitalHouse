@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.models.Characters
+import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
@@ -38,6 +39,8 @@ class HomeActivity : AppCompatActivity(),
 {
     private lateinit var db: AppDataBase
     private lateinit var repositoryHero: RepositoryHero
+    private lateinit var repositoryHistory: RepositoryHistory
+    private lateinit var adapterHistory: HistoryAdapter
 
 
     //    var listPopulares: ArrayList<EntesMarvel> = getPopular()
@@ -52,11 +55,10 @@ class HomeActivity : AppCompatActivity(),
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel(serviceCh, serviceS, repositoryHero) as T
+                return HomeViewModel(serviceCh, serviceS, repositoryHero, repositoryHistory) as T
             }
         }
     }
-
 
 
     @SuppressLint("WrongConstant", "SetTextI18n")
@@ -69,6 +71,7 @@ class HomeActivity : AppCompatActivity(),
 
         initDB()
         repositoryHero = RepositoryImplHero(db.heroDayDao())
+        repositoryHistory = RepositoryImplHistory(db.historyDao())
 
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
@@ -77,6 +80,7 @@ class HomeActivity : AppCompatActivity(),
         var context:Context = this
         viewModelHome.getAllH()
         viewModelHome.getHDay()
+
 
 
 

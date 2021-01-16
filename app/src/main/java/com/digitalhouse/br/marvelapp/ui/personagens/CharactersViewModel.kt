@@ -11,11 +11,15 @@ import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
+import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
+import com.digitalhouse.br.marvelapp.service.RepositoryHistory
 import kotlinx.coroutines.launch
 
 
-class CharactersViewModel(val serviceCharacters: RepositoryCharacters): ViewModel() {
+class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
+                          val repositoryHistory: RepositoryHistory
+): ViewModel() {
 
     var retornoCharacter = MutableLiveData<ResCharacters>()
     var retornoCharactersComic = MutableLiveData<ResComics>()
@@ -36,6 +40,12 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters): ViewMode
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
                 )
+                var id = retornoCharacter.value!!.data.results[0].id
+                var nome = retornoCharacter.value!!.data.results[0].name
+                var path = retornoCharacter.value!!.data.results[0].thumbnail.path
+                var extension = retornoCharacter.value!!.data.results[0].thumbnail.extension
+                var tipo = "character"
+                populateCharactersHistory(HistoryDB(id, nome, extension, path, tipo))
 
 //                Log.i("getCreator", retornoCreator.value.toString())
             }
@@ -98,7 +108,11 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters): ViewMode
         }
     }
 
-
+    fun populateCharactersHistory(character: HistoryDB) {
+        viewModelScope.launch {
+            repositoryHistory.addHistoryTask(character)
+        }
+    }
 
 
 }

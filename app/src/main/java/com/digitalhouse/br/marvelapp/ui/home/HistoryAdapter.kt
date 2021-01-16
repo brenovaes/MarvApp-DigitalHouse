@@ -7,22 +7,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.models.EntesMarvel
+import com.digitalhouse.br.marvelapp.models.HistoryDB
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_home.*
 
 
-class HistoricoAdapter(var listHistorico: ArrayList<EntesMarvel>, val listener: OnHistoricoClickListener): RecyclerView.Adapter<HistoricoAdapter.HistoricoViewHolder>(){
+class HistoryAdapter(var listHistorico: ArrayList<HistoryDB>, val listener: OnHistoricoClickListener): RecyclerView.Adapter<HistoryAdapter.HistoricoViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoricoViewHolder {
         var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
         return HistoricoViewHolder(itemView)
     }
 
-
     override fun getItemCount() = listHistorico.size
 
     override fun onBindViewHolder(holder: HistoricoViewHolder, position: Int) {
         var historico = listHistorico.get(position)
-        holder.imgCard.setImageResource(historico.img)
+        var img = historico.path + "." + historico.extension
+        Picasso.get().load(img).resize(150, 150).into(holder.imgCard)
         holder.nomeCard.text = historico.nome
     }
 
@@ -33,21 +35,16 @@ class HistoricoAdapter(var listHistorico: ArrayList<EntesMarvel>, val listener: 
     inner class HistoricoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
-        //falta a parte das estrelas
 
         init {
             itemView.setOnClickListener(this)
         }
-
 
         override fun onClick(v: View?) {
             val position = adapterPosition
             if (RecyclerView.NO_POSITION != position)
                 listener.historicoClick(position)
             //redirecionar para o detalhe do card (personagem, criador ou HQ)
-
         }
-
     }
-
 }

@@ -16,8 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_criador.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.models.Comics
+import com.digitalhouse.br.marvelapp.models.HistoryDB
+import com.digitalhouse.br.marvelapp.service.RepositoryHistory
+import com.digitalhouse.br.marvelapp.service.RepositoryImplHistory
 import com.digitalhouse.br.marvelapp.service.serviceCr
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.squareup.picasso.Picasso
@@ -35,12 +39,16 @@ class DetalheCriadorActivity : AppCompatActivity(),
     lateinit var adapterComics: ComicsCreatorsAdapter
     lateinit var adapterSeries: SeriesCreatorsAdapter
     lateinit var adapterEventos: EventsCreatorsAdapter
+
+//    lateinit var db:AppDataBase
+    private lateinit var repositoryHistory: RepositoryHistory
+
     var fav = 0
 
     val viewModelCreators by viewModels<CreatorsViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return CreatorsViewModel(serviceCr) as T
+                return CreatorsViewModel(serviceCr, repositoryHistory) as T
             }
         }
     }
@@ -52,6 +60,8 @@ class DetalheCriadorActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhe_criador)
+
+        repositoryHistory = RepositoryImplHistory(AppDataBase.invoke(this).historyDao())
 
         var idCreator = intent.getIntExtra("id", 0)
 
