@@ -18,7 +18,6 @@ interface HistoryDao {
     @Query ("SELECT COUNT(id) FROM history")
     suspend fun getCountHistory(): Int
 
-//    @Query("SELECT MIN(id) FROM history WHERE condition")
-//    suspend fun updateNewHistory(): List<HistoryDB>
-
+    @Query("DELETE FROM history WHERE (SELECT MIN(id) FROM history)")
+    suspend fun updateNewHistory()
 }

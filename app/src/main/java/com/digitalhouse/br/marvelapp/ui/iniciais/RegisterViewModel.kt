@@ -17,18 +17,12 @@ class RegisterViewModel (val repositoryDB: RepositoryDB) : ViewModel() {
         }
     }
 
-    fun deleteUser() {
-        viewModelScope.launch {
-            repositoryDB.deleteByUserIdTask()
-            update()
-        }
-    }
-
-    fun update() {
-        viewModelScope.launch {
-            repositoryDB.updateTask()
-        }
-    }
+//    fun deleteUser() {
+//        viewModelScope.launch {
+//            repositoryDB.deleteByUserIdTask()
+//            update()
+//        }
+//    }
 
     fun getAllUser(){
         viewModelScope.launch {

@@ -42,10 +42,6 @@ class RegisterActivity : AppCompatActivity() {
             onBackPressed()
         })
 
-        ivLogo.setOnClickListener(){
-            registerViewModel.deleteUser()
-        }
-
         btnCadastrar.setOnClickListener() {
             if (registerViewModel.checkPassword(etPasswordC.text.toString(), etRPasswordC.text.toString())) {
                 registerViewModel.addNewUser(

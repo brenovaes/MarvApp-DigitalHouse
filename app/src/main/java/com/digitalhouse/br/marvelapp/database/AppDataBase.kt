@@ -11,12 +11,12 @@ import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.User
 
-@Database(entities = [User::class, Characters::class], version = 1)
+@Database(entities = [User::class, Characters::class, HistoryDB::class], version = 2)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun heroDayDao(): HeroDayDao
-//    abstract fun HistoryDao(): HistoryDao
+    abstract fun historyDao(): HistoryDao
 
     companion object {
         @Volatile
@@ -25,6 +25,8 @@ abstract class AppDataBase : RoomDatabase() {
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
             instance ?: buildDatabase(context).also { instance = it }
         }
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(context, AppDataBase::class.java, "marvel_db.db").build()
+        private fun buildDatabase(context: Context) = Room.databaseBuilder(context, AppDataBase::class.java, "marvel_db.db")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }
