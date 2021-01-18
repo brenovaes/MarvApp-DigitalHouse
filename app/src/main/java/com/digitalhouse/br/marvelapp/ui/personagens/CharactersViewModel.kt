@@ -8,17 +8,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
+import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
+import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.models.HistoryDB
+import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
+import com.digitalhouse.br.marvelapp.service.RepositorySuggestions
 import kotlinx.coroutines.launch
 
 
 class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
-                          val repositoryHistory: RepositoryHistory
+                          val repositoryHistory: RepositoryHistory,
+                          val repositorySuggestions: RepositorySuggestions
 ): ViewModel() {
 
     var retornoCharacter = MutableLiveData<ResCharacters>()
@@ -65,6 +70,7 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                         "cc144618fe69492faf88410cc664f62e"
                 )
                 //Log.i("getCharactersComics", retornoCharactersComic.value.toString())
+                getResCharacterComics(retornoCharactersComic.value!!.data.results)
             }
         }catch (e: Exception){
             Log.i("getCharactersComics", e.toString())
@@ -110,6 +116,20 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
     fun populateCharactersHistory(character: HistoryDB) {
         viewModelScope.launch {
             repositoryHistory.addHistoryTask(character)
+        }
+    }
+
+    fun getResCharacterComics(listComics: ArrayList<ResultsCo>){
+        if (listComics.isNotEmpty()) {
+            var comic = listComics.random()
+            var suggestion = Suggestions(comic.id, comic.title, comic.thumbnail.extension, comic.thumbnail.path, "comics")
+            populateSuggestions(suggestion)
+        }
+    }
+
+    fun populateSuggestions(suggestion: Suggestions) {
+        viewModelScope.launch {
+            repositorySuggestions.addSuggestionsTask(suggestion)
         }
     }
 

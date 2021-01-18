@@ -18,6 +18,7 @@ import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.HistoryDB
+import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
@@ -28,7 +29,6 @@ import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.card_perfil_ranking.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 import java.time.LocalDate
 
@@ -39,23 +39,27 @@ class HomeActivity : AppCompatActivity(),
 
     private lateinit var db: AppDataBase
     private lateinit var repositoryHero: RepositoryHero
+
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var adapterHistory: HistoryAdapter
     var listHistory =  arrayListOf<HistoryDB>()
+
+    private lateinit var repositorySuggestions: RepositorySuggestions
+    private lateinit var adapterSuggestions: SugestoesAdapter
+    var listSuggestions = arrayListOf<Suggestions>()
 
 
     //    var listPopulares: ArrayList<EntesMarvel> = getPopular()
 //    var adapterPopular = PopularAdapter(listPopulares, this)
 //    //modigicar funcao de pegar tamanho sugestões
-//    var listSugestoes: ArrayList<EntesMarvel> = getPopular()
-//    lateinit var adapterSugestoes: SugestoesAdapter
+
 //    //modigicar funcao de pegar tamanho do historico
 
 
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel(serviceCh, serviceS, repositoryHero, repositoryHistory) as T
+                return HomeViewModel(serviceCh, serviceS, repositoryHero, repositoryHistory, repositorySuggestions) as T
             }
         }
     }
@@ -72,6 +76,7 @@ class HomeActivity : AppCompatActivity(),
         initDB()
         repositoryHero = RepositoryImplHero(db.heroDayDao())
         repositoryHistory = RepositoryImplHistory(db.historyDao())
+        repositorySuggestions= RepositoryImplSuggestions(db.suggestionsDao())
 
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
@@ -160,6 +165,15 @@ class HomeActivity : AppCompatActivity(),
             adapterHistory = HistoryAdapter(listHistory, this)
             rvHistorico.adapter = adapterHistory
             rvHistorico.setHasFixedSize(true)
+        }
+
+        viewModelHome.getAllSuggestions()
+
+        viewModelHome.retornoSuggestions.observe(this) {
+            listSuggestions.addAll(it)
+            adapterSuggestions = SugestoesAdapter(listSuggestions, this)
+            rvSugestoes.adapter = adapterSuggestions
+            rvSugestoes.setHasFixedSize(true)
         }
 
 

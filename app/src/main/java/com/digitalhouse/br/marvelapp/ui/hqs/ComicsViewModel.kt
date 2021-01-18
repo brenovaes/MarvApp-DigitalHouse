@@ -5,19 +5,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
+import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
+import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.entities.comics.SeriesCo
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
+import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.entities.stories.ResStories
 import com.digitalhouse.br.marvelapp.models.HistoryDB
+import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.RepositoryComics
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
+import com.digitalhouse.br.marvelapp.service.RepositorySuggestions
 import kotlinx.coroutines.launch
 
 class ComicsViewModel(val serviceComics: RepositoryComics,
-                      val repositoryHistory: RepositoryHistory
+                      val repositoryHistory: RepositoryHistory,
+                      val repositorySuggestions: RepositorySuggestions
 ) : ViewModel() {
 
     var retornoComicsSeries = MutableLiveData<ResSeries>()
@@ -65,6 +71,7 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 "da0b41050b1361bf58011d9e4bb93ec3",
                 "cc144618fe69492faf88410cc664f62e"
             )
+            getResComicCreators(retornoComicsCreator.value!!.data.results)
         }
     }
 
@@ -78,6 +85,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 "da0b41050b1361bf58011d9e4bb93ec3",
                 "cc144618fe69492faf88410cc664f62e"
             )
+
+            getResComicCharacters(retornoComicsCharacters.value!!.data.results)
+
         }
     }
 
@@ -130,9 +140,32 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
         }
     }
 
+
     fun populateComicsHistory(comics: HistoryDB) {
         viewModelScope.launch {
             repositoryHistory.addHistoryTask(comics)
+        }
+    }
+
+    fun getResComicCreators(lisCreators: ArrayList<ResultsCr>){
+        if (lisCreators.isNotEmpty()) {
+            var creator = lisCreators.random()
+            var suggestion = Suggestions(creator.id, creator.fullName, creator.thumbnail.extension, creator.thumbnail.path, "creator")
+            populateSuggestions(suggestion)
+        }
+    }
+
+    fun getResComicCharacters(listCharacters: ArrayList<ResultsCh>){
+        if (listCharacters.isNotEmpty()) {
+            var character = listCharacters.random()
+            var suggestion = Suggestions(character.id, character.name, character.thumbnail.extension, character.thumbnail.path, "character")
+            populateSuggestions(suggestion)
+        }
+    }
+
+    fun populateSuggestions(suggestion: Suggestions) {
+        viewModelScope.launch {
+            repositorySuggestions.addSuggestionsTask(suggestion)
         }
     }
 

@@ -5,19 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
+import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.models.HistoryDB
-import com.digitalhouse.br.marvelapp.service.RepositoryCreators
-import com.digitalhouse.br.marvelapp.service.RepositoryDB
-import com.digitalhouse.br.marvelapp.service.RepositoryHistory
-import com.digitalhouse.br.marvelapp.service.RepositoryImplHistory
+import com.digitalhouse.br.marvelapp.models.Suggestions
+import com.digitalhouse.br.marvelapp.service.*
 import kotlinx.coroutines.launch
 
 class CreatorsViewModel(
     val serviceCreators: RepositoryCreators,
-    val repositoryHistory: RepositoryHistory
+    val repositoryHistory: RepositoryHistory,
+    val repositorySuggestions: RepositorySuggestions
 ) : ViewModel() {
 
     var retornoCreator = MutableLiveData<ResCreators>()
@@ -62,6 +62,9 @@ class CreatorsViewModel(
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
                 )
+
+
+                getResCreatorComics(retornoCreatorComics.value!!.data.results)
 
 
                 Log.i("getCreatorComics", retornoCreatorComics.value.toString())
@@ -113,6 +116,21 @@ class CreatorsViewModel(
     fun populateCreatorHistory(creator: HistoryDB) {
         viewModelScope.launch {
             repositoryHistory.addHistoryTask(creator)
+        }
+    }
+
+    fun getResCreatorComics(listComics:ArrayList<ResultsCo>) {
+        if (listComics.isNotEmpty()) {
+            var comic = listComics.random()
+            var suggestion = Suggestions(comic.id, comic.title, comic.thumbnail.extension, comic.thumbnail.path, "comics")
+            populateSuggestions(suggestion)
+        }
+    }
+
+
+    fun populateSuggestions(suggestion: Suggestions) {
+        viewModelScope.launch {
+            repositorySuggestions.addSuggestionsTask(suggestion)
         }
     }
 

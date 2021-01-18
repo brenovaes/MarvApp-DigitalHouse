@@ -13,7 +13,7 @@ import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.models.User
 
-@Database(entities = [User::class, Characters::class, HistoryDB::class, Suggestions::class], version = 2)
+@Database(entities = [User::class, Characters::class, HistoryDB::class, Suggestions::class], version = 1)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

@@ -20,9 +20,7 @@ import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
 import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.models.HistoryDB
-import com.digitalhouse.br.marvelapp.service.RepositoryHistory
-import com.digitalhouse.br.marvelapp.service.RepositoryImplHistory
-import com.digitalhouse.br.marvelapp.service.serviceCr
+import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
@@ -42,13 +40,14 @@ class DetalheCriadorActivity : AppCompatActivity(),
 
 //    lateinit var db:AppDataBase
     private lateinit var repositoryHistory: RepositoryHistory
+    private lateinit var repositorySuggestions: RepositorySuggestions
 
     var fav = 0
 
     val viewModelCreators by viewModels<CreatorsViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return CreatorsViewModel(serviceCr, repositoryHistory) as T
+                return CreatorsViewModel(serviceCr, repositoryHistory, repositorySuggestions) as T
             }
         }
     }
@@ -62,6 +61,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
         setContentView(R.layout.activity_detalhe_criador)
 
         repositoryHistory = RepositoryImplHistory(AppDataBase.invoke(this).historyDao())
+        repositorySuggestions= RepositoryImplSuggestions(AppDataBase.invoke(this).suggestionsDao())
 
         var idCreator = intent.getIntExtra("id", 0)
 
