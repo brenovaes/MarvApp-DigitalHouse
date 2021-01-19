@@ -10,15 +10,13 @@ import com.digitalhouse.br.marvelapp.models.Suggestions
 @Dao
 interface SuggestionsDao {
 
-    @Query("SELECT * FROM suggestions")
+    @Query("SELECT * FROM suggestions ORDER BY idS DESC")
     suspend fun getAllSuggestions(): List<Suggestions>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addSuggestions(suggestion: Suggestions)
 
-    @Query("SELECT COUNT(id) FROM suggestions")
-    suspend fun getCountSuggestion(): Int
+    @Query("DELETE FROM suggestions WHERE idS NOT IN (SELECT idS FROM suggestions ORDER BY idS DESC LIMIT 10)")
+    suspend fun updateNewSuggestion()
 
-//    @Query("DELETE FROM history WHERE (SELECT MIN(id) FROM history)")
-//    suspend fun updateNewHistory()
 }

@@ -34,7 +34,7 @@ interface RepositoryHistory {
 interface RepositorySuggestions{
     suspend fun getAllSuggestionsTask(): List<Suggestions>
     suspend fun addSuggestionsTask(suggestions: Suggestions)
-    suspend fun getCountSuggestionsTask(): Int
+    suspend fun updateNewSuggestionTask()
 //    suspend fun updateNewHistoryTask()
 }
 
@@ -65,7 +65,7 @@ class RepositoryImplHistory (val historyDao: HistoryDao): RepositoryHistory{
 class RepositoryImplSuggestions(val suggestionsDao: SuggestionsDao): RepositorySuggestions{
     override suspend fun getAllSuggestionsTask(): List<Suggestions> = suggestionsDao.getAllSuggestions()
     override suspend fun addSuggestionsTask(suggestions: Suggestions) = suggestionsDao.addSuggestions(suggestions)
-    override suspend fun getCountSuggestionsTask(): Int = suggestionsDao.getCountSuggestion()
+    override suspend fun updateNewSuggestionTask() = suggestionsDao.updateNewSuggestion()
 //    override suspend fun updateNewHistoryTask() = = suggestionsDao.updateNewHistory()
 
 }

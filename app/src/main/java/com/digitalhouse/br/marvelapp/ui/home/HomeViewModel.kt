@@ -145,6 +145,12 @@ class HomeViewModel(
         }
     }
 
+    fun updateSuggestions(){
+        viewModelScope.launch {
+            repositorySuggestions.updateNewSuggestionTask()
+        }
+    }
+
     fun getAllCreatorsSugestao() {
         viewModelScope.launch {
                     retornoCrea.value = serviceSugestao.getCreatorsRepoS(

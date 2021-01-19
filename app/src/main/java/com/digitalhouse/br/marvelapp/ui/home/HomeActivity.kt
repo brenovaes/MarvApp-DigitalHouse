@@ -21,7 +21,9 @@ import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
+import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
+import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
@@ -42,7 +44,7 @@ class HomeActivity : AppCompatActivity(),
 
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var adapterHistory: HistoryAdapter
-    var listHistory =  arrayListOf<HistoryDB>()
+    var listHistory = arrayListOf<HistoryDB>()
 
     private lateinit var repositorySuggestions: RepositorySuggestions
     private lateinit var adapterSuggestions: SugestoesAdapter
@@ -59,7 +61,13 @@ class HomeActivity : AppCompatActivity(),
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel(serviceCh, serviceS, repositoryHero, repositoryHistory, repositorySuggestions) as T
+                return HomeViewModel(
+                    serviceCh,
+                    serviceS,
+                    repositoryHero,
+                    repositoryHistory,
+                    repositorySuggestions
+                ) as T
             }
         }
     }
@@ -76,7 +84,7 @@ class HomeActivity : AppCompatActivity(),
         initDB()
         repositoryHero = RepositoryImplHero(db.heroDayDao())
         repositoryHistory = RepositoryImplHistory(db.historyDao())
-        repositorySuggestions= RepositoryImplSuggestions(db.suggestionsDao())
+        repositorySuggestions = RepositoryImplSuggestions(db.suggestionsDao())
 
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
@@ -159,6 +167,7 @@ class HomeActivity : AppCompatActivity(),
 
 //
         viewModelHome.getAllHistory()
+        viewModelHome.updateSuggestions()
 
         viewModelHome.retornoHistory.observe(this) {
             listHistory.addAll(it)
@@ -295,8 +304,27 @@ class HomeActivity : AppCompatActivity(),
         popupMenu.show()
     }
 
+
     override fun sugestoesClick(position: Int) {
-        TODO("Not yet implemented")
+        var suggestionType = viewModelHome.retornoSuggestions.value!![position].tipo
+        var suggestionId = viewModelHome.retornoSuggestions.value!![position].id
+        when (suggestionType) {
+            "comics" -> {
+                var intent = Intent(this, DetalheHqActivity::class.java)
+                intent.putExtra ("idCo",suggestionId)
+                startActivity(intent)
+            }
+            "creator" -> {
+                var intent = Intent(this, DetalheCriadorActivity::class.java)
+                intent.putExtra ("id",suggestionId)
+                startActivity(intent)
+            }
+            "character" -> {
+                var intent = Intent(this, DetalhePersonagemActivity::class.java)
+                intent.putExtra ("idCh",suggestionId)
+                startActivity(intent)
+            }
+        }
     }
 
     fun initDB() {
