@@ -20,7 +20,9 @@ import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
+import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
+import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
@@ -112,11 +114,7 @@ class HomeActivity : AppCompatActivity(),
         }
 
 
-        cvHeroiDoDia.setOnClickListener {
-            viewModelHome.characterSaved.observe(this) {
-                detalheHeroDay(it.idCharacter)
-            }
-        }
+
 
 //        viewModelHome.getAllCharactersSugestao()
 //        viewModelHome.getAllComicsSugestao()
@@ -154,12 +152,20 @@ class HomeActivity : AppCompatActivity(),
 
 //
         viewModelHome.getAllHistory()
+        viewModelHome.update()
 
         viewModelHome.retornoHistory.observe(this) {
             listHistory.addAll(it)
             adapterHistory = HistoryAdapter(listHistory, this)
+            adapterHistory.notifyDataSetChanged()
             rvHistorico.adapter = adapterHistory
             rvHistorico.setHasFixedSize(true)
+        }
+
+        cvHeroiDoDia.setOnClickListener {
+            viewModelHome.characterSaved.observe(this) {
+                detalheHeroDay(it.idCharacter)
+            }
         }
 
 
@@ -195,6 +201,27 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
+    override fun historicoClick(position: Int) {
+        var historyType = viewModelHome.retornoHistory.value!![position].type
+        var historyId = viewModelHome.retornoHistory.value!![position].id
+        when (historyType) {
+            "comics" -> {
+                var intent = Intent(this, DetalheHqActivity::class.java)
+                intent.putExtra("idCo", historyId)
+                startActivity(intent)
+            }
+            "creator" -> {
+                var intent = Intent(this, DetalheCriadorActivity::class.java)
+                intent.putExtra("id", historyId)
+                startActivity(intent)
+            }
+            "character" -> {
+                var intent = Intent(this, DetalhePersonagemActivity::class.java)
+                intent.putExtra("idCh", historyId)
+                startActivity(intent)
+            }
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -310,8 +337,6 @@ class HomeActivity : AppCompatActivity(),
         return activeNetwork?.isConnectedOrConnecting == true
     }
 
-    override fun historicoClick(position: Int) {
 
-    }
 }
 

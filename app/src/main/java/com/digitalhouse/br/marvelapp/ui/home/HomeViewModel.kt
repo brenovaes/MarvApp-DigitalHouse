@@ -138,6 +138,15 @@ class HomeViewModel(
         }
     }
 
+    fun update(){
+        viewModelScope.launch {
+                repositoryHistory.updateNewHistoryTask()
+            }
+
+    }
+
+
+
     fun getAllCreatorsSugestao() {
         viewModelScope.launch {
                     retornoCrea.value = serviceSugestao.getCreatorsRepoS(

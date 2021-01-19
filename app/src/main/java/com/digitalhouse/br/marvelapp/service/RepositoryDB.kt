@@ -1,5 +1,6 @@
 package com.digitalhouse.br.marvelapp.service
 
+import androidx.lifecycle.MutableLiveData
 import com.digitalhouse.br.marvelapp.interfac.HeroDayDao
 import com.digitalhouse.br.marvelapp.interfac.HistoryDao
 import com.digitalhouse.br.marvelapp.interfac.UserDao
@@ -27,6 +28,7 @@ interface RepositoryHistory {
     suspend fun addHistoryTask(historyDB: HistoryDB)
     suspend fun getCountHistoryTask(): Int
     suspend fun updateNewHistoryTask()
+    suspend fun deleteHistoryTask (idValue: Int)
 }
 
 class RepositoryImpl (val userDao: UserDao): RepositoryDB {
@@ -50,6 +52,7 @@ class RepositoryImplHistory (val historyDao: HistoryDao): RepositoryHistory{
     override suspend fun addHistoryTask(historyDB: HistoryDB) = historyDao.addHistory(historyDB)
     override suspend fun getCountHistoryTask(): Int = historyDao.getCountHistory()
     override suspend fun updateNewHistoryTask() = historyDao.updateNewHistory()
+    override suspend fun deleteHistoryTask(idValue: Int) = historyDao.deleteHistory(idValue)
 
 }
 
