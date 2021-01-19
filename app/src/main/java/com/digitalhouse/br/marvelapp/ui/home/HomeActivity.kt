@@ -20,7 +20,9 @@ import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
+import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
+import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
@@ -28,29 +30,29 @@ import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.card_perfil_ranking.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 import java.time.LocalDate
 
 class HomeActivity : AppCompatActivity(),
 //    PopularAdapter.OnPopularClickListener,
-        SugestoesAdapter.OnSugestoesClickListener
-//    HistoricoAdapter.OnHistoricoClickListener
+    SugestoesAdapter.OnSugestoesClickListener,
+    HistoryAdapter.OnHistoricoClickListener {
 
-{
     private lateinit var db: AppDataBase
     private lateinit var repositoryHero: RepositoryHero
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var adapterHistory: HistoryAdapter
+    var listHistory =  arrayListOf<HistoryDB>()
 
 
     //    var listPopulares: ArrayList<EntesMarvel> = getPopular()
 //    var adapterPopular = PopularAdapter(listPopulares, this)
 //    //modigicar funcao de pegar tamanho sugestões
 //    var listSugestoes: ArrayList<EntesMarvel> = getPopular()
-    lateinit var adapterSugestoes: SugestoesAdapter
+//    lateinit var adapterSugestoes: SugestoesAdapter
 //    //modigicar funcao de pegar tamanho do historico
-//    var listHistorico: ArrayList<EntesMarvel> = getPopular()
-//    var adapterHistorico = HistoricoAdapter(listHistorico, this)
+
 
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
@@ -77,7 +79,7 @@ class HomeActivity : AppCompatActivity(),
             showPopup(btnSetting)
         }
 
-        var context:Context = this
+        var context: Context = this
         viewModelHome.getAllH()
         viewModelHome.getHDay()
 
@@ -112,11 +114,7 @@ class HomeActivity : AppCompatActivity(),
         }
 
 
-        cvHeroiDoDia.setOnClickListener {
-            viewModelHome.characterSaved.observe(this) {
-                detalheHeroDay(it.idCharacter)
-            }
-        }
+
 
 //        viewModelHome.getAllCharactersSugestao()
 //        viewModelHome.getAllComicsSugestao()
@@ -153,8 +151,23 @@ class HomeActivity : AppCompatActivity(),
 //
 
 //
-//        rvHistorico.adapter = adapterHistorico
-//        rvHistorico.setHasFixedSize(true)
+        viewModelHome.getAllHistory()
+        viewModelHome.update()
+
+        viewModelHome.retornoHistory.observe(this) {
+            listHistory.addAll(it)
+            adapterHistory = HistoryAdapter(listHistory, this)
+            adapterHistory.notifyDataSetChanged()
+            rvHistorico.adapter = adapterHistory
+            rvHistorico.setHasFixedSize(true)
+        }
+
+        cvHeroiDoDia.setOnClickListener {
+            viewModelHome.characterSaved.observe(this) {
+                detalheHeroDay(it.idCharacter)
+            }
+        }
+
 
 
         btnNavigationHome.setOnNavigationItemSelectedListener {
@@ -188,6 +201,27 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
+    override fun historicoClick(position: Int) {
+        var historyType = viewModelHome.retornoHistory.value!![position].type
+        var historyId = viewModelHome.retornoHistory.value!![position].id
+        when (historyType) {
+            "comics" -> {
+                var intent = Intent(this, DetalheHqActivity::class.java)
+                intent.putExtra("idCo", historyId)
+                startActivity(intent)
+            }
+            "creator" -> {
+                var intent = Intent(this, DetalheCriadorActivity::class.java)
+                intent.putExtra("id", historyId)
+                startActivity(intent)
+            }
+            "character" -> {
+                var intent = Intent(this, DetalhePersonagemActivity::class.java)
+                intent.putExtra("idCh", historyId)
+                startActivity(intent)
+            }
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -282,7 +316,7 @@ class HomeActivity : AppCompatActivity(),
         db = AppDataBase.invoke(this)
     }
 
-    fun infoHeroDay(character: Characters){
+    fun infoHeroDay(character: Characters) {
         var img = character.path + "." + character.extension
         Picasso.get().load(img).resize(150, 150).into(ivHeroiDoDia)
         tvNomeHeroiDoDia.text = character.name
@@ -291,7 +325,7 @@ class HomeActivity : AppCompatActivity(),
         tvStoHeroiDoDia.text = "Stories: " + character.stories?.toString()
     }
 
-    fun detalheHeroDay(id:Int){
+    fun detalheHeroDay(id: Int) {
         var intent: Intent = Intent(this, DetalhePersonagemActivity::class.java)
         intent.putExtra("idCh", id)
         startActivity(intent)
@@ -302,5 +336,7 @@ class HomeActivity : AppCompatActivity(),
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         return activeNetwork?.isConnectedOrConnecting == true
     }
+
+
 }
 

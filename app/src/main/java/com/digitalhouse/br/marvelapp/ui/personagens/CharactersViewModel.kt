@@ -1,12 +1,9 @@
 package com.digitalhouse.br.marvelapp.ui.personagens
 
-import android.graphics.drawable.Drawable
 import android.util.Log
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
@@ -15,6 +12,8 @@ import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 
 class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
@@ -40,7 +39,6 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                     "da0b41050b1361bf58011d9e4bb93ec3",
                     "cc144618fe69492faf88410cc664f62e"
                 )
-                var id = retornoCharacter.value!!.data.results[0].id
                 var nome = retornoCharacter.value!!.data.results[0].name
                 var path = retornoCharacter.value!!.data.results[0].thumbnail.path
                 var extension = retornoCharacter.value!!.data.results[0].thumbnail.extension
