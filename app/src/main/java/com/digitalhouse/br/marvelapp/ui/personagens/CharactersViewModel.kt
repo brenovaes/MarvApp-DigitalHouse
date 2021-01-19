@@ -1,12 +1,9 @@
 package com.digitalhouse.br.marvelapp.ui.personagens
 
-import android.graphics.drawable.Drawable
 import android.util.Log
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
@@ -19,6 +16,8 @@ import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
 import com.digitalhouse.br.marvelapp.service.RepositorySuggestions
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 
 class CharactersViewModel(val serviceCharacters: RepositoryCharacters,

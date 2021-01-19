@@ -12,7 +12,12 @@ import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
+import com.digitalhouse.br.marvelapp.service.RepositoryCreators
+import com.digitalhouse.br.marvelapp.service.RepositoryHistory
+
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class CreatorsViewModel(
     val serviceCreators: RepositoryCreators,

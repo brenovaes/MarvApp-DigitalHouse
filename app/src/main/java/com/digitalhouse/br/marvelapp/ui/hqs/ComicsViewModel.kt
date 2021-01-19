@@ -20,6 +20,8 @@ import com.digitalhouse.br.marvelapp.service.RepositoryComics
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
 import com.digitalhouse.br.marvelapp.service.RepositorySuggestions
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class ComicsViewModel(val serviceComics: RepositoryComics,
                       val repositoryHistory: RepositoryHistory,
