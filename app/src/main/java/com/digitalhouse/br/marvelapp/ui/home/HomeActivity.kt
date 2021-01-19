@@ -18,6 +18,7 @@ import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.HistoryDB
+import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
@@ -30,7 +31,6 @@ import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.card_perfil_ranking.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 import java.time.LocalDate
 
@@ -41,23 +41,33 @@ class HomeActivity : AppCompatActivity(),
 
     private lateinit var db: AppDataBase
     private lateinit var repositoryHero: RepositoryHero
+
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var adapterHistory: HistoryAdapter
-    var listHistory =  arrayListOf<HistoryDB>()
+    var listHistory = arrayListOf<HistoryDB>()
+
+    private lateinit var repositorySuggestions: RepositorySuggestions
+    private lateinit var adapterSuggestions: SugestoesAdapter
+    var listSuggestions = arrayListOf<Suggestions>()
 
 
     //    var listPopulares: ArrayList<EntesMarvel> = getPopular()
 //    var adapterPopular = PopularAdapter(listPopulares, this)
 //    //modigicar funcao de pegar tamanho sugestões
-//    var listSugestoes: ArrayList<EntesMarvel> = getPopular()
-//    lateinit var adapterSugestoes: SugestoesAdapter
+
 //    //modigicar funcao de pegar tamanho do historico
 
 
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel(serviceCh, serviceS, repositoryHero, repositoryHistory) as T
+                return HomeViewModel(
+                    serviceCh,
+                    serviceS,
+                    repositoryHero,
+                    repositoryHistory,
+                    repositorySuggestions
+                ) as T
             }
         }
     }
@@ -74,6 +84,7 @@ class HomeActivity : AppCompatActivity(),
         initDB()
         repositoryHero = RepositoryImplHero(db.heroDayDao())
         repositoryHistory = RepositoryImplHistory(db.historyDao())
+        repositorySuggestions = RepositoryImplSuggestions(db.suggestionsDao())
 
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
@@ -152,7 +163,9 @@ class HomeActivity : AppCompatActivity(),
 
 //
         viewModelHome.getAllHistory()
+        viewModelHome.updateSuggestions()
         viewModelHome.update()
+        viewModelHome.getAllSuggestions()
 
         viewModelHome.retornoHistory.observe(this) {
             listHistory.addAll(it)
@@ -161,11 +174,19 @@ class HomeActivity : AppCompatActivity(),
             rvHistorico.adapter = adapterHistory
             rvHistorico.setHasFixedSize(true)
         }
+       
+
+        viewModelHome.retornoSuggestions.observe(this) {
+            listSuggestions.addAll(it)
+            adapterSuggestions = SugestoesAdapter(listSuggestions, this)
+            rvSugestoes.adapter = adapterSuggestions
+            rvSugestoes.setHasFixedSize(true)
 
         cvHeroiDoDia.setOnClickListener {
             viewModelHome.characterSaved.observe(this) {
                 detalheHeroDay(it.idCharacter)
             }
+
         }
 
 
@@ -308,8 +329,27 @@ class HomeActivity : AppCompatActivity(),
         popupMenu.show()
     }
 
+
     override fun sugestoesClick(position: Int) {
-        TODO("Not yet implemented")
+        var suggestionType = viewModelHome.retornoSuggestions.value!![position].tipo
+        var suggestionId = viewModelHome.retornoSuggestions.value!![position].id
+        when (suggestionType) {
+            "comics" -> {
+                var intent = Intent(this, DetalheHqActivity::class.java)
+                intent.putExtra ("idCo",suggestionId)
+                startActivity(intent)
+            }
+            "creator" -> {
+                var intent = Intent(this, DetalheCriadorActivity::class.java)
+                intent.putExtra ("id",suggestionId)
+                startActivity(intent)
+            }
+            "character" -> {
+                var intent = Intent(this, DetalhePersonagemActivity::class.java)
+                intent.putExtra ("idCh",suggestionId)
+                startActivity(intent)
+            }
+        }
     }
 
     fun initDB() {

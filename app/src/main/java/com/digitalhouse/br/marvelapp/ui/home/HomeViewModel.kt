@@ -10,10 +10,8 @@ import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
 import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.HistoryDB
-import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
-import com.digitalhouse.br.marvelapp.service.RepositoryHero
-import com.digitalhouse.br.marvelapp.service.RepositoryHistory
-import com.digitalhouse.br.marvelapp.service.RepositorySugestao
+import com.digitalhouse.br.marvelapp.models.Suggestions
+import com.digitalhouse.br.marvelapp.service.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.*
@@ -22,7 +20,8 @@ class HomeViewModel(
     val serviceCharacters: RepositoryCharacters,
     val serviceSugestao: RepositorySugestao,
     val repositoryDB: RepositoryHero,
-    val repositoryHistory: RepositoryHistory
+    val repositoryHistory: RepositoryHistory,
+    val repositorySuggestions: RepositorySuggestions
 ) : ViewModel() {
 
     var retornoHeroiDia = MutableLiveData<ResCharacters>()
@@ -34,7 +33,9 @@ class HomeViewModel(
     var retornoCrea = MutableLiveData<ResCreators>()
     var retornoCom = MutableLiveData<ResComics>()
     var retornoHeroDB = MutableLiveData<Boolean>()
+
     var retornoHistory = MutableLiveData<List<HistoryDB>>()
+    var retornoSuggestions = MutableLiveData<List<Suggestions>>()
 
 
     var retornodataHSaved = MutableLiveData<String>()
@@ -138,6 +139,18 @@ class HomeViewModel(
         }
     }
 
+    fun getAllSuggestions(){
+        viewModelScope.launch {
+            retornoSuggestions.value = repositorySuggestions.getAllSuggestionsTask()
+        }
+    }
+
+    fun updateSuggestions(){
+        viewModelScope.launch {
+            repositorySuggestions.updateNewSuggestionTask()
+        }
+    }
+
     fun update(){
         viewModelScope.launch {
                 repositoryHistory.updateNewHistoryTask()
@@ -145,8 +158,7 @@ class HomeViewModel(
 
     }
 
-
-
+  
     fun getAllCreatorsSugestao() {
         viewModelScope.launch {
                     retornoCrea.value = serviceSugestao.getCreatorsRepoS(

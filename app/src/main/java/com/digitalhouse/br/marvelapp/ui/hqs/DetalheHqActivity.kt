@@ -19,9 +19,7 @@ import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.models.*
-import com.digitalhouse.br.marvelapp.service.RepositoryHistory
-import com.digitalhouse.br.marvelapp.service.RepositoryImplHistory
-import com.digitalhouse.br.marvelapp.service.serviceCo
+import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.squareup.picasso.Picasso
@@ -43,7 +41,9 @@ class DetalheHqActivity :
     lateinit var adapterEventos: EventsComicsAdapter
     lateinit var adapterCharacters: CharactersComicsAdapter
     lateinit var adapterCreators: CreatorsComicsAdapter
+
     private lateinit var repositoryHistory: RepositoryHistory
+    private lateinit var repositorySuggestions:RepositorySuggestions
 
     var fav = 0
 
@@ -51,7 +51,7 @@ class DetalheHqActivity :
     val viewModelComics by viewModels<ComicsViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ComicsViewModel(serviceCo, repositoryHistory) as T
+                return ComicsViewModel(serviceCo, repositoryHistory,repositorySuggestions ) as T
             }
         }
     }
@@ -65,6 +65,7 @@ class DetalheHqActivity :
         setContentView(R.layout.activity_detalhe_hq)
 
         repositoryHistory = RepositoryImplHistory(AppDataBase.invoke(this).historyDao())
+        repositorySuggestions = RepositoryImplSuggestions(AppDataBase.invoke(this).suggestionsDao())
 
         var idComic = intent.getIntExtra("idCo", 0)
 
