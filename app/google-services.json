@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "7579005913",
+    "project_id": "marvapp-8a8a6",
+    "storage_bucket": "marvapp-8a8a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7579005913:android:71b75d3f598f72bfc81fc8",
+        "android_client_info": {
+          "package_name": "com.digitalhouse.br.marvelapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7579005913-pvf9dq9m26qhlfu919iq5jk3e9tlj3ef.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digitalhouse.br.marvelapp",
+            "certificate_hash": "2c314e8c7a32cf9872bee1af6059d59782275f02"
+          }
+        },
+        {
+          "client_id": "7579005913-1jhbbkh2s0mmrs35ls6m5mv8e9f6n2fd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGhuaKIuygavgsu1h15QIFnZ0mXIg_hC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7579005913-1jhbbkh2s0mmrs35ls6m5mv8e9f6n2fd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

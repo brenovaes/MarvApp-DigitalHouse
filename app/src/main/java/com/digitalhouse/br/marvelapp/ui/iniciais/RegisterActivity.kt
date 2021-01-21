@@ -14,6 +14,8 @@ import com.digitalhouse.br.marvelapp.models.User
 import com.digitalhouse.br.marvelapp.service.RepositoryDB
 import com.digitalhouse.br.marvelapp.service.RepositoryImpl
 import kotlinx.android.synthetic.main.activity_cadastro.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -42,6 +44,7 @@ class RegisterActivity : AppCompatActivity() {
             onBackPressed()
         })
 
+        //falta verificar se os campos estão vazios antes de salvar
         btnCadastrar.setOnClickListener() {
             if (registerViewModel.checkPassword(etPasswordC.text.toString(), etRPasswordC.text.toString())) {
                 registerViewModel.addNewUser(
@@ -51,6 +54,8 @@ class RegisterActivity : AppCompatActivity() {
                         email = etEmail.text.toString()
                     )
                 )
+                sendDataFirebase(etEmail.text.toString(),etPasswordC.text.toString() )
+
 
             } else {
                 showToast("Senhas diferentes!")
@@ -93,7 +98,23 @@ class RegisterActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun sendDataFirebase(email:String, password:String) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val firebaseUser: FirebaseUser = task.result?.user!!
+                    showToast("usuário cadastrado com sucesso")
+//                    val idUser = firebaseUser.uid
+//                    val emailUser = firebaseUser.email.toString()
+//                    callMain(idUser, emailUser)
+                }
+            }
+    }
+
+
     fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
+
+
 }
