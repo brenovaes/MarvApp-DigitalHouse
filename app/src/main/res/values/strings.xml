@@ -10,7 +10,7 @@
 
     <!-- Login -->
     <string name="hello_world">Hello Square World!</string>
-    <string name="tv_usuario">Username</string>
+    <string name="tv_usuario">E-mail</string>
     <string name="tv_password">Password</string>
     <string name="btn_login">LOGIN</string>
 

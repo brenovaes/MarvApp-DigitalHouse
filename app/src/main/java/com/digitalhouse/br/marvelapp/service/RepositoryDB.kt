@@ -12,8 +12,11 @@ import com.digitalhouse.br.marvelapp.models.User
 
 interface RepositoryDB {
     suspend fun addUserTask(user: User)
-    suspend fun getAllUserTask() : List<User>
+//    suspend fun getAllUserTask() : List<User>
+    suspend fun getUserTask(): List<User>
 //    suspend fun deleteUserTask(userD: User)
+    suspend fun checkEmailTask (email: String): Int?
+    suspend fun checkPasswordTask (id: Int): String
 }
 
 interface RepositoryHero{
@@ -43,7 +46,11 @@ interface RepositorySuggestions{
 class RepositoryImpl (val userDao: UserDao): RepositoryDB {
 
     override suspend fun addUserTask(user: User) = userDao.addUser(user)
-    override suspend fun getAllUserTask() = userDao.getUser()
+    override suspend fun getUserTask() = userDao.getUser()
+    override suspend fun checkEmailTask(email: String): Int? = userDao.checkEmail(email)
+    override suspend fun checkPasswordTask(id: Int): String = userDao.checkPassword(id)
+
+//    override suspend fun getAllUserTask() = userDao.getUser()
 //    override suspend fun deleteUserTask(userD: User) = userDao.deleteUser(userD)
 }
 
