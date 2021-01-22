@@ -128,7 +128,7 @@ class HomeViewModel(
 
     fun random(): Int {
         var from = 1
-        var to = 1942
+        var to = 1492
         val rand = Random()
         return rand.nextInt(to - from) + from
     }
