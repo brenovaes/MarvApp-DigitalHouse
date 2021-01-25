@@ -15,6 +15,7 @@ import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_quiz.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 
@@ -91,8 +92,10 @@ class QuizActivity : AppCompatActivity() {
             when(item.itemId){
                 R.id.itTema ->
                     Toast.makeText(this@QuizActivity, "Changed", Toast.LENGTH_SHORT).show()
-                R.id.help ->
+                R.id.help ->{
+                    FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this, SplashActivity::class.java))
+                }
             }
             true
         })

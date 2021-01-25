@@ -12,6 +12,8 @@ import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.service.RepositoryDB
 import com.digitalhouse.br.marvelapp.service.RepositoryImpl
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -31,26 +33,32 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null){
+            callHome()
+        }
 
         initDB()
         repository = RepositoryImpl(db.userDao())
 
         btnLogin.setOnClickListener {
-            loginViewModel.checkUserEmail(etUsuarioL.text.toString())
-            loginViewModel.result.observe(this) {
-                if (it != null) {
-                    loginViewModel.checkUserPassword(it)
-                    loginViewModel.password.observe(this) {
-                        if (it == etPasswordL.text.toString()) {
-                            callHome()
-                        } else {
-                            showToast("Incorrect email or password")
-                        }
-                    }
-                } else {
-                    showToast("Incorrect email or password")
-                }
-            }
+//            loginViewModel.checkUserEmail(etUsuarioL.text.toString())
+//            loginViewModel.result.observe(this) {
+//                if (it != null) {
+//                    loginViewModel.checkUserPassword(it)
+//                    loginViewModel.password.observe(this) {
+//                        if (it == etPasswordL.text.toString()) {
+//                            callHome()
+//                        } else {
+//                            showToast("Incorrect email or password")
+//                        }
+//                    }
+//                } else {
+//                    showToast("Incorrect email or password")
+//                }
+//            }
+            getDataFields()
+
         }
 
         tvCadastre_se.setOnClickListener {
@@ -96,5 +104,36 @@ class LoginActivity : AppCompatActivity() {
 //
 //        return User(1, email, senha)
 //    }
+
+    fun getDataFields(){
+        var email = etEmailL.text.toString()
+        var password = etPasswordL.text.toString()
+        var emailEmpty = email.isNotBlank()
+        var passwordEmpty = password.isNotBlank()
+        //mudar para notblank
+        if (emailEmpty && passwordEmpty){
+            //envia dados para o firebase
+            sendDataFirebase(email,password)
+
+        }else{
+            showToast("Fill in all required information")
+        }
+
+    }
+
+    fun sendDataFirebase(email:String, password:String){
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+//                        val firebaseUser: FirebaseUser = task.result?.user!!
+//                        val idUser = firebaseUser.uid
+//                        val emailUser = firebaseUser.email.toString()
+                        callHome()
+                    }
+                    else{
+                        showToast("Incorrect email or password")
+                    }
+                }
+    }
 
 }
