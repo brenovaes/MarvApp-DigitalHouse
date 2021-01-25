@@ -29,6 +29,7 @@ import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
@@ -320,8 +321,11 @@ class HomeActivity : AppCompatActivity(),
             when (item.itemId) {
                 R.id.itTema ->
                     Toast.makeText(this@HomeActivity, "Changed", Toast.LENGTH_SHORT).show()
-                R.id.help ->
+                R.id.help ->{
+                    FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this, SplashActivity::class.java))
+                }
+
             }
             true
         })

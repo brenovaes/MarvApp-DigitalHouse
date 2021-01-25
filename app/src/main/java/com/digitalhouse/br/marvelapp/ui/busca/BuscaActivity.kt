@@ -24,6 +24,7 @@ import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_busca.*
 import kotlinx.android.synthetic.main.fragment_busca_criadores.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
@@ -125,8 +126,10 @@ class BuscaActivity : AppCompatActivity(), ContractDetalheCardsFragments {
             when(item.itemId){
                 R.id.itTema ->
                     Toast.makeText(this@BuscaActivity, "Changed", Toast.LENGTH_SHORT).show()
-                R.id.help ->
+                R.id.help ->{
+                    FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this, SplashActivity::class.java))
+                }
             }
             true
         })
