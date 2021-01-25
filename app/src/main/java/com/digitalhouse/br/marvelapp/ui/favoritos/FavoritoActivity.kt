@@ -16,6 +16,7 @@ import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
+import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.google.android.material.tabs.TabLayout
@@ -108,7 +109,7 @@ class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
                     Toast.makeText(this@FavoritoActivity, "Changed", Toast.LENGTH_SHORT).show()
                 R.id.help ->{
                     FirebaseAuth.getInstance().signOut()
-                    startActivity(Intent(this, SplashActivity::class.java))
+                    startActivity(Intent(this, LoginActivity::class.java))
                 }
             }
             true

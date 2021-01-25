@@ -161,12 +161,19 @@
                 android:layout_height="45dp"
                 android:background="@drawable/ic_instagram" />
 
-            <ImageView
+<!--            <ImageView-->
+<!--                android:layout_width="45dp"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:background="@drawable/ic_google" />-->
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnGoogle"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/ic_google" />
+                android:layout_marginRight="20dp" />
 
             <ImageView
                 android:layout_width="45dp"

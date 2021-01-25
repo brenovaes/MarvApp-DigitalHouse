@@ -19,6 +19,7 @@ import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
+import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
@@ -128,7 +129,7 @@ class BuscaActivity : AppCompatActivity(), ContractDetalheCardsFragments {
                     Toast.makeText(this@BuscaActivity, "Changed", Toast.LENGTH_SHORT).show()
                 R.id.help ->{
                     FirebaseAuth.getInstance().signOut()
-                    startActivity(Intent(this, SplashActivity::class.java))
+                    startActivity(Intent(this, LoginActivity::class.java))
                 }
             }
             true

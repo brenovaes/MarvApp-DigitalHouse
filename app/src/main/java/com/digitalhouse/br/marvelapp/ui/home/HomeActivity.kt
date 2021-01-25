@@ -323,7 +323,7 @@ class HomeActivity : AppCompatActivity(),
                     Toast.makeText(this@HomeActivity, "Changed", Toast.LENGTH_SHORT).show()
                 R.id.help ->{
                     FirebaseAuth.getInstance().signOut()
-                    startActivity(Intent(this, SplashActivity::class.java))
+                    startActivity(Intent(this, LoginActivity::class.java))
                 }
 
             }
