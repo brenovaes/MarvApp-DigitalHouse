@@ -70,7 +70,8 @@ class LoginActivity : AppCompatActivity() {
 
 
         FacebookSdk.sdkInitialize(applicationContext)
-        AppEventsLogger.activateApp(Application())
+//        AppEventsLogger.activateApp(Application())
+        AppEventsLogger.activateApp(application)
 
 
         setContentView(R.layout.activity_login)
