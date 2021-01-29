@@ -67,5 +67,10 @@
     <string name="twitter_consumer_key">SpDaaJq0r43HOdyGyYHovBKmC</string>
     <string name="twitter_consumer_secret">WB6TkvCVCnVh6u96v4DFMy5mMu88dgH23ok8DIpWxkrIqhNgbS</string>
 
+    <!--    Facebook-->
+    <string name="facebook_app_id">262666635214713</string>
+    <string name="fb_login_protocol_scheme">6e3848dcd8d8460ab78aab6f0e2298a2</string>
+
+
 
 </resources>
