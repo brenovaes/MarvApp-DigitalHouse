@@ -11,8 +11,11 @@ import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
+import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.android.synthetic.main.activity_perfil.*
@@ -75,8 +78,17 @@ class PerfilActivity : AppCompatActivity() {
                 R.id.itTema ->
                     Toast.makeText(this@PerfilActivity, "Changed", Toast.LENGTH_SHORT).show()
                 R.id.help ->{
-                    FirebaseAuth.getInstance().signOut()
-                    startActivity(Intent(this, SplashActivity::class.java))
+                    var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                    var mGoogleSignInClient = GoogleSignIn.getClient(getBaseContext(), gso);
+                    mGoogleSignInClient.signOut().addOnCompleteListener{
+                        FirebaseAuth.getInstance().signOut()
+                    }
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                 }
             }
             true
