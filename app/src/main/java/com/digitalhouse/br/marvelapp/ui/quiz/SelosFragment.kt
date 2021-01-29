@@ -15,11 +15,12 @@ class SelosFragment : Fragment() {
 
     private fun getListaSelo(): ArrayList<Selo> {
         return arrayListOf<Selo>(
-            Selo(R.color.black, "Knowledge Source"),
-            Selo(R.color.black, "Marvel Apprentice"),
-            Selo(R.color.black, "Almost an Avenger"),
-            Selo(R.color.black, "Knowledge Beginner"),
-            Selo(R.color.black, "Neighborhood Hero")
+            Selo(R.drawable.stamp_vision_grey, "Knowledge Source"),
+            Selo(R.drawable.stamp_iron_heart_grey, "Marvel Apprentice"),
+            Selo(R.drawable.stamp_avengers_grey, "Almost an Avenger"),
+            Selo(R.drawable.stamp_x_school_grey, "Knowledge Learner"),
+            Selo(R.drawable.stamp_spider_grey, "Neighborhood Hero"),
+            Selo(R.drawable.stamp_angel_grey, "Horseman of Apocalypse")
         )
     }
 

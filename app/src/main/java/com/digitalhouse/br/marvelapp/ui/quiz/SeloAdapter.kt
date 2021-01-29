@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_selo.view.*
 
 class SeloAdapter(private val listaSelo: ArrayList<Selo>):
@@ -19,8 +20,9 @@ class SeloAdapter(private val listaSelo: ArrayList<Selo>):
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val currentItem = listaSelo[position]
-
-        holder.ivSelo.setImageResource(currentItem.imageResource)
+//        Picasso.get().load(currentItem.imageResource).into(holder.ivSelo)
+        Picasso.get().load(currentItem.imageResource).fit().into(holder.ivSelo)
+//        holder.ivSelo.setImageResource(currentItem.imageResource)
         holder.tvNomeSelo.text = currentItem.nomeSelo
     }
 
