@@ -63,4 +63,9 @@
     <string name="itTema">Change theme</string>
     <string name="itSair">Logout</string>
 
+<!--    Twitter-->
+    <string name="twitter_consumer_key">SpDaaJq0r43HOdyGyYHovBKmC</string>
+    <string name="twitter_consumer_secret">WB6TkvCVCnVh6u96v4DFMy5mMu88dgH23ok8DIpWxkrIqhNgbS</string>
+
+
 </resources>
