@@ -154,14 +154,18 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginTop="22dp"
-            android:layout_marginBottom="31dp">
+            android:layout_marginBottom="31dp"
+            android:orientation="horizontal">
 
-            <ImageView
+            <com.twitter.sdk.android.core.identity.TwitterLoginButton
+                android:id="@+id/btnTwitter"
+                android:clickable="true"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="@drawable/ic_instagram" />
+                android:layout_marginLeft="20dp" />
 
 <!--            <ImageView-->
+<!--                android:id="@+id/btnTwitter"-->
 <!--                android:layout_width="45dp"-->
 <!--                android:layout_height="45dp"-->
 <!--                android:layout_marginLeft="20dp"-->
@@ -170,6 +174,7 @@
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/btnGoogle"
+                android:clickable="true"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginLeft="20dp"

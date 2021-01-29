@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.media.MediaSessionManager.getSessionManager
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.service.RepositoryDB
@@ -18,9 +19,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.OAuthProvider
+import com.google.firebase.auth.TwitterAuthProvider
+import com.twitter.sdk.android.core.*
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,8 +32,11 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var db: AppDataBase
 
     private lateinit var auth: FirebaseAuth
-    var RC_SIGN_IN = 120
+    var GOOGLE_SIGN_IN = 120
+    var TWITTER_SIGN_IN = 121
     private lateinit var googleSignInClient: GoogleSignInClient
+     var  twitterAuthProvider = OAuthProvider.newBuilder("twitter.com")
+            .build()
 
     val loginViewModel by viewModels<LoginViewModel> {
         object : ViewModelProvider.Factory {
@@ -41,6 +48,17 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val authConfig = TwitterAuthConfig(
+                getString(R.string.twitter_consumer_key),
+                getString(R.string.twitter_consumer_secret))
+
+        val twitterConfig = TwitterConfig.Builder(this)
+                .twitterAuthConfig(authConfig)
+                .build()
+
+        Twitter.initialize(twitterConfig)
+
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
 
@@ -51,10 +69,25 @@ class LoginActivity : AppCompatActivity() {
                 .requestEmail()
                 .build()
 
+
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
+
+        btnTwitter.callback = object : Callback<TwitterSession>() {
+
+            override fun success(result: Result<TwitterSession>) {
+                Log.d("success", "twitterLogin:success" + result)
+                handleTwitterSession(result.data)
+            }
+
+            override fun failure(exception: TwitterException) {
+                Log.w("failure", "twitterLogin:failure", exception)
+            }
+        }
+
+
         val user = FirebaseAuth.getInstance().currentUser
-        if (user != null){
+        if (user != null) {
             callHome()
         }
 
@@ -65,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
             getDataFields()
         }
 
-        btnGoogle.setOnClickListener{
+        btnGoogle.setOnClickListener {
             signIn()
         }
 
@@ -106,32 +139,31 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
-    fun getDataFields(){
+    fun getDataFields() {
         var email = etEmailL.text.toString()
         var password = etPasswordL.text.toString()
         var emailEmpty = email.isNotBlank()
         var passwordEmpty = password.isNotBlank()
         //mudar para notblank
-        if (emailEmpty && passwordEmpty){
+        if (emailEmpty && passwordEmpty) {
             //envia dados para o firebase
-            sendDataFirebase(email,password)
+            sendDataFirebase(email, password)
 
-        }else{
+        } else {
             showToast("Fill in all required information")
         }
 
     }
 
-    fun sendDataFirebase(email:String, password:String){
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
+    fun sendDataFirebase(email: String, password: String) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
 //                        val firebaseUser: FirebaseUser = task.result?.user!!
 //                        val idUser = firebaseUser.uid
 //                        val emailUser = firebaseUser.email.toString()
                         callHome()
-                    }
-                    else{
+                    } else {
                         showToast("Incorrect email or password")
                     }
                 }
@@ -140,16 +172,16 @@ class LoginActivity : AppCompatActivity() {
 
     fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent, GOOGLE_SIGN_IN)
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        btnTwitter.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == GOOGLE_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -162,27 +194,51 @@ class LoginActivity : AppCompatActivity() {
                 // ...
             }
         }
+
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("firebaseAuthWithGoogle", "signInWithCredential:success")
-                    val user = auth.currentUser
-                    callHome()
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("firebaseAuthWithGoogle", "signInWithCredential:success")
+                        val user = auth.currentUser
+                        callHome()
 
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("firebaseAuthWithGoogle", "signInWithCredential:failure", task.exception)
-                    // ...
-                    Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("firebaseAuthWithGoogle", "signInWithCredential:failure", task.exception)
+                        // ...
+                        Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
     }
 
+
+    private fun handleTwitterSession(session: TwitterSession) {
+        Log.d("handleTwitterSession", "handleTwitterSession:" + session)
+
+        val credential = TwitterAuthProvider.getCredential(
+                session.authToken.token,
+                session.authToken.secret)
+
+        FirebaseAuth.getInstance()!!.signInWithCredential(credential)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("handleTwitterSession", "signInWithCredential:success")
+                        val user = FirebaseAuth.getInstance()!!.currentUser
+                        startActivity(Intent(this, HomeActivity::class.java))
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("handleTwitterSession", "signInWithCredential:failure", task.getException())
+                        Toast.makeText(this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show()
+                    }
+                }
+    }
 
 
 }
