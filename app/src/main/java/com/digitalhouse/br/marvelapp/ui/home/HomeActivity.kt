@@ -29,7 +29,11 @@ import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
@@ -74,10 +78,18 @@ class HomeActivity : AppCompatActivity(),
     }
 
 
+
     @SuppressLint("WrongConstant", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+
+
 
         Log.i("NETWORK", netOnline(this).toString())
 
@@ -254,6 +266,7 @@ class HomeActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.help -> {
+                FirebaseAuth.getInstance().signOut()
                 startActivity(Intent(this, LoginActivity::class.java))
                 return true
             }
@@ -322,8 +335,17 @@ class HomeActivity : AppCompatActivity(),
                 R.id.itTema ->
                     Toast.makeText(this@HomeActivity, "Changed", Toast.LENGTH_SHORT).show()
                 R.id.help ->{
-                    FirebaseAuth.getInstance().signOut()
+                    var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestIdToken(getString(R.string.default_web_client_id))
+                            .requestEmail()
+                            .build();
+
+                    var mGoogleSignInClient = GoogleSignIn.getClient(getBaseContext(), gso);
+                    mGoogleSignInClient.signOut().addOnCompleteListener{
+                        FirebaseAuth.getInstance().signOut()
+                    }
                     startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                 }
 
             }
