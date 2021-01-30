@@ -102,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        btnFacebook.setReadPermissions("email", "public_profile")
+        btnFacebook.setReadPermissions("email", "public_profile", "user_friends")
         btnFacebook.setReadPermissions()
         btnFacebook.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
