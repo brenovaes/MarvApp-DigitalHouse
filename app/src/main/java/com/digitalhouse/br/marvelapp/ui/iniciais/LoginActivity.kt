@@ -1,5 +1,6 @@
 package com.digitalhouse.br.marvelapp.ui.iniciais
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,16 +15,17 @@ import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.service.RepositoryDB
 import com.digitalhouse.br.marvelapp.service.RepositoryImpl
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
+import com.facebook.*
+import com.facebook.appevents.AppEventsLogger
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.OAuthProvider
-import com.google.firebase.auth.TwitterAuthProvider
+import com.google.firebase.auth.*
 import com.twitter.sdk.android.core.*
 import kotlinx.android.synthetic.main.activity_login.*
+import com.facebook.FacebookSdk;
 
 
 class LoginActivity : AppCompatActivity() {
@@ -31,9 +33,16 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var repository: RepositoryDB
     private lateinit var db: AppDataBase
 
+
     private lateinit var auth: FirebaseAuth
     var GOOGLE_SIGN_IN = 120
     var TWITTER_SIGN_IN = 121
+    var FACEBOOK_SIGN_IN = 122
+
+    //Facebook Callback manager
+    //var callbackManager: CallbackManager? = null
+    var callbackManager = CallbackManager.Factory.create();
+
     private lateinit var googleSignInClient: GoogleSignInClient
      var  twitterAuthProvider = OAuthProvider.newBuilder("twitter.com")
             .build()
@@ -59,10 +68,18 @@ class LoginActivity : AppCompatActivity() {
 
         Twitter.initialize(twitterConfig)
 
+
+        FacebookSdk.sdkInitialize(applicationContext)
+//        AppEventsLogger.activateApp(Application())
+        AppEventsLogger.activateApp(application)
+
+
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
 
         auth = FirebaseAuth.getInstance()
+
+
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -84,6 +101,25 @@ class LoginActivity : AppCompatActivity() {
                 Log.w("failure", "twitterLogin:failure", exception)
             }
         }
+
+        btnFacebook.setReadPermissions("email", "public_profile")
+        btnFacebook.setReadPermissions()
+        btnFacebook.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+                // App code
+                handleFacebookAccessToken(loginResult.accessToken);
+            }
+
+            override fun onCancel() {
+                // App code
+                Log.w("cancel", "FacebookLogin:cancel")
+            }
+
+            override fun onError(exception: FacebookException) {
+                // App code
+                Log.w("failure", "FacebookLogin:failure", exception)
+            }
+        })
 
 
         val user = FirebaseAuth.getInstance().currentUser
@@ -179,6 +215,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         btnTwitter.onActivityResult(requestCode, resultCode, data)
+        callbackManager!!.onActivityResult(requestCode, resultCode, data)
+
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GOOGLE_SIGN_IN) {
@@ -238,6 +276,27 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
+    }
+
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        Log.d("LoginActivityFacebook", "handleFacebookAccessToken:" + token)
+
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("LoginActivityFacebook", "signInWithCredential:success")
+                    val user = FirebaseAuth.getInstance().currentUser
+                    startActivity(Intent(this, HomeActivity::class.java))
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("LoginActivityFacebook", "signInWithCredential:failure", task.getException())
+                    Toast.makeText(this, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
 

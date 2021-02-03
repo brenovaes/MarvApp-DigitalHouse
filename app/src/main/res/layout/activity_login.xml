@@ -180,10 +180,15 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp" />
 
-            <ImageView
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btnFacebook"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@drawable/ic_facebook" />
+                android:layout_height="45dp"/>
+
+<!--            <ImageView-->
+<!--                android:layout_width="45dp"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:background="@drawable/ic_facebook" />-->
 
         </LinearLayout>
     </LinearLayout>
