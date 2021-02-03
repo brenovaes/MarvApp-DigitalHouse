@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_lig"
     tools:context=".ui.iniciais.LoginActivity">
-
 
     <ImageView
         android:id="@+id/ivLogo"
@@ -16,7 +17,6 @@
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.108" />
@@ -25,45 +25,41 @@
         android:id="@+id/llbodyLogin"
         layout="@layout/body_login"
         android:layout_width="324dp"
-        android:layout_height="430dp"
-        android:layout_marginLeft="28dp"
+        android:layout_height="530dp"
         android:layout_marginTop="190dp"
         android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.208"/>
 
     <LinearLayout
         android:layout_width="324dp"
-        android:layout_height="425dp"
-        android:layout_marginLeft="28dp"
+        android:layout_height="525dp"
         android:layout_marginTop="195dp"
         android:layout_marginBottom="56dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.214">
+
 
         <TextView
             android:id="@+id/tvUsuarioL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="49dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="27dp"
             android:layout_marginBottom="12dp"
             android:text="@string/tv_usuario"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold"/>
-
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etEmailL"
@@ -71,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="27dp"
+            android:inputType="textEmailAddress"
             android:backgroundTint="@color/destaqueVermelho"
             android:textColor="@color/black" />
 
@@ -155,22 +152,15 @@
             android:layout_height="45dp"
             android:layout_marginTop="22dp"
             android:layout_marginBottom="31dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <com.twitter.sdk.android.core.identity.TwitterLoginButton
                 android:id="@+id/btnTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+                android:layout_marginLeft="20dp"
                 android:clickable="true"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="20dp" />
-
-<!--            <ImageView-->
-<!--                android:id="@+id/btnTwitter"-->
-<!--                android:layout_width="45dp"-->
-<!--                android:layout_height="45dp"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:layout_marginRight="20dp"-->
-<!--                android:background="@drawable/ic_google" />-->
+ />
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/btnGoogle"

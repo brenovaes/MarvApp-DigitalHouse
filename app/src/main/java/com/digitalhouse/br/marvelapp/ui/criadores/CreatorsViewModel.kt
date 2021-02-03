@@ -56,12 +56,12 @@ class CreatorsViewModel(
         }
     }
 
-    fun getCreatorComics(id: Int) {
+    fun getCreatorComics(id: Int, page: Int) {
         try {
             viewModelScope.launch {
                 retornoCreatorComics.value = serviceCreators.getCreatorComicsRepo(
                     id,
-                    0,
+                    page,
                     10,
                     "1601900859",
                     "da0b41050b1361bf58011d9e4bb93ec3",

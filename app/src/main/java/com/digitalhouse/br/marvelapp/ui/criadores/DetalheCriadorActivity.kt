@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_criador.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
+import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
@@ -22,8 +23,14 @@ import com.digitalhouse.br.marvelapp.models.Comics
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
+import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 
 class DetalheCriadorActivity : AppCompatActivity(),
@@ -37,10 +44,14 @@ class DetalheCriadorActivity : AppCompatActivity(),
     lateinit var adapterComics: ComicsCreatorsAdapter
     lateinit var adapterSeries: SeriesCreatorsAdapter
     lateinit var adapterEventos: EventsCreatorsAdapter
+    lateinit var lManager: LinearLayoutManager
 
 //    lateinit var db:AppDataBase
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var repositorySuggestions: RepositorySuggestions
+    private var idCreator by Delegates.notNull<Int>()
+    var pageCreator = 0
+    var scope = CoroutineScope(Dispatchers.Main)
 
     var fav = 0
 
@@ -63,7 +74,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
         repositoryHistory = RepositoryImplHistory(AppDataBase.invoke(this).historyDao())
         repositorySuggestions= RepositoryImplSuggestions(AppDataBase.invoke(this).suggestionsDao())
 
-        var idCreator = intent.getIntExtra("id", 0)
+        idCreator = intent.getIntExtra("id", 0)
 
 
         setSupportActionBar(tbDetalheCriador)
@@ -103,12 +114,12 @@ class DetalheCriadorActivity : AppCompatActivity(),
         }
 
         viewModelCreators.getCreator(idCreator)
-        viewModelCreators.getCreatorComics(idCreator)
+        viewModelCreators.getCreatorComics(idCreator, pageCreator)
         viewModelCreators.getCreatorEvents(idCreator)
         viewModelCreators.getCreatorSeries(idCreator)
 
-
-        rvComicsCriador.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
+        lManager = LinearLayoutManager(this, HORIZONTAL, false)
+        rvComicsCriador.layoutManager = lManager
         rvComicsCriador.setHasFixedSize(true)
 
 
@@ -122,7 +133,10 @@ class DetalheCriadorActivity : AppCompatActivity(),
         ivFavoritoDetalheCriador.setOnClickListener {
             checkfavorite()
         }
-
+        scope.launch {
+            delay(1000)
+            setScrollView ()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -186,6 +200,26 @@ class DetalheCriadorActivity : AppCompatActivity(),
             }
         }
 
+    }
+
+    fun setScrollView (){
+        rvComicsCriador.run {
+            addOnScrollListener(object: RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val itemVisible = lManager?.childCount
+                    val pastItem = lManager.findFirstVisibleItemPosition()
+                    val total = adapterComics.itemCount
+
+                    if ((itemVisible + pastItem) == total){
+                        pageCreator += 10
+                        viewModelCreators.getCreatorComics(idCreator, pageCreator)
+                        Log.i("AAAAA", pageCreator.toString())
+                    }
+                }
+            })
+        }
     }
 
 }
