@@ -4,22 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     tools:context=".ui.quiz.DesafiosFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
-    <include
-        android:id="@+id/barraSeloQuiz"
-        layout="@layout/barra_selos_quiz">
-    </include>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="40dp">
 
-    <include
-        android:id="@+id/infoQuiz"
-        layout="@layout/info_quiz">
-    </include>
 
-    <include
-        android:id="@+id/trilhaQuiz"
-        layout="@layout/trilha_quiz">
-    </include>
+            <include
+                android:id="@+id/barraSeloQuiz"
+                layout="@layout/barra_selos_quiz">
+            </include>
+
+            <include
+                android:id="@+id/infoQuiz"
+                layout="@layout/info_quiz">
+            </include>
+
+            <include
+                android:id="@+id/trilhaQuiz"
+                layout="@layout/trilha_quiz">
+            </include>
+
+        </FrameLayout>
+    </ScrollView>
 
 </FrameLayout>

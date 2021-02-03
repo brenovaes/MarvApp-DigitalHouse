@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_redefinirSenha"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="26sp"
             android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_textoRedefinirSenha"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="17sp" />
 
 
@@ -46,16 +46,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/tv_email"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp" />
 
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/destaqueVermelho"
+            android:backgroundTint="?attr/colorAccent"
             android:inputType="textEmailAddress"
-            android:textColor="@color/black" />
+            android:textColor="?attr/colorOnPrimary" />
 
 
         <Button
@@ -66,7 +66,7 @@
             android:background="@drawable/btn_login_radius"
             android:backgroundTint="@color/destaqueVermelho"
             android:text="@string/btn_enviar"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorPrimary"
             android:textSize="24sp"
             android:textStyle="bold" />
 

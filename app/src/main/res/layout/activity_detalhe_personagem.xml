@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.personagens.DetalhePersonagemActivity"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -35,7 +36,6 @@
                     android:id="@+id/ivPersonagemDetalhe"
                     android:layout_width="360dp"
                     android:layout_height="280dp"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -74,17 +74,19 @@
                                 android:layout_height="match_parent"
                                 android:text=""
                                 android:textSize="25dp"
+                                android:textColor="?attr/colorOnPrimary"
                                 android:textStyle="bold"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="3dp"
-                                android:background="@color/destaqueVermelho"/>
+                                android:background="?attr/colorAccent"/>
                         </LinearLayout>
                         <TextView
                             android:id="@+id/tvDescricaoPersonagemDetalhe"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text=""
+                            android:textColor="?attr/colorOnPrimary"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"/>
 
@@ -101,6 +103,7 @@
                                     android:layout_height="match_parent"
                                     android:text="see more details on www.marvel.com"
                                     android:clickable="true"
+                                    android:textColor="?attr/colorOnPrimary"
                                     android:textSize="12dp"/>
                             </LinearLayout>
 
@@ -158,19 +161,21 @@
                                 android:layout_height="match_parent"
                                 android:text="Comics: "
                                 android:textSize="20dp"
+                                android:textColor="?attr/colorOnPrimary"
                                 android:textStyle="bold"/>
                             <TextView
                                 android:id="@+id/tvQtdComicsPersonagem"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text=""
+                                android:textColor="?attr/colorOnPrimary"
                                 android:textSize="20dp"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="3dp"
                             android:orientation="vertical"
-                            android:background="@color/destaqueVermelho"/>
+                            android:background="?attr/colorAccent"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -199,19 +204,21 @@
                             android:layout_height="match_parent"
                             android:text="Series: "
                             android:textStyle="bold"
+                            android:textColor="?attr/colorOnPrimary"
                             android:textSize="20dp"/>
                         <TextView
                             android:id="@+id/tvQtdSeriesPersonagem"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text=""
+                            android:textColor="?attr/colorOnPrimary"
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:orientation="vertical"
-                        android:background="@color/destaqueVermelho"/>
+                        android:background="?attr/colorAccent"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -241,19 +248,21 @@
                             android:layout_height="match_parent"
                             android:text="Events: "
                             android:textSize="20dp"
+                            android:textColor="?attr/colorOnPrimary"
                             android:textStyle="bold"/>
                         <TextView
                             android:id="@+id/tvQtdEventosPersonagem"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text=""
+                            android:textColor="?attr/colorOnPrimary"
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:orientation="vertical"
-                        android:background="@color/destaqueVermelho"/>
+                        android:background="?attr/colorAccent"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

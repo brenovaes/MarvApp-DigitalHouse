@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.digitalhouse.br.marvelapp.MyPreferences
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
@@ -107,8 +109,12 @@ class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
         popupMenu.menuInflater.inflate(R.menu.menu_setting,popupMenu.menu)
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             when(item.itemId){
-                R.id.itTema ->
+                R.id.itTema ->{
+                    var checked = checkTheme()
+                    chooseThemeDialog(checked)
                     Toast.makeText(this@FavoritoActivity, "Changed", Toast.LENGTH_SHORT).show()
+
+                }
                 R.id.help ->{
                     var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken(getString(R.string.default_web_client_id))
@@ -127,4 +133,44 @@ class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
         })
         popupMenu.show()
     }
+
+    fun chooseThemeDialog(checkedItem: Int) {
+
+        when (checkedItem) {
+            1 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                MyPreferences(this).darkMode = 0
+                delegate.applyDayNight()
+
+
+            }
+            0 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                MyPreferences(this).darkMode = 1
+                delegate.applyDayNight()
+
+            }
+
+        }
+
+    }
+
+    private fun checkTheme(): Int {
+        when (MyPreferences(this).darkMode) {
+            0 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                delegate.applyDayNight()
+
+            }
+            1 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+
+
+            }
+
+        }
+        return MyPreferences(this).darkMode
+    }
+
 }

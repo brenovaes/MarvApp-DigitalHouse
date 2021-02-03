@@ -10,11 +10,19 @@
         <item name="colorOnPrimary">@color/white</item>
 
         <item name="colorAccent">@color/destaqueVermelho</item>
+        <item name="colorBackgroundFloating">@color/loginBodyColorD</item>
 
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/cinzaEscuro</item>
+
+        <!--        Color Gradiente-->
+        <item name="colorSecondary">@color/startColorDark</item>
+        <item name="colorOnSecondary">@color/centerColorDark</item>
+        <item name="colorOnBackground">@color/endColorLight</item>
+
+<!--        <item name="colorOnSurface">@color/endColorDark</item>-->
+
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

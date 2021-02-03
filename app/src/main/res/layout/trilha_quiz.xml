@@ -27,7 +27,7 @@
             android:layout_width="60dp"
             android:layout_height="1dp"
             android:layout_marginTop="45dp"
-            android:background="@color/destaqueVermelho"/>
+            android:background="?attr/colorAccent"/>
 
         <include
             android:id="@+id/balao2"
@@ -40,7 +40,7 @@
             android:layout_width="60dp"
             android:layout_height="1dp"
             android:layout_marginTop="45dp"
-            android:background="@color/destaqueVermelho"/>
+            android:background="?attr/colorAccent"/>
 
         <include
             android:id="@+id/balao3"
@@ -53,14 +53,14 @@
             android:layout_width="30dp"
             android:layout_height="1dp"
             android:layout_marginTop="45dp"
-            android:background="@color/black"/>
+            android:background="?attr/colorOnPrimary"/>
 
         <View
             android:id="@+id/linhaBalaoVertical1"
             android:layout_width="1dp"
             android:layout_height="130dp"
             android:layout_marginTop="45dp"
-            android:background="@color/black" />
+            android:background="?attr/colorOnPrimary" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,7 +80,7 @@
             android:layout_width="60dp"
             android:layout_height="1dp"
             android:layout_marginTop="45dp"
-            android:background="@color/black" />
+            android:background="?attr/colorOnPrimary" />
 
         <include
             android:id="@+id/balao4"
@@ -93,13 +93,13 @@
             android:layout_width="60dp"
             android:layout_height="1dp"
             android:layout_marginTop="45dp"
-            android:background="@color/black" />
+            android:background="?attr/colorOnPrimary" />
 
         <View
             android:id="@+id/linhaBalaoVertical2"
             android:layout_width="1dp"
             android:layout_height="46dp"
-            android:background="@color/black" />
+            android:background="?attr/colorOnPrimary" />
     </LinearLayout>
 
 </LinearLayout>

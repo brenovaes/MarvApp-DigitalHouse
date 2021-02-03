@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/colorPrimary"
     tools:context=".ui.favoritos.FavoritoBuscaHqFrag">
 
     <LinearLayout
@@ -24,7 +25,7 @@
                 android:layout_height="56dp"
                 android:layout_gravity="center"
                 android:background="@drawable/borda_edit_text"
-                android:textColor="@color/barra_busca"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +39,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/ic_search_black"
-                android:backgroundTint="@color/barra_busca"
+                android:backgroundTint="?attr/colorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.881"
@@ -49,9 +50,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="?attr/colorPrimary"
                 android:text="Search"
-                android:textColor="@color/barra_busca"
+                android:textColor="?attr/colorOnPrimary"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +85,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="20dp"
                         android:text="Favorite Comics:"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnPrimary"
                         android:textSize="25sp"
                         android:textAlignment="textStart"/>
                     <TextView
@@ -93,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
                         android:text="10"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnPrimary"
                         android:textSize="25sp" />
 
                 </LinearLayout>
@@ -104,7 +105,7 @@
                     android:layout_height="2dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="12dp"
-                    android:background="@color/destaqueVermelho" />
+                    android:background="?attr/colorAccent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvFavoritoHq"
