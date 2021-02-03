@@ -5,17 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/colorPrimary"
     tools:context=".ui.home.HomeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/tbHome"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/white">
+        android:background="?attr/colorPrimary">
+
+<!--        android:id="@+id/tbHome"-->
 
         <include
-            android:id="@+id/tbHome"
             layout="@layout/toolbar_principal">
         </include>
 
@@ -43,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@color/white"
+            android:background="?attr/colorPrimary"
             android:orientation="vertical">
 
             <TextView
@@ -70,7 +71,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/cinzaClaroL"
+                    android:background="?attr/colorPrimaryVariant"
                     android:orientation="horizontal"
                     android:padding="12dp">
                     <!-- falta arredondar borda da img    -->
@@ -94,7 +95,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Nome do heroi"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnPrimary"
                             android:textSize="25sp" />
 
                         <TextView
@@ -103,7 +104,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
                             android:text="Comics:0"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnPrimary"
                             android:textSize="18sp" />
 
                         <TextView
@@ -111,7 +112,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Series:0"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnPrimary"
                             android:textSize="18sp" />
 
                         <TextView
@@ -119,7 +120,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Stories:0"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnPrimary"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -132,13 +133,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22.42dp"
                 android:text="@string/MaisPopulares"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="25sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/destaqueVermelho" />
+                android:background="?attr/colorAccent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMaisPopulares"
@@ -157,13 +158,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22.42dp"
                 android:text="@string/Sugestoes"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="25sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/destaqueVermelho" />
+                android:background="?attr/colorAccent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSugestoes"
@@ -181,13 +182,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22.42dp"
                 android:text="@string/Historico"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="25sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/destaqueVermelho" />
+                android:background="?attr/colorAccent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvHistorico"
@@ -206,7 +207,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/white"
+        app:itemBackground="?attr/colorPrimary"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_bottom_navigation"
         tools:layout_editor_absoluteX="0dp"

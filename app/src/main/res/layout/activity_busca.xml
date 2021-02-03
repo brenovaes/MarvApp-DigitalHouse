@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="?attr/colorPrimary">
 
         <include
             android:id="@+id/tbBusca"
@@ -21,9 +21,9 @@
             android:id="@+id/tlBusca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabSelectedTextColor="@color/destaqueVermelho"
-            app:tabIndicatorColor="@color/destaqueVermelho"
-            app:tabTextColor="@color/black"
+            app:tabSelectedTextColor="?attr/colorAccent"
+            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabTextColor="?attr/colorOnPrimary"
             app:tabMode="fixed"
             app:tabGravity="fill"/>
 
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/white"
+        app:itemBackground="?attr/colorPrimary"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:labelVisibilityMode="labeled"

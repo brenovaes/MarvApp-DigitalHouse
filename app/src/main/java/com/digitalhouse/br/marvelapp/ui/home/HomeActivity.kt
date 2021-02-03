@@ -12,8 +12,10 @@ import android.view.*
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.digitalhouse.br.marvelapp.MyPreferences
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.models.Characters
@@ -38,11 +40,13 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 import java.time.LocalDate
+import kotlin.properties.Delegates
 
 class HomeActivity : AppCompatActivity(),
 //    PopularAdapter.OnPopularClickListener,
     SugestoesAdapter.OnSugestoesClickListener,
     HistoryAdapter.OnHistoricoClickListener {
+
 
     private lateinit var db: AppDataBase
     private lateinit var repositoryHero: RepositoryHero
@@ -83,6 +87,8 @@ class HomeActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        checkTheme()
+
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -263,20 +269,22 @@ class HomeActivity : AppCompatActivity(),
     }
 
     //arrumar o menu que nao esta abrindo os itens
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.help -> {
-                FirebaseAuth.getInstance().signOut()
-                startActivity(Intent(this, LoginActivity::class.java))
-                return true
-            }
-            R.id.itTema -> {
-                showToast("Clicado para mudar o tema!!")
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        var checked = checkTheme()
+//
+//        when (item.itemId) {
+//            R.id.help -> {
+//                FirebaseAuth.getInstance().signOut()
+//                startActivity(Intent(this, LoginActivity::class.java))
+//                return true
+//            }
+//            R.id.itTema -> {
+//
+//                return true
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
 //    fun getPopular():ArrayList<EntesMarvel>{
 //        return arrayListOf(
@@ -332,8 +340,13 @@ class HomeActivity : AppCompatActivity(),
         popupMenu.menuInflater.inflate(R.menu.menu_setting, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.itTema ->
+                R.id.itTema ->{
+                    var checked = checkTheme()
+                    chooseThemeDialog(checked)
                     Toast.makeText(this@HomeActivity, "Changed", Toast.LENGTH_SHORT).show()
+
+                }
+
                 R.id.help ->{
                     var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                             .requestIdToken(getString(R.string.default_web_client_id))
@@ -403,6 +416,44 @@ class HomeActivity : AppCompatActivity(),
         return activeNetwork?.isConnectedOrConnecting == true
     }
 
+    fun chooseThemeDialog(checkedItem: Int) {
+
+        when (checkedItem) {
+            1 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                MyPreferences(this).darkMode = 0
+                delegate.applyDayNight()
+
+
+            }
+            0 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                MyPreferences(this).darkMode = 1
+                delegate.applyDayNight()
+
+            }
+
+        }
+
+    }
+
+    private fun checkTheme(): Int {
+        when (MyPreferences(this).darkMode) {
+            0 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                delegate.applyDayNight()
+
+            }
+            1 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+
+
+            }
+
+        }
+        return MyPreferences(this).darkMode
+    }
 
 }
 
