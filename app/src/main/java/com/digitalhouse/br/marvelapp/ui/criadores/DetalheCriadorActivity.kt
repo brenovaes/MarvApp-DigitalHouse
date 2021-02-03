@@ -24,6 +24,7 @@ import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
+import kotlinx.android.synthetic.main.toolbar_principal.*
 
 
 class DetalheCriadorActivity : AppCompatActivity(),
@@ -71,6 +72,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
             onBackPressed()
         }
 
+
         viewModelCreators.retornoCreator.observe(this) {
             creator.addAll(it.data.results)
             var comics = creator[0].comics.items
@@ -79,6 +81,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
 
             var name = creator[0].fullName
             var img = creator[0].thumbnail.path + "." + creator[0].thumbnail.extension
+
 
             Picasso.get().load(img).resize(360,280).into(ivCriadorDetalhe)
             tvNomeCriadorDetalhe.text = name
@@ -131,10 +134,22 @@ class DetalheCriadorActivity : AppCompatActivity(),
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var url_share = creator[0].urls[0].url
+        Log.i("DetalhesCriadorActivityTAG", url_share)
 
         when (item.itemId) {
             R.id.menu_share -> {
-                Toast.makeText(this, "Share Creator", Toast.LENGTH_SHORT).show()
+
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, url_share)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+
+//                Toast.makeText(this, "Share Creator", Toast.LENGTH_SHORT).show()
                 return true
             }
         }
