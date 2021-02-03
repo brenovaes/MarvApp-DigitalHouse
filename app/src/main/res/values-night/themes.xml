@@ -15,10 +15,12 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondaryVariant">@color/cinzaEscuro</item>
 
+
+
         <!--        Color Gradiente-->
         <item name="colorSecondary">@color/startColorDark</item>
         <item name="colorOnSecondary">@color/centerColorDark</item>
-        <item name="colorOnBackground">@color/endColorLight</item>
+        <item name="colorPrimaryDark">@color/endColorDark</item>
 
 <!--        <item name="colorOnSurface">@color/endColorDark</item>-->
 

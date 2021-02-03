@@ -12,9 +12,9 @@
     <color name="startColorLight">#36FFFFFF</color>
     <color name="centerColorLight">#D9FFFFFF</color>
     <color name="endColorLight">#FFFFFF</color>
-    <color name="startColorDark">#0A0909</color>
-    <color name="centerColorDark">#101010</color>
-    <color name="endColorDark">#FFF2F2F2</color>
+    <color name="startColorDark">#36000000</color>
+    <color name="centerColorDark">#D9000000</color>
+    <color name="endColorDark">#000000</color>
     <!--    cores do body login-->
     <color name="loginBodyColorL">#CCFCFCFC</color>
     <color name="loginBodyColorD">#CC000000</color>

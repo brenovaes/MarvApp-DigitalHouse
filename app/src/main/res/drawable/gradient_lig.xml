@@ -11,7 +11,7 @@
                 android:type="linear"
                 android:startColor="?attr/colorSecondary"
                 android:centerColor="?attr/colorOnSecondary"
-                android:endColor="?attr/colorOnBackground"
+                android:endColor="?attr/colorPrimaryDark"
                 android:angle="-90"/>
 
         </shape>

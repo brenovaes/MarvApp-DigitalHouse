@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="324dp"
-    android:layout_height="380dp"
+    android:layout_height="490dp"
     tools:context=".ui.iniciais.RedefinirSenhaFragment">
 
 
@@ -11,12 +11,12 @@
         android:id="@+id/llbodyCadastro"
         layout="@layout/body_login"
         android:layout_width="324dp"
-        android:layout_height="380dp"
+        android:layout_height="490dp"
      />
 
     <LinearLayout
         android:layout_width="324dp"
-        android:layout_height="380dp"
+        android:layout_height="490dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="24dp"
@@ -29,6 +29,7 @@
             android:text="@string/tv_redefinirSenha"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="26sp"
+            android:layout_marginBottom="10dp"
             android:textStyle="bold" />
 
         <TextView
@@ -37,6 +38,15 @@
             android:layout_height="wrap_content"
             android:text="@string/tv_textoRedefinirSenha"
             android:textColor="?attr/colorOnPrimary"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tvTextObsRedefinirSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_textObs"
+            android:textColor="?attr/colorOnPrimary"
+            android:layout_marginTop="5dp"
             android:textSize="17sp" />
 
 
@@ -50,7 +60,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etEmailRedefine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/colorAccent"

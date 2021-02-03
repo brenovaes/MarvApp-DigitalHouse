@@ -20,7 +20,7 @@
 <!--        Color Gradiente-->
         <item name="colorSecondary">@color/startColorLight</item>
         <item name="colorOnSecondary">@color/centerColorLight</item>
-        <item name="colorOnBackground">@color/endColorLight</item>
+        <item name="colorPrimaryDark">@color/endColorLight</item>
 
 
 <!--        <item name="colorOnSurface">@color/endColorLight</item>-->

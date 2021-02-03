@@ -13,9 +13,11 @@ import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.models.User
 import com.digitalhouse.br.marvelapp.service.RepositoryDB
 import com.digitalhouse.br.marvelapp.service.RepositoryImpl
+import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_cadastro.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.activity_redefinir_senha.*
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -46,19 +48,28 @@ class RegisterActivity : AppCompatActivity() {
 
         //falta verificar se os campos estão vazios antes de salvar
         btnCadastrar.setOnClickListener() {
-            if (registerViewModel.checkPassword(etPasswordC.text.toString(), etRPasswordC.text.toString())) {
-                registerViewModel.addNewUser(
-                    User(
-                        username = etUsuario.text.toString(),
-                        password = etPasswordC.text.toString(),
-                        email = etEmail.text.toString()
+            if (etUsuario.text.toString().isNotBlank() &&
+                    etEmail.text.toString().isNotBlank() &&
+                    etPasswordC.text.toString().isNotBlank() &&
+                    etRPasswordC.text.toString().isNotBlank()){
+
+                if (registerViewModel.checkPassword(etPasswordC.text.toString(), etRPasswordC.text.toString())) {
+                    registerViewModel.addNewUser(
+                            User(
+                                    username = etUsuario.text.toString(),
+                                    password = etPasswordC.text.toString(),
+                                    email = etEmail.text.toString()
+                            )
                     )
-                )
-                sendDataFirebase(etEmail.text.toString(),etPasswordC.text.toString() )
+                    sendDataFirebase(etEmail.text.toString(),etPasswordC.text.toString() )
 
 
-            } else {
-                showToast("Senhas diferentes!")
+                } else {
+                    showToast("Different passwords, please make them the same.")
+                }
+
+            }else{
+                showToast("Fill in all required information.")
             }
         }
     }
@@ -69,33 +80,10 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-
-
-//    fun getInformationUser(): User {
-//        val name = tvUsuario.text.toString()
-//        val email = tvEmail.text.toString()
-//        val senha1 = etPasswordC.text.toString()
-//        val senha2 = etRPasswordC.text.toString()
-//
-//        if (checkPassword(senha1, senha2)){
-//            showToast("Usuário cadastrado!")
-//            callLogin()
-//        }
-//        else{
-//            showToast("Senhas diferentes!")
-//        }
-//
-//        return User(1, email,name, senha1)
-//    }
-
-//    fun checkPassword(s1: String, s2: String): Boolean {
-//        return s1 == s2
-//    }
-
-    //imlementar passagem de putExtra user
-    fun callLogin() {
-        var intent = Intent(this, LoginActivity::class.java)
+    fun callHome() {
+        var intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     fun sendDataFirebase(email:String, password:String) {
@@ -103,10 +91,12 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val firebaseUser: FirebaseUser = task.result?.user!!
-                    showToast("usuário cadastrado com sucesso")
-//                    val idUser = firebaseUser.uid
-//                    val emailUser = firebaseUser.email.toString()
-//                    callMain(idUser, emailUser)
+                    showToast("User successfully registered.")
+                    callHome()
+                }
+
+                else{
+                    showToast("Failed to register the user, please try again.")
                 }
             }
     }
