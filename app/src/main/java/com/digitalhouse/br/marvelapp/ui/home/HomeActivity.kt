@@ -3,7 +3,6 @@ package com.digitalhouse.br.marvelapp.ui.home
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +17,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.MyPreferences
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.crH
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.models.Characters
+import com.digitalhouse.br.marvelapp.models.HeroDay
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
@@ -38,12 +39,11 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 import java.time.LocalDate
-import kotlin.properties.Delegates
 
 class HomeActivity : AppCompatActivity(),
 //    PopularAdapter.OnPopularClickListener,
-    SugestoesAdapter.OnSugestoesClickListener,
-    HistoryAdapter.OnHistoricoClickListener {
+        SugestoesAdapter.OnSugestoesClickListener,
+        HistoryAdapter.OnHistoricoClickListener {
 
 
     private lateinit var db: AppDataBase
@@ -69,16 +69,16 @@ class HomeActivity : AppCompatActivity(),
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return HomeViewModel(
-                    serviceCh,
-                    serviceS,
-                    repositoryHero,
-                    repositoryHistory,
-                    repositorySuggestions
+                        serviceCh,
+                        serviceS,
+                        repositoryHero,
+                        repositoryHistory,
+                        repositorySuggestions,
+                        crH
                 ) as T
             }
         }
     }
-
 
 
     @SuppressLint("WrongConstant", "SetTextI18n")
@@ -110,34 +110,103 @@ class HomeActivity : AppCompatActivity(),
         viewModelHome.getHDay()
 
 
+        //HERO DAY LOCAL
+//        viewModelHome.retornoHeroDB.observe(this) {
+//            when (it) {
+//                true -> {
+//                    viewModelHome.getCharacter()
+//                }
+//                false -> {
+//                    viewModelHome.retornodataHSaved.observe(this) {
+//
+//                        when (viewModelHome.compareDate(LocalDate.now(), it)) {
+//                            true -> {
+//                                viewModelHome.characterSaved.observe(this) {
+//                                    infoHeroDay(it)
+//                                }
+//                            }
+//                            false -> {
+//                                Log.i("Home", "DATA n é igual")
+//                                viewModelHome.delHero()
+//                                viewModelHome.getCharacter()
+//
+//                            }
+//                        }
+//
+//                    }
+//                }
+//
+//            }
+//
+//        }
 
-
-        viewModelHome.retornoHeroDB.observe(this) {
+        viewModelHome.checkHeroDayF()
+        viewModelHome.docHeroDay.observe(this) {
             when (it) {
-                true -> viewModelHome.getCharacter()
-                false -> {
-                    viewModelHome.retornodataHSaved.observe(this) {
-
-                        when (viewModelHome.compareDate(LocalDate.now(), it)) {
-                            true -> {
-                                viewModelHome.characterSaved.observe(this) {
-                                    infoHeroDay(it)
-                                }
-                            }
-                            false -> {
-                                Log.i("Home", "DATA n é igual")
-                                viewModelHome.delHero()
-                                viewModelHome.getCharacter()
-
-                            }
-                        }
-
+                true -> {
+                    viewModelHome.getCharacter()
+                    viewModelHome.infoHeroD.observe(this) { hero ->
+                        viewModelHome.addHeroDayF(hero)
+                        infoHeroDay(hero)
                     }
                 }
+                false -> {
+                    viewModelHome.getHeroDay()
+                    viewModelHome.retornoHeroDaySavedF.observe(this) { hero ->
+                        when (viewModelHome.compareDate(LocalDate.now(), hero.dateT)) {
 
+                            true -> {
+                                viewModelHome.retornoHeroDaySavedF.observe(this) { hero ->
+                                    infoHeroDay(hero)
+                                }
+                            }
+
+                            false -> {
+                                viewModelHome.getCharacter()
+                                viewModelHome.infoHeroD.observe(this) {hero ->
+                                    viewModelHome.updateHeroDay(hero)
+                                    infoHeroDay(hero)
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
         }
+
+//        viewModelHome.retornoHeroDB.observe(this) {
+//            viewModelHome.checkHeroDayF()
+//
+//            when (it) {
+//                true -> {
+//                    viewModelHome.getCharacter()
+//                }
+//                false -> {
+//                    viewModelHome.retornodataHSaved.observe(this) {
+//
+//                        when (viewModelHome.compareDate(LocalDate.now(), it)) {
+//                            true -> {
+//                                viewModelHome.characterSaved.observe(this) {
+//                                    infoHeroDay(it)
+//
+////                                    viewModelHome.updateHeroDay(HeroDay(it.idCharacter, it.name, it.extension,
+////                                            it.path, it.comics, it.series, it.stories, it.dateT))
+//                                }
+//                            }
+//                            false -> {
+//                                Log.i("Home", "DATA n é igual")
+//                                viewModelHome.delHero()
+//                                viewModelHome.getCharacter()
+//
+//                            }
+//                        }
+//
+//                    }
+//                }
+//
+//            }
+//
+//        }
 
 
 //        viewModelHome.getAllCharactersSugestao()
@@ -336,20 +405,20 @@ class HomeActivity : AppCompatActivity(),
         popupMenu.menuInflater.inflate(R.menu.menu_setting, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.itTema ->{
+                R.id.itTema -> {
                     chooseThemeDialog(MyPreferences(this).darkMode)
                     Toast.makeText(this@HomeActivity, "Changed theme.", Toast.LENGTH_SHORT).show()
 
                 }
 
-                R.id.help ->{
+                R.id.help -> {
                     var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                             .requestIdToken(getString(R.string.default_web_client_id))
                             .requestEmail()
                             .build();
 
                     var mGoogleSignInClient = GoogleSignIn.getClient(getBaseContext(), gso);
-                    mGoogleSignInClient.signOut().addOnCompleteListener{
+                    mGoogleSignInClient.signOut().addOnCompleteListener {
                         FirebaseAuth.getInstance().signOut()
                     }
                     startActivity(Intent(this, LoginActivity::class.java))
@@ -370,17 +439,17 @@ class HomeActivity : AppCompatActivity(),
         when (suggestionType) {
             "comics" -> {
                 var intent = Intent(this, DetalheHqActivity::class.java)
-                intent.putExtra ("idCo",suggestionId)
+                intent.putExtra("idCo", suggestionId)
                 startActivity(intent)
             }
             "creator" -> {
                 var intent = Intent(this, DetalheCriadorActivity::class.java)
-                intent.putExtra ("id",suggestionId)
+                intent.putExtra("id", suggestionId)
                 startActivity(intent)
             }
             "character" -> {
                 var intent = Intent(this, DetalhePersonagemActivity::class.java)
-                intent.putExtra ("idCh",suggestionId)
+                intent.putExtra("idCh", suggestionId)
                 startActivity(intent)
             }
         }
@@ -390,13 +459,13 @@ class HomeActivity : AppCompatActivity(),
         db = AppDataBase.invoke(this)
     }
 
-    fun infoHeroDay(character: Characters) {
-        var img = character.path + "." + character.extension
+    fun infoHeroDay(heroDay: HeroDay) {
+        var img = heroDay.path + "." + heroDay.extension
         Picasso.get().load(img).resize(150, 150).into(ivHeroiDoDia)
-        tvNomeHeroiDoDia.text = character.name
-        tvComHeroiDoDia.text = "Comics: " + character.comics?.toString()
-        tvSerHeroiDoDia.text = "Series: " + character.series?.toString()
-        tvStoHeroiDoDia.text = "Stories: " + character.stories?.toString()
+        tvNomeHeroiDoDia.text = heroDay.name
+        tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
+        tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
+        tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
     }
 
     fun detalheHeroDay(id: Int) {
@@ -411,7 +480,7 @@ class HomeActivity : AppCompatActivity(),
         return activeNetwork?.isConnectedOrConnecting == true
     }
 
-    fun chooseThemeDialog(preferenceUser:Int?) {
+    fun chooseThemeDialog(preferenceUser: Int?) {
 
 
         when (preferenceUser) {

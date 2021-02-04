@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/tv_email"
+            android:text="@string/tv_user"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/tv_user"
+            android:text="@string/tv_email"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
