@@ -3,6 +3,7 @@ package com.digitalhouse.br.marvelapp.ui.home
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
@@ -27,15 +28,12 @@ import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
-import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
@@ -341,9 +339,8 @@ class HomeActivity : AppCompatActivity(),
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.itTema ->{
-                    var checked = checkTheme()
-                    chooseThemeDialog(checked)
-                    Toast.makeText(this@HomeActivity, "Changed", Toast.LENGTH_SHORT).show()
+                    chooseThemeDialog(MyPreferences(this).darkMode)
+                    Toast.makeText(this@HomeActivity, "Changed theme.", Toast.LENGTH_SHORT).show()
 
                 }
 
@@ -416,9 +413,10 @@ class HomeActivity : AppCompatActivity(),
         return activeNetwork?.isConnectedOrConnecting == true
     }
 
-    fun chooseThemeDialog(checkedItem: Int) {
+    fun chooseThemeDialog(preferenceUser:Int?) {
 
-        when (checkedItem) {
+
+        when (preferenceUser) {
             1 -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 MyPreferences(this).darkMode = 0
@@ -431,29 +429,31 @@ class HomeActivity : AppCompatActivity(),
                 MyPreferences(this).darkMode = 1
                 delegate.applyDayNight()
 
+
             }
 
         }
 
     }
 
-    private fun checkTheme(): Int {
-        when (MyPreferences(this).darkMode) {
-            0 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                delegate.applyDayNight()
 
-            }
-            1 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                delegate.applyDayNight()
-
-
-            }
-
-        }
-        return MyPreferences(this).darkMode
-    }
+//    private fun checkTheme(): Int {
+//        when (MyPreferences(this).darkMode) {
+//            0 -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                delegate.applyDayNight()
+//
+//            }
+//            1 -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                delegate.applyDayNight()
+//
+//
+//            }
+//
+//        }
+//        return MyPreferences(this).darkMode
+//    }
 
 }
 

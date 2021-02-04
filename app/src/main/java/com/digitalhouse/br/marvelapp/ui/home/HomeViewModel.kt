@@ -1,9 +1,11 @@
 package com.digitalhouse.br.marvelapp.ui.home
 
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.digitalhouse.br.marvelapp.MyPreferences
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
@@ -194,6 +196,8 @@ class HomeViewModel(
                     )
         }
     }
+
+
 }
 
 

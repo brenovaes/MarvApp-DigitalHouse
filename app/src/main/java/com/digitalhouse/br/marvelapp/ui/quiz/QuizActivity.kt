@@ -96,9 +96,9 @@ class QuizActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
             when(item.itemId){
                 R.id.itTema ->{
-                    var checked = checkTheme()
-                    chooseThemeDialog(checked)
-                    Toast.makeText(this@QuizActivity, "Changed", Toast.LENGTH_SHORT).show()
+
+                    chooseThemeDialog(MyPreferences(this).darkMode )
+                    Toast.makeText(this@QuizActivity,"Changed theme.", Toast.LENGTH_SHORT).show()
 
                 }
 
@@ -121,9 +121,9 @@ class QuizActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
-    fun chooseThemeDialog(checkedItem: Int) {
+    fun chooseThemeDialog(preferenceUser: Int?) {
 
-        when (checkedItem) {
+        when (preferenceUser) {
             1 -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 MyPreferences(this).darkMode = 0
@@ -142,23 +142,23 @@ class QuizActivity : AppCompatActivity() {
 
     }
 
-    private fun checkTheme(): Int {
-        when (MyPreferences(this).darkMode) {
-            0 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                delegate.applyDayNight()
-
-            }
-            1 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                delegate.applyDayNight()
-
-
-            }
-
-        }
-        return MyPreferences(this).darkMode
-    }
+//    private fun checkTheme(): Int {
+//        when (MyPreferences(this).darkMode) {
+//            0 -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                delegate.applyDayNight()
+//
+//            }
+//            1 -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                delegate.applyDayNight()
+//
+//
+//            }
+//
+//        }
+//        return MyPreferences(this).darkMode
+//    }
 
 }
 
