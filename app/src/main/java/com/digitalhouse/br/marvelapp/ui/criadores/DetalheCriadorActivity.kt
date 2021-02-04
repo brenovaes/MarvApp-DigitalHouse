@@ -3,6 +3,7 @@ package com.digitalhouse.br.marvelapp.ui.criadores
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -203,6 +204,8 @@ class DetalheCriadorActivity : AppCompatActivity(),
     }
 
     fun setScrollView (){
+
+
         rvComicsCriador.run {
             addOnScrollListener(object: RecyclerView.OnScrollListener(){
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -211,10 +214,14 @@ class DetalheCriadorActivity : AppCompatActivity(),
                     val itemVisible = lManager?.childCount
                     val pastItem = lManager.findFirstVisibleItemPosition()
                     val total = adapterComics.itemCount
+                    Log.i("LOADING", viewModelCreators.loading.toString())
 
-                    if ((itemVisible + pastItem) == total){
-                        pageCreator += 10
+                    if ((itemVisible + pastItem) >= total && !viewModelCreators.loading){
+                        viewModelCreators.loading = true
                         viewModelCreators.getCreatorComics(idCreator, pageCreator)
+                        pageCreator += 10
+
+
                         Log.i("AAAAA", pageCreator.toString())
                     }
                 }

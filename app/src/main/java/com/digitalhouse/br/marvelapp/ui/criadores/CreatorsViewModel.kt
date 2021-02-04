@@ -1,5 +1,6 @@
 package com.digitalhouse.br.marvelapp.ui.criadores
 
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,10 @@ import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.service.RepositoryCreators
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
+import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -29,10 +34,12 @@ class CreatorsViewModel(
     var retornoCreatorSeries = MutableLiveData<ResSeries>()
     var retornoCreatorComics = MutableLiveData<ResComics>()
     var retornoCreatorEvents = MutableLiveData<ResEvents>()
+    var loading = false
     //var retornoCreatorStories = MutableLiveData<ResCreators>()
 
 
     fun getCreator(id: Int) {
+        loading = false
         try {
             viewModelScope.launch {
                 retornoCreator.value = serviceCreators.getCreatorRepo(
@@ -49,34 +56,36 @@ class CreatorsViewModel(
                 var tipo = "creator"
                 populateCreatorHistory(HistoryDB(id, nome, extension, path, tipo))
 
+
                 Log.i("getCreator", retornoCreator.value.toString())
             }
         } catch (e: Exception) {
             Log.i("getCreator", e.toString())
         }
+
     }
 
     fun getCreatorComics(id: Int, page: Int) {
-        try {
-            viewModelScope.launch {
-                retornoCreatorComics.value = serviceCreators.getCreatorComicsRepo(
-                    id,
-                    page,
-                    10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
-                )
+            try {
+                viewModelScope.launch {
+                    retornoCreatorComics.value = serviceCreators.getCreatorComicsRepo(
+                        id,
+                        page,
+                        10,
+                        "1601900859",
+                        "da0b41050b1361bf58011d9e4bb93ec3",
+                        "cc144618fe69492faf88410cc664f62e"
+                    )
 
 
-                getResCreatorComics(retornoCreatorComics.value!!.data.results)
+                    getResCreatorComics(retornoCreatorComics.value!!.data.results)
 
 
-                Log.i("getCreatorComics", retornoCreatorComics.value.toString())
+                    Log.i("getCreatorComics", retornoCreatorComics.value.toString())
+                }
+            } catch (e: Exception) {
+                Log.i("getCreatorComics", e.toString())
             }
-        } catch (e: Exception) {
-            Log.i("getCreatorComics", e.toString())
-        }
     }
 
 
@@ -124,10 +133,16 @@ class CreatorsViewModel(
         }
     }
 
-    fun getResCreatorComics(listComics:ArrayList<ResultsCo>) {
+    fun getResCreatorComics(listComics: ArrayList<ResultsCo>) {
         if (listComics.isNotEmpty()) {
             var comic = listComics.random()
-            var suggestion = Suggestions(comic.id, comic.title, comic.thumbnail.extension, comic.thumbnail.path, "comics")
+            var suggestion = Suggestions(
+                comic.id,
+                comic.title,
+                comic.thumbnail.extension,
+                comic.thumbnail.path,
+                "comics"
+            )
             populateSuggestions(suggestion)
         }
     }
