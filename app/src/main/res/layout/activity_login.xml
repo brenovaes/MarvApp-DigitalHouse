@@ -59,7 +59,7 @@
             android:layout_marginTop="49dp"
             android:layout_marginRight="27dp"
             android:layout_marginBottom="12dp"
-            android:text="@string/tv_usuario"
+            android:text="@string/tv_email"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             android:textStyle="bold"/>

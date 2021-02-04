@@ -142,23 +142,6 @@ class QuizActivity : AppCompatActivity() {
 
     }
 
-//    private fun checkTheme(): Int {
-//        when (MyPreferences(this).darkMode) {
-//            0 -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//                delegate.applyDayNight()
-//
-//            }
-//            1 -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                delegate.applyDayNight()
-//
-//
-//            }
-//
-//        }
-//        return MyPreferences(this).darkMode
-//    }
 
 }
 

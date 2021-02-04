@@ -290,6 +290,7 @@ class LoginActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("LoginActivityFacebook", "signInWithCredential:success")
                     val user = FirebaseAuth.getInstance().currentUser
