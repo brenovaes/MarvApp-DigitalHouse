@@ -35,24 +35,25 @@ import kotlin.properties.Delegates
 
 
 class DetalheCriadorActivity : AppCompatActivity(),
-        ComicsCreatorsAdapter.OnComicsCreatorsClickListener,
-        SeriesCreatorsAdapter.OnSeriesCreatorsClickListener,
-        EventsCreatorsAdapter.OnEventsCreatorsClickListener {
+    ComicsCreatorsAdapter.OnComicsCreatorsClickListener,
+    SeriesCreatorsAdapter.OnSeriesCreatorsClickListener,
+    EventsCreatorsAdapter.OnEventsCreatorsClickListener {
 
     //lateinit var listaComics: ArrayList<ItemsCo?>
 
     var creator = arrayListOf<ResultsCr>()
+    var loading = false
     lateinit var adapterComics: ComicsCreatorsAdapter
     lateinit var adapterSeries: SeriesCreatorsAdapter
     lateinit var adapterEventos: EventsCreatorsAdapter
     lateinit var lManager: LinearLayoutManager
 
-//    lateinit var db:AppDataBase
+    //    lateinit var db:AppDataBase
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var repositorySuggestions: RepositorySuggestions
     private var idCreator by Delegates.notNull<Int>()
     var pageCreator = 0
-    var scope = CoroutineScope(Dispatchers.Main)
+
 
     var fav = 0
 
@@ -65,15 +66,13 @@ class DetalheCriadorActivity : AppCompatActivity(),
     }
 
 
-
-
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhe_criador)
 
         repositoryHistory = RepositoryImplHistory(AppDataBase.invoke(this).historyDao())
-        repositorySuggestions= RepositoryImplSuggestions(AppDataBase.invoke(this).suggestionsDao())
+        repositorySuggestions = RepositoryImplSuggestions(AppDataBase.invoke(this).suggestionsDao())
 
         idCreator = intent.getIntExtra("id", 0)
 
@@ -92,13 +91,14 @@ class DetalheCriadorActivity : AppCompatActivity(),
             var name = creator[0].fullName
             var img = creator[0].thumbnail.path + "." + creator[0].thumbnail.extension
 
-            Picasso.get().load(img).resize(360,280).into(ivCriadorDetalhe)
+            Picasso.get().load(img).resize(360, 280).into(ivCriadorDetalhe)
             tvNomeCriadorDetalhe.text = name
 
-            viewModelCreators.retornoCreatorComics.observe(this){
+            viewModelCreators.retornoCreatorComics.observe(this) {
                 tvQtdComicsCriador.text = it.data.total.toString()
                 adapterComics = ComicsCreatorsAdapter(it.data.results, this)
                 rvComicsCriador.adapter = adapterComics
+                loading = false
             }
 
             viewModelCreators.retornoCreatorEvents.observe(this) {
@@ -107,7 +107,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
                 rvEventosCriador.adapter = adapterEventos
             }
 
-            viewModelCreators.retornoCreatorSeries.observe(this){
+            viewModelCreators.retornoCreatorSeries.observe(this) {
                 tvQtdSeriesCriador.text = it.data.total.toString()
                 adapterSeries = SeriesCreatorsAdapter(it.data.results, this)
                 rvSeriesCriador.adapter = adapterSeries
@@ -134,10 +134,9 @@ class DetalheCriadorActivity : AppCompatActivity(),
         ivFavoritoDetalheCriador.setOnClickListener {
             checkfavorite()
         }
-        scope.launch {
-            delay(1000)
-            setScrollView ()
-        }
+
+        setScrollView(rvComicsCriador)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -164,7 +163,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
 
     override fun eventsCreatorsClick(position: Int) {
         var url: String
-        viewModelCreators.retornoCreatorEvents.observe(this){
+        viewModelCreators.retornoCreatorEvents.observe(this) {
             url = it.data.results[position].urls[0].url
             Log.i("eventsCreatorsClick", url)
             val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
@@ -182,20 +181,20 @@ class DetalheCriadorActivity : AppCompatActivity(),
         }
     }
 
-    fun activityDetalheHq(id: Int){
+    fun activityDetalheHq(id: Int) {
         var intent = Intent(this, DetalheHqActivity::class.java)
         intent.putExtra("idCo", id)
         startActivity(intent)
     }
 
     fun checkfavorite() {
-        when(fav){
-            0->  {
+        when (fav) {
+            0 -> {
                 ivFavoritoDetalheCriador.setImageResource(R.drawable.heart_filled)
                 fav = 1
             }
 
-            1-> {
+            1 -> {
                 ivFavoritoDetalheCriador.setImageResource(R.drawable.heart)
                 fav = 0
             }
@@ -203,30 +202,23 @@ class DetalheCriadorActivity : AppCompatActivity(),
 
     }
 
-    fun setScrollView (){
-
-
+    private fun setScrollView(rvComicsCriador: RecyclerView) {
         rvComicsCriador.run {
-            addOnScrollListener(object: RecyclerView.OnScrollListener(){
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-
-                    val itemVisible = lManager?.childCount
-                    val pastItem = lManager.findFirstVisibleItemPosition()
-                    val total = adapterComics.itemCount
-                    Log.i("LOADING", viewModelCreators.loading.toString())
-
-                    if ((itemVisible + pastItem) >= total && !viewModelCreators.loading){
-                        viewModelCreators.loading = true
-                        viewModelCreators.getCreatorComics(idCreator, pageCreator)
-                        pageCreator += 10
-
-
-                        Log.i("AAAAA", pageCreator.toString())
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
+                        val itemVisible = lManager?.childCount
+                        val pastItem = lManager.findFirstVisibleItemPosition()
+                        val total = adapterComics.itemCount
+                        if ((itemVisible + pastItem) == total && !loading) {
+                            loading = true
+                            viewModelCreators.getCreatorComics(idCreator, pageCreator)
+                            pageCreator += 10
+                        }
                     }
                 }
             })
         }
     }
-
 }

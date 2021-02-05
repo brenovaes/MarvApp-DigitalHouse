@@ -34,12 +34,11 @@ class CreatorsViewModel(
     var retornoCreatorSeries = MutableLiveData<ResSeries>()
     var retornoCreatorComics = MutableLiveData<ResComics>()
     var retornoCreatorEvents = MutableLiveData<ResEvents>()
-    var loading = false
+
     //var retornoCreatorStories = MutableLiveData<ResCreators>()
 
 
     fun getCreator(id: Int) {
-        loading = false
         try {
             viewModelScope.launch {
                 retornoCreator.value = serviceCreators.getCreatorRepo(

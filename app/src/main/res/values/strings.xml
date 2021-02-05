@@ -10,7 +10,7 @@
 
     <!-- Login -->
     <string name="hello_world">Hello Square World!</string>
-    <string name="tv_usuario">E-mail</string>
+    <string name="tv_usuario">Username</string>
     <string name="tv_password">Password</string>
     <string name="btn_login">LOGIN</string>
 
@@ -18,7 +18,7 @@
     <string name="tv_nTemConta">Don\'t have an account?</string>
     <string name="tv_cadastre_se">Register.</string>
 
-    <string name="tv_email">Email</string>
+    <string name="tv_email">E-mail</string>
     <string name="tv_rpassword">Repeat Password</string>
     <string name="btn_cadastrar">SIGN UP</string>
     <string name="tv_redefinirSenha">Redefine password</string>

@@ -13,14 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MarvelApp">
 
-        <activity android:name=".ui.favoritos.FavoritoActivity" />
+        <activity android:name=".ui.favoritos.FavoritoActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.quiz.PerguntaActivity" />
         <activity android:name=".ui.quiz.QuizActivity" />
-        <activity android:name=".ui.busca.BuscaActivity" />
+        <activity android:name=".ui.busca.BuscaActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.iniciais.EsqueceuSenhaActivity"/>
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.iniciais.LoginActivity" />
-        <activity android:name=".ui.perfil.PerfilActivity" />
+        <activity android:name=".ui.perfil.PerfilActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.iniciais.RedefinirSenhaActivity" />
         <activity android:name=".ui.iniciais.RegisterActivity" />
         <activity android:name=".ui.hqs.DetalheHqActivity" />

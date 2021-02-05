@@ -47,39 +47,12 @@
                     android:orientation="horizontal"
                     android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/ivStar1"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/ic_star_border"
-                        android:backgroundTint="@color/black"/>
-                    <ImageView
-                        android:id="@+id/ivStar2"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/ic_star_border"
-                        android:backgroundTint="@color/black"/>
-
-                    <ImageView
-                        android:id="@+id/ivStar3"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/ic_star_border"
-                        android:backgroundTint="@color/black"/>
-
-                    <ImageView
-                        android:id="@+id/ivStar4"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/ic_star_border"
-                        android:backgroundTint="@color/black"/>
-
-                    <ImageView
-                        android:id="@+id/ivStar5"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/ic_star_border"
-                        android:backgroundTint="@color/black"/>
+                    <TextView
+                        android:id="@+id/tvTipoFuncao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Tipo/Função"/>
 
 
 
