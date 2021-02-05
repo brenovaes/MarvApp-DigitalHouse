@@ -155,27 +155,30 @@
             android:gravity="center"
             android:orientation="vertical">
 
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnGoogle"
+                android:layout_width="247dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="1.5dp"
+                android:clickable="true"
+                android:gravity="center" />
+
             <com.twitter.sdk.android.core.identity.TwitterLoginButton
                 android:id="@+id/btnTwitter"
                 android:layout_width="235dp"
-                android:layout_height="50dp"
+                android:layout_height="32dp"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:textAlignment="center" />
 
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/btnGoogle"
-                android:layout_width="235dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:clickable="true"
-                android:gravity="center" />
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/btnFacebook"
                 android:layout_width="235dp"
-                android:layout_height="50dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center" />
 
