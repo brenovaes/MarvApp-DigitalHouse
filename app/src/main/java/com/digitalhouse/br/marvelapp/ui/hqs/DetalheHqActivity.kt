@@ -211,15 +211,34 @@ class DetalheHqActivity :
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
+        var url_share = comics[0].urls[0].url
+        Log.i("DetalhesHqActivityTAG", url_share)
         when (item.itemId) {
             R.id.menu_share -> {
-                Toast.makeText(this, "Compartilhar Quadrinhos", Toast.LENGTH_SHORT).show()
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, url_share)
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+//                Toast.makeText(this, "Compartilhar Quadrinhos", Toast.LENGTH_SHORT).show()
                 return true
             }
         }
         return false
     }
+
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//
+//        when (item.itemId) {
+//            R.id.menu_share -> {
+//                Toast.makeText(this, "Compartilhar Quadrinhos", Toast.LENGTH_SHORT).show()
+//                return true
+//            }
+//        }
+//        return false
+//    }
 
 
 

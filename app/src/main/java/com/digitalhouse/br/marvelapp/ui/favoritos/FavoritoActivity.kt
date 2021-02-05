@@ -54,9 +54,9 @@ class FavoritoActivity: AppCompatActivity(), ContractDetalheFav {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorito)
 
-        viewModelFavorito.getFavCr(userId)
-        viewModelFavorito.getFavCo(userId)
-        viewModelFavorito.getFavCh(userId)
+//        viewModelFavorito.getFavCr(userId)
+//        viewModelFavorito.getFavCo(userId)
+//        viewModelFavorito.getFavCh(userId)
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
         }

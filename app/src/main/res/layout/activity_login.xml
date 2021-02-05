@@ -1,186 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_lig"
     tools:context=".ui.iniciais.LoginActivity">
-
-
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="183dp"
         android:layout_height="77dp"
         android:background="@drawable/marv"
         android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/llbodyLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.108" />
-
+        app:layout_constraintVertical_bias="0.048" />
     <include
         android:id="@+id/llbodyLogin"
         layout="@layout/body_login"
         android:layout_width="324dp"
-        android:layout_height="430dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="190dp"
-        android:layout_marginBottom="25dp"
+        android:layout_height="530dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.208"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo"
+        />
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="324dp"
-        android:layout_height="425dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="195dp"
-        android:layout_marginBottom="56dp"
+        android:layout_height="525dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.214">
-
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo">
         <TextView
             android:id="@+id/tvUsuarioL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="49dp"
             android:layout_marginRight="27dp"
-            android:layout_marginBottom="12dp"
-            android:text="@string/tv_email"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-
+            android:text="Email"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textStyle="bold" />
         <EditText
             android:id="@+id/etEmailL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="27dp"
-            android:backgroundTint="?attr/colorAccent"
-            android:textColor="?attr/colorOnPrimary" />
-
+            android:backgroundTint="@color/destaqueVermelho"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
         <TextView
             android:id="@+id/tvPasswordL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="29dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="27dp"
             android:text="@string/tv_password"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="27dp"
-            android:layout_marginBottom="31dp"
+            app:boxStrokeColor="@color/destaqueVermelho"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="?attr/colorOnPrimary"
-            app:boxStrokeColor="?attr/colorAccent" >
-
+            app:passwordToggleTint="@color/black"
+            android:textSize="15dp"
+            >
             <EditText
                 android:id="@+id/etPasswordL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="?attr/colorOnPrimary"
-                app:backgroundTint="?attr/colorAccent"/>
-
+                android:textColor="@color/black"
+                app:backgroundTint="@color/destaqueVermelho"
+                android:textSize="15dp"
+                />
         </com.google.android.material.textfield.TextInputLayout>
-
-
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="218dp"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="9dp"
             android:background="@drawable/btn_login_radius"
-            android:backgroundTint="?attr/colorAccent"
+            android:backgroundTint="@color/destaqueVermelho"
             android:text="@string/btn_login"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
-
-
         <TextView
             android:id="@+id/tvEsqueceuSenha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_esqueceuSenha"
-            android:textColor="?attr/colorOnPrimary" />
-
+            android:textColor="@color/black" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <TextView
                 android:id="@+id/tvNTemConta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_nTemConta"
-                android:textColor="?attr/colorOnPrimary" />
-
+                android:textColor="@color/black" />
             <TextView
                 android:id="@+id/tvCadastre_se"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="@string/tv_cadastre_se"
-                android:textColor="?attr/colorOnPrimary"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
-
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_width="240dp"
+            android:layout_height="170dp"
             android:layout_marginTop="22dp"
             android:layout_marginBottom="31dp"
-            android:orientation="horizontal">
-
+            android:gravity="center"
+            android:orientation="vertical">
             <com.twitter.sdk.android.core.identity.TwitterLoginButton
                 android:id="@+id/btnTwitter"
+                android:layout_width="235dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="10dp"
                 android:clickable="true"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="20dp" />
-
-
+                android:gravity="center"
+                android:textAlignment="center" />
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/btnGoogle"
+                android:layout_width="248dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="2dp"
                 android:clickable="true"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
-
+                android:gravity="center" />
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/btnFacebook"
-                android:layout_width="45dp"
-                android:layout_height="45dp"/>
-book" />-->
-
+                android:layout_width="235dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center" />
+            <!--            <ImageView-->
+            <!--                android:layout_width="45dp"-->
+            <!--                android:layout_height="45dp"-->
+            <!--                android:background="@drawable/ic_facebook" />-->
         </LinearLayout>
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
