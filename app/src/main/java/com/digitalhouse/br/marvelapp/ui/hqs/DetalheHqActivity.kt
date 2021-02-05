@@ -167,7 +167,6 @@ class DetalheHqActivity :
                     viewModelComics.addCreatorFav(UserFavComic(
                         userId, favC.id,
                         FavComic(
-                            favC.id,
                             favC.title,
                             favC.thumbnail.extension,
                             favC.thumbnail.path,
@@ -178,8 +177,8 @@ class DetalheHqActivity :
                     viewModelComics.addIconCh()
 
                 }else{
-                    viewModelComics.checkF.observe(this){
-                        if(it){
+//                    viewModelComics.checkF.observe(this){
+                        if(viewModelComics.checkF.value == true){
                             viewModelComics.deleteCreatorFav(userId, idComic)
                             viewModelComics.deletIconCh()
 
@@ -189,7 +188,6 @@ class DetalheHqActivity :
                                 UserFavComic(
                                 userId, favC.id,
                                 FavComic(
-                                    favC.id,
                                     favC.title,
                                     favC.thumbnail.extension,
                                     favC.thumbnail.path,
@@ -199,7 +197,7 @@ class DetalheHqActivity :
                             )
                             viewModelComics.addIconCh()
                         }
-                    }
+//                    }
                 }
             }
             this.recreate()

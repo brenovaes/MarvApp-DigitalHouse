@@ -134,7 +134,6 @@ class DetalheCriadorActivity : AppCompatActivity(),
                     viewModelCreators.addCreatorFav(UserFavCreator(
                         userId, favC.id,
                         FavCreator(
-                            favC.id,
                             favC.fullName,
                             favC.thumbnail.extension,
                             favC.thumbnail.path,
@@ -145,8 +144,8 @@ class DetalheCriadorActivity : AppCompatActivity(),
                     viewModelCreators.addIconCh()
 
                 }else{
-                    viewModelCreators.checkF.observe(this){
-                        if(it){
+//                    viewModelCreators.checkF.observe(this){
+                        if(viewModelCreators.checkF.value == true){
                             viewModelCreators.deleteCreatorFav(userId, idCreator)
                             viewModelCreators.deletIconCh()
 
@@ -155,7 +154,6 @@ class DetalheCriadorActivity : AppCompatActivity(),
                             viewModelCreators.addCreatorFav(UserFavCreator(
                                 userId, favC.id,
                                 FavCreator(
-                                    favC.id,
                                     favC.fullName,
                                     favC.thumbnail.extension,
                                     favC.thumbnail.path,
@@ -163,7 +161,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
                                 )))
                             viewModelCreators.addIconCh()
                         }
-                    }
+//                    }
                 }
             }
             this.recreate()

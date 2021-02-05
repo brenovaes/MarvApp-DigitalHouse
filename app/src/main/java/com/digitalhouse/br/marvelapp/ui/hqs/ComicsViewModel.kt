@@ -181,17 +181,27 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
     }
 
     fun checkFavoriteF(idComic:Int, userId:String){
+        Log.i("CHECK", "ENTrOU FUNÇÃO")
 
-        crFCo.whereEqualTo("idUser",userId).whereEqualTo("idComic",idComic).get().addOnSuccessListener {
-            it.documents.forEach {
-                checkF.value = it.exists()
-                checkIdC.value = 1
-                Log.i("CHECK", idComic.toString())
+        crFCo.whereEqualTo("idComic",idComic).get().addOnSuccessListener {
+
+            it.documents.forEach {document ->
+                document.getData()?.entries?.forEach {
+                    if(it.value == userId){
+                        checkF.value = true
+                        checkIdC.value = 1
+                        Log.i("CHECK", idComic.toString() + checkC.value.toString())
+                    }
+
+                }
+
             }
         }
     }
 
     fun addCreatorFav(userFavCo: UserFavComic){
+        Log.i("ADD", "ENTROU")
+
         crFCo.document().set(userFavCo)
     }
 

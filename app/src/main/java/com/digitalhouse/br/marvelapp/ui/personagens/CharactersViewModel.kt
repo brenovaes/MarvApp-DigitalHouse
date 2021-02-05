@@ -141,11 +141,18 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
     fun checkFavoriteF(idCharacter:Int, userId:String){
         Log.i("FIREBASE", "ENTrOU check")
 
-        crFCh.whereEqualTo("idUser",userId).whereEqualTo("idCharacter",idCharacter).get().addOnSuccessListener {
-            it.documents.forEach {
-                checkF.value = it.exists()
-                checkIdC.value = 1
+        crFCh.whereEqualTo("idCharacter",idCharacter).get().addOnSuccessListener {
+            it.documents.forEach {document ->
+                document.getData()?.entries?.forEach {
+                    if(it.value == userId){
+                        checkF.value = true
+                        checkIdC.value = 1
+                    }
+
+                }
+
             }
+
         }
     }
 
@@ -159,6 +166,8 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
             it.documents.forEach {
                 if( it.exists()){
                     it.reference.delete()
+                    Log.i("DELETE", idCharacter.toString())
+
                 }
             }
         }

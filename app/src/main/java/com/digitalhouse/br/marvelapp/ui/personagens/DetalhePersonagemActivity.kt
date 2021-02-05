@@ -132,7 +132,6 @@ class DetalhePersonagemActivity :
                     viewModelCharacters.addCharacterFav(UserFavCharacter(
                             userId, favC.id,
                             FavCharacter(
-                                    favC.id,
                                     favC.name,
                                     favC.thumbnail.extension,
                                     favC.thumbnail.path,
@@ -141,8 +140,8 @@ class DetalhePersonagemActivity :
                     viewModelCharacters.addIconCh()
 
                 }else{
-                    viewModelCharacters.checkF.observe(this){
-                        if(it){
+//                    viewModelCharacters.checkF.observe(this){
+                        if(viewModelCharacters.checkF.value == true){
                             viewModelCharacters.deleteCharacterFav(userId, idCharacter)
                             viewModelCharacters.deletIconCh()
 
@@ -151,7 +150,6 @@ class DetalhePersonagemActivity :
                             viewModelCharacters.addCharacterFav(UserFavCharacter(
                                     userId, favC.id,
                                     FavCharacter(
-                                            favC.id,
                                             favC.name,
                                             favC.thumbnail.extension,
                                             favC.thumbnail.path,
@@ -159,7 +157,7 @@ class DetalhePersonagemActivity :
                                     )))
                             viewModelCharacters.addIconCh()
                         }
-                    }
+//                    }
                 }
             }
             this.recreate()

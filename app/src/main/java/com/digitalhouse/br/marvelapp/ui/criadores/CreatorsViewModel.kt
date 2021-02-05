@@ -152,16 +152,25 @@ class CreatorsViewModel(
     fun checkFavoriteF(idCreator:Int, userId:String){
         Log.i("FIREBASE", "ENTrOU check")
 
-        crFCr.whereEqualTo("idUser",userId).whereEqualTo("idCreator",idCreator).get().addOnSuccessListener {
-            it.documents.forEach {
-                checkF.value = it.exists()
-                checkIdC.value = 1
+        crFCr.whereEqualTo("idCreator",idCreator).get().addOnSuccessListener {
+            it.documents.forEach {document ->
+                document.getData()?.entries?.forEach {
+                    if(it.value == userId){
+                        checkF.value = true
+                        checkIdC.value = 1
+                    }
+
+                }
+
             }
+
         }
     }
 
     fun addCreatorFav(userFavCr: UserFavCreator){
         crFCr.document().set(userFavCr)
+        Log.i("ADD", "ENTROU")
+
     }
 
     fun deleteCreatorFav(userId: String, idCreator: Int){
@@ -169,6 +178,8 @@ class CreatorsViewModel(
             it.documents.forEach {
                 if( it.exists()){
                     it.reference.delete()
+                    Log.i("DELETE", idCreator.toString())
+
                 }
             }
         }
