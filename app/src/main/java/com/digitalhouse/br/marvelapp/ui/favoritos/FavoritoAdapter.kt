@@ -7,28 +7,31 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.models.Characters
+import com.digitalhouse.br.marvelapp.models.UserFav
+import com.squareup.picasso.Picasso
 
-class FavoritoAdapter (var listPersonagens: ArrayList<Characters>, val listener: OnFavoritoPersonagemClickListener): RecyclerView.Adapter<FavoritoAdapter.FPersonagemViewHolder>(){
+class FavoritoAdapter (var listFav: ArrayList<UserFav?>, val listener: OnFavoritoPersonagemClickListener): RecyclerView.Adapter<FavoritoAdapter.FavoritoViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FPersonagemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritoViewHolder {
         var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
-        return FPersonagemViewHolder(itemView)
+        return FavoritoViewHolder(itemView)
     }
 
-    override fun getItemCount() = listPersonagens.size
+    override fun getItemCount() = listFav.size
 
-    override fun onBindViewHolder(holder: FPersonagemViewHolder, position: Int) {
-        var personagens = listPersonagens.get(position)
-//        holder.imgCard.setImageResource(personagens.imagemCharacter)
-//        holder.nomeCard.text = personagens.nomeCharacter
+    override fun onBindViewHolder(holder: FavoritoViewHolder, position: Int) {
+        var favorito = listFav.get(position)
+        var img = favorito!!.fav.path + "." + favorito.fav.extension
+        Picasso.get().load(img).fit().into(holder.imgCard)
+
+        holder.nomeCard.text = favorito.fav.name
     }
 
     interface OnFavoritoPersonagemClickListener{
-        fun fPersonagemClick(position: Int)
+        fun fPersonagemClick(position: Int, id:Int)
     }
 
-    inner class FPersonagemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    inner class FavoritoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
         //falta a parte das estrelas
@@ -39,8 +42,9 @@ class FavoritoAdapter (var listPersonagens: ArrayList<Characters>, val listener:
 
         override fun onClick(v: View?) {
             val position = adapterPosition
+            val id = listFav.get(position)?.id
             if (RecyclerView.NO_POSITION != position)
-                listener.fPersonagemClick(position)
+                listener.fPersonagemClick(position, id!!)
             //redirecionar para o detalhe do card (personagem, criador ou HQ)
         }
     }

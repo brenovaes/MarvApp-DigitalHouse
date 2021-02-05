@@ -6,17 +6,23 @@ import android.view.Gravity
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.digitalhouse.br.marvelapp.MyPreferences
-import com.digitalhouse.br.marvelapp.R
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.digitalhouse.br.marvelapp.*
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
+import com.digitalhouse.br.marvelapp.interfac.ContractDetalheFav
+import com.digitalhouse.br.marvelapp.service.serviceCh
+import com.digitalhouse.br.marvelapp.service.serviceS
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
 import com.digitalhouse.br.marvelapp.ui.quiz.QuizActivity
 import com.digitalhouse.br.marvelapp.ui.busca.ViewPagerBuscaAdapter
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.home.HomeActivity
+import com.digitalhouse.br.marvelapp.ui.home.HomeViewModel
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.digitalhouse.br.marvelapp.ui.iniciais.SplashActivity
@@ -28,12 +34,29 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_favorito.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 
-class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
+class FavoritoActivity: AppCompatActivity(), ContractDetalheFav {
+
+    val viewModelFavorito by viewModels<FavoritoViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return FavoritoViewModel(
+                        crFCo,
+                        crFCh,
+                        crFCr
+                ) as T
+            }
+        }
+    }
+
+    var userId= FirebaseAuth.getInstance().currentUser!!.uid
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorito)
 
-
+        viewModelFavorito.getFavCr(userId)
+        viewModelFavorito.getFavCo(userId)
+        viewModelFavorito.getFavCh(userId)
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
         }
@@ -75,7 +98,7 @@ class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
         tlFavoritoBusca.addTab(tlFavoritoBusca.newTab().setText("COMICS"))
         tlFavoritoBusca.addTab(tlFavoritoBusca.newTab().setText("CREATORS"))
 
-        val adapter = ViewPagerBuscaAdapter(supportFragmentManager, tlFavoritoBusca.tabCount)
+        val adapter = ViewPagerFavBuscaAdapter(supportFragmentManager, tlFavoritoBusca.tabCount)
         vpFavorito.adapter = adapter
         vpFavorito.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tlFavoritoBusca))
 
@@ -92,16 +115,23 @@ class FavoritoActivity: AppCompatActivity(), ContractDetalheCardsFragments {
         })
     }
 
-    override fun callDetalhesPCards(idCharacter:Int) {
-        startActivity(Intent(this, DetalhePersonagemActivity::class.java))
+    override fun callDetalhesPCardsFav(idCharacter:Int) {
+        var intent = Intent(this, DetalhePersonagemActivity::class.java)
+        intent.putExtra("idCh", idCharacter)
+        startActivity(intent)
+
     }
 
-    override fun callDetalhesHQCards(idComic:Int) {
-        startActivity(Intent(this, DetalheHqActivity::class.java))
+    override fun callDetalhesHQCardsFav(idComic:Int) {
+        var intent = Intent(this, DetalheHqActivity::class.java)
+        intent.putExtra("idCo", idComic)
+        startActivity(intent)
     }
 
-    override fun callDetalhesCCards(idCreator:Int) {
-        startActivity(Intent(this, DetalheCriadorActivity::class.java))
+    override fun callDetalhesCCardsFav(idCreator:Int) {
+        var intent = Intent(this, DetalheCriadorActivity::class.java)
+        intent.putExtra("id", idCreator)
+        startActivity(intent)
     }
 
     private fun showPopup(view: View) {

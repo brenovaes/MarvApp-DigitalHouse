@@ -36,7 +36,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_below="@id/tbHome"
         android:layout_above="@+id/btnNavigationHome">
 
@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:paddingBottom="20dp"
             android:background="?attr/colorPrimary"
             android:orientation="vertical">
 
@@ -126,29 +127,29 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/tvMaisPopulares"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22.42dp"
-                android:text="@string/MaisPopulares"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="25sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/tvMaisPopulares"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="22.42dp"-->
+<!--                android:text="@string/MaisPopulares"-->
+<!--                android:textColor="?attr/colorOnPrimary"-->
+<!--                android:textSize="25sp" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="?attr/colorAccent" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:background="?attr/colorAccent" />-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMaisPopulares"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/card_modelo" />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rvMaisPopulares"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="180dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingBottom="10dp"-->
+<!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--                tools:listitem="@layout/card_modelo" />-->
 
 
             <TextView

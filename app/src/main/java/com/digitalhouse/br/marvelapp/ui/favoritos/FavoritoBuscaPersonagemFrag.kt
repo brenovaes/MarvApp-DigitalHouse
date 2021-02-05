@@ -1,18 +1,43 @@
 package com.digitalhouse.br.marvelapp.ui.favoritos
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.ColorSpace
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.models.Characters
+import com.digitalhouse.br.marvelapp.crFCh
+import com.digitalhouse.br.marvelapp.crFCo
+import com.digitalhouse.br.marvelapp.crFCr
+import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
+import com.digitalhouse.br.marvelapp.interfac.ContractDetalheFav
+import com.digitalhouse.br.marvelapp.ui.busca.BHQAdapter
+import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_fav_busca_personagem.*
 
 class FavoritoBuscaPersonagemFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonagemClickListener {
 
-    var listPersonagens:ArrayList<Characters> = getPersonagens()
-    var adapterF = FavoritoAdapter(listPersonagens, this)
+    val viewModelFavorito by viewModels<FavoritoViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return FavoritoViewModel(
+                        crFCo,
+                        crFCh,
+                        crFCr
+                ) as T
+            }
+        }
+    }
+
+    private lateinit var cf: ContractDetalheFav
+    lateinit var adapterF: FavoritoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,37 +52,30 @@ class FavoritoBuscaPersonagemFrag : Fragment(), FavoritoAdapter.OnFavoritoPerson
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvFavoritoBusca.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
-            // set the custom adapter to the RecyclerView
-            adapter = adapterF
-        }
 
 
+        viewModelFavorito.getFavCh(FirebaseAuth.getInstance().currentUser!!.uid)
+            viewModelFavorito.resListFavCh.observe(viewLifecycleOwner){
+                adapterF = FavoritoAdapter(it, this@FavoritoBuscaPersonagemFrag)
+                rvFavoritoPers.adapter = adapterF
+                qtdFavoritosPersonagem.text = it.size.toString()
+            }
 
     }
+    override  fun  onAttach ( context : Context) {
+        super .onAttach (context)
+        if (context is ContractDetalheFav) cf = context
+    }
+
 
     companion object {
 
         fun newInstance() =  FavoritoBuscaPersonagemFrag()
     }
 
-    fun getPersonagens():ArrayList<Characters>{
-        return arrayListOf(
-//            Characters( 1, R.drawable.omiranha,"Nome1"),
-//            Characters(2, R.drawable.omiranha,"Nome1"),
-//            Characters(3, R.drawable.omiranha,"Nome2"),
-//            Characters(4, R.drawable.omiranha,"Nome3"),
-//            Characters(5, R.drawable.omiranha,"Nome4"),
-//            Characters(6, R.drawable.omiranha,"Nome5"),
-//            Characters(7, R.drawable.omiranha,"Nome6"),
-//            Characters(8, R.drawable.omiranha,"Nome7"),
-//            Characters(9, R.drawable.omiranha,"Nome8"),
-//            Characters(10, R.drawable.omiranha,"Nome9")
-        )
-    }
 
-    override fun fPersonagemClick(position: Int) {
+    override fun fPersonagemClick(position: Int, id:Int) {
+       adapterF.notifyItemChanged(position)
+        cf.callDetalhesPCardsFav(id)
     }
 }
