@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:background="@color/cinzaClaroL">
+            android:background="?attr/colorPrimaryVariant">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -38,17 +38,20 @@
                     android:textSize="10dp"
                     android:textStyle="bold"
                     android:text=""
+                    android:textColor="?attr/colorOnPrimary"
                     android:layout_marginBottom="5dp"/>
                 <TextView
                     android:id="@+id/cvDataComic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="10dp"
+                    android:textColor="?attr/colorOnPrimary"
                     android:text=""/>
                 <TextView
                     android:id="@+id/cvCriadorComic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnPrimary"
                     android:textSize="10dp"
                     android:text=""/>
             </LinearLayout>

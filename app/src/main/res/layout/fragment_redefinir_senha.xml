@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="324dp"
-    android:layout_height="380dp"
+    android:layout_height="490dp"
     tools:context=".ui.iniciais.RedefinirSenhaFragment">
 
 
@@ -11,12 +11,12 @@
         android:id="@+id/llbodyCadastro"
         layout="@layout/body_login"
         android:layout_width="324dp"
-        android:layout_height="380dp"
+        android:layout_height="490dp"
      />
 
     <LinearLayout
         android:layout_width="324dp"
-        android:layout_height="380dp"
+        android:layout_height="490dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="24dp"
@@ -27,8 +27,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_redefinirSenha"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="26sp"
+            android:layout_marginBottom="10dp"
             android:textStyle="bold" />
 
         <TextView
@@ -36,7 +37,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_textoRedefinirSenha"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tvTextObsRedefinirSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_textObs"
+            android:textColor="?attr/colorOnPrimary"
+            android:layout_marginTop="5dp"
             android:textSize="17sp" />
 
 
@@ -45,17 +55,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/tv_email"
-            android:textColor="@color/black"
+            android:text="@string/tv_user"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etEmailRedefine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/destaqueVermelho"
+            android:backgroundTint="?attr/colorAccent"
             android:inputType="textEmailAddress"
-            android:textColor="@color/black" />
+            android:textColor="?attr/colorOnPrimary" />
 
 
         <Button
@@ -66,7 +76,7 @@
             android:background="@drawable/btn_login_radius"
             android:backgroundTint="@color/destaqueVermelho"
             android:text="@string/btn_enviar"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorPrimary"
             android:textSize="24sp"
             android:textStyle="bold" />
 

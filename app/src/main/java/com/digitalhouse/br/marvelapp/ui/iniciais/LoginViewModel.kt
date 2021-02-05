@@ -12,6 +12,7 @@ class LoginViewModel(val repositoryDB: RepositoryDB) : ViewModel() {
 
     var result = MutableLiveData<Int?>()
     var password = MutableLiveData<String>()
+    var resSend = MutableLiveData<Boolean>()
 
     fun checkUserEmail(email: String) {
         viewModelScope.launch {
@@ -25,5 +26,15 @@ class LoginViewModel(val repositoryDB: RepositoryDB) : ViewModel() {
             password.value = repositoryDB.checkPasswordTask(id)
         }
     }
+//
+//    fun sendUser(user: User) {
+//        crUsers.document().set(user).addOnSuccessListener {
+//            resSend.value = true
+//        }.addOnCanceledListener {
+//            resSend.value = false
+//        }
+//
+//    }
+
 
 }

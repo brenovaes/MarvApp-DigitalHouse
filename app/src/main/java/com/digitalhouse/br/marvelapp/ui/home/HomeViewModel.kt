@@ -9,19 +9,22 @@ import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.entities.sugest.ResSugestao
 import com.digitalhouse.br.marvelapp.models.Characters
+import com.digitalhouse.br.marvelapp.models.HeroDay
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
+import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.*
 
 class HomeViewModel(
-    val serviceCharacters: RepositoryCharacters,
-    val serviceSugestao: RepositorySugestao,
-    val repositoryDB: RepositoryHero,
-    val repositoryHistory: RepositoryHistory,
-    val repositorySuggestions: RepositorySuggestions
+        val serviceCharacters: RepositoryCharacters,
+        val serviceSugestao: RepositorySugestao,
+        val repositoryDB: RepositoryHero,
+        val repositoryHistory: RepositoryHistory,
+        val repositorySuggestions: RepositorySuggestions,
+        val crH: CollectionReference
 ) : ViewModel() {
 
     var retornoHeroiDia = MutableLiveData<ResCharacters>()
@@ -42,21 +45,25 @@ class HomeViewModel(
 
     var characterSaved = MutableLiveData<Characters>()
 
+    var docHeroDay = MutableLiveData<Boolean>()
+    var retornoHeroDaySavedF = MutableLiveData<HeroDay>()
+    var infoHeroD = MutableLiveData<HeroDay>()
+
 
     fun getCharacter() {
         try {
             viewModelScope.launch {
                 retornoHeroiDia.value = serviceCharacters.getAllCharacterRepo(
-                    random(),
-                    1,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+                        random(),
+                        1,
+                        "1601900859",
+                        "da0b41050b1361bf58011d9e4bb93ec3",
+                        "cc144618fe69492faf88410cc664f62e"
 
                 )
 
                 var idC = retornoHeroiDia.value!!.data.results[0].id
-                var name =  retornoHeroiDia.value!!.data.results[0].name
+                var name = retornoHeroiDia.value!!.data.results[0].name
                 var extension = retornoHeroiDia.value!!.data.results[0].thumbnail.extension
                 var path = retornoHeroiDia.value!!.data.results[0].thumbnail.path
                 var comics = retornoHeroiDia.value!!.data.results[0].comics.available
@@ -66,6 +73,9 @@ class HomeViewModel(
 
 
                 addHero(idC, name, extension, path, comics, series, stories, dateN.toString())
+//                addHeroDayF(idC, name, extension, path, comics, series, stories, dateN.toString())
+                infoHero(idC, name, extension, path, comics, series, stories, dateN.toString())
+
 
 //                Log.i("getCharacter", retornoHeroiDia.value.toString())
             }
@@ -76,46 +86,46 @@ class HomeViewModel(
 
     }
 
-    fun delHero(){
+
+    fun delHero() {
         viewModelScope.launch {
             repositoryDB.deleteHeroDay()
         }
     }
 
-    fun getAllH(){
+    fun getAllH() {
         viewModelScope.launch {
-             retornoHeroDB.value = repositoryDB.getAll() == null
+            retornoHeroDB.value = repositoryDB.getAll() == null
             if (retornoHeroDB.value != null)
                 characterSaved.value = repositoryDB.getAll()
 
         }
     }
 
-    fun addHero(idC: Int, name:String, extension:String, path:String, comics:Int, series: Int, stories:Int, dateN: String){
+    fun addHero(idC: Int, name: String, extension: String, path: String, comics: Int, series: Int, stories: Int, dateN: String) {
         viewModelScope.launch {
-            repositoryDB.addHeroDay(Characters(idC,0, name, extension, path, comics, series, stories, dateN))
+            repositoryDB.addHeroDay(Characters(idC, 0, name, extension, path, comics, series, stories, dateN))
         }
     }
 
     //Pega data que o heroi foi gerado
-    fun getHDay(){
-      viewModelScope.launch {
-          retornodataHSaved.value = repositoryDB.getHeroDay()
-      }
+    fun getHDay() {
+        viewModelScope.launch {
+            retornodataHSaved.value = repositoryDB.getHeroDay()
+        }
     }
 
-//    fun getIdH():Int{
+    //    fun getIdH():Int{
 //        return id
 //    }
 //
-    fun compareDate(dateNow: LocalDate, dateSaved: String):Boolean {
+    fun compareDate(dateNow: LocalDate, dateSaved: String): Boolean {
         var dateN = dateNow.toString()
-        if (dateN.equals(dateSaved)){
+        if (dateN.equals(dateSaved)) {
 
             Log.i("COMPARE", "DATA igual")
             return true
-        }
-        else{
+        } else {
             Log.i("COMPARE", "DATA n é igual")
             return false
         }
@@ -133,67 +143,138 @@ class HomeViewModel(
         return rand.nextInt(to - from) + from
     }
 
-    fun getAllHistory(){
+    fun getAllHistory() {
         viewModelScope.launch {
             retornoHistory.value = repositoryHistory.getAllHistoryTask()
         }
     }
 
-    fun getAllSuggestions(){
+    fun getAllSuggestions() {
         viewModelScope.launch {
             retornoSuggestions.value = repositorySuggestions.getAllSuggestionsTask()
         }
     }
 
-    fun updateSuggestions(){
+    fun updateSuggestions() {
         viewModelScope.launch {
             repositorySuggestions.updateNewSuggestionTask()
         }
     }
 
-    fun update(){
+    fun update() {
         viewModelScope.launch {
-                repositoryHistory.updateNewHistoryTask()
+            repositoryHistory.updateNewHistoryTask()
+        }
+
+    }
+
+    fun checkHeroDayF() {
+        crH.get().addOnSuccessListener { documents ->
+            docHeroDay.value = documents.isEmpty
+            if (documents.isEmpty) {
+                Log.i("FIREBASEHERO", "empty")
+            } else {
+                documents.forEach {
+                    Log.i("FIREBASEHERO", it.toString())
+                }
             }
 
+//            if ( crH.get().result != null)
+//                Log.i("FIREBASEHERO", "VAZIO")
+//            else
+//                Log.i("FIREBASEHERO", "preenchido")
+
+        }
+
+
     }
 
-  
-    fun getAllCreatorsSugestao() {
-        viewModelScope.launch {
-                    retornoCrea.value = serviceSugestao.getCreatorsRepoS(
-                        0,
-                        20,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
-                    )
+    fun addHeroDayF(hero: HeroDay) {
+        crH.get().addOnSuccessListener { documents ->
+            if (documents.isEmpty)
+                crH.document().set(hero)
         }
     }
 
-    fun getAllCharactersSugestao() {
-        viewModelScope.launch {
-                    retornoChar.value = serviceSugestao.getCharactersRepoS(
-                        0,
-                        20,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
-                    )
+    fun getHeroDay() {
+        crH.get().addOnSuccessListener { documents ->
+            var hero = documents.documents[0]
+            retornoHeroDaySavedF.value = hero.toObject(HeroDay::class.java)
         }
     }
 
-    fun getAllComicsSugestao() {
-        viewModelScope.launch {
-                    retornoCom.value = serviceSugestao.getComicsRepoS(
-                        1,
-                        20,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
-                    )
+    fun updateHeroDay(hero: HeroDay) {
+
+//DELETE
+//        crH.get().addOnSuccessListener {
+//            it.forEach {
+//                it.reference.delete()
+//            }
+//        }
+
+//        adiciona
+//        crH.get().addOnSuccessListener { documents ->
+//            if(documents.isEmpty)
+//                crH.document().set( HeroDay(1,"", "", "", 1, 1,1, "t") )
+//        }
+
+        crH.get().addOnSuccessListener { documents ->
+            documents.forEach {
+                it.reference.update("idCharacter", hero.idCharacter,"name", hero.name,
+                        "extension", hero.extension,
+                        "path", hero.path,
+                        "comics", hero.comics,
+                        "series", hero.series,
+                        "stories", hero.stories,
+                        "dateT", hero.dateT)
+            }
         }
+
+
     }
+
+    fun infoHero(idC: Int, name: String, extension: String, path: String, comics: Int, series: Int, stories: Int, dateN: String) {
+        infoHeroD.value = HeroDay(idC, name, extension, path, comics, series, stories, dateN)
+    }
+
+
+//    fun getAllCreatorsSugestao() {
+//        viewModelScope.launch {
+//                    retornoCrea.value = serviceSugestao.getCreatorsRepoS(
+//                        0,
+//                        20,
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
+//                    )
+//        }
+//    }
+//
+//    fun getAllCharactersSugestao() {
+//        viewModelScope.launch {
+//                    retornoChar.value = serviceSugestao.getCharactersRepoS(
+//                        0,
+//                        20,
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
+//                    )
+//        }
+//    }
+//
+//    fun getAllComicsSugestao() {
+//        viewModelScope.launch {
+//                    retornoCom.value = serviceSugestao.getComicsRepoS(
+//                        1,
+//                        20,
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
+//                    )
+//        }
+//    }
+
+
 }
 
 

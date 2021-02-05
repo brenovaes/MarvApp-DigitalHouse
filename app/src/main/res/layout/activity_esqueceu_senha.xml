@@ -37,7 +37,7 @@
     <FrameLayout
         android:id="@+id/flEsqueceuSenha"
         android:layout_width="324dp"
-        android:layout_height="380dp"
+        android:layout_height="500dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="190dp"
         android:layout_marginBottom="25dp"

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp">
+    android:layout_marginTop="20dp"
+    android:background="?attr/colorPrimary">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvEnunciado"
@@ -17,7 +18,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/colorPrimary">
 
         <TextView
             android:id="@+id/tvEnunciadoTexto"
@@ -26,7 +28,7 @@
             android:layout_margin="10dp"
             android:padding="10dp"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textAlignment="center" />
 
     </androidx.cardview.widget.CardView>
@@ -37,7 +39,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="280dp"
         android:layout_marginBottom="90dp"
-        app:cardBackgroundColor="@color/destaqueVermelho"
+        app:cardBackgroundColor="?attr/colorAccent"
         app:cardCornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/cvEnunciado"
         app:layout_constraintEnd_toEndOf="@+id/cvEnunciado">
@@ -48,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textAlignment="center"
+            android:textColor="?attr/colorOnPrimary"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 

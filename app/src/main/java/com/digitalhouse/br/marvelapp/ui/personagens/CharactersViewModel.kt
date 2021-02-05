@@ -4,17 +4,19 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.digitalhouse.br.marvelapp.crIconFch
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
-import com.digitalhouse.br.marvelapp.models.HistoryDB
-import com.digitalhouse.br.marvelapp.models.Suggestions
+import com.digitalhouse.br.marvelapp.models.*
 import com.digitalhouse.br.marvelapp.service.RepositoryCharacters
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
 import com.digitalhouse.br.marvelapp.service.RepositorySuggestions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -22,13 +24,19 @@ import java.time.LocalDateTime
 
 class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                           val repositoryHistory: RepositoryHistory,
-                          val repositorySuggestions: RepositorySuggestions
+                          val repositorySuggestions: RepositorySuggestions,
+                          val crFCh:CollectionReference,
+                          val crIconFch:CollectionReference
 ): ViewModel() {
 
     var retornoCharacter = MutableLiveData<ResCharacters>()
     var retornoCharactersComic = MutableLiveData<ResComics>()
     var retornoCharactersEvents = MutableLiveData<ResEvents>()
     var retornoCharactesSeries = MutableLiveData<ResSeries>()
+
+    var checkF = MutableLiveData<Boolean>()
+    var checkC = MutableLiveData<Boolean?>()
+    var checkIdC = MutableLiveData<Int>()
 
 
 
@@ -131,6 +139,51 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
             repositorySuggestions.addSuggestionsTask(suggestion)
         }
     }
+
+    fun checkFavoriteF(idCharacter:Int, userId:String){
+        Log.i("FIREBASE", "ENTrOU check")
+
+        crFCh.whereEqualTo("idUser",userId).whereEqualTo("idCharacter",idCharacter).get().addOnSuccessListener {
+            it.documents.forEach {
+                checkF.value = it.exists()
+                checkIdC.value = 1
+            }
+        }
+    }
+
+    fun addCharacterFav(userFavCh: UserFavCharacter){
+        crFCh.document().set(userFavCh)
+        Log.i("FIREBASE ADD", userFavCh.idUser + " " + userFavCh.favCharacter.name)
+    }
+
+    fun deleteCharacterFav(userId: String, idCharacter: Int){
+        crFCh.whereEqualTo("idUser",userId).whereEqualTo("idCharacter",idCharacter).get().addOnSuccessListener {
+            it.documents.forEach {
+                if( it.exists()){
+                    it.reference.delete()
+                }
+            }
+        }
+    }
+
+    fun checkCollection(){
+
+        crFCh.get().addOnSuccessListener { documents ->
+            checkC.value = documents.isEmpty
+        }
+    }
+
+    fun deletIconCh(userId: String,idCharacter: Int){
+
+                    checkIdC.value = 0
+
+    }
+
+    fun addIconCh(userId: String, idCharacter: Int){
+//        crIconFch.document().set(IconH(userId, idCharacter, 1))
+        checkIdC.value = 1
+    }
+
 
 
 }

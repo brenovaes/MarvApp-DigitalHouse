@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.criadores.DetalheCriadorActivity"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -73,11 +74,12 @@
                                 android:layout_height="match_parent"
                                 android:text=""
                                 android:textSize="25dp"
+                                android:textColor="?attr/colorOnPrimary"
                                 android:textStyle="bold"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="3dp"
-                                android:background="@color/destaqueVermelho"/>
+                                android:background="?attr/colorAccent"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -92,6 +94,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:text="see more details on www.marvel.com"
+                                    android:textColor="?attr/colorOnPrimary"
                                     android:clickable="true"
                                     android:textSize="12dp"/>
                             </LinearLayout>
@@ -150,19 +153,21 @@
                             android:layout_height="match_parent"
                             android:text="Comics: "
                             android:textSize="20dp"
+                            android:textColor="?attr/colorOnPrimary"
                             android:textStyle="bold"/>
                         <TextView
                             android:id="@+id/tvQtdComicsCriador"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text=""
+                            android:textColor="?attr/colorOnPrimary"
                             android:textSize="20dp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:orientation="vertical"
-                        android:background="@color/destaqueVermelho"/>
+                        android:background="?attr/colorAccent"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -191,19 +196,21 @@
                             android:layout_height="match_parent"
                             android:text="Series: "
                             android:textStyle="bold"
-                            android:textSize="20dp"/>
+                            android:textSize="20dp"
+                            android:textColor="?attr/colorOnPrimary"/>
                         <TextView
                             android:id="@+id/tvQtdSeriesCriador"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text=""
-                            android:textSize="20dp"/>
+                            android:textSize="20dp"
+                            android:textColor="?attr/colorOnPrimary"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:orientation="vertical"
-                        android:background="@color/destaqueVermelho"/>
+                        android:background="?attr/colorAccent"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -233,19 +240,21 @@
                             android:layout_height="match_parent"
                             android:text="Events: "
                             android:textSize="20dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnPrimary"/>
                         <TextView
                             android:id="@+id/tvQtdEventosCriador"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="38"
-                            android:textSize="20dp"/>
+                            android:text=""
+                            android:textSize="20dp"
+                            android:textColor="?attr/colorOnPrimary"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:orientation="vertical"
-                        android:background="@color/destaqueVermelho"/>
+                        android:background="?attr/colorAccent"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

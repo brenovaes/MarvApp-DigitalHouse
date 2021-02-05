@@ -10,17 +10,19 @@
     <color name="white">#FFFFFFFF</color>
     <!--    cores do gradiente-->
     <color name="startColorLight">#36FFFFFF</color>
-    <color name="centerColorLight">#D9FCFCFC</color>
-    <color name="endColorLight">#FFF2F2F2</color>
-    <color name="startColorDark">#36FFFFFF</color>
-    <color name="centerColorDark">#D9FCFCFC</color>
-    <color name="endColorDark">#FFF2F2F2</color>
+    <color name="centerColorLight">#D9FFFFFF</color>
+    <color name="endColorLight">#FFFFFF</color>
+    <color name="startColorDark">#36000000</color>
+    <color name="centerColorDark">#D9000000</color>
+    <color name="endColorDark">#000000</color>
     <!--    cores do body login-->
-    <color name="loginBodyColor">#CCFCFCFC</color>
+    <color name="loginBodyColorL">#CCFCFCFC</color>
+    <color name="loginBodyColorD">#CC000000</color>
     <!--theme dark-->
     <color name="cinzaEscuro">#212121</color>
     <color name="destaqueVermelho">#ED1D24 </color>
     <color name="cinzaClaro">#C4C4C4</color>
+
     <!--theme light-->
     <color name="cinzaClaroL">#F4F4F4</color>
     <color name="barra_busca">#80000000</color>

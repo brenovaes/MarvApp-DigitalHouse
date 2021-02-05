@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/colorPrimary"
     tools:context=".ui.quiz.QuestaoSelecionadaActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="?attr/colorPrimary">
 
         <include
             android:id="@+id/tbQuestaoSelecioonada"
@@ -57,8 +58,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="ANTERIOR"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/cinzaClaro"/>
+            android:textColor="?attr/colorOnPrimary"
+            android:backgroundTint="?attr/colorSecondaryVariant"/>
 
         <Button
             android:id="@+id/btnSalvar"
@@ -66,16 +67,16 @@
             android:layout_height="50dp"
             android:layout_marginRight="20dp"
             android:text="SALVAR"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/destaqueVermelho"/>
+            android:textColor="?attr/colorOnPrimary"
+            android:backgroundTint="?attr/colorAccent"/>
 
         <Button
             android:id="@+id/btnDesistir"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:text="DESISTIR"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/destaqueVermelho"/>
+            android:textColor="?attr/colorOnPrimary"
+            android:backgroundTint="?attr/colorAccent"/>
     </LinearLayout>
 
 

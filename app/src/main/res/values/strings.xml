@@ -10,7 +10,7 @@
 
     <!-- Login -->
     <string name="hello_world">Hello Square World!</string>
-    <string name="tv_usuario">E-mail</string>
+    <string name="tv_email">Email</string>
     <string name="tv_password">Password</string>
     <string name="btn_login">LOGIN</string>
 
@@ -18,7 +18,7 @@
     <string name="tv_nTemConta">Don\'t have an account?</string>
     <string name="tv_cadastre_se">Register.</string>
 
-    <string name="tv_email">Email</string>
+    <string name="tv_user">Username</string>
     <string name="tv_rpassword">Repeat Password</string>
     <string name="btn_cadastrar">SIGN UP</string>
     <string name="tv_redefinirSenha">Redefine password</string>
@@ -71,6 +71,8 @@
     <string name="facebook_app_id">262666635214713</string>
     <string name="fb_login_protocol_scheme">6e3848dcd8d8460ab78aab6f0e2298a2</string>
 
+<!--    Redefinir Senha-->
+    <string name="tv_textObs">If you proceed with this action and have registered through any social network, <b>know that your account will be disconnected from the social network </b>and the login will have to be done with the email and the new password defined.</string>
 
 
 </resources>

@@ -11,7 +11,7 @@
         android:id="@+id/cvBalao"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:cardBackgroundColor="@color/destaqueVermelho"
+        app:cardBackgroundColor="?attr/colorAccent"
         app:cardCornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="25dp"
             android:text="1"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorPrimary"
             android:textSize="18dp" />
 
     </androidx.cardview.widget.CardView>
@@ -39,6 +39,7 @@
         android:layout_marginTop="16dp"
         android:text="Marvel History"
         android:textAlignment="center"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="@+id/cvBalao"
         app:layout_constraintStart_toStartOf="@+id/cvBalao"
         app:layout_constraintTop_toBottomOf="@+id/cvBalao" />
@@ -49,7 +50,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="55dp"
-        app:cardBackgroundColor="@color/cinzaClaro"
+        app:cardBackgroundColor="?attr/colorSecondaryVariant"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/cvBalao"
         app:layout_constraintStart_toStartOf="@+id/cvBalao">
@@ -60,7 +61,7 @@
             android:layout_height="wrap_content"
             android:text="200"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="15sp" />
 
     </androidx.cardview.widget.CardView>

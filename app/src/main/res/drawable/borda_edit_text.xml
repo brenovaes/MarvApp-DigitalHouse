@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#fff"/> <!-- cor do sólido -->
+            <solid android:color="?attr/colorPrimary"/> <!-- cor do sólido -->
             <corners android:radius="3dp"/> <!-- valor do arredondamento das bordas -->
-            <stroke android:color="@color/barra_busca" android:width="2dp"/> <!-- cor da borda e tamanho dela -->
+            <stroke android:color="?attr/colorOnPrimary" android:width="2dp"/> <!-- cor da borda e tamanho dela -->
             <padding android:bottom="8dp" android:left="8dp" android:right="8dp" android:top="8dp"/>
         </shape>
     </item>

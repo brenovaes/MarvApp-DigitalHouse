@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.interfac.ContractRedefinirSenha
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_redefinir_senha.view.*
 
 
@@ -22,9 +24,26 @@ class RedefinirSenhaFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view:View = inflater!!.inflate(R.layout.fragment_redefinir_senha, container, false)
+
+
         view.btnEnviar.setOnClickListener(){
-            crs.callFragVerificarEmail()
+            if (view.etEmailRedefine.text.toString().isNotBlank()){
+                FirebaseAuth.getInstance().sendPasswordResetEmail(view.etEmailRedefine.text.toString())
+                        .addOnCompleteListener{task ->
+                            if (task.isSuccessful){
+                                crs.callFragVerificarEmail()
+
+                            }else{
+                                crs.erroRedefinirSenha()
+                            }
+
+                        }
+            }else{
+                crs.emailRedefBlank()
+            }
+
         }
+
         return view
     }
 
@@ -38,6 +57,7 @@ class RedefinirSenhaFragment : Fragment() {
 
         fun newInstance() = RedefinirSenhaFragment()
     }
+
 
 
 }
