@@ -16,11 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.crFCh
-import com.digitalhouse.br.marvelapp.crIconFch
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.models.FavCharacter
-import com.digitalhouse.br.marvelapp.models.IconH
 import com.digitalhouse.br.marvelapp.models.UserFavCharacter
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
@@ -51,7 +49,7 @@ class DetalhePersonagemActivity :
     val viewModelCharacters by viewModels<CharactersViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return CharactersViewModel(serviceCh, repositoryHistory, repositorySuggestions, crFCh, crIconFch) as T
+                return CharactersViewModel(serviceCh, repositoryHistory, repositorySuggestions, crFCh) as T
             }
         }
     }
@@ -140,15 +138,13 @@ class DetalhePersonagemActivity :
                                     favC.thumbnail.path,
                                     "Character"
                             )))
-                    viewModelCharacters.addIconCh(userId, idCharacter)
-
-//                    ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart_filled)
+                    viewModelCharacters.addIconCh()
 
                 }else{
                     viewModelCharacters.checkF.observe(this){
                         if(it){
                             viewModelCharacters.deleteCharacterFav(userId, idCharacter)
-                            viewModelCharacters.deletIconCh(userId,idCharacter)
+                            viewModelCharacters.deletIconCh()
 
                         } else {
 
@@ -161,7 +157,7 @@ class DetalhePersonagemActivity :
                                             favC.thumbnail.path,
                                             "Character"
                                     )))
-                            viewModelCharacters.addIconCh(userId,idCharacter)
+                            viewModelCharacters.addIconCh()
                         }
                     }
                 }
@@ -238,17 +234,10 @@ class DetalhePersonagemActivity :
 
         viewModelCharacters.checkIdC.observe(this){
             when (it) {
-                1 -> {
-                    ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart_filled)
-//                fav = 1
-                }
+                1 -> ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart_filled)
 
-                0 -> {
-                    ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart)
-//                fav = 0
-                }
+                0 -> ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart)
             }
-
         }
     }
 
