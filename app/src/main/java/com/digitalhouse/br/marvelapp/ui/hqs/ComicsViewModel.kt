@@ -16,16 +16,20 @@ import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.entities.stories.ResStories
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
+import com.digitalhouse.br.marvelapp.models.UserFavComic
+import com.digitalhouse.br.marvelapp.models.UserFavCreator
 import com.digitalhouse.br.marvelapp.service.RepositoryComics
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
 import com.digitalhouse.br.marvelapp.service.RepositorySuggestions
+import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ComicsViewModel(val serviceComics: RepositoryComics,
                       val repositoryHistory: RepositoryHistory,
-                      val repositorySuggestions: RepositorySuggestions
+                      val repositorySuggestions: RepositorySuggestions,
+                      val crFCo:CollectionReference
 ) : ViewModel() {
 
     var retornoComicsSeries = MutableLiveData<ResSeries>()
@@ -36,6 +40,11 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
     var retornoComicsCreator = MutableLiveData<ResCreators>()
     var retornoComicsCharacters = MutableLiveData<ResCharacters>()
     var idSerie = 0
+
+
+    var checkF = MutableLiveData<Boolean>()
+    var checkC = MutableLiveData<Boolean?>()
+    var checkIdC = MutableLiveData<Int>()
 
 
     fun getComic(id: Int) {
@@ -169,6 +178,44 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
         viewModelScope.launch {
             repositorySuggestions.addSuggestionsTask(suggestion)
         }
+    }
+
+    fun checkFavoriteF(idComic:Int, userId:String){
+
+        crFCo.whereEqualTo("idUser",userId).whereEqualTo("idComic",idComic).get().addOnSuccessListener {
+            it.documents.forEach {
+                checkF.value = it.exists()
+                checkIdC.value = 1
+            }
+        }
+    }
+
+    fun addCreatorFav(userFavCo: UserFavComic){
+        crFCo.document().set(userFavCo)
+    }
+
+    fun deleteCreatorFav(userId: String, idComic: Int){
+        crFCo.whereEqualTo("idUser",userId).whereEqualTo("idComic", idComic).get().addOnSuccessListener {
+            it.documents.forEach {
+                if( it.exists()){
+                    it.reference.delete()
+                }
+            }
+        }
+    }
+
+    fun checkCollection(){
+        crFCo.get().addOnSuccessListener { documents ->
+            checkC.value = documents.isEmpty
+        }
+    }
+
+    fun deletIconCh(){
+        checkIdC.value = 0
+    }
+
+    fun addIconCh(){
+        checkIdC.value = 1
     }
 
 }

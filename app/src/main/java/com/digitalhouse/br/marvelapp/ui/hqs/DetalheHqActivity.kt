@@ -16,13 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_hq.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.crFCo
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.comics.ResultsCo
 import com.digitalhouse.br.marvelapp.models.*
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.criadores.DetalheCriadorActivity
 import com.digitalhouse.br.marvelapp.ui.personagens.DetalhePersonagemActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_detalhe_criador.*
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
 
 
@@ -45,13 +48,13 @@ class DetalheHqActivity :
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var repositorySuggestions:RepositorySuggestions
 
-    var fav = 0
+    var userId = FirebaseAuth.getInstance().currentUser!!.uid
 
 
     val viewModelComics by viewModels<ComicsViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ComicsViewModel(serviceCo, repositoryHistory,repositorySuggestions ) as T
+                return ComicsViewModel(serviceCo, repositoryHistory,repositorySuggestions, crFCo) as T
             }
         }
     }
@@ -152,9 +155,57 @@ class DetalheHqActivity :
         rvCriadoresHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
         rvCriadoresHq.setHasFixedSize(true)
 
-        ivFavoritoDetalheHq.setOnClickListener{
-            checkfavorite()
+        viewModelComics.checkCollection()
+        viewModelComics.checkFavoriteF(idComic, userId)
+
+        ivFavoritoDetalheHq.setOnClickListener {
+            var favC = viewModelComics.retornoComic.value!!.data.results[0]
+
+            viewModelComics.checkC.observe(this){
+                if (it == null || it== true){
+
+                    viewModelComics.addCreatorFav(UserFavComic(
+                        userId, favC.id,
+                        FavComic(
+                            favC.id,
+                            favC.title,
+                            favC.thumbnail.extension,
+                            favC.thumbnail.path,
+                            "Comic"
+                        )
+                    )
+                    )
+                    viewModelComics.addIconCh()
+
+                }else{
+                    viewModelComics.checkF.observe(this){
+                        if(it){
+                            viewModelComics.deleteCreatorFav(userId, idComic)
+                            viewModelComics.deletIconCh()
+
+                        } else {
+
+                            viewModelComics.addCreatorFav(
+                                UserFavComic(
+                                userId, favC.id,
+                                FavComic(
+                                    favC.id,
+                                    favC.title,
+                                    favC.thumbnail.extension,
+                                    favC.thumbnail.path,
+                                    "Comic"
+                                )
+                                )
+                            )
+                            viewModelComics.addIconCh()
+                        }
+                    }
+                }
+            }
+            this.recreate()
         }
+
+        checkfavorite()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -232,15 +283,13 @@ class DetalheHqActivity :
     }
 
     fun checkfavorite() {
-        when(fav){
-            0->  {
-                ivFavoritoDetalheHq.setImageResource(R.drawable.heart_filled)
-                fav = 1
-            }
 
-            1-> {
-                ivFavoritoDetalheHq.setImageResource(R.drawable.heart)
-                fav = 0
+        viewModelComics.checkIdC.observe(this){
+            when (it) {
+                1 -> ivFavoritoDetalheCriador.setImageResource(R.drawable.heart_filled)
+
+                0 -> ivFavoritoDetalheCriador.setImageResource(R.drawable.heart)
+
             }
         }
 

@@ -16,12 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_detalhe_criador.*
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.crFCr
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.creators.ResultsCr
-import com.digitalhouse.br.marvelapp.models.Comics
-import com.digitalhouse.br.marvelapp.models.HistoryDB
+import com.digitalhouse.br.marvelapp.models.FavCreator
+import com.digitalhouse.br.marvelapp.models.UserFavCreator
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
 
@@ -42,12 +44,13 @@ class DetalheCriadorActivity : AppCompatActivity(),
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var repositorySuggestions: RepositorySuggestions
 
-    var fav = 0
+    var userId = FirebaseAuth.getInstance().currentUser!!.uid
+
 
     val viewModelCreators by viewModels<CreatorsViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return CreatorsViewModel(serviceCr, repositoryHistory, repositorySuggestions) as T
+                return CreatorsViewModel(serviceCr, repositoryHistory, repositorySuggestions, crFCr) as T
             }
         }
     }
@@ -119,9 +122,54 @@ class DetalheCriadorActivity : AppCompatActivity(),
         rvEventosCriador.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         rvEventosCriador.setHasFixedSize(true)
 
+        viewModelCreators.checkCollection()
+        viewModelCreators.checkFavoriteF(idCreator, userId)
+
         ivFavoritoDetalheCriador.setOnClickListener {
-            checkfavorite()
+            var favC = viewModelCreators.retornoCreator.value!!.data.results[0]
+
+            viewModelCreators.checkC.observe(this){
+                if (it == null || it== true){
+
+                    viewModelCreators.addCreatorFav(UserFavCreator(
+                        userId, favC.id,
+                        FavCreator(
+                            favC.id,
+                            favC.fullName,
+                            favC.thumbnail.extension,
+                            favC.thumbnail.path,
+                            "Creator"
+                        )
+                    )
+                    )
+                    viewModelCreators.addIconCh()
+
+                }else{
+                    viewModelCreators.checkF.observe(this){
+                        if(it){
+                            viewModelCreators.deleteCreatorFav(userId, idCreator)
+                            viewModelCreators.deletIconCh()
+
+                        } else {
+
+                            viewModelCreators.addCreatorFav(UserFavCreator(
+                                userId, favC.id,
+                                FavCreator(
+                                    favC.id,
+                                    favC.fullName,
+                                    favC.thumbnail.extension,
+                                    favC.thumbnail.path,
+                                    "Creator"
+                                )))
+                            viewModelCreators.addIconCh()
+                        }
+                    }
+                }
+            }
+            this.recreate()
         }
+
+        checkfavorite()
 
     }
 
@@ -174,15 +222,13 @@ class DetalheCriadorActivity : AppCompatActivity(),
     }
 
     fun checkfavorite() {
-        when(fav){
-            0->  {
-                ivFavoritoDetalheCriador.setImageResource(R.drawable.heart_filled)
-                fav = 1
-            }
 
-            1-> {
-                ivFavoritoDetalheCriador.setImageResource(R.drawable.heart)
-                fav = 0
+        viewModelCreators.checkIdC.observe(this){
+            when (it) {
+                1 -> ivFavoritoDetalheCriador.setImageResource(R.drawable.heart_filled)
+
+                0 -> ivFavoritoDetalheCriador.setImageResource(R.drawable.heart)
+
             }
         }
 

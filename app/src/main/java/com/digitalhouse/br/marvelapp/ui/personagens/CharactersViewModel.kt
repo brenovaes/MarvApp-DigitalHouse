@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.digitalhouse.br.marvelapp.crIconFch
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
@@ -25,8 +24,7 @@ import java.time.LocalDateTime
 class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                           val repositoryHistory: RepositoryHistory,
                           val repositorySuggestions: RepositorySuggestions,
-                          val crFCh:CollectionReference,
-                          val crIconFch:CollectionReference
+                          val crFCh:CollectionReference
 ): ViewModel() {
 
     var retornoCharacter = MutableLiveData<ResCharacters>()
@@ -173,14 +171,12 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
         }
     }
 
-    fun deletIconCh(userId: String,idCharacter: Int){
-
-                    checkIdC.value = 0
+    fun deletIconCh(){
+        checkIdC.value = 0
 
     }
 
-    fun addIconCh(userId: String, idCharacter: Int){
-//        crIconFch.document().set(IconH(userId, idCharacter, 1))
+    fun addIconCh(){
         checkIdC.value = 1
     }
 
