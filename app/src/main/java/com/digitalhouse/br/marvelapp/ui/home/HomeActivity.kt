@@ -163,7 +163,7 @@ class HomeActivity : AppCompatActivity(),
 
                             false -> {
                                 viewModelHome.getCharacter()
-                                viewModelHome.infoHeroD.observe(this) {hero ->
+                                viewModelHome.infoHeroD.observe(this) { hero ->
                                     viewModelHome.updateHeroDay(hero)
                                     infoHeroDay(hero)
                                 }
@@ -172,6 +172,13 @@ class HomeActivity : AppCompatActivity(),
                     }
                 }
             }
+        }
+
+        cvHeroiDoDia.setOnClickListener {
+            viewModelHome.retornoHeroDaySavedF.observe(this) {
+                detalheHeroDay(it.idCharacter)
+            }
+
         }
 
 //        viewModelHome.retornoHeroDB.observe(this) {
@@ -263,46 +270,42 @@ class HomeActivity : AppCompatActivity(),
             adapterSuggestions = SugestoesAdapter(listSuggestions, this)
             rvSugestoes.adapter = adapterSuggestions
             rvSugestoes.setHasFixedSize(true)
-
-            cvHeroiDoDia.setOnClickListener {
-                viewModelHome.characterSaved.observe(this) {
-                    detalheHeroDay(it.idCharacter)
-                }
-
-            }
-
-
-
-            btnNavigationHome.setOnNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.menu_home -> {
-                        startActivity(Intent(this, HomeActivity::class.java))
-                        return@setOnNavigationItemSelectedListener true
-                    }
-
-                    R.id.menu_busca -> {
-                        startActivity(Intent(this, BuscaActivity::class.java))
-                        return@setOnNavigationItemSelectedListener true
-                    }
-
-                    R.id.menu_quiz -> {
-                        startActivity(Intent(this, QuizActivity::class.java))
-                        return@setOnNavigationItemSelectedListener true
-                    }
-
-                    R.id.menu_favoritos -> {
-                        startActivity(Intent(this, FavoritoActivity::class.java))
-                        return@setOnNavigationItemSelectedListener true
-                    }
-
-                    R.id.menu_perfil -> {
-                        startActivity(Intent(this, PerfilActivity::class.java))
-                        return@setOnNavigationItemSelectedListener true
-                    }
-                }
-                false
-            }
         }
+
+
+
+
+
+        btnNavigationHome.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.menu_busca -> {
+                    startActivity(Intent(this, BuscaActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.menu_quiz -> {
+                    startActivity(Intent(this, QuizActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.menu_favoritos -> {
+                    startActivity(Intent(this, FavoritoActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.menu_perfil -> {
+                    startActivity(Intent(this, PerfilActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
+
     }
 
     override fun historicoClick(position: Int) {

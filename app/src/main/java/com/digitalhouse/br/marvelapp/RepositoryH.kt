@@ -1,8 +1,11 @@
 package com.digitalhouse.br.marvelapp
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 val crH: CollectionReference = db.collection("heroday")
+val crFCh: CollectionReference = db.collection("favoviteCh")
+val crIconFch:CollectionReference = db.collection("iconCh")
+

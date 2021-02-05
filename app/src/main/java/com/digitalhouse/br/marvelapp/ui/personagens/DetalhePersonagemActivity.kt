@@ -2,7 +2,6 @@ package com.digitalhouse.br.marvelapp.ui.personagens
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -11,21 +10,25 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper.HORIZONTAL
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.crFCh
+import com.digitalhouse.br.marvelapp.crIconFch
 import com.digitalhouse.br.marvelapp.database.AppDataBase
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
+import com.digitalhouse.br.marvelapp.models.FavCharacter
+import com.digitalhouse.br.marvelapp.models.IconH
+import com.digitalhouse.br.marvelapp.models.UserFavCharacter
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.digitalhouse.br.marvelapp.ui.hqs.EventsComicsAdapter
 import com.digitalhouse.br.marvelapp.ui.hqs.SeriesComicsAdapter
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
-import kotlin.math.log
 
 
 class DetalhePersonagemActivity :
@@ -42,13 +45,13 @@ class DetalhePersonagemActivity :
     private lateinit var repositoryHistory: RepositoryHistory
     private lateinit var repositorySuggestions: RepositorySuggestions
 
-    var fav = 0
 
+    var userId = FirebaseAuth.getInstance().currentUser!!.uid
 
     val viewModelCharacters by viewModels<CharactersViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return CharactersViewModel(serviceCh, repositoryHistory, repositorySuggestions) as T
+                return CharactersViewModel(serviceCh, repositoryHistory, repositorySuggestions, crFCh, crIconFch) as T
             }
         }
     }
@@ -68,6 +71,8 @@ class DetalhePersonagemActivity :
         tbDetalhePersonagem.setNavigationOnClickListener {
             onBackPressed()
         }
+
+
 
         viewModelCharacters.retornoCharacter.observe(this) {
             character.addAll(it.data.results)
@@ -117,11 +122,54 @@ class DetalhePersonagemActivity :
         rvEventosPersonagem.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         rvEventosPersonagem.setHasFixedSize(true)
 
+        viewModelCharacters.checkCollection()
+        viewModelCharacters.checkFavoriteF(idCharacter, userId)
 
         ivFavoritoDetalhePersonagem.setOnClickListener {
-            checkfavorite()
+            var favC = viewModelCharacters.retornoCharacter.value!!.data.results[0]
 
+            viewModelCharacters.checkC.observe(this){
+                if (it == null || it== true){
+
+                    viewModelCharacters.addCharacterFav(UserFavCharacter(
+                            userId, favC.id,
+                            FavCharacter(
+                                    favC.id,
+                                    favC.name,
+                                    favC.thumbnail.extension,
+                                    favC.thumbnail.path,
+                                    "Character"
+                            )))
+                    viewModelCharacters.addIconCh(userId, idCharacter)
+
+//                    ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart_filled)
+
+                }else{
+                    viewModelCharacters.checkF.observe(this){
+                        if(it){
+                            viewModelCharacters.deleteCharacterFav(userId, idCharacter)
+                            viewModelCharacters.deletIconCh(userId,idCharacter)
+
+                        } else {
+
+                            viewModelCharacters.addCharacterFav(UserFavCharacter(
+                                    userId, favC.id,
+                                    FavCharacter(
+                                            favC.id,
+                                            favC.name,
+                                            favC.thumbnail.extension,
+                                            favC.thumbnail.path,
+                                            "Character"
+                                    )))
+                            viewModelCharacters.addIconCh(userId,idCharacter)
+                        }
+                    }
+                }
+            }
+            this.recreate()
         }
+
+        checkfavorite()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -175,17 +223,21 @@ class DetalhePersonagemActivity :
 
 
     fun checkfavorite() {
-        when(fav){
-            0->  {
-                ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart_filled)
-                fav = 1
+
+        viewModelCharacters.checkIdC.observe(this){
+            when (it) {
+                1 -> {
+                    ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart_filled)
+//                fav = 1
+                }
+
+                0 -> {
+                    ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart)
+//                fav = 0
+                }
             }
 
-            1-> {
-                ivFavoritoDetalhePersonagem.setImageResource(R.drawable.heart)
-                fav = 0
-            }
         }
-
     }
+
 }
