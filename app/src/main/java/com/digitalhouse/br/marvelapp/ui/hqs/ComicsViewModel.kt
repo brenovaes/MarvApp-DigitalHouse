@@ -54,9 +54,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 var nome = retornoComic.value!!.data.results[0].title
                 var path = retornoComic.value!!.data.results[0].thumbnail.path
@@ -78,9 +78,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 id,
                 0,
                 10,
-                "1601900859",
-                "da0b41050b1361bf58011d9e4bb93ec3",
-                "cc144618fe69492faf88410cc664f62e"
+//                "1601900859",
+//                "da0b41050b1361bf58011d9e4bb93ec3",
+//                "cc144618fe69492faf88410cc664f62e"
             )
             getResComicCreators(retornoComicsCreator.value!!.data.results)
         }
@@ -92,9 +92,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 id,
                 0,
                 10,
-                "1601900859",
-                "da0b41050b1361bf58011d9e4bb93ec3",
-                "cc144618fe69492faf88410cc664f62e"
+//                "1601900859",
+//                "da0b41050b1361bf58011d9e4bb93ec3",
+//                "cc144618fe69492faf88410cc664f62e"
             )
 
             getResComicCharacters(retornoComicsCharacters.value!!.data.results)
@@ -109,9 +109,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
             }
         } catch (e: Exception) {
@@ -127,9 +127,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
             }
         } catch (e: Exception) {
@@ -144,9 +144,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 id,
                 0,
                 10,
-                "1601900859",
-                "da0b41050b1361bf58011d9e4bb93ec3",
-                "cc144618fe69492faf88410cc664f62e"
+//                "1601900859",
+//                "da0b41050b1361bf58011d9e4bb93ec3",
+//                "cc144618fe69492faf88410cc664f62e"
             )
         }
     }
@@ -186,6 +186,7 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
             it.documents.forEach {
                 checkF.value = it.exists()
                 checkIdC.value = 1
+                Log.i("CHECK", idComic.toString())
             }
         }
     }
@@ -199,6 +200,8 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
             it.documents.forEach {
                 if( it.exists()){
                     it.reference.delete()
+                    Log.i("DELETE", idComic.toString())
+
                 }
             }
         }

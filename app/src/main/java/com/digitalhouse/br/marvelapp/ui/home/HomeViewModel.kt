@@ -56,9 +56,9 @@ class HomeViewModel(
                 retornoHeroiDia.value = serviceCharacters.getAllCharacterRepo(
                         random(),
                         1,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
 
                 )
 

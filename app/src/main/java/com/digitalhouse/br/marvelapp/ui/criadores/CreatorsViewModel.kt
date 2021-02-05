@@ -49,9 +49,9 @@ class CreatorsViewModel(
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 var nome = retornoCreator.value!!.data.results[0].fullName
                 var path = retornoCreator.value!!.data.results[0].thumbnail.path
@@ -73,9 +73,9 @@ class CreatorsViewModel(
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
 
 
@@ -97,9 +97,9 @@ class CreatorsViewModel(
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859"
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 Log.i("getCreatorSeries", retornoCreatorSeries.value.toString())
             }
@@ -117,9 +117,9 @@ class CreatorsViewModel(
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 Log.i("getCreatorEvents", retornoCreatorEvents.value.toString())
             }

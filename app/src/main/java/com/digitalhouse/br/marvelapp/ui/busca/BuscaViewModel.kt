@@ -27,11 +27,8 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllCreatorsBusca.value = serviceBusca.getCreatorsRepo(
                     0,
-                    20,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e",
-                        word
+                    10,
+                    ps6 = word
                 )
                 Log.i("AllCreatorsBusca", retornoAllCreatorsBusca.value.toString())
             }
@@ -46,10 +43,10 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllCreators.value = serviceBusca.getCreatorsRepo(
                     0,
-                    20,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+                    10,
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 Log.i("AllCreators", retornoAllCreators.value.toString())
             }
@@ -64,11 +61,11 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllCharactersBusca.value = serviceBusca.getCharactersBuscaRepo(
                     0,
-                    20,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e",
-                        word
+                    10,
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e",
+                      ps6 = word
                 )
                 Log.i("getAllCharactersBusca", retornoAllCharactersBusca.value.toString())
             }
@@ -83,10 +80,10 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllCharacters.value = serviceBusca.getCharactersBuscaRepo(
                     0,
-                    20,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+                    10,
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 Log.i("getAllCharacters", retornoAllCharacters.value.toString())
             }
@@ -101,11 +98,11 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllComicsBusca.value = serviceBusca.getComicsRepo(
                     1,
-                    20,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e",
-                        word
+                    10,
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e",
+                    ps6 = word
                 )
                 Log.i("getAllComicsBusca", retornoAllComicsBusca.value.toString())
             }
@@ -119,10 +116,10 @@ class BuscaViewModel(val serviceBusca: RepositoryBusca):ViewModel() {
             viewModelScope.launch {
                 retornoAllComics.value = serviceBusca.getComicsRepo(
                     1,
-                    20,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+                    10,
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 Log.i("getAllComics", retornoAllComics.value.toString())
             }

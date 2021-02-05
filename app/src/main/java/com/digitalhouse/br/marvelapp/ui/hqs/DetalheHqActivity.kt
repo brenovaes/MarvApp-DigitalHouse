@@ -286,9 +286,9 @@ class DetalheHqActivity :
 
         viewModelComics.checkIdC.observe(this){
             when (it) {
-                1 -> ivFavoritoDetalheCriador.setImageResource(R.drawable.heart_filled)
+                1 -> ivFavoritoDetalheHq.setImageResource(R.drawable.heart_filled)
 
-                0 -> ivFavoritoDetalheCriador.setImageResource(R.drawable.heart)
+                0 -> ivFavoritoDetalheHq.setImageResource(R.drawable.heart)
 
             }
         }

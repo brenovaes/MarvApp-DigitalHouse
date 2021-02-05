@@ -1,10 +1,13 @@
 package com.digitalhouse.br.marvelapp.service
 
 
+import com.digitalhouse.br.marvelapp.apikeyT
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
+import com.digitalhouse.br.marvelapp.hashT
+import com.digitalhouse.br.marvelapp.tsT
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -17,9 +20,9 @@ interface RepositoryCharacters {
     suspend fun getAllCharacterRepo(
         @Query("offset") ps1: Int,
         @Query("limit") ps2: Int,
-        @Query("ts") ps3: String,
-        @Query("apikey") ps4: String,
-        @Query("hash") ps5: String
+        @Query("ts") ps3: String = tsT,
+        @Query("apikey") ps4: String = apikeyT,
+        @Query("hash") ps5: String = hashT
     ):  ResCharacters
 
     @GET("characters/{id}")
@@ -27,9 +30,9 @@ interface RepositoryCharacters {
         @Path("id") id: Int,
         @Query("offset") ps1: Int,
         @Query("limit") ps2: Int,
-        @Query("ts") ps3: String,
-        @Query("apikey") ps4: String,
-        @Query("hash") ps5: String
+        @Query("ts") ps3: String = tsT,
+        @Query("apikey") ps4: String = apikeyT,
+        @Query("hash") ps5: String = hashT
     ):  ResCharacters
 
 
@@ -38,9 +41,9 @@ interface RepositoryCharacters {
             @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String,
+            @Query("ts") ps3: String = tsT,
+            @Query("apikey") ps4: String = apikeyT,
+            @Query("hash") ps5: String = hashT
     ): ResComics
 
     @GET("characters/{id}/series")
@@ -48,9 +51,9 @@ interface RepositoryCharacters {
             @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String,
+            @Query("ts") ps3: String = tsT,
+            @Query("apikey") ps4: String = apikeyT,
+            @Query("hash") ps5: String = hashT
     ): ResSeries
 
     @GET("characters/{id}/events")
@@ -58,9 +61,9 @@ interface RepositoryCharacters {
             @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String,
+            @Query("ts") ps3: String = tsT,
+            @Query("apikey") ps4: String = apikeyT,
+            @Query("hash") ps5: String = hashT
     ): ResEvents
 
 
@@ -69,9 +72,9 @@ interface RepositoryCharacters {
             @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String,
+            @Query("ts") ps3: String = tsT,
+            @Query("apikey") ps4: String = apikeyT,
+            @Query("hash") ps5: String = hashT
     ): ResCharacters
 
 

@@ -1,9 +1,12 @@
 package com.digitalhouse.br.marvelapp.service
 
 
+import com.digitalhouse.br.marvelapp.apikeyT
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
+import com.digitalhouse.br.marvelapp.hashT
+import com.digitalhouse.br.marvelapp.tsT
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -15,9 +18,9 @@ interface RepositoryBusca{
     suspend fun getCharactersBuscaRepo(
         @Query("offset")ps1:Int,
         @Query("limit")ps2:Int,
-        @Query("ts")ps3:String,
-        @Query("apikey")ps4:String,
-        @Query("hash")ps5:String,
+        @Query("ts") ps3: String = tsT,
+        @Query("apikey") ps4: String = apikeyT,
+        @Query("hash") ps5: String = hashT,
         @Query("nameStartsWith")ps6:String
     ): ResCharacters
 
@@ -25,9 +28,9 @@ interface RepositoryBusca{
     suspend fun getCharactersBuscaRepo(
         @Query("offset")ps1:Int,
         @Query("limit")ps2:Int,
-        @Query("ts")ps3:String,
-        @Query("apikey")ps4:String,
-        @Query("hash")ps5:String
+        @Query("ts") ps3: String = tsT,
+        @Query("apikey") ps4: String = apikeyT,
+        @Query("hash") ps5: String = hashT
     ): ResCharacters
 
 
@@ -35,9 +38,9 @@ interface RepositoryBusca{
     suspend fun getCreatorsRepo(
         @Query("offset")ps1:Int,
         @Query("limit")ps2:Int,
-        @Query("ts")ps3:String,
-        @Query("apikey")ps4:String,
-        @Query("hash")ps5:String,
+        @Query("ts") ps3: String = tsT,
+        @Query("apikey") ps4: String = apikeyT,
+        @Query("hash") ps5: String = hashT,
         @Query("nameStartsWith")ps6:String
 
     ): ResCreators
@@ -46,9 +49,9 @@ interface RepositoryBusca{
     suspend fun getCreatorsRepo(
         @Query("offset")ps1:Int,
         @Query("limit")ps2:Int,
-        @Query("ts")ps3:String,
-        @Query("apikey")ps4:String,
-        @Query("hash")ps5:String
+        @Query("ts") ps3: String = tsT,
+        @Query("apikey") ps4: String = apikeyT,
+        @Query("hash") ps5: String = hashT
     ): ResCreators
 
 
@@ -56,9 +59,9 @@ interface RepositoryBusca{
     suspend fun getComicsRepo(
         @Query("offset")ps1:Int,
         @Query("limit")ps2:Int,
-        @Query("ts")ps3:String,
-        @Query("apikey")ps4:String,
-        @Query("hash")ps5:String,
+        @Query("ts") ps3: String = tsT,
+        @Query("apikey") ps4: String = apikeyT,
+        @Query("hash") ps5: String = hashT,
         @Query("titleStartsWith")ps6:String
     ): ResComics
 
@@ -66,9 +69,9 @@ interface RepositoryBusca{
     suspend fun getComicsRepo(
         @Query("offset")ps1:Int,
         @Query("limit")ps2:Int,
-        @Query("ts")ps3:String,
-        @Query("apikey")ps4:String,
-        @Query("hash")ps5:String
+        @Query("ts") ps3: String = tsT,
+        @Query("apikey") ps4: String = apikeyT,
+        @Query("hash") ps5: String = hashT,
     ): ResComics
 
 }

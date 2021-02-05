@@ -46,9 +46,9 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 var nome = retornoCharacter.value!!.data.results[0].name
                 var path = retornoCharacter.value!!.data.results[0].thumbnail.path
@@ -70,9 +70,9 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                         id,
                         0,
                         10,
-                        "1601900859",
-                         "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
+//                        "1601900859",
+//                         "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
                 )
                 //Log.i("getCharactersComics", retornoCharactersComic.value.toString())
                 getResCharacterComics(retornoCharactersComic.value!!.data.results)
@@ -89,9 +89,9 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                         id,
                         0,
                         10,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
                 )
                 //Log.i("getCharactersEvents", retornoCharactersEvents.value.toString())
             }
@@ -107,9 +107,9 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                         id,
                         0,
                         10,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
                 )
                 //Log.i("getCharactersEvents", retornoCharactesSeries.value.toString())
             }
