@@ -39,6 +39,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 import java.time.LocalDate
+import java.util.*
 
 class HomeActivity : AppCompatActivity(),
 //    PopularAdapter.OnPopularClickListener,
@@ -97,6 +98,7 @@ class HomeActivity : AppCompatActivity(),
 
 
         initDB()
+
         repositoryHero = RepositoryImplHero(db.heroDayDao())
         repositoryHistory = RepositoryImplHistory(db.historyDao())
         repositorySuggestions = RepositoryImplSuggestions(db.suggestionsDao())
@@ -107,7 +109,7 @@ class HomeActivity : AppCompatActivity(),
 
         var context: Context = this
         viewModelHome.getAllH()
-        viewModelHome.getHDay()
+        viewModelHome.getHDayDB()
 
 
         //HERO DAY LOCAL
@@ -147,32 +149,83 @@ class HomeActivity : AppCompatActivity(),
                     viewModelHome.getCharacter()
                     viewModelHome.infoHeroD.observe(this) { hero ->
                         viewModelHome.addHeroDayF(hero)
-                        infoHeroDay(hero)
+                        viewModelHome.delHeroDB()
+                        infoHeroDay(hero,null)
                     }
                 }
                 false -> {
-                    viewModelHome.getHeroDay()
+                    //maior muda
+//                    menor pega do firebase
+
+                    viewModelHome.getHeroDayF()
                     viewModelHome.retornoHeroDaySavedF.observe(this) { hero ->
-                        when (viewModelHome.compareDate(LocalDate.now(), hero.dateT)) {
-
-                            true -> {
-                                viewModelHome.retornoHeroDaySavedF.observe(this) { hero ->
-                                    infoHeroDay(hero)
-                                }
-                            }
-
-                            false -> {
-                                viewModelHome.getCharacter()
-                                viewModelHome.infoHeroD.observe(this) { hero ->
-                                    viewModelHome.updateHeroDay(hero)
-                                    infoHeroDay(hero)
-                                }
+                        viewModelHome.retornoHeroDB.observe(this){
+                            if (it == true){
+                                viewModelHome.addHeroDB(hero.idCharacter,
+                                        hero.name,
+                                        hero.extension,
+                                        hero.path,
+                                        hero.comics,
+                                        hero.series,
+                                        hero.stories,
+                                        hero.dateT)
                             }
                         }
+
+                        viewModelHome.getHDayDB()
+                        if(viewModelHome.retornodataHeroDB.value != hero.dateT ){
+
+                            //se a data do firebase é menor = true
+//                            pega do firebase e joga no db
+//                                se é menor então faz tudo de nv
+
+//                            firebase é menor então chama tudo e atualiza fb e db
+                            if (viewModelHome.compareDateHeroD(hero.dateT, viewModelHome.retornodataHeroDB.value!! )){
+                                viewModelHome.getCharacter()
+
+                                viewModelHome.infoHeroD.observe(this) { hero ->
+                                    viewModelHome.updateHeroDayF(hero)
+
+                                    viewModelHome.delHeroDB()
+                                    viewModelHome.addHeroDB(hero.idCharacter,
+                                            hero.name,
+                                            hero.extension,
+                                            hero.path,
+                                            hero.comics,
+                                            hero.series,
+                                            hero.stories,
+                                            hero.dateT)
+                                    infoHeroDay(hero, null)
+                                }
+
+                            }else{
+                                viewModelHome.retornoHeroDaySavedF.observe(this){
+                                    viewModelHome.delHeroDB()
+                                    viewModelHome.addHeroDB(hero.idCharacter,
+                                            hero.name,
+                                            hero.extension,
+                                            hero.path,
+                                            hero.comics,
+                                            hero.series,
+                                            hero.stories,
+                                            hero.dateT)
+                                    infoHeroDay(hero, null)
+                                }
+                            }
+                        }else{
+                            viewModelHome.characterSavedDB.observe(this){hero ->
+                                infoHeroDay(null, hero)
+                            }
+                        }
+
                     }
                 }
             }
+
+            Log.i("datanow", LocalDate.now().toString() )
         }
+//-----------------------------------------------------
+
 
         cvHeroiDoDia.setOnClickListener {
             viewModelHome.retornoHeroDaySavedF.observe(this) {
@@ -181,76 +234,6 @@ class HomeActivity : AppCompatActivity(),
 
         }
 
-//        viewModelHome.retornoHeroDB.observe(this) {
-//            viewModelHome.checkHeroDayF()
-//
-//            when (it) {
-//                true -> {
-//                    viewModelHome.getCharacter()
-//                }
-//                false -> {
-//                    viewModelHome.retornodataHSaved.observe(this) {
-//
-//                        when (viewModelHome.compareDate(LocalDate.now(), it)) {
-//                            true -> {
-//                                viewModelHome.characterSaved.observe(this) {
-//                                    infoHeroDay(it)
-//
-////                                    viewModelHome.updateHeroDay(HeroDay(it.idCharacter, it.name, it.extension,
-////                                            it.path, it.comics, it.series, it.stories, it.dateT))
-//                                }
-//                            }
-//                            false -> {
-//                                Log.i("Home", "DATA n é igual")
-//                                viewModelHome.delHero()
-//                                viewModelHome.getCharacter()
-//
-//                            }
-//                        }
-//
-//                    }
-//                }
-//
-//            }
-//
-//        }
-
-
-//        viewModelHome.getAllCharactersSugestao()
-//        viewModelHome.getAllComicsSugestao()
-//        viewModelHome.getAllCreatorsSugestao()
-//
-//        viewModelHome.retornoCom.observe(this){
-//            var lista = arrayListOf<ResSugestao>()
-//            lista.addAll(it.data.results)
-//            viewModelHome.retornoCrea.observe(this){
-//                lista.add(it)
-//                viewModelHome.retornoChar.observe(this){
-//                    lista.add(it)
-//                }
-//            }
-//            adapterSugestoes = SugestoesAdapter(lista, this)
-//            rvSugestoes.adapter = adapterSugestoes
-//            rvSugestoes.setHasFixedSize(true)
-//        }
-
-
-//            character.addAll(it.data.results)
-//            var comics = character[0].comics.items
-//            var series = character[0].series.items
-//            var events = character[0].events.items
-//
-//            tvNomePersonagemDetalhe.text = character[0].name
-//            tvDescricaoPersonagemDetalhe.text = character[0].description
-//
-//            var img = character[0].thumbnail.path + "." + character[0].thumbnail.extension
-//            Picasso.get().load(img).resize(360,280).into(ivPersonagemDetalhe)
-
-//        rvMaisPopulares.adapter = adapterPopular
-//        rvMaisPopulares.setHasFixedSize(true)
-//
-
-//
         viewModelHome.getAllHistory()
         viewModelHome.updateSuggestions()
         viewModelHome.update()
@@ -271,8 +254,6 @@ class HomeActivity : AppCompatActivity(),
             rvSugestoes.adapter = adapterSuggestions
             rvSugestoes.setHasFixedSize(true)
         }
-
-
 
 
 
@@ -336,72 +317,13 @@ class HomeActivity : AppCompatActivity(),
         return super.onCreateOptionsMenu(menu)
     }
 
-    //arrumar o menu que nao esta abrindo os itens
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        var checked = checkTheme()
-//
-//        when (item.itemId) {
-//            R.id.help -> {
-//                FirebaseAuth.getInstance().signOut()
-//                startActivity(Intent(this, LoginActivity::class.java))
-//                return true
-//            }
-//            R.id.itTema -> {
-//
-//                return true
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 
-//    fun getPopular():ArrayList<EntesMarvel>{
-//        return arrayListOf(
-//                Characters(1,R.drawable.omiranha,"Personagem1"),
-//                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-//                Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
-//                Characters(2,R.drawable.omiranha,"Personagem1",),
-//                Creators(1,R.drawable.stanlee, "Stan Lee", "Writer"),
-//                Comics(1,R.drawable.comic, "Spider-Man: 101 Ways to End the Clone Saga (1997) #1", "22/03/2020","Stan Lee"),
-//                Characters(3,R.drawable.omiranha,"Personagem1")
-//        )
-//    }
 
     fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
 
-//    fun callDetalheCard(ente: EntesMarvel) {
-//        //adicionar variavel ou outro identificador de tipo de obj para redirecionar pela maneira correta
-//        var intent:Intent = Intent(this, DetalhePersonagemActivity::class.java)
-//        intent.putExtra("nome",ente.nome)
-//        startActivity(intent)
-//
-//    }
-
-//    override fun popularClick(position: Int) {
-//        val ente = listPopulares.get(position)
-//        var nomeEnte = ente.nome
-//        var imgEnte = ente.img
-//        adapterPopular.notifyItemChanged(position)
-//        callDetalheCard(ente)
-//    }
-
-//    override fun sugestoesClick(position: Int) {
-//        val ente = listSugestoes.get(position)
-//        var nomeEnte = ente.nome
-//        var imgEnte = ente.img
-//        adapterSugestoes.notifyItemChanged(position)
-//        callDetalheCard(ente)
-//    }
-
-//    override fun historicoClick(position: Int) {
-//        val ente = listHistorico.get(position)
-//        var nomeEnte = ente.nome
-//        var imgEnte = ente.img
-//        adapterHistorico.notifyItemChanged(position)
-//        callDetalheCard(ente)
-//    }
 
     private fun showPopup(view: View) {
         val popupMenu: PopupMenu = PopupMenu(this, toolbarPrincipal, Gravity.RIGHT)
@@ -462,13 +384,40 @@ class HomeActivity : AppCompatActivity(),
         db = AppDataBase.invoke(this)
     }
 
-    fun infoHeroDay(heroDay: HeroDay) {
-        var img = heroDay.path + "." + heroDay.extension
-        Picasso.get().load(img).resize(150, 150).into(ivHeroiDoDia)
-        tvNomeHeroiDoDia.text = heroDay.name
-        tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
-        tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
-        tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
+    fun infoHeroDay(heroDayF: HeroDay?, heroDayDb:Characters?) {
+
+        if (heroDayDb != null){
+            var heroDay = heroDayDb
+            Log.i("HERODAY", heroDay.dateT.toString() )
+            var img = heroDay.path +"/portrait_small"+ "." + heroDay.extension
+            Picasso.get().load(img).fit().into(ivHeroiDoDia)
+            tvNomeHeroiDoDia.text = heroDay.name
+            tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
+            tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
+            tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
+
+        }else if(heroDayF != null){
+
+
+            var heroDay = heroDayF
+            Log.i("HERODAY", heroDay.dateT.toString() )
+            var img = heroDay.path +"/portrait_small"+ "." + heroDay.extension
+            Picasso.get().load(img).fit().into(ivHeroiDoDia)
+            tvNomeHeroiDoDia.text = heroDay.name
+            tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
+            tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
+            tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
+        }
+
+
+
+        val c = Calendar.getInstance()
+
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        Log.i("calender", "$day /$month /$year" )
+
     }
 
     fun detalheHeroDay(id: Int) {
@@ -505,25 +454,6 @@ class HomeActivity : AppCompatActivity(),
         }
 
     }
-
-
-//    private fun checkTheme(): Int {
-//        when (MyPreferences(this).darkMode) {
-//            0 -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//                delegate.applyDayNight()
-//
-//            }
-//            1 -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                delegate.applyDayNight()
-//
-//
-//            }
-//
-//        }
-//        return MyPreferences(this).darkMode
-//    }
 
 }
 

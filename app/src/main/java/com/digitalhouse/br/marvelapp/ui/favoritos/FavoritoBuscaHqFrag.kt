@@ -13,11 +13,9 @@ import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.crFCh
 import com.digitalhouse.br.marvelapp.crFCo
 import com.digitalhouse.br.marvelapp.crFCr
-import com.digitalhouse.br.marvelapp.interfac.ContractDetalheCardsFragments
 import com.digitalhouse.br.marvelapp.interfac.ContractDetalheFav
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_fav_busca_h_q.*
-import kotlinx.android.synthetic.main.fragment_fav_busca_personagem.*
 
 class FavoritoBuscaHqFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonagemClickListener{
 
@@ -44,13 +42,14 @@ class FavoritoBuscaHqFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonagemClic
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_fav_busca_h_q, container, false)
+        viewModelFavorito.getFavCo(FirebaseAuth.getInstance().currentUser!!.uid)
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModelFavorito.getFavCo(FirebaseAuth.getInstance().currentUser!!.uid)
         viewModelFavorito.resListFavCo.observe(viewLifecycleOwner){
             adapterFCo = FavoritoAdapter(it, this)
             rvFavoritoHq.adapter = adapterFCo

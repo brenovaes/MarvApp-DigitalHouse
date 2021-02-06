@@ -1,5 +1,7 @@
 package com.digitalhouse.br.marvelapp.ui.favoritos
 
+import android.util.ArrayMap
+import android.util.ArraySet
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,6 +18,7 @@ class FavoritoViewModel( val crFCo: CollectionReference,
 
     var resListFavCh = MutableLiveData<ArrayList<UserFav?>>()
     var listFavCh = ArrayList<UserFav?>()
+    var setFavCh = ArraySet<UserFav?>()
 
     var resListFavCo = MutableLiveData<ArrayList<UserFav?>>()
     var listFavCo = ArrayList<UserFav?>()
@@ -31,6 +34,8 @@ class FavoritoViewModel( val crFCo: CollectionReference,
                         creator.favCreator.extension,
                         creator.favCreator.path,
                         "Creator")))
+
+
             }
             resListFavCr.value = listFavCr
 
@@ -42,8 +47,10 @@ class FavoritoViewModel( val crFCo: CollectionReference,
 
     fun getFavCh(userId:String){
         crFCh.whereEqualTo("idUser", userId).get().addOnSuccessListener { documents ->
+
             for (document in documents) {
                 var character = document.toObject(UserFavCharacterFrag::class.java)
+
                 listFavCh.add(UserFav(character.idUser, character.idCharacter, Fav(character.favCharacter.name,
                         character.favCharacter.extension,
                         character.favCharacter.path,
@@ -51,9 +58,12 @@ class FavoritoViewModel( val crFCo: CollectionReference,
 
             }
 
-
         }
+
         resListFavCh.value = listFavCh
+        Log.i("LISTAFAV", listFavCh.size.toString())
+
+
 
     }
 

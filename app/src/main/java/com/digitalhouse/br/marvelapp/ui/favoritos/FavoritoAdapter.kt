@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 
 class FavoritoAdapter (var listFav: ArrayList<UserFav?>, val listener: OnFavoritoPersonagemClickListener): RecyclerView.Adapter<FavoritoAdapter.FavoritoViewHolder>(){
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritoViewHolder {
         var itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_modelo, parent,false)
         return FavoritoViewHolder(itemView)

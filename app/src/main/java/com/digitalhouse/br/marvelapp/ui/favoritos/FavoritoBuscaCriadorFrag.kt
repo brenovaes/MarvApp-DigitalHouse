@@ -43,13 +43,14 @@ class FavoritoBuscaCriadorFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonage
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_fav_busca_criadores, container, false)
+        viewModelFavorito.getFavCr(FirebaseAuth.getInstance().currentUser!!.uid)
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModelFavorito.getFavCr(FirebaseAuth.getInstance().currentUser!!.uid)
         viewModelFavorito.resListFavCr.observe(viewLifecycleOwner){
             adapterF = FavoritoAdapter(it, this)
             rvFavoritoCriador.adapter = adapterF

@@ -41,9 +41,9 @@ class HomeViewModel(
     var retornoSuggestions = MutableLiveData<List<Suggestions>>()
 
 
-    var retornodataHSaved = MutableLiveData<String>()
+    var retornodataHeroDB = MutableLiveData<String>()
 
-    var characterSaved = MutableLiveData<Characters>()
+    var characterSavedDB = MutableLiveData<Characters>()
 
     var docHeroDay = MutableLiveData<Boolean>()
     var retornoHeroDaySavedF = MutableLiveData<HeroDay>()
@@ -72,7 +72,7 @@ class HomeViewModel(
                 var dateN = LocalDate.now()
 
 
-                addHero(idC, name, extension, path, comics, series, stories, dateN.toString())
+//                addHero(idC, name, extension, path, comics, series, stories, dateN.toString())
 //                addHeroDayF(idC, name, extension, path, comics, series, stories, dateN.toString())
                 infoHero(idC, name, extension, path, comics, series, stories, dateN.toString())
 
@@ -87,7 +87,7 @@ class HomeViewModel(
     }
 
 
-    fun delHero() {
+    fun delHeroDB() {
         viewModelScope.launch {
             repositoryDB.deleteHeroDay()
         }
@@ -95,23 +95,23 @@ class HomeViewModel(
 
     fun getAllH() {
         viewModelScope.launch {
-            retornoHeroDB.value = repositoryDB.getAll() == null
+            retornoHeroDB.value = repositoryDB.getAll()== null
             if (retornoHeroDB.value != null)
-                characterSaved.value = repositoryDB.getAll()
+                characterSavedDB.value = repositoryDB.getAll()
 
         }
     }
 
-    fun addHero(idC: Int, name: String, extension: String, path: String, comics: Int, series: Int, stories: Int, dateN: String) {
+    fun addHeroDB(idC: Int, name: String, extension: String, path: String, comics: Int, series: Int, stories: Int, dateN: String) {
         viewModelScope.launch {
             repositoryDB.addHeroDay(Characters(idC, 0, name, extension, path, comics, series, stories, dateN))
         }
     }
 
     //Pega data que o heroi foi gerado
-    fun getHDay() {
+    fun getHDayDB() {
         viewModelScope.launch {
-            retornodataHSaved.value = repositoryDB.getHeroDay()
+            retornodataHeroDB.value = repositoryDB.getHeroDay()
         }
     }
 
@@ -120,13 +120,14 @@ class HomeViewModel(
 //    }
 //
     fun compareDate(dateNow: LocalDate, dateSaved: String): Boolean {
-        var dateN = dateNow.toString()
-        if (dateN.equals(dateSaved)) {
 
-            Log.i("COMPARE", "DATA igual")
+        var dateN = dateNow.toString()
+        if (dateN > dateSaved) {
+
+            Log.i("COMPARE", "DATA Maior")
             return true
         } else {
-            Log.i("COMPARE", "DATA n é igual")
+            Log.i("COMPARE", "DATA n é maior")
             return false
         }
 
@@ -134,6 +135,10 @@ class HomeViewModel(
         Log.i("DATAS", dateN + " " + dateSaved)
 
 
+    }
+
+    fun compareDateHeroD(dateHeroFirebase: String, dateHeroDB:String):Boolean{
+        return dateHeroFirebase < dateHeroDB
     }
 
     fun random(): Int {
@@ -196,14 +201,14 @@ class HomeViewModel(
         }
     }
 
-    fun getHeroDay() {
+    fun getHeroDayF() {
         crH.get().addOnSuccessListener { documents ->
             var hero = documents.documents[0]
             retornoHeroDaySavedF.value = hero.toObject(HeroDay::class.java)
         }
     }
 
-    fun updateHeroDay(hero: HeroDay) {
+    fun updateHeroDayF(hero: HeroDay) {
 
 //DELETE
 //        crH.get().addOnSuccessListener {
