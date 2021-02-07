@@ -7,13 +7,10 @@ import com.digitalhouse.br.marvelapp.interfac.HeroDayDao
 import com.digitalhouse.br.marvelapp.interfac.HistoryDao
 import com.digitalhouse.br.marvelapp.interfac.SuggestionsDao
 import com.digitalhouse.br.marvelapp.interfac.UserDao
-import com.digitalhouse.br.marvelapp.models.Characters
-import com.digitalhouse.br.marvelapp.models.HistoryDB
-import com.digitalhouse.br.marvelapp.models.Suggestions
-import com.digitalhouse.br.marvelapp.models.User
+import com.digitalhouse.br.marvelapp.models.*
 
 
-@Database(entities = [User::class, Characters::class, HistoryDB::class, Suggestions::class], version = 1)
+@Database(entities = [User::class, Characters::class, HistoryDB::class, Suggestions::class, Trilha::class], version = 1)
 
 abstract class AppDataBase : RoomDatabase() {
 
