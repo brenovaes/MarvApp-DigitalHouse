@@ -41,7 +41,7 @@ class CreatorsComicsAdapter (var listaCreators: ArrayList<ResultsCr>, val listen
         }
 
         var img = criador.thumbnail.path + "." + criador.thumbnail.extension
-        Picasso.get().load(img).resize(115,100).into(holder.ivImagemCreator)
+        Picasso.get().load(img).fit().into(holder.ivImagemCreator)
 
     }
 

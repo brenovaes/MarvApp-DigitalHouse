@@ -23,11 +23,11 @@ class BCriadoresAdapter(var listCriadores: ArrayList<ResultsCr>, val listener: O
 
     override fun onBindViewHolder(holder: BCriadoresViewHolder, position: Int) {
         var criador = listCriadores.get(position)
-
+        holder.typeFunction.text = "Creator"
         holder.nomeCard.text = criador.fullName
 
         var img = criador.thumbnail.path + "." + criador.thumbnail.extension
-        Picasso.get().load(img).resize(115,100).into(holder.imgCard)
+        Picasso.get().load(img).fit().into(holder.imgCard)
     }
 
     interface OnBCriadoresClickListener{
@@ -37,6 +37,7 @@ class BCriadoresAdapter(var listCriadores: ArrayList<ResultsCr>, val listener: O
     inner class BCriadoresViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
+        val typeFunction: TextView = itemView.findViewById(R.id.tvTipoFuncao)
         //falta a parte das estrelas
 
         init {

@@ -29,7 +29,7 @@ class CharactersComicsAdapter (var listaCreators: ArrayList<ResultsCh>, val list
         holder.tvNomeCharacter.text = character.name
 
         var img = character.thumbnail.path + "." + character.thumbnail.extension
-        Picasso.get().load(img).resize(115,100).into(holder.ivImagemCharacter)
+        Picasso.get().load(img).fit().into(holder.ivImagemCharacter)
 
     }
 

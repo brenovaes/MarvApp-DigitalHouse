@@ -293,17 +293,17 @@ class HomeActivity : AppCompatActivity(),
         var historyType = viewModelHome.retornoHistory.value!![position].type
         var historyId = viewModelHome.retornoHistory.value!![position].id
         when (historyType) {
-            "comics" -> {
+            "Comics" -> {
                 var intent = Intent(this, DetalheHqActivity::class.java)
                 intent.putExtra("idCo", historyId)
                 startActivity(intent)
             }
-            "creator" -> {
+            "Creator" -> {
                 var intent = Intent(this, DetalheCriadorActivity::class.java)
                 intent.putExtra("id", historyId)
                 startActivity(intent)
             }
-            "character" -> {
+            "Character" -> {
                 var intent = Intent(this, DetalhePersonagemActivity::class.java)
                 intent.putExtra("idCh", historyId)
                 startActivity(intent)
@@ -362,17 +362,17 @@ class HomeActivity : AppCompatActivity(),
         var suggestionType = viewModelHome.retornoSuggestions.value!![position].tipo
         var suggestionId = viewModelHome.retornoSuggestions.value!![position].id
         when (suggestionType) {
-            "comics" -> {
+            "Comics" -> {
                 var intent = Intent(this, DetalheHqActivity::class.java)
                 intent.putExtra("idCo", suggestionId)
                 startActivity(intent)
             }
-            "creator" -> {
+            "Creator" -> {
                 var intent = Intent(this, DetalheCriadorActivity::class.java)
                 intent.putExtra("id", suggestionId)
                 startActivity(intent)
             }
-            "character" -> {
+            "Character" -> {
                 var intent = Intent(this, DetalhePersonagemActivity::class.java)
                 intent.putExtra("idCh", suggestionId)
                 startActivity(intent)
@@ -389,7 +389,7 @@ class HomeActivity : AppCompatActivity(),
         if (heroDayDb != null){
             var heroDay = heroDayDb
             Log.i("HERODAY", heroDay.dateT.toString() )
-            var img = heroDay.path +"/portrait_small"+ "." + heroDay.extension
+            var img = heroDay.path + "." + heroDay.extension
             Picasso.get().load(img).fit().into(ivHeroiDoDia)
             tvNomeHeroiDoDia.text = heroDay.name
             tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
@@ -401,7 +401,7 @@ class HomeActivity : AppCompatActivity(),
 
             var heroDay = heroDayF
             Log.i("HERODAY", heroDay.dateT.toString() )
-            var img = heroDay.path +"/portrait_small"+ "." + heroDay.extension
+            var img = heroDay.path + "." + heroDay.extension
             Picasso.get().load(img).fit().into(ivHeroiDoDia)
             tvNomeHeroiDoDia.text = heroDay.name
             tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()

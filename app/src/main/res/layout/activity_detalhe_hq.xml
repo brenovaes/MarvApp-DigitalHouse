@@ -112,36 +112,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:gravity="right">
-                                <ImageView
-                                    android:id="@+id/ivStar1HqDetalhe"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_star_border"
-                                    android:clickable="true"/>
-                                <ImageView
-                                    android:id="@+id/ivStar2HqDetalhe"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_star_border"
-                                    android:clickable="true"/>
-                                <ImageView
-                                    android:id="@+id/ivStar3HqDetalhe"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_star_border"
-                                    android:clickable="true"/>
-                                <ImageView
-                                    android:id="@+id/ivStar4HqDetalhe"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_star_border"
-                                    android:clickable="true"/>
-                                <ImageView
-                                    android:id="@+id/ivStar5HqDetalhe"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_star_border"
-                                    android:clickable="true"/>
+
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>

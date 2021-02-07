@@ -32,7 +32,7 @@ class CharactersComicsAdapter (var listaComics: ArrayList<ResultsCo>, val listen
         holder.tvCriadorComic.text = "Creator(s): " + comic.creators.items[0]?.name
 
         var img = comic.thumbnail.path + "." + comic.thumbnail.extension
-        Picasso.get().load(img).resize(115,100).into(holder.ivImagemComic)
+        Picasso.get().load(img).fit().into(holder.ivImagemComic)
 
     }
 

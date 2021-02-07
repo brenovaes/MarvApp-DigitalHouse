@@ -24,9 +24,9 @@ class BHQAdapter(var listHQ: ArrayList<ResultsCo>, val listener: OnBHQClickListe
     override fun onBindViewHolder(holder: BHQViewHolder, position: Int) {
         var comic = listHQ.get(position)
         holder.nomeCard.text = comic!!.title
-
+        holder.typeFunction.text = "Comics"
         var img = comic.thumbnail.path + "." + comic.thumbnail.extension
-        Picasso.get().load(img).resize(115,100).into(holder.imgCard)
+        Picasso.get().load(img).fit().into(holder.imgCard)
     }
 
     interface OnBHQClickListener{
@@ -36,6 +36,7 @@ class BHQAdapter(var listHQ: ArrayList<ResultsCo>, val listener: OnBHQClickListe
     inner class BHQViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
+        val typeFunction: TextView = itemView.findViewById(R.id.tvTipoFuncao)
         //falta a parte das estrelas
 
         init {

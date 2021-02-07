@@ -61,7 +61,7 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 var nome = retornoComic.value!!.data.results[0].title
                 var path = retornoComic.value!!.data.results[0].thumbnail.path
                 var extension = retornoComic.value!!.data.results[0].thumbnail.extension
-                var tipo = "comics"
+                var tipo = "Comics"
                 populateComicsHistory(HistoryDB(id, nome, extension, path, tipo))
 
 //                Log.i("getCharacter", retornoComics.value.toString())
@@ -161,7 +161,7 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
     fun getResComicCreators(lisCreators: ArrayList<ResultsCr>){
         if (lisCreators.isNotEmpty()) {
             var creator = lisCreators.random()
-            var suggestion = Suggestions(creator.id, creator.fullName, creator.thumbnail.extension, creator.thumbnail.path, "creator")
+            var suggestion = Suggestions(creator.id, creator.fullName, creator.thumbnail.extension, creator.thumbnail.path, "Creator")
             populateSuggestions(suggestion)
         }
     }
@@ -169,7 +169,7 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
     fun getResComicCharacters(listCharacters: ArrayList<ResultsCh>){
         if (listCharacters.isNotEmpty()) {
             var character = listCharacters.random()
-            var suggestion = Suggestions(character.id, character.name, character.thumbnail.extension, character.thumbnail.path, "character")
+            var suggestion = Suggestions(character.id, character.name, character.thumbnail.extension, character.thumbnail.path, "Character")
             populateSuggestions(suggestion)
         }
     }

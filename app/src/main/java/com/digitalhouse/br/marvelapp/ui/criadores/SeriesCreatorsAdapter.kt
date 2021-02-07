@@ -26,10 +26,11 @@ class SeriesCreatorsAdapter (var listaSeries: ArrayList<ResultsSe>, val listener
         if (serie.title != null) {
             holder.tvNomeSerie.text = serie.title
         }
-        holder.tvDataSerie.text = serie.startYear.toString()
+        holder.tvDataInicioSerie.text = serie.startYear.toString()
+        holder.tvDataFinalSerie.text = serie.endYear.toString()
 
         var img = serie.thumbnail.path + "." + serie.thumbnail.extension
-        Picasso.get().load(img).resize(66,100).into(holder.ivImagemSerie)
+        Picasso.get().load(img).fit().into(holder.ivImagemSerie)
     }
 
     override fun getItemCount() = listaSeries.size
@@ -41,7 +42,8 @@ class SeriesCreatorsAdapter (var listaSeries: ArrayList<ResultsSe>, val listener
     inner class SeriesCreatorsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val ivImagemSerie: ImageView = itemView.findViewById(R.id.cvImagemSerie)
         val tvNomeSerie: TextView = itemView.findViewById(R.id.cvNomeSerie)
-        val tvDataSerie: TextView = itemView.findViewById(R.id.cvDataSerie)
+        val tvDataInicioSerie: TextView = itemView.findViewById(R.id.cvDataInicioSerie)
+        val tvDataFinalSerie: TextView = itemView.findViewById(R.id.cvDataFinalSerie)
 
         init {
             itemView.setOnClickListener(this)

@@ -29,8 +29,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="30dp">
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp">
                 <TextView
                     android:id="@+id/cvNomeSerie"
                     android:layout_width="match_parent"
@@ -41,7 +43,14 @@
                     android:layout_marginBottom="5dp"
                     android:textColor="?attr/colorOnPrimary"/>
                 <TextView
-                    android:id="@+id/cvDataSerie"
+                    android:id="@+id/cvDataInicioSerie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:text=""
+                    android:textColor="?attr/colorOnPrimary"/>
+                <TextView
+                    android:id="@+id/cvDataFinalSerie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="10dp"

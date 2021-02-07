@@ -36,7 +36,7 @@ class ComicsCreatorsAdapter (var listaComics: ArrayList<ResultsCo>, val listener
 
         Log.i("TAG", img.toString())
 
-        Picasso.get().load(img).resize(115,100).into(holder.ivImagemComic)
+        Picasso.get().load(img).fit().into(holder.ivImagemComic)
 
     }
 

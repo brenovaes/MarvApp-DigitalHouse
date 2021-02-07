@@ -30,7 +30,7 @@ class StoriesComicsAdapter(
         holder.tvDescricaoStories.text = story.description
 
         var img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
-        Picasso.get().load(img).resize(115, 100).into(holder.ivImagemStories)
+        Picasso.get().load(img).fit().into(holder.ivImagemStories)
     }
 
     override fun getItemCount() = listaStories.size

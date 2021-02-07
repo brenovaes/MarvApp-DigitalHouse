@@ -26,8 +26,9 @@ class SugestoesAdapter(var listSugestoes: ArrayList<Suggestions>, val listener: 
     override fun onBindViewHolder(holder: SugestoesViewHolder, position: Int) {
         var sugestoes = listSugestoes.get(position)
         var img = sugestoes.path + "." + sugestoes.extension
-        Picasso.get().load(img).resize(150, 150).into(holder.imgCard)
+        Picasso.get().load(img).fit().into(holder.imgCard)
         holder.nomeCard.text = sugestoes.nome
+        holder.typeFunction.text = sugestoes.tipo
     }
 
     interface OnSugestoesClickListener{
@@ -37,6 +38,7 @@ class SugestoesAdapter(var listSugestoes: ArrayList<Suggestions>, val listener: 
     inner class SugestoesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
+        val typeFunction: TextView = itemView.findViewById(R.id.tvTipoFuncao)
         //falta a parte das estrelas
 
         init {

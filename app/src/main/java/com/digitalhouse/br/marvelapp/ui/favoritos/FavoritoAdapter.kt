@@ -24,8 +24,8 @@ class FavoritoAdapter (var listFav: ArrayList<UserFav?>, val listener: OnFavorit
         var favorito = listFav.get(position)
         var img = favorito!!.fav.path + "." + favorito.fav.extension
         Picasso.get().load(img).fit().into(holder.imgCard)
-
         holder.nomeCard.text = favorito.fav.name
+        holder.typeFunction.text = favorito.fav.type
     }
 
     interface OnFavoritoPersonagemClickListener{
@@ -35,6 +35,8 @@ class FavoritoAdapter (var listFav: ArrayList<UserFav?>, val listener: OnFavorit
     inner class FavoritoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
+        val typeFunction: TextView = itemView.findViewById(R.id.tvTipoFuncao)
+
         //falta a parte das estrelas
 
         init {
