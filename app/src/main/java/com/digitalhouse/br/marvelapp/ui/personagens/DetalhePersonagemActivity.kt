@@ -70,6 +70,12 @@ class DetalhePersonagemActivity :
             onBackPressed()
         }
 
+        textMarvelLinkCh.setOnClickListener {
+            val url = "https://www.marvel.com/"
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
+
 
 
         viewModelCharacters.retornoCharacter.observe(this) {
