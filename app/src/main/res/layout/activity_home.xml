@@ -43,7 +43,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
             android:paddingBottom="20dp"
             android:background="?attr/colorPrimary"
             android:orientation="vertical">
@@ -51,6 +51,8 @@
             <TextView
                 android:id="@+id/tvHeroiDoDia"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_height="wrap_content"
                 android:text="@string/HeroiDoDia"
                 android:textColor="@color/black"
@@ -59,12 +61,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@color/destaqueVermelho" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvHeroiDoDia"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="22.58dp"
                 app:cardCornerRadius="5dp"
                 android:clickable="true">
@@ -127,36 +133,13 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-<!--            <TextView-->
-<!--                android:id="@+id/tvMaisPopulares"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="22.42dp"-->
-<!--                android:text="@string/MaisPopulares"-->
-<!--                android:textColor="?attr/colorOnPrimary"-->
-<!--                android:textSize="25sp" />-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="2dp"-->
-<!--                android:background="?attr/colorAccent" />-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/rvMaisPopulares"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="180dp"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:paddingTop="10dp"-->
-<!--                android:paddingBottom="10dp"-->
-<!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--                tools:listitem="@layout/card_modelo" />-->
-
-
             <TextView
                 android:id="@+id/tvSugestoes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22.42dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:text="@string/Sugestoes"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="25sp" />
@@ -164,6 +147,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:background="?attr/colorAccent" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -171,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="5dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/card_modelo" />
 
@@ -180,7 +165,8 @@
                 android:id="@+id/tvHistorico"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22.42dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:text="@string/Historico"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="25sp" />
@@ -188,6 +174,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:background="?attr/colorAccent" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -195,7 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="5dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/card_modelo" />
 

@@ -75,6 +75,12 @@ class DetalheCriadorActivity : AppCompatActivity(),
             onBackPressed()
         }
 
+        textMarvelLinkCr.setOnClickListener{
+            val url = "https://www.marvel.com/"
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
+
 
         viewModelCreators.retornoCreator.observe(this) {
             creator.addAll(it.data.results)

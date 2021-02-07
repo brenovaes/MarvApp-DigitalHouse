@@ -77,6 +77,12 @@ class DetalheHqActivity :
             onBackPressed()
         }
 
+        textMarvelLinkCo.setOnClickListener {
+            val url = "https://www.marvel.com/"
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
+
         viewModelComics.retornoComic.observe(this) {
             comics.addAll(it.data.results)
             var creators = comics[0].creators.items
