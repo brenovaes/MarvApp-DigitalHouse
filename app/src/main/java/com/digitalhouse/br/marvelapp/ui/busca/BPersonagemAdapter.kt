@@ -22,12 +22,12 @@ class BPersonagemAdapter(var listPersonagens: ArrayList<ResultsCh>, val listener
 
     override fun onBindViewHolder(holder: BPersonagemViewHolder, position: Int) {
         var personagens = listPersonagens.get(position)
-
+        holder.typeFunction.text = "Character"
         holder.nomeCard.text = personagens.name
 
 
         var img = personagens.thumbnail.path + "." + personagens.thumbnail.extension
-        Picasso.get().load(img).resize(115,100).into(holder.imgCard)
+        Picasso.get().load(img).fit().into(holder.imgCard)
     }
 
     interface OnBPersonagemClickListener{
@@ -37,6 +37,7 @@ class BPersonagemAdapter(var listPersonagens: ArrayList<ResultsCh>, val listener
     inner class BPersonagemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
+        val typeFunction: TextView = itemView.findViewById(R.id.tvTipoFuncao)
         //falta a parte das estrelas
 
         init {

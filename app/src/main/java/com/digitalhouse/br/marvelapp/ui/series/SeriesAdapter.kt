@@ -23,10 +23,11 @@ class SeriesAdapter (var listaSeries: ArrayList<ItemsCr?>, val listener: OnSerie
     override fun onBindViewHolder(holder: SeriesViewHolder, position: Int) {
         var serie = listaSeries.get(position)
 //        holder.ivImagemSerie.setImageResource(serie.imagemSerie)
-        if (serie != null) {
-            holder.tvNomeSerie.text = serie.name
-        }
-//        holder.tvDataSerie.text = serie.dataSerie.toString()
+//        if (serie != null) {
+//            holder.tvNomeSerie.text = serie.name
+//        }
+//        holder.tvDataInicioSerie.text = serie.s.toString()
+//        holder.tvDataFinalSerie.text = serie.endYear.toString()
     }
 
     override fun getItemCount() = listaSeries.size
@@ -38,7 +39,8 @@ class SeriesAdapter (var listaSeries: ArrayList<ItemsCr?>, val listener: OnSerie
     inner class SeriesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val ivImagemSerie: ImageView = itemView.findViewById(R.id.cvImagemSerie)
         val tvNomeSerie: TextView = itemView.findViewById(R.id.cvNomeSerie)
-        val tvDataSerie: TextView = itemView.findViewById(R.id.cvDataSerie)
+        val tvDataInicioSerie: TextView = itemView.findViewById(R.id.cvDataInicioSerie)
+        val tvDataFinalSerie: TextView = itemView.findViewById(R.id.cvDataFinalSerie)
 
         init {
             itemView.setOnClickListener(this)

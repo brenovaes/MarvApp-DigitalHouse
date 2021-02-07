@@ -29,7 +29,7 @@ class EventsCreatorsAdapter (var listaEvents: ArrayList<ResultsEv>, val listener
         holder.tvDataInicioEvent.text = "Start: "+ evento.start.split(" ")[0]
         holder.tvDataFimEvent.text = "End: " + evento.end.split(" ")[0]
         var img = evento.thumbnail.path + "." + evento.thumbnail.extension
-        Picasso.get().load(img).resize(115,100).into(holder.ivImagemEvent)
+        Picasso.get().load(img).fit().into(holder.ivImagemEvent)
 
     }
 

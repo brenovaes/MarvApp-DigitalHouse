@@ -24,8 +24,9 @@ class HistoryAdapter(var listHistorico: ArrayList<HistoryDB>, val listener: OnHi
     override fun onBindViewHolder(holder: HistoricoViewHolder, position: Int) {
         var historico = listHistorico.get(position)
         var img = historico.path + "." + historico.extension
-        Picasso.get().load(img).resize(150, 150).into(holder.imgCard)
+        Picasso.get().load(img).fit().into(holder.imgCard)
         holder.nomeCard.text = historico.nome
+        holder.typeFunction.text = historico.type
     }
 
     interface OnHistoricoClickListener{
@@ -35,6 +36,7 @@ class HistoryAdapter(var listHistorico: ArrayList<HistoryDB>, val listener: OnHi
     inner class HistoricoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val imgCard: ImageView = itemView.findViewById(R.id.ivCard)
         val nomeCard: TextView = itemView.findViewById(R.id.tvNomeCard)
+        val typeFunction: TextView = itemView.findViewById(R.id.tvTipoFuncao)
 
         init {
             itemView.setOnClickListener(this)
