@@ -1,8 +1,8 @@
 package com.digitalhouse.br.marvelapp.ui.home
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.icu.util.Calendar
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
@@ -38,13 +38,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
+import java.text.SimpleDateFormat
+import java.time.Instant
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class HomeActivity : AppCompatActivity(),
 //    PopularAdapter.OnPopularClickListener,
-        SugestoesAdapter.OnSugestoesClickListener,
-        HistoryAdapter.OnHistoricoClickListener {
+    SugestoesAdapter.OnSugestoesClickListener,
+    HistoryAdapter.OnHistoricoClickListener {
 
 
     private lateinit var db: AppDataBase
@@ -70,28 +73,29 @@ class HomeActivity : AppCompatActivity(),
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return HomeViewModel(
-                        serviceCh,
-                        serviceS,
-                        repositoryHero,
-                        repositoryHistory,
-                        repositorySuggestions,
-                        crH
+                    serviceCh,
+                    serviceS,
+                    repositoryHero,
+                    repositoryHistory,
+                    repositorySuggestions,
+                    crH
                 ) as T
             }
         }
     }
 
 
-    @SuppressLint("WrongConstant", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
 
+//        viewModelHome.transDate()
+
+//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build()
 
 
         Log.i("NETWORK", netOnline(this).toString())
@@ -103,6 +107,7 @@ class HomeActivity : AppCompatActivity(),
         repositoryHistory = RepositoryImplHistory(db.historyDao())
         repositorySuggestions = RepositoryImplSuggestions(db.suggestionsDao())
 
+//        viewModelHome.transDate(LocalDate.now())
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
         }
@@ -150,7 +155,7 @@ class HomeActivity : AppCompatActivity(),
                     viewModelHome.infoHeroD.observe(this) { hero ->
                         viewModelHome.addHeroDayF(hero)
                         viewModelHome.delHeroDB()
-                        infoHeroDay(hero,null)
+                        infoHeroDay(hero, null)
                     }
                 }
                 false -> {
@@ -158,71 +163,103 @@ class HomeActivity : AppCompatActivity(),
 //                    menor pega do firebase
 
                     viewModelHome.getHeroDayF()
-                    viewModelHome.retornoHeroDaySavedF.observe(this) { hero ->
-                        viewModelHome.retornoHeroDB.observe(this){
-                            if (it == true){
-                                viewModelHome.addHeroDB(hero.idCharacter,
-                                        hero.name,
-                                        hero.extension,
-                                        hero.path,
-                                        hero.comics,
-                                        hero.series,
-                                        hero.stories,
-                                        hero.dateT)
+                    viewModelHome.retornoHeroDaySavedF.observe(this) { heroFirebase ->
+
+                        viewModelHome.retornoHeroDB.observe(this) {
+                            if (it == true) {
+                                if (viewModelHome.transDate(heroFirebase.dateT)!! < LocalDate.now()) {
+                                    viewModelHome.getCharacter()
+                                    viewModelHome.infoHeroD.observe(this) { hero ->
+                                        viewModelHome.addHeroDayF(hero)
+                                        viewModelHome.addHeroDB(
+                                            hero.idCharacter,
+                                            hero.name,
+                                            hero.extension,
+                                            hero.path,
+                                            hero.comics,
+                                            hero.series,
+                                            hero.stories,
+                                            hero.dateT
+                                        )
+                                    }
+                                } else {
+                                    viewModelHome.retornoHeroDaySavedF.observe(this) { hero ->
+
+                                        viewModelHome.addHeroDB(
+                                            hero.idCharacter,
+                                            hero.name,
+                                            hero.extension,
+                                            hero.path,
+                                            hero.comics,
+                                            hero.series,
+                                            hero.stories,
+                                            hero.dateT
+                                        )
+                                    }
+                                }
+
                             }
                         }
+                        if (heroFirebase.dateT != null && viewModelHome.retornodataHeroDB.value != null) {
+                            var dateFirebase = viewModelHome.transDate(heroFirebase.dateT)
+                            var dateDB = viewModelHome.transDate(viewModelHome.retornodataHeroDB.value )
+                            if (dateFirebase != dateDB) {
 
-                        viewModelHome.getHDayDB()
-                        if(viewModelHome.retornodataHeroDB.value != hero.dateT ){
-
-                            //se a data do firebase é menor = true
+                                //se a data do firebase é menor = true
 //                            pega do firebase e joga no db
 //                                se é menor então faz tudo de nv
 
 //                            firebase é menor então chama tudo e atualiza fb e db
-                            if (viewModelHome.compareDateHeroD(hero.dateT, viewModelHome.retornodataHeroDB.value!! )){
-                                viewModelHome.getCharacter()
-
-                                viewModelHome.infoHeroD.observe(this) { hero ->
-                                    viewModelHome.updateHeroDayF(hero)
-
-                                    viewModelHome.delHeroDB()
-                                    viewModelHome.addHeroDB(hero.idCharacter,
+                                viewModelHome.getHeroDayF()
+                                if (viewModelHome.compareDateHeroD(
+                                        heroFirebase.dateT,
+                                        viewModelHome.retornodataHeroDB.value!!
+                                    )
+                                ) {
+                                    viewModelHome.getCharacter()
+                                    viewModelHome.infoHeroD.observe(this) { hero ->
+                                        viewModelHome.updateHeroDayF(hero)
+                                        viewModelHome.delHeroDB()
+                                        viewModelHome.addHeroDB(
+                                            hero.idCharacter,
                                             hero.name,
                                             hero.extension,
                                             hero.path,
                                             hero.comics,
                                             hero.series,
                                             hero.stories,
-                                            hero.dateT)
-                                    infoHeroDay(hero, null)
-                                }
+                                            hero.dateT
+                                        )
+                                        infoHeroDay(hero, null)
+                                    }
 
-                            }else{
-                                viewModelHome.retornoHeroDaySavedF.observe(this){
-                                    viewModelHome.delHeroDB()
-                                    viewModelHome.addHeroDB(hero.idCharacter,
-                                            hero.name,
-                                            hero.extension,
-                                            hero.path,
-                                            hero.comics,
-                                            hero.series,
-                                            hero.stories,
-                                            hero.dateT)
-                                    infoHeroDay(hero, null)
+                                } else {
+                                    viewModelHome.retornoHeroDaySavedF.observe(this) {
+                                        viewModelHome.delHeroDB()
+                                        viewModelHome.addHeroDB(
+                                            it.idCharacter,
+                                            it.name,
+                                            it.extension,
+                                            it.path,
+                                            it.comics,
+                                            it.series,
+                                            it.stories,
+                                            it.dateT
+                                        )
+                                        infoHeroDay(heroFirebase, null)
+                                    }
                                 }
-                            }
-                        }else{
-                            viewModelHome.characterSavedDB.observe(this){hero ->
-                                infoHeroDay(null, hero)
+                            } else {
+                                viewModelHome.characterSavedDB.observe(this) { hero ->
+                                    infoHeroDay(null, hero)
+                                }
                             }
                         }
-
                     }
                 }
             }
 
-            Log.i("datanow", LocalDate.now().toString() )
+            Log.i("datanow", LocalDate.now().toString())
         }
 //-----------------------------------------------------
 
@@ -318,11 +355,9 @@ class HomeActivity : AppCompatActivity(),
     }
 
 
-
     fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
-
 
 
     private fun showPopup(view: View) {
@@ -338,9 +373,9 @@ class HomeActivity : AppCompatActivity(),
 
                 R.id.help -> {
                     var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                            .requestIdToken(getString(R.string.default_web_client_id))
-                            .requestEmail()
-                            .build();
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
 
                     var mGoogleSignInClient = GoogleSignIn.getClient(getBaseContext(), gso);
                     mGoogleSignInClient.signOut().addOnCompleteListener {
@@ -384,24 +419,24 @@ class HomeActivity : AppCompatActivity(),
         db = AppDataBase.invoke(this)
     }
 
-    fun infoHeroDay(heroDayF: HeroDay?, heroDayDb:Characters?) {
+    fun infoHeroDay(heroDayF: HeroDay?, heroDayDb: Characters?) {
 
-        if (heroDayDb != null){
+        if (heroDayDb != null) {
             var heroDay = heroDayDb
-            Log.i("HERODAY", heroDay.dateT.toString() )
-            var img = heroDay.path +"/portrait_small"+ "." + heroDay.extension
+            Log.i("HERODAY", heroDay.dateT.toString())
+            var img = heroDay.path + "/portrait_small" + "." + heroDay.extension
             Picasso.get().load(img).fit().into(ivHeroiDoDia)
             tvNomeHeroiDoDia.text = heroDay.name
             tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
             tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
             tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
 
-        }else if(heroDayF != null){
+        } else if (heroDayF != null) {
 
 
             var heroDay = heroDayF
-            Log.i("HERODAY", heroDay.dateT.toString() )
-            var img = heroDay.path +"/portrait_small"+ "." + heroDay.extension
+            Log.i("HERODAY", heroDay.dateT.toString())
+            var img = heroDay.path + "/portrait_small" + "." + heroDay.extension
             Picasso.get().load(img).fit().into(ivHeroiDoDia)
             tvNomeHeroiDoDia.text = heroDay.name
             tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
@@ -410,13 +445,12 @@ class HomeActivity : AppCompatActivity(),
         }
 
 
-
         val c = Calendar.getInstance()
 
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-        Log.i("calender", "$day /$month /$year" )
+        Log.i("calender", "$day /$month /$year")
 
     }
 

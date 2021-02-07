@@ -1,5 +1,7 @@
 package com.digitalhouse.br.marvelapp.models
 
+import java.time.LocalDate
+
 class HeroDay(  val idCharacter: Int = 0,
                 val name: String = "",
                 val extension: String = "",

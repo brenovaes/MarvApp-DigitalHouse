@@ -2,7 +2,10 @@ package com.digitalhouse.br.marvelapp.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.digitalhouse.br.marvelapp.Converters
 import java.sql.Date
+import java.time.LocalDate
 
 //Caso n ponha o update, deletar o posit
 @Entity(tableName = "characters")
@@ -16,5 +19,5 @@ data class Characters(
     val comics: Int,
     val series: Int,
     val stories: Int,
-    val dateT:String
+    val dateT:String = " "
 )
