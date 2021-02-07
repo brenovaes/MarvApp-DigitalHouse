@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.digitalhouse.br.marvelapp.crIconFch
 import com.digitalhouse.br.marvelapp.entities.characters.ResCharacters
 import com.digitalhouse.br.marvelapp.entities.characters.ResultsCh
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
@@ -25,8 +24,7 @@ import java.time.LocalDateTime
 class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                           val repositoryHistory: RepositoryHistory,
                           val repositorySuggestions: RepositorySuggestions,
-                          val crFCh:CollectionReference,
-                          val crIconFch:CollectionReference
+                          val crFCh:CollectionReference
 ): ViewModel() {
 
     var retornoCharacter = MutableLiveData<ResCharacters>()
@@ -48,9 +46,9 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 var nome = retornoCharacter.value!!.data.results[0].name
                 var path = retornoCharacter.value!!.data.results[0].thumbnail.path
@@ -72,9 +70,9 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                         id,
                         0,
                         10,
-                        "1601900859",
-                         "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
+//                        "1601900859",
+//                         "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
                 )
                 //Log.i("getCharactersComics", retornoCharactersComic.value.toString())
                 getResCharacterComics(retornoCharactersComic.value!!.data.results)
@@ -91,9 +89,9 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                         id,
                         0,
                         10,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
                 )
                 //Log.i("getCharactersEvents", retornoCharactersEvents.value.toString())
             }
@@ -109,9 +107,9 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                         id,
                         0,
                         10,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
                 )
                 //Log.i("getCharactersEvents", retornoCharactesSeries.value.toString())
             }
@@ -143,11 +141,18 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
     fun checkFavoriteF(idCharacter:Int, userId:String){
         Log.i("FIREBASE", "ENTrOU check")
 
-        crFCh.whereEqualTo("idUser",userId).whereEqualTo("idCharacter",idCharacter).get().addOnSuccessListener {
-            it.documents.forEach {
-                checkF.value = it.exists()
-                checkIdC.value = 1
+        crFCh.whereEqualTo("idCharacter",idCharacter).get().addOnSuccessListener {
+            it.documents.forEach {document ->
+                document.getData()?.entries?.forEach {
+                    if(it.value == userId){
+                        checkF.value = true
+                        checkIdC.value = 1
+                    }
+
+                }
+
             }
+
         }
     }
 
@@ -161,6 +166,8 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
             it.documents.forEach {
                 if( it.exists()){
                     it.reference.delete()
+                    Log.i("DELETE", idCharacter.toString())
+
                 }
             }
         }
@@ -173,14 +180,12 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
         }
     }
 
-    fun deletIconCh(userId: String,idCharacter: Int){
-
-                    checkIdC.value = 0
+    fun deletIconCh(){
+        checkIdC.value = 0
 
     }
 
-    fun addIconCh(userId: String, idCharacter: Int){
-//        crIconFch.document().set(IconH(userId, idCharacter, 1))
+    fun addIconCh(){
         checkIdC.value = 1
     }
 

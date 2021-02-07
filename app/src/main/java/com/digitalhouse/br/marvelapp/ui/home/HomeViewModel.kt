@@ -15,7 +15,9 @@ import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.launch
+import java.time.Instant
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class HomeViewModel(
@@ -41,9 +43,9 @@ class HomeViewModel(
     var retornoSuggestions = MutableLiveData<List<Suggestions>>()
 
 
-    var retornodataHSaved = MutableLiveData<String>()
+    var retornodataHeroDB = MutableLiveData<String>()
 
-    var characterSaved = MutableLiveData<Characters>()
+    var characterSavedDB = MutableLiveData<Characters>()
 
     var docHeroDay = MutableLiveData<Boolean>()
     var retornoHeroDaySavedF = MutableLiveData<HeroDay>()
@@ -56,9 +58,9 @@ class HomeViewModel(
                 retornoHeroiDia.value = serviceCharacters.getAllCharacterRepo(
                         random(),
                         1,
-                        "1601900859",
-                        "da0b41050b1361bf58011d9e4bb93ec3",
-                        "cc144618fe69492faf88410cc664f62e"
+//                        "1601900859",
+//                        "da0b41050b1361bf58011d9e4bb93ec3",
+//                        "cc144618fe69492faf88410cc664f62e"
 
                 )
 
@@ -70,11 +72,12 @@ class HomeViewModel(
                 var series = retornoHeroiDia.value!!.data.results[0].series.available
                 var stories = retornoHeroiDia.value!!.data.results[0].stories.available
                 var dateN = LocalDate.now()
+//                var dateN = transDate(LocalDate.now())
 
-
-                addHero(idC, name, extension, path, comics, series, stories, dateN.toString())
+//                addHero(idC, name, extension, path, comics, series, stories, dateN.toString())
 //                addHeroDayF(idC, name, extension, path, comics, series, stories, dateN.toString())
                 infoHero(idC, name, extension, path, comics, series, stories, dateN.toString())
+                transDate(dateN.toString())
 
 
 //                Log.i("getCharacter", retornoHeroiDia.value.toString())
@@ -87,7 +90,7 @@ class HomeViewModel(
     }
 
 
-    fun delHero() {
+    fun delHeroDB() {
         viewModelScope.launch {
             repositoryDB.deleteHeroDay()
         }
@@ -95,23 +98,23 @@ class HomeViewModel(
 
     fun getAllH() {
         viewModelScope.launch {
-            retornoHeroDB.value = repositoryDB.getAll() == null
+            retornoHeroDB.value = repositoryDB.getAll()== null
             if (retornoHeroDB.value != null)
-                characterSaved.value = repositoryDB.getAll()
+                characterSavedDB.value = repositoryDB.getAll()
 
         }
     }
 
-    fun addHero(idC: Int, name: String, extension: String, path: String, comics: Int, series: Int, stories: Int, dateN: String) {
+    fun addHeroDB(idC: Int, name: String, extension: String, path: String, comics: Int, series: Int, stories: Int, dateN: String) {
         viewModelScope.launch {
             repositoryDB.addHeroDay(Characters(idC, 0, name, extension, path, comics, series, stories, dateN))
         }
     }
 
     //Pega data que o heroi foi gerado
-    fun getHDay() {
+    fun getHDayDB() {
         viewModelScope.launch {
-            retornodataHSaved.value = repositoryDB.getHeroDay()
+            retornodataHeroDB.value = repositoryDB.getHeroDay()
         }
     }
 
@@ -120,13 +123,14 @@ class HomeViewModel(
 //    }
 //
     fun compareDate(dateNow: LocalDate, dateSaved: String): Boolean {
-        var dateN = dateNow.toString()
-        if (dateN.equals(dateSaved)) {
 
-            Log.i("COMPARE", "DATA igual")
+        var dateN = dateNow.toString()
+        if (dateN > dateSaved) {
+
+            Log.i("COMPARE", "DATA Maior")
             return true
         } else {
-            Log.i("COMPARE", "DATA n é igual")
+            Log.i("COMPARE", "DATA n é maior")
             return false
         }
 
@@ -134,6 +138,24 @@ class HomeViewModel(
         Log.i("DATAS", dateN + " " + dateSaved)
 
 
+    }
+
+    fun transDate(date: String?):LocalDate?{
+        var dataData: LocalDate?
+        if (date != null){
+            dataData = LocalDate.parse(date)
+
+        }else{
+            dataData = null
+        }
+        Log.i("TESTE DATA",  " $dataData ")
+        return dataData
+    }
+
+    fun compareDateHeroD(dateHeroFirebase: String, dateHeroDB: String):Boolean{
+        var dataFirebase = transDate(dateHeroFirebase)
+        var dataDB = transDate(dateHeroDB)
+        return dataFirebase!! < dataDB
     }
 
     fun random(): Int {
@@ -196,14 +218,17 @@ class HomeViewModel(
         }
     }
 
-    fun getHeroDay() {
-        crH.get().addOnSuccessListener { documents ->
-            var hero = documents.documents[0]
-            retornoHeroDaySavedF.value = hero.toObject(HeroDay::class.java)
+    fun getHeroDayF() {
+        viewModelScope.launch {
+            crH.get().addOnSuccessListener { documents ->
+                var hero = documents.documents[0]
+                retornoHeroDaySavedF.value = hero.toObject(HeroDay::class.java)
+            }
         }
+
     }
 
-    fun updateHeroDay(hero: HeroDay) {
+    fun updateHeroDayF(hero: HeroDay) {
 
 //DELETE
 //        crH.get().addOnSuccessListener {
@@ -220,7 +245,7 @@ class HomeViewModel(
 
         crH.get().addOnSuccessListener { documents ->
             documents.forEach {
-                it.reference.update("idCharacter", hero.idCharacter,"name", hero.name,
+                it.reference.update("idCharacter", hero.idCharacter, "name", hero.name,
                         "extension", hero.extension,
                         "path", hero.path,
                         "comics", hero.comics,

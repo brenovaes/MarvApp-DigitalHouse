@@ -116,8 +116,8 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="2"
-                    tools:listitem="@layout/item_comics" />
+                    app:spanCount="3"
+                    tools:listitem="@layout/item_characters" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

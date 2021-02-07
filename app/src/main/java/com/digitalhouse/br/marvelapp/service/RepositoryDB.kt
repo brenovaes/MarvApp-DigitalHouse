@@ -9,6 +9,7 @@ import com.digitalhouse.br.marvelapp.models.Characters
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.models.User
+import java.time.LocalDate
 
 interface RepositoryDB {
     suspend fun addUserTask(user: User)

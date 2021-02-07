@@ -1,11 +1,14 @@
 package com.digitalhouse.br.marvelapp.service
 
 
+import com.digitalhouse.br.marvelapp.apikeyT
 import com.digitalhouse.br.marvelapp.entities.comics.ResComics
 import com.digitalhouse.br.marvelapp.entities.creators.ResCreators
 import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.entities.stories.ResStories
+import com.digitalhouse.br.marvelapp.hashT
+import com.digitalhouse.br.marvelapp.tsT
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -19,9 +22,9 @@ interface RepositoryCreators {
             @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String
+            @Query("ts") ps3: String = tsT,
+            @Query("apikey") ps4: String = apikeyT,
+            @Query("hash") ps5: String = hashT
     ): ResCreators
 
 
@@ -30,9 +33,9 @@ interface RepositoryCreators {
             @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String
+            @Query("ts") ps3: String = tsT,
+            @Query("apikey") ps4: String = apikeyT,
+            @Query("hash") ps5: String = hashT
     ): ResComics
 
 
@@ -41,9 +44,9 @@ interface RepositoryCreators {
             @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String,
+            @Query("ts") ps3: String = tsT,
+            @Query("apikey") ps4: String = apikeyT,
+            @Query("hash") ps5: String = hashT
     ): ResSeries
 
     @GET("creators/{id}/events")
@@ -51,9 +54,9 @@ interface RepositoryCreators {
             @Path("id") id: Int,
             @Query("offset") ps1: Int,
             @Query("limit") ps2: Int,
-            @Query("ts") ps3: String,
-            @Query("apikey") ps4: String,
-            @Query("hash") ps5: String,
+            @Query("ts") ps3: String = tsT,
+            @Query("apikey") ps4: String = apikeyT,
+            @Query("hash") ps5: String = hashT
     ): ResEvents
 
 

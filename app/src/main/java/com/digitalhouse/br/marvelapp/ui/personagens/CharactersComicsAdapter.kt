@@ -23,13 +23,17 @@ class CharactersComicsAdapter (var listaComics: ArrayList<ResultsCo>, val listen
         var comic = listaComics[position]
 
         if(comic != null) {
-
             holder.tvNomeComic.text = comic.title
             //holder.tvDataComic.text = comic.dates[0]?.date
         }
 
-        holder.tvDataComic.text = "Sale date: " + comic.dates[0]?.date.split("T")[0]
-        holder.tvCriadorComic.text = "Creator(s): " + comic.creators.items[0]?.name
+        if (comic.dates.isNotEmpty()){
+            holder.tvDataComic.text = "Sale date: " + comic.dates[0]?.date.split("T")[0]
+        }
+
+        if (comic.creators.items.isNotEmpty()){
+            holder.tvCriadorComic.text = "Creator(s): " + comic.creators.items[0]?.name
+        }
 
         var img = comic.thumbnail.path + "." + comic.thumbnail.extension
         Picasso.get().load(img).resize(115,100).into(holder.ivImagemComic)

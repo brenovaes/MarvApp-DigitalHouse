@@ -16,16 +16,20 @@ import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.entities.stories.ResStories
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
+import com.digitalhouse.br.marvelapp.models.UserFavComic
+import com.digitalhouse.br.marvelapp.models.UserFavCreator
 import com.digitalhouse.br.marvelapp.service.RepositoryComics
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
 import com.digitalhouse.br.marvelapp.service.RepositorySuggestions
+import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ComicsViewModel(val serviceComics: RepositoryComics,
                       val repositoryHistory: RepositoryHistory,
-                      val repositorySuggestions: RepositorySuggestions
+                      val repositorySuggestions: RepositorySuggestions,
+                      val crFCo:CollectionReference
 ) : ViewModel() {
 
     var retornoComicsSeries = MutableLiveData<ResSeries>()
@@ -38,6 +42,11 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
     var idSerie = 0
 
 
+    var checkF = MutableLiveData<Boolean>()
+    var checkC = MutableLiveData<Boolean?>()
+    var checkIdC = MutableLiveData<Int>()
+
+
     fun getComic(id: Int) {
         try {
             viewModelScope.launch {
@@ -45,9 +54,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 var nome = retornoComic.value!!.data.results[0].title
                 var path = retornoComic.value!!.data.results[0].thumbnail.path
@@ -69,9 +78,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 id,
                 0,
                 10,
-                "1601900859",
-                "da0b41050b1361bf58011d9e4bb93ec3",
-                "cc144618fe69492faf88410cc664f62e"
+//                "1601900859",
+//                "da0b41050b1361bf58011d9e4bb93ec3",
+//                "cc144618fe69492faf88410cc664f62e"
             )
             getResComicCreators(retornoComicsCreator.value!!.data.results)
         }
@@ -83,9 +92,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 id,
                 0,
                 10,
-                "1601900859",
-                "da0b41050b1361bf58011d9e4bb93ec3",
-                "cc144618fe69492faf88410cc664f62e"
+//                "1601900859",
+//                "da0b41050b1361bf58011d9e4bb93ec3",
+//                "cc144618fe69492faf88410cc664f62e"
             )
 
             getResComicCharacters(retornoComicsCharacters.value!!.data.results)
@@ -100,9 +109,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
             }
         } catch (e: Exception) {
@@ -118,9 +127,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
             }
         } catch (e: Exception) {
@@ -135,9 +144,9 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
                 id,
                 0,
                 10,
-                "1601900859",
-                "da0b41050b1361bf58011d9e4bb93ec3",
-                "cc144618fe69492faf88410cc664f62e"
+//                "1601900859",
+//                "da0b41050b1361bf58011d9e4bb93ec3",
+//                "cc144618fe69492faf88410cc664f62e"
             )
         }
     }
@@ -169,6 +178,57 @@ class ComicsViewModel(val serviceComics: RepositoryComics,
         viewModelScope.launch {
             repositorySuggestions.addSuggestionsTask(suggestion)
         }
+    }
+
+    fun checkFavoriteF(idComic:Int, userId:String){
+        Log.i("CHECK", "ENTrOU FUNÇÃO")
+
+        crFCo.whereEqualTo("idComic",idComic).get().addOnSuccessListener {
+
+            it.documents.forEach {document ->
+                document.getData()?.entries?.forEach {
+                    if(it.value == userId){
+                        checkF.value = true
+                        checkIdC.value = 1
+                        Log.i("CHECK", idComic.toString() + checkC.value.toString())
+                    }
+
+                }
+
+            }
+        }
+    }
+
+    fun addCreatorFav(userFavCo: UserFavComic){
+        Log.i("ADD", "ENTROU")
+
+        crFCo.document().set(userFavCo)
+    }
+
+    fun deleteCreatorFav(userId: String, idComic: Int){
+        crFCo.whereEqualTo("idUser",userId).whereEqualTo("idComic", idComic).get().addOnSuccessListener {
+            it.documents.forEach {
+                if( it.exists()){
+                    it.reference.delete()
+                    Log.i("DELETE", idComic.toString())
+
+                }
+            }
+        }
+    }
+
+    fun checkCollection(){
+        crFCo.get().addOnSuccessListener { documents ->
+            checkC.value = documents.isEmpty
+        }
+    }
+
+    fun deletIconCh(){
+        checkIdC.value = 0
+    }
+
+    fun addIconCh(){
+        checkIdC.value = 1
     }
 
 }

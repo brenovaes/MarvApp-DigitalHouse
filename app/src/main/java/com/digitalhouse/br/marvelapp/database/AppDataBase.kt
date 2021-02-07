@@ -1,9 +1,8 @@
 package com.digitalhouse.br.marvelapp.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.digitalhouse.br.marvelapp.Converters
 import com.digitalhouse.br.marvelapp.interfac.HeroDayDao
 import com.digitalhouse.br.marvelapp.interfac.HistoryDao
 import com.digitalhouse.br.marvelapp.interfac.SuggestionsDao

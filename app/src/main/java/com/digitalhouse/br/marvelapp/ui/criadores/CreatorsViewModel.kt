@@ -11,9 +11,12 @@ import com.digitalhouse.br.marvelapp.entities.events.ResEvents
 import com.digitalhouse.br.marvelapp.entities.series.ResSeries
 import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
+import com.digitalhouse.br.marvelapp.models.UserFavCharacter
+import com.digitalhouse.br.marvelapp.models.UserFavCreator
 import com.digitalhouse.br.marvelapp.service.*
 import com.digitalhouse.br.marvelapp.service.RepositoryCreators
 import com.digitalhouse.br.marvelapp.service.RepositoryHistory
+import com.google.firebase.firestore.CollectionReference
 
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -22,7 +25,9 @@ import java.time.LocalDateTime
 class CreatorsViewModel(
     val serviceCreators: RepositoryCreators,
     val repositoryHistory: RepositoryHistory,
-    val repositorySuggestions: RepositorySuggestions
+    val repositorySuggestions: RepositorySuggestions,
+    val crFCr:CollectionReference
+
 ) : ViewModel() {
 
     var retornoCreator = MutableLiveData<ResCreators>()
@@ -32,6 +37,11 @@ class CreatorsViewModel(
     //var retornoCreatorStories = MutableLiveData<ResCreators>()
 
 
+    var checkF = MutableLiveData<Boolean>()
+    var checkC = MutableLiveData<Boolean?>()
+    var checkIdC = MutableLiveData<Int>()
+
+
     fun getCreator(id: Int) {
         try {
             viewModelScope.launch {
@@ -39,9 +49,9 @@ class CreatorsViewModel(
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 var nome = retornoCreator.value!!.data.results[0].fullName
                 var path = retornoCreator.value!!.data.results[0].thumbnail.path
@@ -63,9 +73,9 @@ class CreatorsViewModel(
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
 
 
@@ -87,9 +97,9 @@ class CreatorsViewModel(
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859"
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 Log.i("getCreatorSeries", retornoCreatorSeries.value.toString())
             }
@@ -107,9 +117,9 @@ class CreatorsViewModel(
                     id,
                     0,
                     10,
-                    "1601900859",
-                    "da0b41050b1361bf58011d9e4bb93ec3",
-                    "cc144618fe69492faf88410cc664f62e"
+//                    "1601900859",
+//                    "da0b41050b1361bf58011d9e4bb93ec3",
+//                    "cc144618fe69492faf88410cc664f62e"
                 )
                 Log.i("getCreatorEvents", retornoCreatorEvents.value.toString())
             }
@@ -138,6 +148,57 @@ class CreatorsViewModel(
             repositorySuggestions.addSuggestionsTask(suggestion)
         }
     }
+
+    fun checkFavoriteF(idCreator:Int, userId:String){
+        Log.i("FIREBASE", "ENTrOU check")
+
+        crFCr.whereEqualTo("idCreator",idCreator).get().addOnSuccessListener {
+            it.documents.forEach {document ->
+                document.getData()?.entries?.forEach {
+                    if(it.value == userId){
+                        checkF.value = true
+                        checkIdC.value = 1
+                    }
+
+                }
+
+            }
+
+        }
+    }
+
+    fun addCreatorFav(userFavCr: UserFavCreator){
+        crFCr.document().set(userFavCr)
+        Log.i("ADD", "ENTROU")
+
+    }
+
+    fun deleteCreatorFav(userId: String, idCreator: Int){
+        crFCr.whereEqualTo("idUser",userId).whereEqualTo("idCreator", idCreator).get().addOnSuccessListener {
+            it.documents.forEach {
+                if( it.exists()){
+                    it.reference.delete()
+                    Log.i("DELETE", idCreator.toString())
+
+                }
+            }
+        }
+    }
+
+    fun checkCollection(){
+        crFCr.get().addOnSuccessListener { documents ->
+            checkC.value = documents.isEmpty
+        }
+    }
+
+    fun deletIconCh(){
+        checkIdC.value = 0
+    }
+
+    fun addIconCh(){
+        checkIdC.value = 1
+    }
+
 
 
 }
