@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/colorPrimary"
-    tools:context=".ui.quiz.QuestaoSelecionadaActivity">
+    tools:context=".ui.quiz.AlternativaSelecionadaActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,68 +15,64 @@
         android:background="?attr/colorPrimary">
 
         <include
-            android:id="@+id/tbQuestaoSelecioonada"
+            android:id="@+id/tbAlternativaSelecioonada"
             layout="@layout/toolbar_principal">
         </include>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <include
-            android:id="@+id/BarraProgressoPerguntaSelecionada"
-            layout="@layout/barra_progresso_pergunta"></include>
-
-        <include
-            android:id="@+id/EnuncaidoQuizSelecionada"
-            layout="@layout/enunciado_quiz"></include>
-
-    </LinearLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAlternativaSelecionada"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        tools:listitem="@layout/card_alternativa"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/btnAnterior"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="ANTERIOR"
-            android:textColor="?attr/colorOnPrimary"
-            android:backgroundTint="?attr/colorSecondaryVariant"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnSalvar"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="20dp"
-            android:text="SALVAR"
-            android:textColor="?attr/colorOnPrimary"
-            android:backgroundTint="?attr/colorAccent"/>
+            <ImageView
+                android:id="@+id/ivRetornoResposta"
+                android:layout_marginTop="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_correto"/>
 
-        <Button
-            android:id="@+id/btnDesistir"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:text="DESISTIR"
+            <TextView
+                android:id="@+id/tvRetornoRespostaTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="CORRETO"
+                android:textSize="30dp"
+                android:textColor="?attr/colorOnPrimary" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRetornoRespostaTexto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:text="You are getting closer and closer to earning a Stamp "
+            android:textAlignment="center"
             android:textColor="?attr/colorOnPrimary"
-            android:backgroundTint="?attr/colorAccent"/>
+            android:textSize="20dp" />
+
+<!--        <Button-->
+<!--            android:id="@+id/btnDesistir"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:backgroundTint="?attr/colorAccent"-->
+<!--            android:text="DESISTIR"-->
+<!--            android:textColor="?attr/colorOnPrimary" />-->
+
     </LinearLayout>
 
 

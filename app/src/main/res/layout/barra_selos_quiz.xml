@@ -22,12 +22,36 @@
         app:layout_constraintVertical_bias="0.269">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cvBarraSeloConquistado"
-            android:layout_width="100dp"
+            android:id="@+id/cvBarraSeloConquistado1"
+            android:layout_width="83dp"
             android:layout_height="10dp"
             app:cardBackgroundColor="?attr/colorAccent"
             app:cardCornerRadius="10dp" />
-    </androidx.cardview.widget.CardView>
 
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvBarraSeloConquistado2"
+            android:layout_width="166dp"
+            android:layout_height="10dp"
+            app:cardBackgroundColor="?attr/colorAccent"
+            app:cardCornerRadius="10dp" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvBarraSeloConquistado3"
+            android:layout_width="250dp"
+            android:layout_height="10dp"
+            app:cardBackgroundColor="?attr/colorAccent"
+            app:cardCornerRadius="10dp" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvBarraSeloConquistado4"
+            android:layout_width="335dp"
+            android:layout_height="10dp"
+            app:cardBackgroundColor="?attr/colorAccent"
+            app:cardCornerRadius="10dp" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

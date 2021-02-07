@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:text="200"
             android:textAlignment="center"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="@color/white"
             android:textSize="15sp" />
 
     </androidx.cardview.widget.CardView>

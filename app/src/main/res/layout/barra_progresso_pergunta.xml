@@ -22,8 +22,29 @@
         app:layout_constraintVertical_bias="0.269">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cvProgressoPergunta"
-            android:layout_width="0dp"
+            android:id="@+id/cvProgressoPergunta1"
+            android:layout_width="83dp"
+            android:layout_height="10dp"
+            app:cardBackgroundColor="?attr/colorAccent"
+            app:cardCornerRadius="10dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvProgressoPergunta2"
+            android:layout_width="166dp"
+            android:layout_height="10dp"
+            app:cardBackgroundColor="?attr/colorAccent"
+            app:cardCornerRadius="10dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvProgressoPergunta3"
+            android:layout_width="250dp"
+            android:layout_height="10dp"
+            app:cardBackgroundColor="?attr/colorAccent"
+            app:cardCornerRadius="10dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvProgressoPergunta4"
+            android:layout_width="330dp"
             android:layout_height="10dp"
             app:cardBackgroundColor="?attr/colorAccent"
             app:cardCornerRadius="10dp" />

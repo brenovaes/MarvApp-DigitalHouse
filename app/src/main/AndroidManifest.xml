@@ -16,6 +16,7 @@
         <activity android:name=".ui.favoritos.FavoritoActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.quiz.PerguntaActivity" />
+        <activity android:name=".ui.quiz.AlternativaSelecionadaActivity" />
         <activity android:name=".ui.quiz.QuizActivity" />
         <activity android:name=".ui.busca.BuscaActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
