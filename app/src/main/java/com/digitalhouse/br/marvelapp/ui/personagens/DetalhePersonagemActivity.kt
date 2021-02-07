@@ -70,6 +70,12 @@ class DetalhePersonagemActivity :
             onBackPressed()
         }
 
+        textMarvelLinkCh.setOnClickListener {
+            val url = "https://www.marvel.com/"
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
+
 
 
         viewModelCharacters.retornoCharacter.observe(this) {
@@ -174,15 +180,20 @@ class DetalhePersonagemActivity :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var url_share = character[0].urls[0].url
         Log.i("DetalhesCriadorActivityTAG", url_share)
+
         when (item.itemId) {
             R.id.menu_share -> {
+
+
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, url_share)
                     type = "text/plain"
                 }
+
                 val shareIntent = Intent.createChooser(sendIntent, null)
                 startActivity(shareIntent)
+
 //                Toast.makeText(this, "Compartilhar Personagem", Toast.LENGTH_SHORT).show()
                 return true
             }

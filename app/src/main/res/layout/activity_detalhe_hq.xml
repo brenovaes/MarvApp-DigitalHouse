@@ -51,12 +51,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -99,21 +99,16 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
                                 <TextView
+                                    android:id="@+id/textMarvelLinkCo"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:text="see more details on www.marvel.com"
+                                    android:text="@string/tvLinkMarvel"
                                     android:clickable="true"
                                     android:textColor="?attr/colorOnPrimary"
                                     android:textSize="12dp"/>
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="right">
 
-                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -125,6 +120,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -144,6 +141,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="vertical"
                         android:background="?attr/colorAccent"/>
                     <LinearLayout
@@ -157,6 +156,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/item_creators"/>
                     </LinearLayout>
@@ -168,6 +169,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -188,6 +191,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:background="?attr/colorAccent"/>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -200,6 +205,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/item_characters"/>
                     </LinearLayout>
@@ -211,6 +218,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -231,6 +240,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:background="?attr/colorAccent"/>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -244,6 +255,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/item_series"/>
                     </LinearLayout>
@@ -255,6 +268,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -274,6 +289,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="vertical"
                         android:background="?attr/colorAccent"/>
                     <LinearLayout
@@ -287,6 +304,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/item_events"/>
                     </LinearLayout>
@@ -298,6 +317,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -318,6 +339,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:background="?attr/colorAccent"/>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -330,6 +353,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/item_stories"/>
                     </LinearLayout>

@@ -74,5 +74,8 @@
 <!--    Redefinir Senha-->
     <string name="tv_textObs">If you proceed with this action and have registered through any social network, <b>know that your account will be disconnected from the social network </b>and the login will have to be done with the email and the new password defined.</string>
 
+    <string name="tvLinkMarvel"><u>See more details on www.marvel.com</u></string>
+    <string name="siteMarvel">https://www.marvel.com/</string>
+
 
 </resources>

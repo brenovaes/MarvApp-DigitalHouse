@@ -77,6 +77,12 @@ class DetalheHqActivity :
             onBackPressed()
         }
 
+        textMarvelLinkCo.setOnClickListener {
+            val url = "https://www.marvel.com/"
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+            startActivity(intent)
+        }
+
         viewModelComics.retornoComic.observe(this) {
             comics.addAll(it.data.results)
             var creators = comics[0].creators.items
@@ -213,14 +219,18 @@ class DetalheHqActivity :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var url_share = comics[0].urls[0].url
         Log.i("DetalhesHqActivityTAG", url_share)
+
         when (item.itemId) {
             R.id.menu_share -> {
+
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, url_share)
                     type = "text/plain"
                 }
-                val shareIntent = Intent.createChooser(sendIntent, null)
+
+
+              val shareIntent = Intent.createChooser(sendIntent, null)
                 startActivity(shareIntent)
 //                Toast.makeText(this, "Compartilhar Quadrinhos", Toast.LENGTH_SHORT).show()
                 return true
