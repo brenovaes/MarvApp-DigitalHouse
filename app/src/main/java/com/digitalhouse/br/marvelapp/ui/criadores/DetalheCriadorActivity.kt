@@ -26,6 +26,7 @@ import com.digitalhouse.br.marvelapp.ui.hqs.DetalheHqActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe_personagem.*
+import kotlinx.android.synthetic.main.toolbar_principal.*
 
 
 class DetalheCriadorActivity : AppCompatActivity(),
@@ -74,6 +75,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
             onBackPressed()
         }
 
+
         viewModelCreators.retornoCreator.observe(this) {
             creator.addAll(it.data.results)
             var comics = creator[0].comics.items
@@ -82,6 +84,7 @@ class DetalheCriadorActivity : AppCompatActivity(),
 
             var name = creator[0].fullName
             var img = creator[0].thumbnail.path + "." + creator[0].thumbnail.extension
+
 
             Picasso.get().load(img).resize(360,280).into(ivCriadorDetalhe)
             tvNomeCriadorDetalhe.text = name
