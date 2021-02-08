@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtOnClicked"
-                android:text="Opção 1">
+                android:text="Timely Comics">
 <!--                <include-->
 <!--                    android:id="@+id/alternativa1"-->
 <!--                    android:layout_marginLeft="60dp"-->
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtOnClicked"
-                android:text="Opção 2">
+                android:text="Atlas Comics">
 <!--                <include-->
 <!--                    android:id="@+id/alternativa2"-->
 <!--                    android:layout_marginLeft="40dp"-->
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtOnClicked"
-                android:text="Opção 3">
+                android:text="Goodman Comics">
 <!--                <include-->
 <!--                    android:id="@+id/alternativa3"-->
 <!--                    android:layout_marginLeft="40dp"-->
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtOnClicked"
-                android:text="Opção 4">
+                android:text="More Fun Comics">
 <!--                <include-->
 <!--                    android:id="@+id/alternativa4"-->
 <!--                    android:layout_marginLeft="40dp"-->

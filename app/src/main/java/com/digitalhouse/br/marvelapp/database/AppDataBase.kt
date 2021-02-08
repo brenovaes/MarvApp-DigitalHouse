@@ -3,10 +3,7 @@ package com.digitalhouse.br.marvelapp.database
 import android.content.Context
 import androidx.room.*
 import com.digitalhouse.br.marvelapp.Converters
-import com.digitalhouse.br.marvelapp.interfac.HeroDayDao
-import com.digitalhouse.br.marvelapp.interfac.HistoryDao
-import com.digitalhouse.br.marvelapp.interfac.SuggestionsDao
-import com.digitalhouse.br.marvelapp.interfac.UserDao
+import com.digitalhouse.br.marvelapp.interfac.*
 import com.digitalhouse.br.marvelapp.models.*
 
 
@@ -18,6 +15,7 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun heroDayDao(): HeroDayDao
     abstract fun historyDao(): HistoryDao
     abstract fun suggestionsDao(): SuggestionsDao
+    abstract fun trilhaDao(): TrilhaDao
 
     companion object {
         @Volatile

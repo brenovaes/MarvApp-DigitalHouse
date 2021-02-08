@@ -42,10 +42,10 @@ class PerguntaActivity : AppCompatActivity(), AlternativaAdapter.OnItemClickList
 
     private fun getListaAlternativa(): ArrayList<Alternativa> {
         return arrayListOf<Alternativa>(
-                Alternativa("Timely ComicsCh", R.color.white),
-                Alternativa("Atlas ComicsCh",R.color.white),
-                Alternativa("Goodman ComicsCh", R.color.white),
-                Alternativa("More Fun ComicsCh", R.color.white),
+                Alternativa("Timely Comics", R.color.white),
+                Alternativa("Atlas Comics",R.color.white),
+                Alternativa("Goodman Comics", R.color.white),
+                Alternativa("More Fun Comics", R.color.white),
         )
     }
 
