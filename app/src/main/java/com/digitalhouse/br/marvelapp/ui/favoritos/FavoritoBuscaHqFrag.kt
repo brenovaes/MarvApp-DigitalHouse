@@ -35,6 +35,7 @@ class FavoritoBuscaHqFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonagemClic
 
     private lateinit var cf: ContractDetalheFav
     lateinit var adapterFCo: FavoritoAdapter
+    var startFrag = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,13 +43,18 @@ class FavoritoBuscaHqFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonagemClic
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_fav_busca_h_q, container, false)
-        viewModelFavorito.getFavCo(FirebaseAuth.getInstance().currentUser!!.uid)
+//        viewModelFavorito.getFavCo(FirebaseAuth.getInstance().currentUser!!.uid)
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(!startFrag){
+            startFrag = true
+            viewModelFavorito.getFavCo(FirebaseAuth.getInstance().currentUser!!.uid)
+        }
 
         viewModelFavorito.resListFavCo.observe(viewLifecycleOwner){
             adapterFCo = FavoritoAdapter(it, this)

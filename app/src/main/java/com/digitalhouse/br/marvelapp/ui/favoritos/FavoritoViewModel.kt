@@ -80,7 +80,6 @@ class FavoritoViewModel( val crFCo: CollectionReference,
 
         }
         resListFavCo.value = listFavCo
-
-
+        Log.i("LISTAFAVCOOOOOOOO", resListFavCo.value.toString())
     }
 }
