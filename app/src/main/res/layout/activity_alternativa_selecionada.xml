@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorPrimary"
+    tools:context=".ui.quiz.AlternativaSelecionadaActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary">
+
+        <include
+            android:id="@+id/tbAlternativaSelecioonada"
+            layout="@layout/toolbar_principal">
+        </include>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivRetornoResposta"
+                android:layout_marginTop="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_correto"/>
+
+            <TextView
+                android:id="@+id/tvRetornoRespostaTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="CORRETO"
+                android:textSize="30dp"
+                android:textColor="?attr/colorOnPrimary" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRetornoRespostaTexto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:text="You are getting closer and closer to earning a Stamp "
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="20dp" />
+
+<!--        <Button-->
+<!--            android:id="@+id/btnDesistir"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:backgroundTint="?attr/colorAccent"-->
+<!--            android:text="DESISTIR"-->
+<!--            android:textColor="?attr/colorOnPrimary" />-->
+
+    </LinearLayout>
+
+
+</LinearLayout>

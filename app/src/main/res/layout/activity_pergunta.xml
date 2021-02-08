@@ -27,7 +27,7 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/BarraProgressoPergunta"
+            android:id="@+id/barraProgressoPergunta"
             layout="@layout/barra_progresso_pergunta"></include>
 
         <include
@@ -36,19 +36,97 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAlternativa"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        tools:listitem="@layout/card_alternativa"/>
+        <RadioGroup
+            android:id="@+id/rgAlternativas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp">
+
+            <RadioButton
+                android:id="@+id/rbAlternativa1"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtOnClicked"
+                android:text="Timely Comics">
+<!--                <include-->
+<!--                    android:id="@+id/alternativa1"-->
+<!--                    android:layout_marginLeft="60dp"-->
+<!--                    layout="@layout/card_alternativa"-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="40dp" />-->
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/rbAlternativa2"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtOnClicked"
+                android:text="Atlas Comics">
+<!--                <include-->
+<!--                    android:id="@+id/alternativa2"-->
+<!--                    android:layout_marginLeft="40dp"-->
+<!--                    layout="@layout/card_alternativa"-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="40dp" />-->
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/rbAlternativa3"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtOnClicked"
+                android:text="Goodman Comics">
+<!--                <include-->
+<!--                    android:id="@+id/alternativa3"-->
+<!--                    android:layout_marginLeft="40dp"-->
+<!--                    layout="@layout/card_alternativa"-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="40dp" />-->
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/rbAlternativa4"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtOnClicked"
+                android:text="More Fun Comics">
+<!--                <include-->
+<!--                    android:id="@+id/alternativa4"-->
+<!--                    android:layout_marginLeft="40dp"-->
+<!--                    layout="@layout/card_alternativa"-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="40dp" />-->
+            </RadioButton>
+        </RadioGroup>
+    </LinearLayout>
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvAlternativa"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="280dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        tools:listitem="@layout/card_alternativa"/>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:orientation="horizontal">
 
         <Button
@@ -57,7 +135,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="ANTERIOR"
+                android:text="Back"
             android:textColor="?attr/colorOnPrimary"
             android:backgroundTint="?attr/colorSecondaryVariant"/>
 
@@ -66,7 +144,7 @@
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_marginRight="20dp"
-            android:text="SALVAR"
+            android:text="To Salve"
             android:textColor="?attr/colorOnPrimary"
             android:backgroundTint="?attr/colorAccent"/>
 
@@ -74,7 +152,7 @@
             android:id="@+id/btnDesistir"
             android:layout_width="110dp"
             android:layout_height="50dp"
-            android:text="DESISTIR"
+            android:text="Give Up"
             android:textColor="?attr/colorOnPrimary"
             android:backgroundTint="?attr/colorAccent"/>
     </LinearLayout>

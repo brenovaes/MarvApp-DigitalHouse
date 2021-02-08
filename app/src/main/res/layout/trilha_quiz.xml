@@ -6,100 +6,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="400dp"
+    android:layout_marginTop="390dp"
     android:layout_marginLeft="18dp"
     android:layout_marginRight="15dp">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
+
 
         <include
             android:id="@+id/balao1"
             layout="@layout/balao_pergunta_quiz"
+            android:layout_marginLeft="20dp"
             android:layout_width="70dp"
             android:layout_height="wrap_content" />
-
-        <View
-            android:id="@+id/linhaBalao1"
-            android:layout_width="60dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="45dp"
-            android:background="?attr/colorAccent"/>
 
         <include
             android:id="@+id/balao2"
             layout="@layout/balao_pergunta_quiz"
+            android:layout_marginLeft="100dp"
             android:layout_width="70dp"
             android:layout_height="wrap_content" />
 
-        <View
-            android:id="@+id/linhaBalao2"
-            android:layout_width="60dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="45dp"
-            android:background="?attr/colorAccent"/>
-
-        <include
-            android:id="@+id/balao3"
-            layout="@layout/balao_pergunta_quiz"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:id="@+id/linhaBalao3"
-            android:layout_width="30dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="45dp"
-            android:background="?attr/colorOnPrimary"/>
-
-        <View
-            android:id="@+id/linhaBalaoVertical1"
-            android:layout_width="1dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="45dp"
-            android:background="?attr/colorOnPrimary" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal">
-
-        <include
-            android:id="@+id/balao5"
-            layout="@layout/balao_pergunta_quiz"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:id="@+id/linhaBalao5"
-            android:layout_width="60dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="45dp"
-            android:background="?attr/colorOnPrimary" />
 
         <include
             android:id="@+id/balao4"
             layout="@layout/balao_pergunta_quiz"
+            android:layout_marginLeft="105dp"
             android:layout_width="70dp"
             android:layout_height="wrap_content" />
 
-        <View
-            android:id="@+id/linhaBalao4"
-            android:layout_width="60dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="45dp"
-            android:background="?attr/colorOnPrimary" />
 
-        <View
-            android:id="@+id/linhaBalaoVertical2"
-            android:layout_width="1dp"
-            android:layout_height="46dp"
-            android:background="?attr/colorOnPrimary" />
+        <include
+            android:id="@+id/balao3"
+            layout="@layout/balao_pergunta_quiz"
+            android:layout_marginLeft="100dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content" />
+
+
+
+
     </LinearLayout>
 
 </LinearLayout>
