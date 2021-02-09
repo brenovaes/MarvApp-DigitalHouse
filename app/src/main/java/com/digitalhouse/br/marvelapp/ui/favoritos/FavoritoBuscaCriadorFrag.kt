@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_fav_busca_criadores.*
 import kotlinx.android.synthetic.main.fragment_fav_busca_personagem.*
 
 class FavoritoBuscaCriadorFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonagemClickListener {
+    var startFrag = false
 
     val viewModelFavorito by viewModels<FavoritoViewModel> {
         object : ViewModelProvider.Factory {
@@ -48,8 +49,18 @@ class FavoritoBuscaCriadorFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonage
         return view
     }
 
+    override  fun  onAttach ( context : Context) {
+        super .onAttach (context)
+        if (context is ContractDetalheFav) cf = context
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(!startFrag){
+            startFrag = true
+            viewModelFavorito.getFavCo(FirebaseAuth.getInstance().currentUser!!.uid)
+        }
 
         viewModelFavorito.resListFavCr.observe(viewLifecycleOwner){
             adapterF = FavoritoAdapter(it, this)
@@ -59,12 +70,6 @@ class FavoritoBuscaCriadorFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonage
         }
 
     }
-
-    override  fun  onAttach ( context : Context) {
-        super .onAttach (context)
-        if (context is ContractDetalheFav) cf = context
-    }
-
 
     companion object {
         fun newInstance() = FavoritoBuscaCriadorFrag()

@@ -1,6 +1,12 @@
 package com.digitalhouse.br.marvelapp.interfac;
 
-public interface TrilhaDao {
+import androidx.room.Dao;
+
+@Dao
+interface TrilhaDao {
+
+
+
 
 
 }

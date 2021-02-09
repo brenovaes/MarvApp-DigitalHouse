@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_fav_busca_personagem.*
 
 class FavoritoBuscaPersonagemFrag : Fragment(), FavoritoAdapter.OnFavoritoPersonagemClickListener {
+    var startFrag = false
 
     val viewModelFavorito by viewModels<FavoritoViewModel> {
         object : ViewModelProvider.Factory {
@@ -47,6 +48,12 @@ class FavoritoBuscaPersonagemFrag : Fragment(), FavoritoAdapter.OnFavoritoPerson
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        if(!startFrag){
+                startFrag = true
+                viewModelFavorito.getFavCh(FirebaseAuth.getInstance().currentUser!!.uid)
+            }
 
             viewModelFavorito.resListFavCh.observe(viewLifecycleOwner){
                 adapterF = FavoritoAdapter(it, this)
