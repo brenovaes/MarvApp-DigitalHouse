@@ -14,6 +14,8 @@ import com.digitalhouse.br.marvelapp.models.HistoryDB
 import com.digitalhouse.br.marvelapp.models.Suggestions
 import com.digitalhouse.br.marvelapp.service.*
 import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
@@ -53,10 +55,12 @@ class HomeViewModel(
 
 
     fun getCharacter() {
+        var id = random()
+
         try {
             viewModelScope.launch {
                 retornoHeroiDia.value = serviceCharacters.getAllCharacterRepo(
-                        random(),
+                        id,
                         1,
 //                        "1601900859",
 //                        "da0b41050b1361bf58011d9e4bb93ec3",
@@ -76,8 +80,11 @@ class HomeViewModel(
 
 //                addHero(idC, name, extension, path, comics, series, stories, dateN.toString())
 //                addHeroDayF(idC, name, extension, path, comics, series, stories, dateN.toString())
+
                 infoHero(idC, name, extension, path, comics, series, stories, dateN.toString())
-                transDate(dateN.toString())
+
+
+//                transDate(dateN.toString())
 
 
 //                Log.i("getCharacter", retornoHeroiDia.value.toString())
@@ -162,7 +169,11 @@ class HomeViewModel(
         var from = 1
         var to = 1492
         val rand = Random()
-        return rand.nextInt(to - from) + from
+        var id = rand.nextInt(to - from) + from
+
+//        CoroutineScope()delay(1000)
+
+        return id
     }
 
     fun getAllHistory() {

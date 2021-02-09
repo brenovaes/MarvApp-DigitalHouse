@@ -45,7 +45,7 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                 retornoCharacter.value = serviceCharacters.getCharacterRepo(
                     id,
                     0,
-                    10,
+                    1,
 //                    "1601900859",
 //                    "da0b41050b1361bf58011d9e4bb93ec3",
 //                    "cc144618fe69492faf88410cc664f62e"
