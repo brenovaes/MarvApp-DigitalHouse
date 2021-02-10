@@ -45,6 +45,7 @@ class PerguntaActivity : AppCompatActivity() {
     var pergunta = 1
     var pontos = 0
 
+
     val viewModelQuiz by viewModels<QuizViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -82,6 +83,7 @@ class PerguntaActivity : AppCompatActivity() {
 
 
         pergunta = intent.getIntExtra("pergunta", 1)
+        pontos = intent.getIntExtra("pontos", 0)
 
         if (pergunta > 5){
             startActivity(Intent(this, QuizActivity::class.java))
@@ -129,21 +131,41 @@ class PerguntaActivity : AppCompatActivity() {
     }
 
     fun onRadioButtOnClicked(v: View?) {
+        val intent = Intent(this, AlternativaSelecionadaActivity::class.java)
         Log.i("PERGUNTA ACTIVITY", "OPÕES ABERTAS")
+        Log.i("PERGUNTA ACTIVITY PONTOS", pontos.toString())
+
         if (v is RadioButton) {
             val checked = v.isChecked
             opcaoEscolhida = true
             when (v.id) {
-                R.id.rbAlternativa1 -> llPergunta.setBackgroundColor(getColor(R.color.red))
+                R.id.rbAlternativa1 -> {
+                    //llPergunta.setBackgroundColor(getColor(R.color.red))
+                    intent.putExtra("opção", false)
+                    intent.putExtra("pergunta", pergunta)
+                    intent.putExtra("pontos", pontos)
+                    startActivity(intent)
+                }
 
-                R.id.rbAlternativa2 -> llPergunta.setBackgroundColor(getColor(R.color.red))
-                R.id.rbAlternativa3 ->llPergunta.setBackgroundColor(getColor(R.color.red))
+                R.id.rbAlternativa2 -> {
+                    //llPergunta.setBackgroundColor(getColor(R.color.red))
+                    intent.putExtra("opção", false)
+                    intent.putExtra("pergunta", pergunta)
+                    intent.putExtra("pontos", pontos)
+                    startActivity(intent)
+                }
+                R.id.rbAlternativa3 -> {
+                    //llPergunta.setBackgroundColor(getColor(R.color.red))
+                    intent.putExtra("opção", false)
+                    intent.putExtra("pergunta", pergunta)
+                    intent.putExtra("pontos", pontos)
+                    startActivity(intent)
+                }
                 R.id.rbAlternativa4 -> {
-                    llPergunta.setBackgroundColor(getColor(R.color.green))
-                    pontos += 20
-                    val intent = Intent(this, AlternativaSelecionadaActivity::class.java)
+                    //llPergunta.setBackgroundColor(getColor(R.color.green))
                     intent.putExtra("opção", true)
                     intent.putExtra("pergunta", pergunta)
+                    intent.putExtra("pontos", pontos)
                     startActivity(intent)
                 }
             }

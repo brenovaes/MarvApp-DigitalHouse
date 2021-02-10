@@ -45,6 +45,9 @@ class AlternativaSelecionadaActivity : AppCompatActivity() {
         val imgRespota: ImageView = ivRetornoResposta
         val retorno = intent.getBooleanExtra("opção", false)
         var pergunta = intent.getIntExtra("pergunta",1)
+        var pontos = intent.getIntExtra("pontos",0)
+        var intent = Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java)
+
 
 
 
@@ -52,16 +55,18 @@ class AlternativaSelecionadaActivity : AppCompatActivity() {
             tvRetornoRespostaTitulo.text = "CORRETO"
             tvRetornoRespostaTexto.text = "You are getting closer and closer to earning a Stamp"
             ivRetornoResposta.setImageResource(R.drawable.ic_correto)
+            intent.putExtra("pontos", pontos+20)
         }else{
             tvRetornoRespostaTitulo.text = "INCORRETO"
             tvRetornoRespostaTexto.text = "Maybe you need to read more about the Marvel universe"
             ivRetornoResposta.setImageResource(R.drawable.ic_errado)
+            intent.putExtra("pontos", pontos)
         }
 
 
         scope.launch {
             delay(2000)
-            var intent = Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java)
+//            var intent = Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java)
             intent.putExtra("pergunta", pergunta+1)
             startActivity(intent)
             finish()
