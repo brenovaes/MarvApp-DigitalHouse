@@ -91,14 +91,6 @@ class HomeActivity : AppCompatActivity(),
         setContentView(R.layout.activity_home)
 
 
-//        viewModelHome.transDate()
-
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build()
-
-
         Log.i("NETWORK", netOnline(this).toString())
 
 
@@ -116,7 +108,7 @@ class HomeActivity : AppCompatActivity(),
         var context: Context = this
         viewModelHome.getAllH()
         viewModelHome.getHDayDB()
-
+        infoHeroDay()
 
         //HERO DAY LOCAL
 //        viewModelHome.retornoHeroDB.observe(this) {
@@ -156,7 +148,7 @@ class HomeActivity : AppCompatActivity(),
                     viewModelHome.infoHeroD.observe(this) { hero ->
                         viewModelHome.addHeroDayF(hero)
                         viewModelHome.delHeroDB()
-                        infoHeroDay(hero)
+//                        infoHeroDay(hero)
                     }
                 }
                 false -> {
@@ -251,15 +243,15 @@ class HomeActivity : AppCompatActivity(),
                                             heroDayFirebaseRetorno.stories,
                                             heroDayFirebaseRetorno.dateT
                                         )
-                                        infoHeroDay(HeroDay(heroiDBL.idCharacter,
-                                            heroiDBL.name,
-                                            heroiDBL.extension,
-                                            heroiDBL.path,
-                                            heroiDBL.comics,
-                                            heroiDBL.series,
-                                            heroiDBL.stories,
-                                            heroiDBL.dateT
-                                        ))
+//                                        infoHeroDay(HeroDay(heroiDBL.idCharacter,
+//                                            heroiDBL.name,
+//                                            heroiDBL.extension,
+//                                            heroiDBL.path,
+//                                            heroiDBL.comics,
+//                                            heroiDBL.series,
+//                                            heroiDBL.stories,
+//                                            heroiDBL.dateT
+//                                        ))
                                     }
 
                                 } else {
@@ -275,27 +267,27 @@ class HomeActivity : AppCompatActivity(),
                                         heroDayFirebaseRetorno.stories,
                                         heroDayFirebaseRetorno.dateT
                                     )
-                                    infoHeroDay(HeroDay(heroiDBL.idCharacter,
-                                        heroiDBL.name,
-                                        heroiDBL.extension,
-                                        heroiDBL.path,
-                                        heroiDBL.comics,
-                                        heroiDBL.series,
-                                        heroiDBL.stories,
-                                        heroiDBL.dateT
-                                    ))
+//                                    infoHeroDay(HeroDay(heroiDBL.idCharacter,
+//                                        heroiDBL.name,
+//                                        heroiDBL.extension,
+//                                        heroiDBL.path,
+//                                        heroiDBL.comics,
+//                                        heroiDBL.series,
+//                                        heroiDBL.stories,
+//                                        heroiDBL.dateT
+//                                    ))
                                 }
                             } else if (dateFirebase == LocalDate.now()) {
                                     Log.i("VER preenchido Datas são iguais ate com agr", "Q")
-                                    infoHeroDay(HeroDay(heroiDBL.idCharacter,
-                                        heroiDBL.name,
-                                        heroiDBL.extension,
-                                        heroiDBL.path,
-                                        heroiDBL.comics,
-                                        heroiDBL.series,
-                                        heroiDBL.stories,
-                                        heroiDBL.dateT
-                                    ))
+//                                    infoHeroDay(HeroDay(heroiDBL.idCharacter,
+//                                        heroiDBL.name,
+//                                        heroiDBL.extension,
+//                                        heroiDBL.path,
+//                                        heroiDBL.comics,
+//                                        heroiDBL.series,
+//                                        heroiDBL.stories,
+//                                        heroiDBL.dateT
+//                                    ))
 
                             } else if (dateFirebase!! < LocalDate.now()) {
                                 Log.i("VER preenchido Datas são iguais fire menor q agr", "Q")
@@ -314,15 +306,15 @@ class HomeActivity : AppCompatActivity(),
                                         heroDayFirebaseRetorno.stories,
                                         heroDayFirebaseRetorno.dateT
                                     )
-                                    infoHeroDay(HeroDay(heroiDBL.idCharacter,
-                                        heroiDBL.name,
-                                        heroiDBL.extension,
-                                        heroiDBL.path,
-                                        heroiDBL.comics,
-                                        heroiDBL.series,
-                                        heroiDBL.stories,
-                                        heroiDBL.dateT
-                                    ))
+//                                    infoHeroDay(HeroDay(heroiDBL.idCharacter,
+//                                        heroiDBL.name,
+//                                        heroiDBL.extension,
+//                                        heroiDBL.path,
+//                                        heroiDBL.comics,
+//                                        heroiDBL.series,
+//                                        heroiDBL.stories,
+//                                        heroiDBL.dateT
+//                                    ))
                                 }
                             }
                         }
@@ -490,17 +482,19 @@ class HomeActivity : AppCompatActivity(),
         db = AppDataBase.invoke(this)
     }
 
-    fun infoHeroDay(heroDay: HeroDay) {
+    fun infoHeroDay() {
 
 //        if (heroDayDb != null) {
-//            var heroDay = heroDayDb
-            Log.i("HERODAYDB", heroDay.dateT.toString())
-            var img = heroDay.path + "/portrait_small" + "." + heroDay.extension
-            Picasso.get().load(img).fit().into(ivHeroiDoDia)
-            tvNomeHeroiDoDia.text = heroDay.name
-            tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
-            tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
-            tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
+            viewModelHome.characterSavedDB.observe(this){heroDay ->
+                Log.i("HERODAYDB", heroDay.dateT.toString())
+                var img = heroDay.path + "/portrait_small" + "." + heroDay.extension
+                Picasso.get().load(img).fit().into(ivHeroiDoDia)
+                tvNomeHeroiDoDia.text = heroDay.name
+                tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
+                tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
+                tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
+            }
+
 
 //        } else if (heroDayF != null) {
 //
