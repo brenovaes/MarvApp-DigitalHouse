@@ -21,7 +21,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.digitalhouse.br.marvelapp.MyPreferences
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.crPont
 import com.digitalhouse.br.marvelapp.crTri1
+import com.digitalhouse.br.marvelapp.models.Pontuacao
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -50,7 +52,8 @@ class PerguntaActivity : AppCompatActivity() {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return QuizViewModel(
-                    crTri1
+                    crTri1,
+                        crPont
                 ) as T
             }
         }
@@ -79,6 +82,10 @@ class PerguntaActivity : AppCompatActivity() {
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
         }
+        var email = FirebaseAuth.getInstance().currentUser!!.email!!
+        var name = FirebaseAuth.getInstance().currentUser!!.displayName!!
+        viewModelQuiz.checkHancking(email)
+
 
 
 
@@ -86,6 +93,12 @@ class PerguntaActivity : AppCompatActivity() {
         pontos = intent.getIntExtra("pontos", 0)
 
         if (pergunta > 5){
+            if( viewModelQuiz.checkH.value!= null &&  viewModelQuiz.checkH.value == true){
+                viewModelQuiz.update(email, pontos)
+            }else if (viewModelQuiz.checkH.value == false){
+                viewModelQuiz.addPontos(Pontuacao(email,pontos,name))
+            }
+
             startActivity(Intent(this, QuizActivity::class.java))
         }
 

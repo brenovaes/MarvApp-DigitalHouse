@@ -11,10 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.R
 import com.digitalhouse.br.marvelapp.R.color
+import com.digitalhouse.br.marvelapp.crPont
+import com.digitalhouse.br.marvelapp.crTri1
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.balao_pergunta_quiz.view.*
 import kotlinx.android.synthetic.main.barra_selos_quiz.view.*
 import kotlinx.android.synthetic.main.fragment_desafios.*
@@ -26,6 +33,18 @@ import kotlinx.android.synthetic.main.trilha_quiz.view.*
 
 class DesafiosFragment : Fragment() {
 
+    val viewModelQuiz by viewModels<QuizViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return QuizViewModel(
+                        crTri1,
+                        crPont
+                ) as T
+            }
+        }
+    }
+
+    var email = FirebaseAuth.getInstance().currentUser!!.email
     @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -37,6 +56,29 @@ class DesafiosFragment : Fragment() {
 
         //inicialziar os balões
         inicializarBaloes()
+
+        viewModelQuiz.checkHancking(email!!)
+        viewModelQuiz.checkH.observe(viewLifecycleOwner){
+            if (it){
+                viewModelQuiz.pontuacao.observe(viewLifecycleOwner){
+                    trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+                    trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+                    trilhaQuiz.balao1.tvPontuacaoBalao.text = it.pontos.toString()
+                    trilhaQuiz.balao1.tvNumeroBalao.text = "1"
+                    trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
+
+                    infoQuiz.tvPontuacao.text = it.pontos.toString()
+                    infoQuiz.tvSelosConquistados.text = "1/6"
+                }
+
+            }else{
+                trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+                trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+                trilhaQuiz.balao1.tvPontuacaoBalao.text = "0"
+                trilhaQuiz.balao1.tvNumeroBalao.text = "1"
+                trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
+            }
+        }
 
         trilhaQuiz.balao1.setOnClickListener {
             val teste:Int = 2
@@ -95,14 +137,14 @@ class DesafiosFragment : Fragment() {
         barraSeloQuiz.cvBarraSeloConquistado3.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
         barraSeloQuiz.cvBarraSeloConquistado4.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
 
-        infoQuiz.tvPontuacao.text = "0"
-        infoQuiz.tvSelosConquistados.text = "0/5"
+//        infoQuiz.tvPontuacao.text = "0"
+//        infoQuiz.tvSelosConquistados.text = "0/5"
 
-        trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-        trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
-        trilhaQuiz.balao1.tvPontuacaoBalao.text = "0"
-        trilhaQuiz.balao1.tvNumeroBalao.text = "1"
-        trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
+//        trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+//        trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+//        trilhaQuiz.balao1.tvPontuacaoBalao.text = "0"
+//        trilhaQuiz.balao1.tvNumeroBalao.text = "1"
+//        trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
 
         trilhaQuiz.balao2.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
         trilhaQuiz.balao2.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
