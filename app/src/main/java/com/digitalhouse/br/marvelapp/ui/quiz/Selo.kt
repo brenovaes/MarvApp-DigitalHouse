@@ -1,4 +1,4 @@
 package com.digitalhouse.br.marvelapp.ui.quiz
 
-class Selo (val imageResource: Int, val nomeSelo: String) {
+class Selo (var imageResource: Int, val nomeSelo: String) {
 }
