@@ -8,7 +8,7 @@ import com.digitalhouse.br.marvelapp.ui.quiz.RankingFragment
 import com.digitalhouse.br.marvelapp.ui.quiz.SelosFragment
 
 class ViewPagerAdapter(fm: FragmentManager, private var tabCout: Int):
-                       FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
+        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
 
     override fun getCount(): Int {
         return tabCout

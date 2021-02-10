@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.card_alternativa.view.*
 
 class AlternativaAdapter (private val listaAlternativa: ArrayList<Alternativa>,
                           private val listener: OnItemClickListener):
-                          RecyclerView.Adapter<AlternativaAdapter.CardViewHolder>() {
+        RecyclerView.Adapter<AlternativaAdapter.CardViewHolder>() {
 
     inner class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val tvAlternativa: TextView = itemView.tvAlternativa

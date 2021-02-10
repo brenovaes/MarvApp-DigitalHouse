@@ -11,9 +11,17 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.MyPreferences
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.crH
+import com.digitalhouse.br.marvelapp.crTri1
+import com.digitalhouse.br.marvelapp.service.serviceCh
+import com.digitalhouse.br.marvelapp.service.serviceS
+import com.digitalhouse.br.marvelapp.ui.home.HomeViewModel
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -29,29 +37,38 @@ import kotlinx.coroutines.launch
 class AlternativaSelecionadaActivity : AppCompatActivity() {
     var scope = CoroutineScope(Dispatchers.Main)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alternativa_selecionada)
 
         val imgRespota: ImageView = ivRetornoResposta
+        val retorno = intent.getBooleanExtra("opção", false)
+        var pergunta = intent.getIntExtra("pergunta",1)
+        var pontos = intent.getIntExtra("pontos",0)
+        var intent = Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java)
 
-        val retorno = intent.getSerializableExtra("opção") as Boolean
+
 
 
         if(retorno){
             tvRetornoRespostaTitulo.text = "CORRETO"
             tvRetornoRespostaTexto.text = "You are getting closer and closer to earning a Stamp"
             ivRetornoResposta.setImageResource(R.drawable.ic_correto)
+            intent.putExtra("pontos", pontos+20)
         }else{
             tvRetornoRespostaTitulo.text = "INCORRETO"
             tvRetornoRespostaTexto.text = "Maybe you need to read more about the Marvel universe"
             ivRetornoResposta.setImageResource(R.drawable.ic_errado)
+            intent.putExtra("pontos", pontos)
         }
 
 
         scope.launch {
             delay(2000)
-            startActivity(Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java))
+//            var intent = Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java)
+            intent.putExtra("pergunta", pergunta+1)
+            startActivity(intent)
             finish()
         }
 
@@ -99,9 +116,9 @@ class AlternativaSelecionadaActivity : AppCompatActivity() {
 
                 R.id.help ->{
                     var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build();
+                            .requestIdToken(getString(R.string.default_web_client_id))
+                            .requestEmail()
+                            .build();
 
                     var mGoogleSignInClient = GoogleSignIn.getClient(getBaseContext(), gso);
                     mGoogleSignInClient.signOut().addOnCompleteListener{

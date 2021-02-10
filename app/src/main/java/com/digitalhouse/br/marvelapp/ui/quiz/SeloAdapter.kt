@@ -10,8 +10,8 @@ import com.digitalhouse.br.marvelapp.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_selo.view.*
 
-class SeloAdapter(private val listaSelo: ArrayList<Selo>):
-                 RecyclerView.Adapter<SeloAdapter.CardViewHolder>() {
+class SeloAdapter(private val listaSelo: ArrayList<Selo>, val listener:OnSeloClickListener):
+        RecyclerView.Adapter<SeloAdapter.CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate((R.layout.card_selo), parent, false)
@@ -28,9 +28,24 @@ class SeloAdapter(private val listaSelo: ArrayList<Selo>):
 
     override fun getItemCount() = listaSelo.size
 
+    interface OnSeloClickListener{
+        fun seloClick(position: Int)
+    }
 
-    inner class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+    inner class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val ivSelo: ImageView = itemView.ivSelo
         val tvNomeSelo: TextView = itemView.tvNomeSelo
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (RecyclerView.NO_POSITION != position)
+                listener.seloClick(position)
+            //redirecionar para o detalhe do card (personagem, criador ou HQ)
+        }
     }
 }

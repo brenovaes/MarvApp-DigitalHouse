@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/llPergunta"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -124,33 +125,34 @@
 <!--        tools:listitem="@layout/card_alternativa"/>-->
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/btnAnterior"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-                android:text="Back"
-            android:textColor="?attr/colorOnPrimary"
-            android:backgroundTint="?attr/colorSecondaryVariant"/>
+<!--        <Button-->
+<!--            android:id="@+id/btnAnterior"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--                android:text="Back"-->
+<!--            android:textColor="?attr/colorOnPrimary"-->
+<!--            android:backgroundTint="?attr/colorSecondaryVariant"/>-->
 
-        <Button
-            android:id="@+id/btnSalvar"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="20dp"
-            android:text="To Salve"
-            android:textColor="?attr/colorOnPrimary"
-            android:backgroundTint="?attr/colorAccent"/>
+<!--        <Button-->
+<!--            android:id="@+id/btnSalvar"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:text="To Salve"-->
+<!--            android:textColor="?attr/colorOnPrimary"-->
+<!--            android:backgroundTint="?attr/colorAccent"/>-->
 
         <Button
             android:id="@+id/btnDesistir"
-            android:layout_width="110dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Give Up"
             android:textColor="?attr/colorOnPrimary"
