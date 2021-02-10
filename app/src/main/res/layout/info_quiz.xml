@@ -35,7 +35,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
-            android:text="@string/pontuacao_quiz"
             android:textColor="?attr/colorAccent"
             android:textSize="30sp" />
     </LinearLayout>
@@ -79,7 +78,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
-            android:text="@string/conquista_quiz"
             android:textColor="?attr/colorAccent"
             android:textSize="30sp" />
     </LinearLayout>

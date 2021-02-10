@@ -95,8 +95,9 @@ class PerguntaActivity : AppCompatActivity() {
         if (pergunta > 5){
             if( viewModelQuiz.checkH.value!= null &&  viewModelQuiz.checkH.value == true){
                 viewModelQuiz.update(email, pontos)
-            }else if (viewModelQuiz.checkH.value == false){
+            }else if (viewModelQuiz.checkH.value == false || viewModelQuiz.checkH.value == null){
                 viewModelQuiz.addPontos(Pontuacao(email,pontos,name))
+                viewModelQuiz.checkH.value = true
             }
 
             startActivity(Intent(this, QuizActivity::class.java))

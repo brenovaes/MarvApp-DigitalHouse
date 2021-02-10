@@ -56,7 +56,7 @@ class DesafiosFragment : Fragment() {
 
         //inicialziar os balões
         inicializarBaloes()
-
+//        viewModelQuiz.getPontuacao(email!!)
         viewModelQuiz.checkHancking(email!!)
         viewModelQuiz.checkH.observe(viewLifecycleOwner){
             if (it){
