@@ -5,10 +5,7 @@ import com.digitalhouse.br.marvelapp.interfac.HeroDayDao
 import com.digitalhouse.br.marvelapp.interfac.HistoryDao
 import com.digitalhouse.br.marvelapp.interfac.SuggestionsDao
 import com.digitalhouse.br.marvelapp.interfac.UserDao
-import com.digitalhouse.br.marvelapp.models.Characters
-import com.digitalhouse.br.marvelapp.models.HistoryDB
-import com.digitalhouse.br.marvelapp.models.Suggestions
-import com.digitalhouse.br.marvelapp.models.User
+import com.digitalhouse.br.marvelapp.models.*
 import java.time.LocalDate
 
 interface RepositoryDB {
@@ -78,6 +75,11 @@ class RepositoryImplSuggestions(val suggestionsDao: SuggestionsDao): RepositoryS
     override suspend fun addSuggestionsTask(suggestions: Suggestions) = suggestionsDao.addSuggestions(suggestions)
     override suspend fun updateNewSuggestionTask() = suggestionsDao.updateNewSuggestion()
 //    override suspend fun updateNewHistoryTask() = = suggestionsDao.updateNewHistory()
+
+}
+
+class RepositoryImplQuiz(val trilha: Trilha): RepositorySuggestions{
+
 
 }
 

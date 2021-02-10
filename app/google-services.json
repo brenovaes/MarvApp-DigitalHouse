@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "7579005913-ck19jjna91igsa2akave54gk8lpi8l0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digitalhouse.br.marvelapp",
+            "certificate_hash": "8af623f487fcd3f626242ffaf214f5a71377a66d"
+          }
+        },
+        {
           "client_id": "7579005913-pvf9dq9m26qhlfu919iq5jk3e9tlj3ef.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.digitalhouse.br.marvelapp",
             "certificate_hash": "2c314e8c7a32cf9872bee1af6059d59782275f02"
+          }
+        },
+        {
+          "client_id": "7579005913-sgl8q9np500cabaqo44itlifm5kmrt4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digitalhouse.br.marvelapp",
+            "certificate_hash": "ec35bdd594012d0b1855bb33d7569eb42cfa217b"
           }
         },
         {
