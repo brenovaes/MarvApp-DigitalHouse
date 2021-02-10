@@ -84,7 +84,6 @@ class PerguntaActivity : AppCompatActivity() {
         }
         var email = FirebaseAuth.getInstance().currentUser!!.email!!
         var name = FirebaseAuth.getInstance().currentUser!!.displayName!!
-        viewModelQuiz.checkHancking(email)
 
 
 
@@ -93,12 +92,19 @@ class PerguntaActivity : AppCompatActivity() {
         pontos = intent.getIntExtra("pontos", 0)
 
         if (pergunta > 5){
-            if( viewModelQuiz.checkH.value!= null &&  viewModelQuiz.checkH.value == true){
-                viewModelQuiz.update(email, pontos)
-            }else if (viewModelQuiz.checkH.value == false || viewModelQuiz.checkH.value == null){
-                viewModelQuiz.addPontos(Pontuacao(email,pontos,name))
-                viewModelQuiz.checkH.value = true
+            viewModelQuiz.checkHancking(email)
+            viewModelQuiz.checkH.observe(this){
+                if( it == true){
+                    Log.i("UPDATE", "ENTROU UPDATE")
+                    viewModelQuiz.update(email, pontos)
+                }else if (it == null && it != true){
+                    Log.i("ADD", "ENTROU ADC")
+                    viewModelQuiz.addPontos(Pontuacao(email,pontos,name))
+                    viewModelQuiz.checkH.value = true
+                }
             }
+
+
 
             startActivity(Intent(this, QuizActivity::class.java))
         }

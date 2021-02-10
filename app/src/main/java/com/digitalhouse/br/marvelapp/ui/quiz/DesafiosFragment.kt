@@ -48,6 +48,8 @@ class DesafiosFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        viewModelQuiz.checkHancking(email!!)
+
         return inflater.inflate(R.layout.fragment_desafios, container, false)
     }
 
@@ -57,9 +59,8 @@ class DesafiosFragment : Fragment() {
         //inicialziar os balões
         inicializarBaloes()
 //        viewModelQuiz.getPontuacao(email!!)
-        viewModelQuiz.checkHancking(email!!)
         viewModelQuiz.checkH.observe(viewLifecycleOwner){
-            if (it){
+            if (it == true){
                 viewModelQuiz.pontuacao.observe(viewLifecycleOwner){
                     trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
                     trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))

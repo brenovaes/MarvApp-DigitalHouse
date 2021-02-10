@@ -7,12 +7,14 @@ import com.digitalhouse.br.marvelapp.models.Pontuacao
 import com.digitalhouse.br.marvelapp.models.Trilha
 import com.digitalhouse.br.marvelapp.models.UserFavComic
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.Query
 
 class QuizViewModel(val crTr1: CollectionReference, val crPont: CollectionReference) : ViewModel() {
 
     var retornoQuiz = MutableLiveData<Trilha>()
     var checkH = MutableLiveData<Boolean>()
     var pontuacao = MutableLiveData<Pontuacao>()
+    var pontuacaoRanking = MutableLiveData<ArrayList<Pontuacao>>()
 
 
     fun getPerg(id: String) {
@@ -25,6 +27,8 @@ class QuizViewModel(val crTr1: CollectionReference, val crPont: CollectionRefere
     }
 
     fun checkHancking(userEmail: String) {
+        Log.i("CHECK H CHAMOU", checkH.value.toString())
+
         crPont.whereEqualTo("userEmail", userEmail).get().addOnSuccessListener { documents ->
             for (document in documents) {
                 var pont = document.toObject(Pontuacao::class.java)
@@ -35,36 +39,37 @@ class QuizViewModel(val crTr1: CollectionReference, val crPont: CollectionRefere
         }
     }
 
-fun addPontos(pontuacao: Pontuacao) {
-    Log.i("ADD", "ENTROU")
+    fun addPontos(pontuacao: Pontuacao) {
+        Log.i("ADD", "ENTROU")
 
-    crPont.document().set(pontuacao)
-}
+        crPont.document().set(pontuacao)
+    }
 
-fun update(userEmail: String, pontos: Int) {
-    crPont.whereEqualTo("userEmail", userEmail).get().addOnSuccessListener { documents ->
-        documents.forEach {
-            it.reference.update("userEmail", userEmail,
-                    "pontos", pontos)
+    fun update(userEmail: String, pontos: Int) {
+        crPont.whereEqualTo("userEmail", userEmail).get().addOnSuccessListener { documents ->
+            documents.forEach {
+                it.reference.update(
+                    "userEmail", userEmail,
+                    "pontos", pontos
+                )
+            }
         }
-    }
-
-}
-
-fun getPontuacao(path: String) {
-    crPont.document(path).get().addOnSuccessListener {
-        pontuacao.value = it.toObject(Pontuacao::class.java)
 
     }
 
-//        crPont.get().addOnSuccessListener {
-//            it.forEach {
-//                if (it.get("userEmail") == userEmail) {
-//                    pontuacao.value = it.toObject(Pontuacao::class.java)
-//                    Log.i("GET PONT", pontuacao.value!!.userEmail)
-//                }
-//            }
-//        }
-}
+    fun getPontuacao() {
+        var lista = arrayListOf<Pontuacao>()
+
+        crPont.orderBy("pontos", Query.Direction.DESCENDING).get().addOnSuccessListener {
+            it.forEach {
+                var pessoa = it.toObject(Pontuacao::class.java)
+                lista.add(pessoa)
+            }
+
+            pontuacaoRanking.value = lista
+
+        }
+
+    }
 
 }
