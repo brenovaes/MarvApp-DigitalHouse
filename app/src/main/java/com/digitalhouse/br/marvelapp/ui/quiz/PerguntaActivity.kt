@@ -13,11 +13,15 @@ import android.widget.PopupMenu
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.digitalhouse.br.marvelapp.MyPreferences
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.crTri1
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -32,27 +36,40 @@ import kotlinx.android.synthetic.main.enunciado_quiz.view.*
 import kotlinx.android.synthetic.main.fragment_desafios.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
 
-class PerguntaActivity : AppCompatActivity(), AlternativaAdapter.OnItemClickListener {
-    private var listaAlternativa = getListaAlternativa()
-    private var adapter = AlternativaAdapter(listaAlternativa, this)
+class PerguntaActivity : AppCompatActivity() {
+//    private var listaAlternativa = getListaAlternativa()
+//    private var adapter = AlternativaAdapter(listaAlternativa, this)
     private var buttonRG: RadioGroup? = null
     private var msg: String? = null
     private var opcaoEscolhida: Boolean = false
+    var pergunta = 1
+    var pontos = 0
 
-
-    private fun getListaAlternativa(): ArrayList<Alternativa> {
-        return arrayListOf<Alternativa>(
-                Alternativa("Timely Comics", R.color.white),
-                Alternativa("Atlas Comics",R.color.white),
-                Alternativa("Goodman Comics", R.color.white),
-                Alternativa("More Fun Comics", R.color.white),
-        )
+    val viewModelQuiz by viewModels<QuizViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return QuizViewModel(
+                    crTri1
+                ) as T
+            }
+        }
     }
 
-    override fun onItemClick(position: Int) {
-        listaAlternativa[position].corBackground = R.color.destaqueVermelho
-        Log.i("PerguntaActivity", "MUDA DE COR")
-    }
+
+
+//    private fun getListaAlternativa(): ArrayList<Alternativa> {
+//        return arrayListOf<Alternativa>(
+//                Alternativa("Timely Comics", R.color.white),
+//                Alternativa("Atlas Comics",R.color.white),
+//                Alternativa("Goodman Comics", R.color.white),
+//                Alternativa("More Fun Comics", R.color.white),
+//        )
+//    }
+
+//    override fun onItemClick(position: Int) {
+//        listaAlternativa[position].corBackground = R.color.destaqueVermelho
+//        Log.i("PerguntaActivity", "MUDA DE COR")
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,13 +80,29 @@ class PerguntaActivity : AppCompatActivity(), AlternativaAdapter.OnItemClickList
         }
 
 
+
+        pergunta = intent.getIntExtra("pergunta", 1)
+
+        if (pergunta > 5){
+            startActivity(Intent(this, QuizActivity::class.java))
+        }
+
 //        barraProgressoPergunta.cvProgressoPergunta1.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.cinzaClaro))
 //        barraProgressoPergunta.cvProgressoPergunta2.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.cinzaClaro))
 //        barraProgressoPergunta.cvProgressoPergunta3.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.cinzaClaro))
 //        barraProgressoPergunta.cvProgressoPergunta4.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.cinzaClaro))
 
-        tvEnunciadoTexto.text = "What was the name of Marvel's predecessor publisher?"
-        cvNumeroPergunta.tvNumeroDaPergunta.text = "1/5"
+        viewModelQuiz.getPerg(pergunta.toString())
+        viewModelQuiz.retornoQuiz.observe(this){
+            tvEnunciadoTexto.text = it.pergunta
+            cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta/5"
+            rbAlternativa1.text = it.errada1
+            rbAlternativa2.text = it.errada2
+            rbAlternativa3.text = it.errada3
+            rbAlternativa4.text = it.correta
+
+        }
+
 
 //        rvAlternativa.adapter = adapter
 //        rvAlternativa.layoutManager = LinearLayoutManager(this)
@@ -78,15 +111,15 @@ class PerguntaActivity : AppCompatActivity(), AlternativaAdapter.OnItemClickList
 //        btnAnterior.setOnClickListener(callActivity(QuizActivity::class.java))
 
         btnSalvar.setOnClickListener{
-            if(opcaoEscolhida){
-                if(msg != null){
-                    val intent = Intent(this, AlternativaSelecionadaActivity::class.java)
-                    intent.putExtra("opção", false)
-                    startActivity(intent)
-                }
-            }else{
-                Toast.makeText(this,"Choose an option", Toast.LENGTH_SHORT).show()
-            }
+//            if(opcaoEscolhida){
+//                if(msg != null){
+//                    val intent = Intent(this, AlternativaSelecionadaActivity::class.java)
+//                    intent.putExtra("opção", false)
+//                    startActivity(intent)
+//                }
+//            }else{
+//                Toast.makeText(this,"Choose an option", Toast.LENGTH_SHORT).show()
+//            }
         }
 
         btnDesistir.setOnClickListener{
@@ -101,25 +134,17 @@ class PerguntaActivity : AppCompatActivity(), AlternativaAdapter.OnItemClickList
             val checked = v.isChecked
             opcaoEscolhida = true
             when (v.id) {
-                R.id.rbAlternativa1 -> if (checked) {
-                    if (R.id.rbAlternativa1 == v.id) {
-                        msg = "1"
-                    }
-                }
-                R.id.rbAlternativa2 -> if (checked) {
-                    if (R.id.rbAlternativa2 == v.id) {
-                        msg = "2"
-                    }
-                }
-                R.id.rbAlternativa3 -> if (checked) {
-                    if (R.id.rbAlternativa3 == v.id) {
-                        msg = "3"
-                    }
-                }
-                R.id.rbAlternativa4 -> if (checked) {
-                    if (R.id.rbAlternativa4 == v.id) {
-                        msg = "4"
-                    }
+                R.id.rbAlternativa1 -> llPergunta.setBackgroundColor(getColor(R.color.red))
+
+                R.id.rbAlternativa2 -> llPergunta.setBackgroundColor(getColor(R.color.red))
+                R.id.rbAlternativa3 ->llPergunta.setBackgroundColor(getColor(R.color.red))
+                R.id.rbAlternativa4 -> {
+                    llPergunta.setBackgroundColor(getColor(R.color.green))
+                    pontos += 20
+                    val intent = Intent(this, AlternativaSelecionadaActivity::class.java)
+                    intent.putExtra("opção", true)
+                    intent.putExtra("pergunta", pergunta)
+                    startActivity(intent)
                 }
             }
         }

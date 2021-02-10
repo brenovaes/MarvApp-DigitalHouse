@@ -7,7 +7,7 @@ import com.digitalhouse.br.marvelapp.interfac.*
 import com.digitalhouse.br.marvelapp.models.*
 
 
-@Database(entities = [User::class, Characters::class, HistoryDB::class, Suggestions::class, Trilha::class], version = 1)
+@Database(entities = [User::class, Characters::class, HistoryDB::class, Suggestions::class], version = 1)
 
 abstract class AppDataBase : RoomDatabase() {
 
@@ -15,7 +15,7 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun heroDayDao(): HeroDayDao
     abstract fun historyDao(): HistoryDao
     abstract fun suggestionsDao(): SuggestionsDao
-    abstract fun trilhaDao(): TrilhaDao
+//    abstract fun trilhaDao(): TrilhaDao
 
     companion object {
         @Volatile

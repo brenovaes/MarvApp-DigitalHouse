@@ -8,11 +8,11 @@ import com.digitalhouse.br.marvelapp.ui.quiz.Pergunta;
 
 import java.util.ArrayList;
 
-@Dao
-interface TrilhaDao {
-
-    @Query("SELECT * FROM trilhas")
-    suspend fun getAllTrilhas(): ArrayList<Trilha>
-
-
-}
+//@Dao
+//interface TrilhaDao {
+//
+//    @Query("SELECT * FROM trilhas")
+//    suspend fun getAllTrilhas(): ArrayList<Trilha>
+//
+//
+//}

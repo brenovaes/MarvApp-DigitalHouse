@@ -9,5 +9,6 @@ val crH: CollectionReference = db.collection("heroday")
 val crFCh: CollectionReference = db.collection("favoviteCh")
 val crFCr: CollectionReference = db.collection("favoviteCr")
 val crFCo: CollectionReference = db.collection("favoviteCo")
+val crTri1: CollectionReference = db.collection("trilha1")
 
 

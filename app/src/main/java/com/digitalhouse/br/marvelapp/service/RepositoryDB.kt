@@ -78,10 +78,10 @@ class RepositoryImplSuggestions(val suggestionsDao: SuggestionsDao): RepositoryS
 
 }
 
-class RepositoryImplQuiz(val trilha: Trilha): RepositorySuggestions{
-
-
-}
+//class RepositoryImplQuiz(val trilha: Trilha): RepositorySuggestions{
+//
+//
+//}
 
 
 

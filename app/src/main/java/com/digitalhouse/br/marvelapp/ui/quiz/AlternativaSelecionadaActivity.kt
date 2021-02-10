@@ -11,9 +11,17 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.digitalhouse.br.marvelapp.MyPreferences
 import com.digitalhouse.br.marvelapp.R
+import com.digitalhouse.br.marvelapp.crH
+import com.digitalhouse.br.marvelapp.crTri1
+import com.digitalhouse.br.marvelapp.service.serviceCh
+import com.digitalhouse.br.marvelapp.service.serviceS
+import com.digitalhouse.br.marvelapp.ui.home.HomeViewModel
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -29,13 +37,15 @@ import kotlinx.coroutines.launch
 class AlternativaSelecionadaActivity : AppCompatActivity() {
     var scope = CoroutineScope(Dispatchers.Main)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alternativa_selecionada)
 
         val imgRespota: ImageView = ivRetornoResposta
+        val retorno = intent.getBooleanExtra("opção", false)
+        var pergunta = intent.getIntExtra("pergunta",1)
 
-        val retorno = intent.getSerializableExtra("opção") as Boolean
 
 
         if(retorno){
@@ -51,7 +61,9 @@ class AlternativaSelecionadaActivity : AppCompatActivity() {
 
         scope.launch {
             delay(2000)
-            startActivity(Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java))
+            var intent = Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java)
+            intent.putExtra("pergunta", pergunta+1)
+            startActivity(intent)
             finish()
         }
 
