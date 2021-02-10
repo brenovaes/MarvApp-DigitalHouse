@@ -5,10 +5,10 @@ import com.digitalhouse.br.marvelapp.ui.quiz.Pergunta
 
 
 data class Trilha (
-    var pergunta:String,
-    var errada1:String,
-    var errada2:String,
-    var errada3:String,
-    var correta:String
+    var correta:String = " ",
+    var errada1:String = " ",
+    var errada2:String = " ",
+    var errada3:String = " ",
+    var pergunta:String = " "
 
 )
