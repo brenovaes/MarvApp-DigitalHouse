@@ -25,45 +25,14 @@ class QuizViewModel(val crTr1: CollectionReference, val crPont: CollectionRefere
     }
 
     fun checkHancking(userEmail: String) {
-        Log.i("CHECK", "ENTrOU FUNÇÃO")
-//                crPont.get().addOnSuccessListener { documents ->
-//                    Log.i("CHECK TESTE ANTES FOR", checkH.value.toString())
-//                    documents.forEach { document ->
-//                        if (userEmail == document.get("userEmail")) {
-//                            Log.i("CHECK H DENTRO DO IF", checkH.value.toString())
-//                            var getP = document.reference.path
-//                            var splitItem = getP.split("/")
-//                            var itemPath = "/" + splitItem[1]
-//                            var doc = crPont.document(itemPath).get().addOnSuccessListener {
-//                                pontuacao.value = document.toObject(Pontuacao::class.java)
-//                            }
-//                        }
-//                        Log.i("CHECK H FORA IF", checkH.value.toString())
-//                    }
-//                }
-
-        crPont.whereEqualTo("userEmail", userEmail).get().addOnSuccessListener {
-
-            it.forEach {
-                pontuacao.value = it.toObject(Pontuacao::class.java)
+        crPont.whereEqualTo("userEmail", userEmail).get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                var pont = document.toObject(Pontuacao::class.java)
+                pontuacao.value = pont
                 checkH.value = true
-
+                Log.i("CHECK H TRUE FINAL", checkH.value.toString())
             }
-
-            it.documents.forEach { document ->
-                document.getData()?.entries?.forEach {
-                    if (it.value == userEmail) {
-                        checkH.value = true
-                        getPontuacao(document.reference.path)
-                        Log.i("CHECK H TRUE", userEmail.toString())
-                    }
-
-                }
-
-            }
-
-
-        Log.i("CHECK H TRUE FINAL", checkH.value.toString())
+        }
     }
 
 fun addPontos(pontuacao: Pontuacao) {
