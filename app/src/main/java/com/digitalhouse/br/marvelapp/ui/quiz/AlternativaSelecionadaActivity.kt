@@ -46,6 +46,7 @@ class AlternativaSelecionadaActivity : AppCompatActivity() {
         val retorno = intent.getBooleanExtra("opção", false)
         var pergunta = intent.getIntExtra("pergunta",1)
         var pontos = intent.getIntExtra("pontos",0)
+        var trilha = intent.getIntExtra("trilha", 1)
         var intent = Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java)
 
 
@@ -68,6 +69,7 @@ class AlternativaSelecionadaActivity : AppCompatActivity() {
             delay(2000)
 //            var intent = Intent(this@AlternativaSelecionadaActivity, PerguntaActivity::class.java)
             intent.putExtra("pergunta", pergunta+1)
+            intent.putExtra("trilha", trilha)
             startActivity(intent)
             finish()
         }

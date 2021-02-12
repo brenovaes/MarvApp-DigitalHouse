@@ -9,11 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.crPont
-import com.digitalhouse.br.marvelapp.crTri1
+import com.digitalhouse.br.marvelapp.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_selos.*
 
 class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
@@ -25,7 +22,11 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return QuizViewModel(
                         crTri1,
-                        crPont
+                        crTri2,
+                        crTri3,
+                        crTri4,
+                        crPontosTr,
+                        crHank
                 ) as T
             }
         }

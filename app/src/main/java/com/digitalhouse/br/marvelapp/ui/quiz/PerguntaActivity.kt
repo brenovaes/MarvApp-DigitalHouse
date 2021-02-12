@@ -1,6 +1,5 @@
 package com.digitalhouse.br.marvelapp.ui.quiz
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -15,28 +14,20 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.digitalhouse.br.marvelapp.MyPreferences
-import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.crPont
-import com.digitalhouse.br.marvelapp.crTri1
+import com.digitalhouse.br.marvelapp.*
 import com.digitalhouse.br.marvelapp.models.Pontuacao
 import com.digitalhouse.br.marvelapp.ui.iniciais.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_pergunta.*
-import kotlinx.android.synthetic.main.barra_progresso_pergunta.view.*
-import kotlinx.android.synthetic.main.barra_selos_quiz.view.*
-import kotlinx.android.synthetic.main.barra_selos_quiz.view.cvBarraSeloConquistado2
-import kotlinx.android.synthetic.main.barra_selos_quiz.view.cvBarraSeloConquistado3
 import kotlinx.android.synthetic.main.enunciado_quiz.*
 import kotlinx.android.synthetic.main.enunciado_quiz.view.*
-import kotlinx.android.synthetic.main.fragment_desafios.*
 import kotlinx.android.synthetic.main.toolbar_principal.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 
 class PerguntaActivity : AppCompatActivity() {
     //    private var listaAlternativa = getListaAlternativa()
@@ -46,86 +37,199 @@ class PerguntaActivity : AppCompatActivity() {
     private var opcaoEscolhida: Boolean = false
     var pergunta = 1
     var pontos = 0
+    var trilha = 0
 
+    var email = FirebaseAuth.getInstance().currentUser!!.email!!
 
     val viewModelQuiz by viewModels<QuizViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return QuizViewModel(
                         crTri1,
-                        crPont
+                        crTri2,
+                        crTri3,
+                        crTri4,
+                        crPontosTr,
+                        crHank
                 ) as T
             }
         }
     }
 
 
+    override fun onResume() {
+        super.onResume()
 
-//    private fun getListaAlternativa(): ArrayList<Alternativa> {
-//        return arrayListOf<Alternativa>(
-//                Alternativa("Timely Comics", R.color.white),
-//                Alternativa("Atlas Comics",R.color.white),
-//                Alternativa("Goodman Comics", R.color.white),
-//                Alternativa("More Fun Comics", R.color.white),
-//        )
-//    }
+        viewModelQuiz.checkHancking(email!!)
 
-//    override fun onItemClick(position: Int) {
-//        listaAlternativa[position].corBackground = R.color.destaqueVermelho
-//        Log.i("PerguntaActivity", "MUDA DE COR")
-//    }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pergunta)
 
+        trilha = intent.getIntExtra("trilha", 1)
+
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
         }
-        var email = FirebaseAuth.getInstance().currentUser!!.email!!
+
         var name = FirebaseAuth.getInstance().currentUser!!.displayName!!
 
-//        viewModelQuiz.checkHancking(email)
+//        var r = viewModelQuiz.checkHancking(email)
+//        Log.i("RETURN", r.toString())
 
+        Log.i("LOG FORA", viewModelQuiz.checkH.value.toString())
 
         pergunta = intent.getIntExtra("pergunta", 1)
         pontos = intent.getIntExtra("pontos", 0)
+//        var trilha = intent.getIntExtra("trilha", 1)
 
-        if (pergunta > 5){
-            viewModelQuiz.checkHancking(email)
-            Log.i("ENTROU PERGUNTA >5", "qq")
+        Log.i("TRILHA:", trilha.toString())
 
-//            viewModelQuiz.checkH.observe(this){
-                if( viewModelQuiz.checkH.value == true ){
-                    Log.i("UPDATE", "ENTROU UPDATE")
-                    viewModelQuiz.update(email, pontos)
-                }else if (viewModelQuiz.checkH.value == null && viewModelQuiz.checkH.value != true){
-                    Log.i("ADD", "ENTROU ADC")
-                    viewModelQuiz.addPontos(Pontuacao(email,pontos,name))
-                    viewModelQuiz.checkH.value = true
+        when(trilha){
+
+            1 -> {
+
+                //n ta ok
+                if (pergunta > 5) {
+                    Log.i("TRILHA 1:", trilha.toString())
+                    viewModelQuiz.checkH.observe(this){
+                        Log.i("Check trilha:", trilha.toString())
+                        if (viewModelQuiz.checkH.value == true) {
+                            Log.i("UPDATE:", trilha.toString())
+
+                            viewModelQuiz.update(email, pontos, trilha)
+                        } else if (viewModelQuiz.checkH.value == null && viewModelQuiz.checkH.value != true) {
+                            Log.i("ADD:", trilha.toString())
+
+                            viewModelQuiz.addPontos(email, name, trilha, pontos)
+                            viewModelQuiz.checkH.value = true
+                        }
+                    }
+
+                    startActivity(Intent(this, QuizActivity::class.java))
                 }
-//            }
+
+                viewModelQuiz.getPergTrilha01(pergunta.toString())
+                viewModelQuiz.retornoTrilha01.observe(this){
+                    tvEnunciadoTexto.text = it.pergunta
+                    cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta/5"
+                    rbAlternativa1.text = it.errada1
+                    rbAlternativa2.text = it.errada2
+                    rbAlternativa3.text = it.errada3
+                    rbAlternativa4.text = it.correta
+
+                }
+            }
+
+            2 -> {
+                if (pergunta > 3) {
+
+                    //ta ok
+                    viewModelQuiz.checkH.observe(this){
+                        if (viewModelQuiz.checkH.value == true) {
+                            viewModelQuiz.update(email, pontos, trilha)
+                        } else if (viewModelQuiz.checkH.value == null && viewModelQuiz.checkH.value != true) {
+                            viewModelQuiz.addPontos(email, name, trilha, pontos)
+                            viewModelQuiz.checkH.value = true
+                        }
+                    }
+
+                    startActivity(Intent(this, QuizActivity::class.java))
+                }
+
+                viewModelQuiz.getPergTrilha02(pergunta.toString())
+                viewModelQuiz.retornoTrilha02.observe(this){
+                    tvEnunciadoTexto.text = it.pergunta
+                    cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta/5"
+                    rbAlternativa1.text = it.errada1
+                    rbAlternativa2.text = it.errada2
+                    rbAlternativa3.text = it.errada3
+                    rbAlternativa4.text = it.correta
+
+                }
+            }
+
+            3->{
+                if (pergunta > 8) {
+
+                    //ta ok
+                    viewModelQuiz.checkH.observe(this){
+                        if (viewModelQuiz.checkH.value == true) {
+                            viewModelQuiz.update(email, pontos, trilha)
+                        } else if (viewModelQuiz.checkH.value == null && viewModelQuiz.checkH.value != true) {
+                            viewModelQuiz.addPontos(email, name, trilha, pontos)
+                            viewModelQuiz.checkH.value = true
+                        }
+                    }
+
+                    startActivity(Intent(this, QuizActivity::class.java))
+                }
 
 
+                viewModelQuiz.getPergTrilha03(pergunta.toString())
+                viewModelQuiz.retornoTrilha03.observe(this){
+                    tvEnunciadoTexto.text = it.pergunta
+                    cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta/5"
+                    rbAlternativa1.text = it.errada1
+                    rbAlternativa2.text = it.errada2
+                    rbAlternativa3.text = it.errada3
+                    rbAlternativa4.text = it.correta
 
-            startActivity(Intent(this, QuizActivity::class.java))
+                }
+            }
+
+
+            4->{
+                if (pergunta > 7) {
+
+                    //ta ok
+                    viewModelQuiz.checkH.observe(this){
+                        if (it == true) {
+                            viewModelQuiz.update(email, pontos, trilha)
+                        } else if (viewModelQuiz.checkH.value == null && viewModelQuiz.checkH.value != true) {
+                            viewModelQuiz.addPontos(email, name, trilha, pontos)
+                            viewModelQuiz.checkH.value = true
+                        }
+                    }
+
+                    startActivity(Intent(this, QuizActivity::class.java))
+                }
+
+
+                viewModelQuiz.getPergTrilha04(pergunta.toString())
+                viewModelQuiz.retornoTrilha04.observe(this){
+                    tvEnunciadoTexto.text = it.pergunta
+                    cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta/5"
+                    rbAlternativa1.text = it.errada1
+                    rbAlternativa2.text = it.errada2
+                    rbAlternativa3.text = it.errada3
+                    rbAlternativa4.text = it.correta
+
+                }
+            }
+
+
         }
+
+
 
 //        barraProgressoPergunta.cvProgressoPergunta1.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.cinzaClaro))
 //        barraProgressoPergunta.cvProgressoPergunta2.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.cinzaClaro))
 //        barraProgressoPergunta.cvProgressoPergunta3.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.cinzaClaro))
 //        barraProgressoPergunta.cvProgressoPergunta4.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.cinzaClaro))
 
-        viewModelQuiz.getPerg(pergunta.toString())
-        viewModelQuiz.retornoQuiz.observe(this){
-            tvEnunciadoTexto.text = it.pergunta
-            cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta/5"
-            rbAlternativa1.text = it.errada1
-            rbAlternativa2.text = it.errada2
-            rbAlternativa3.text = it.errada3
-            rbAlternativa4.text = it.correta
-
-        }
+//        viewModelQuiz.getPergTrilha01(pergunta.toString())
+//        viewModelQuiz.retornoTrilha01.observe(this){
+//            tvEnunciadoTexto.text = it.pergunta
+//            cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta/5"
+//            rbAlternativa1.text = it.errada1
+//            rbAlternativa2.text = it.errada2
+//            rbAlternativa3.text = it.errada3
+//            rbAlternativa4.text = it.correta
+//
+//        }
 
 
 //        rvAlternativa.adapter = adapter
@@ -166,6 +270,7 @@ class PerguntaActivity : AppCompatActivity() {
                     intent.putExtra("opção", false)
                     intent.putExtra("pergunta", pergunta)
                     intent.putExtra("pontos", pontos)
+                    intent.putExtra("trilha", trilha)
                     startActivity(intent)
                 }
 
@@ -174,6 +279,7 @@ class PerguntaActivity : AppCompatActivity() {
                     intent.putExtra("opção", false)
                     intent.putExtra("pergunta", pergunta)
                     intent.putExtra("pontos", pontos)
+                    intent.putExtra("trilha", trilha)
                     startActivity(intent)
                 }
                 R.id.rbAlternativa3 -> {
@@ -181,6 +287,7 @@ class PerguntaActivity : AppCompatActivity() {
                     intent.putExtra("opção", false)
                     intent.putExtra("pergunta", pergunta)
                     intent.putExtra("pontos", pontos)
+                    intent.putExtra("trilha", trilha)
                     startActivity(intent)
                 }
                 R.id.rbAlternativa4 -> {
@@ -188,6 +295,7 @@ class PerguntaActivity : AppCompatActivity() {
                     intent.putExtra("opção", true)
                     intent.putExtra("pergunta", pergunta)
                     intent.putExtra("pontos", pontos)
+                    intent.putExtra("trilha", trilha)
                     startActivity(intent)
                 }
             }

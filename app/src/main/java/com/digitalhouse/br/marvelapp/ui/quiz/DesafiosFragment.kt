@@ -5,22 +5,19 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.digitalhouse.br.marvelapp.R
+import androidx.lifecycle.viewModelScope
+import com.digitalhouse.br.marvelapp.*
 import com.digitalhouse.br.marvelapp.R.color
-import com.digitalhouse.br.marvelapp.crPont
-import com.digitalhouse.br.marvelapp.crTri1
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.balao_pergunta_quiz.view.*
 import kotlinx.android.synthetic.main.barra_selos_quiz.view.*
@@ -38,19 +35,37 @@ class DesafiosFragment : Fragment() {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return QuizViewModel(
                         crTri1,
-                        crPont
+                        crTri2,
+                        crTri3,
+                        crTri4,
+                        crPontosTr,
+                        crHank
                 ) as T
             }
         }
     }
 
+    lateinit var intentPergunta:Intent
+    var trilha = 0
     var email = FirebaseAuth.getInstance().currentUser!!.email
+    var user = FirebaseAuth.getInstance().currentUser!!.displayName
+
     @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        viewModelQuiz.checkHancking(email!!)
-
+//            viewModelQuiz.checkH.observe(viewLifecycleOwner){
+//            if (viewModelQuiz.checkH.value == null || viewModelQuiz.checkH.value == false){
+//                viewModelQuiz.addPontos(email!!, user!!,0, 0 )
+//            }
+//        }
+        intentPergunta = Intent(activity, PerguntaActivity::class.java)
         return inflater.inflate(R.layout.fragment_desafios, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+//
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -82,6 +97,7 @@ class DesafiosFragment : Fragment() {
         }
 
         trilhaQuiz.balao1.setOnClickListener {
+            intentPergunta.putExtra("trilha",1)
             val teste:Int = 2
             val msg: String
             if (teste == 1){
@@ -94,6 +110,8 @@ class DesafiosFragment : Fragment() {
         }
 
         trilhaQuiz.balao2.setOnClickListener {
+            intentPergunta.putExtra("trilha",2)
+
             val teste:Int = 2
             val msg: String
             if (teste == 1){
@@ -106,6 +124,7 @@ class DesafiosFragment : Fragment() {
         }
 
         trilhaQuiz.balao3.setOnClickListener {
+            intentPergunta.putExtra("trilha",3)
             val teste:Int = 2
             val msg: String
             if (teste == 1){
@@ -118,6 +137,7 @@ class DesafiosFragment : Fragment() {
         }
 
         trilhaQuiz.balao4.setOnClickListener {
+            intentPergunta.putExtra("trilha",4)
             val teste:Int = 2
             val msg: String
             if (teste == 1){
@@ -167,8 +187,10 @@ class DesafiosFragment : Fragment() {
     }
 
     val positiveButtonClick = { dialog: DialogInterface, which: Int ->
+        Log.i("PASSANDO TRILHA", trilha.toString())
         Toast.makeText(activity,"Good Lucky", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(activity, PerguntaActivity::class.java))
+        startActivity(intentPergunta)
+
     }
 
     val negativeButtonClick = { dialog: DialogInterface, which: Int ->

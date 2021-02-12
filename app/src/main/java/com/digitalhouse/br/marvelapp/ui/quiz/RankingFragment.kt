@@ -5,15 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.digitalhouse.br.marvelapp.R
-import com.digitalhouse.br.marvelapp.crPont
-import com.digitalhouse.br.marvelapp.crTri1
-import com.digitalhouse.br.marvelapp.ui.perfil.User
+import com.digitalhouse.br.marvelapp.*
 import com.digitalhouse.br.marvelapp.ui.perfil.UserAdapter
 import kotlinx.android.synthetic.main.fragment_ranking.*
 
@@ -25,7 +21,11 @@ class RankingFragment : Fragment(), UserAdapter.OnUserClickListener {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return QuizViewModel(
                         crTri1,
-                        crPont
+                        crTri2,
+                        crTri3,
+                        crTri4,
+                        crPontosTr,
+                        crHank
                 ) as T
             }
         }

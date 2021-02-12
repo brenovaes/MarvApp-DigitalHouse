@@ -63,7 +63,7 @@
     <string name="itTema">Change theme</string>
     <string name="itSair">Logout</string>
 
-<!--    Twitter-->
+    <!--    Twitter-->
     <string name="twitter_consumer_key">SpDaaJq0r43HOdyGyYHovBKmC</string>
     <string name="twitter_consumer_secret">WB6TkvCVCnVh6u96v4DFMy5mMu88dgH23ok8DIpWxkrIqhNgbS</string>
 
@@ -71,7 +71,7 @@
     <string name="facebook_app_id">262666635214713</string>
     <string name="fb_login_protocol_scheme">6e3848dcd8d8460ab78aab6f0e2298a2</string>
 
-<!--    Redefinir Senha-->
+    <!--    Redefinir Senha-->
     <string name="tv_textObs">If you proceed with this action and have registered through any social network, <b>know that your account will be disconnected from the social network </b>and the login will have to be done with the email and the new password defined.</string>
 
     <string name="tvLinkMarvel"><u>See more details on www.marvel.com</u></string>
