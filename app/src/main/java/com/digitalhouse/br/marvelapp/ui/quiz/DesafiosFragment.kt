@@ -121,7 +121,7 @@ class DesafiosFragment : Fragment() {
             intentPergunta.putExtra("trilha",1)
             val teste:Int = 2
             val msg: String
-            if (teste == 1){
+            if (lista[0] != null){
                 msg = trilhaQuiz.balao2.tvNomeBalao.toString()
                 alertBalaoConcluido(msg)
             }else{
@@ -135,7 +135,7 @@ class DesafiosFragment : Fragment() {
 
             val teste:Int = 2
             val msg: String
-            if (teste == 1){
+            if (lista[1] != null){
                 msg = trilhaQuiz.balao2.tvNomeBalao.toString()
                 alertBalaoConcluido(msg)
             }else{
@@ -148,7 +148,7 @@ class DesafiosFragment : Fragment() {
             intentPergunta.putExtra("trilha",3)
             val teste:Int = 2
             val msg: String
-            if (teste == 1){
+            if (lista[2] != null){
                 msg = trilhaQuiz.balao3.tvNomeBalao.toString()
                 alertBalaoConcluido(msg)
             }else{
@@ -161,7 +161,7 @@ class DesafiosFragment : Fragment() {
             intentPergunta.putExtra("trilha",4)
             val teste:Int = 2
             val msg: String
-            if (teste == 1){
+            if (lista[3] != null){
                 msg = trilhaQuiz.balao4.tvNomeBalao.toString()
                 alertBalaoConcluido(msg)
             }else{
