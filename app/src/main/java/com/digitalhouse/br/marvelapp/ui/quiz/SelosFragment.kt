@@ -95,6 +95,7 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
             Log.i("PONTOS TOTAL USER SELO", it.toString())
 
             if (it == 460) {
+
                 listSelo.forEach { selo ->
                     if (selo.nomeSelo == "Almost an Avenger") {
                         selo.imageResource = R.drawable.stamp_avengers_color
@@ -107,6 +108,7 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
         viewModelQuiz.checkHancking(email)
         viewModelQuiz.checkH.observe(this){
             if (it == true) {
+
                 listSelo.forEach {selo ->
                     if (selo.nomeSelo == "Knowledge Learner") {
                         selo.imageResource = R.drawable.stamp_x_school_color
@@ -118,6 +120,7 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
         viewModelQuiz.getPontosTrilhas()
         viewModelQuiz.pontosTrilha01.observe(this){
             if (it == 100){
+
                 listSelo.forEach {selo ->
                     if (selo.nomeSelo == "Marvel Apprentice") {
                         selo.imageResource = R.drawable.stamp_iron_heart_color
@@ -128,6 +131,7 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
 
         viewModelQuiz.pontosTrilha02.observe(this){
             if (it == 60){
+
                 listSelo.forEach {selo ->
                     if (selo.nomeSelo == "Knowledge Source") {
                         selo.imageResource = R.drawable.stamp_vision_color
@@ -138,6 +142,7 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
 
         viewModelQuiz.pontosTrilha03.observe(this){
             if (it == 160){
+
                 listSelo.forEach {selo ->
                     if (selo.nomeSelo == "Neighborhood Hero") {
                         selo.imageResource = R.drawable.stamp_spider_color
@@ -148,6 +153,7 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
 
         viewModelQuiz.pontosTrilha04.observe(this){
             if (it == 140){
+
                 listSelo.forEach {selo ->
                     if (selo.nomeSelo == "Horseman of Apocalypse") {
                         selo.imageResource = R.drawable.stamp_angel_color

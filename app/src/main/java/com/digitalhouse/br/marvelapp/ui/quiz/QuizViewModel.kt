@@ -36,6 +36,7 @@ class QuizViewModel(val crTri1: CollectionReference,
     var pontosTrilha02 = MutableLiveData<Int>()
     var pontosTrilha03 = MutableLiveData<Int>()
     var pontosTrilha04 = MutableLiveData<Int>()
+    var listaCheckSelo = MutableLiveData<Int>(0)
 
 
     var emaill = FirebaseAuth.getInstance().currentUser!!.email!!
@@ -213,7 +214,7 @@ class QuizViewModel(val crTri1: CollectionReference,
 
     }
 
-    fun getPontosTrilhas(){
+    fun getPontosTrilhas(): ArrayList<Int?> {
         crPontosTr.whereEqualTo("emailUser", emaill).whereEqualTo("username", namee).get().
         addOnSuccessListener { documents ->
             documents.forEach {
@@ -237,6 +238,28 @@ class QuizViewModel(val crTri1: CollectionReference,
 
             }
         }
+        return arrayListOf<Int?>(pontosTrilha01.value, pontosTrilha02.value, pontosTrilha03.value, pontosTrilha04.value)
+    }
+
+    fun checkTrilhas(): ArrayList<Boolean?> {
+        var listaPontos = getPontosTrilhas()
+        var lista2 = arrayListOf<Boolean?>()
+
+        listaPontos.forEach {
+            if (it != 0){
+                lista2.add(true)
+            }else{
+                lista2.add(null)
+            }
+        }
+        return lista2
+    }
+
+    fun checkSelo(selo: Int){
+        Log.i("CHECK SELO", "ENTROU")
+        listaCheckSelo.value = listaCheckSelo.value!! + 1
+        Log.i("CHECK SELO", "${listaCheckSelo.value}")
+
     }
 
 }

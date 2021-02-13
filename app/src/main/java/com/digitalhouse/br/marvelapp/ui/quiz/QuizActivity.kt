@@ -8,9 +8,12 @@ import android.view.Gravity
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
-import com.digitalhouse.br.marvelapp.MyPreferences
-import com.digitalhouse.br.marvelapp.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.digitalhouse.br.marvelapp.*
 import com.digitalhouse.br.marvelapp.ui.perfil.PerfilActivity
 import com.digitalhouse.br.marvelapp.ui.busca.BuscaActivity
 import com.digitalhouse.br.marvelapp.ui.favoritos.FavoritoActivity
@@ -27,6 +30,21 @@ import kotlinx.android.synthetic.main.toolbar_principal.*
 
 class QuizActivity : AppCompatActivity() {
 
+    val viewModelQuiz by viewModels<QuizViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return QuizViewModel(
+                        crTri1,
+                        crTri2,
+                        crTri3,
+                        crTri4,
+                        crPontosTr,
+                        crHank
+                ) as T
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
@@ -34,6 +52,8 @@ class QuizActivity : AppCompatActivity() {
         btnSetting.setOnClickListener {
             showPopup(btnSetting)
         }
+
+
 
         setUpTabs()
 

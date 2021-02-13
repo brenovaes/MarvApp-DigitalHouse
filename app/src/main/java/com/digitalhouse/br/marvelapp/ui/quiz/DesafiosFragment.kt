@@ -80,8 +80,13 @@ class DesafiosFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        var lista = viewModelQuiz.checkTrilhas()
+        inicializarBaloes(lista[0],lista[1], lista[2], lista[3])
+
+
+
         //inicialziar os balões
-        inicializarBaloes()
+//        inicializarBaloes()
 //        viewModelQuiz.updatePontuacao()
 
 //
@@ -90,27 +95,27 @@ class DesafiosFragment : Fragment() {
 //            viewModelQuiz.getPontuacao()
 //        }
 
-        viewModelQuiz.checkH.observe(viewLifecycleOwner){
-            if (it == true){
-                viewModelQuiz.pontuacao.observe(viewLifecycleOwner){
-                    trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
-                    trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
-                    trilhaQuiz.balao1.tvPontuacaoBalao.text = it.pontos.toString()
-                    trilhaQuiz.balao1.tvNumeroBalao.text = "1"
-                    trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
-
-                    infoQuiz.tvPontuacao.text = it.pontos.toString()
-                    infoQuiz.tvSelosConquistados.text = "1/6"
-                }
-
-            }else{
-                trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-                trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
-                trilhaQuiz.balao1.tvPontuacaoBalao.text = "0"
-                trilhaQuiz.balao1.tvNumeroBalao.text = "1"
-                trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
-            }
-        }
+//        viewModelQuiz.checkH.observe(viewLifecycleOwner){
+//            if (it == true){
+//                viewModelQuiz.pontuacao.observe(viewLifecycleOwner){
+//                    trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+//                    trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+//                    trilhaQuiz.balao1.tvPontuacaoBalao.text = it.pontos.toString()
+//                    trilhaQuiz.balao1.tvNumeroBalao.text = "1"
+//                    trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
+//
+//                    infoQuiz.tvPontuacao.text = it.pontos.toString()
+//                    infoQuiz.tvSelosConquistados.text = "1/6"
+//                }
+//
+//            }else{
+//                trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+//                trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+//                trilhaQuiz.balao1.tvPontuacaoBalao.text = "0"
+//                trilhaQuiz.balao1.tvNumeroBalao.text = "1"
+//                trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
+//            }
+//        }
 
         trilhaQuiz.balao1.setOnClickListener {
             intentPergunta.putExtra("trilha",1)
@@ -167,39 +172,110 @@ class DesafiosFragment : Fragment() {
 
     }
 
-    private fun inicializarBaloes() {
+    private fun inicializarBaloes(tri1: Boolean?, tri2: Boolean?, tri3: Boolean?, tri4: Boolean?) {
+        Log.i( "INICIALIZAR BALOES", tri1.toString() + tri2.toString() + tri3.toString() +tri4.toString())
+        viewModelQuiz.getPontosTrilhas()
+        var cSelos = 0
 
-        barraSeloQuiz.cvBarraSeloConquistado1.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-        barraSeloQuiz.cvBarraSeloConquistado2.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-        barraSeloQuiz.cvBarraSeloConquistado3.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-        barraSeloQuiz.cvBarraSeloConquistado4.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+        if (tri1 != null){
+            barraSeloQuiz.cvBarraSeloConquistado1.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+            viewModelQuiz.pontosTrilha01.observe(viewLifecycleOwner){
+                trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+                trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+                trilhaQuiz.balao1.tvPontuacaoBalao.text = it.toString()
 
-//        infoQuiz.tvPontuacao.text = "0"
-//        infoQuiz.tvSelosConquistados.text = "0/5"
+                if (it >= 100){
+                    viewModelQuiz.checkSelo(1)
+                }
+            }
+//                    infoQuiz.tvPontuacao.text = it.pontos.toString()
+//                    infoQuiz.tvSelosConquistados.text = "1/6"
+        }else{
+            barraSeloQuiz.cvBarraSeloConquistado1.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+            trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+            trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+            trilhaQuiz.balao1.tvPontuacaoBalao.text = "0"
 
-//        trilhaQuiz.balao1.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-//        trilhaQuiz.balao1.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
-//        trilhaQuiz.balao1.tvPontuacaoBalao.text = "0"
-//        trilhaQuiz.balao1.tvNumeroBalao.text = "1"
-//        trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
+        }
 
-        trilhaQuiz.balao2.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-        trilhaQuiz.balao2.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
-        trilhaQuiz.balao2.tvPontuacaoBalao.text = "0"
+        trilhaQuiz.balao1.tvNumeroBalao.text = "1"
+        trilhaQuiz.balao1.tvNomeBalao.text = "Marvel History"
+
+
+        if (tri2 != null){
+            barraSeloQuiz.cvBarraSeloConquistado2.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+            viewModelQuiz.pontosTrilha02.observe(viewLifecycleOwner) {
+                trilhaQuiz.balao2.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+                trilhaQuiz.balao2.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+                trilhaQuiz.balao2.tvPontuacaoBalao.text = it.toString()
+
+                if (it >= 60){
+                    viewModelQuiz.checkSelo(1)
+                }
+            }
+
+        }else{
+            barraSeloQuiz.cvBarraSeloConquistado2.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+            trilhaQuiz.balao2.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+            trilhaQuiz.balao2.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+            trilhaQuiz.balao2.tvPontuacaoBalao.text = "0"
+
+        }
+
         trilhaQuiz.balao2.tvNumeroBalao.text = "2"
         trilhaQuiz.balao2.tvNomeBalao.text = "Comics"
 
-        trilhaQuiz.balao3.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-        trilhaQuiz.balao3.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
-        trilhaQuiz.balao3.tvPontuacaoBalao.text = "0"
+        if (tri3 != null){
+            barraSeloQuiz.cvBarraSeloConquistado3.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+            viewModelQuiz.pontosTrilha03.observe(viewLifecycleOwner){
+                trilhaQuiz.balao3.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+                trilhaQuiz.balao3.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+                trilhaQuiz.balao3.tvPontuacaoBalao.text = it.toString()
+
+                if (it >= 160){
+                    viewModelQuiz.checkSelo(1)
+                }
+            }
+
+        }else{
+            barraSeloQuiz.cvBarraSeloConquistado3.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+            trilhaQuiz.balao3.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+            trilhaQuiz.balao3.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+            trilhaQuiz.balao3.tvPontuacaoBalao.text = "0"
+
+        }
+
         trilhaQuiz.balao3.tvNumeroBalao.text = "3"
         trilhaQuiz.balao3.tvNomeBalao.text = "Heroes"
 
-        trilhaQuiz.balao4.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
-        trilhaQuiz.balao4.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
-        trilhaQuiz.balao4.tvPontuacaoBalao.text = "0"
+        if (tri4 != null){
+            barraSeloQuiz.cvBarraSeloConquistado4.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+            viewModelQuiz.pontosTrilha04.observe(viewLifecycleOwner){
+                trilhaQuiz.balao4.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.destaqueVermelho))
+                trilhaQuiz.balao4.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+                trilhaQuiz.balao4.tvPontuacaoBalao.text = it.toString()
+
+                if (it >= 140){
+                    viewModelQuiz.checkSelo(1)
+                }
+            }
+
+        }else{
+            barraSeloQuiz.cvBarraSeloConquistado4.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+            trilhaQuiz.balao4.cvBalao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaClaro))
+            trilhaQuiz.balao4.cvPontuacao.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), color.cinzaEscuro))
+            trilhaQuiz.balao4.tvPontuacaoBalao.text = "0"
+        }
+
         trilhaQuiz.balao4.tvNumeroBalao.text = "4"
         trilhaQuiz.balao4.tvNomeBalao.text = "Villains"
+
+        viewModelQuiz.pontosTotalUser.observe(viewLifecycleOwner){
+            infoQuiz.tvPontuacao.text = it.toString()
+
+        }
+
+
     }
 
     val positiveButtonClick = { dialog: DialogInterface, which: Int ->

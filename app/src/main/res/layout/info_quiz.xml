@@ -14,72 +14,73 @@
         android:layout_marginEnd="43dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vBarraVertical"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357"
+        app:layout_constraintVertical_bias="0.36"
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="85dp"
             android:layout_marginTop="30dp"
+            android:gravity="center"
             android:text="Score"
             android:textColor="?attr/colorOnPrimary"
-            android:textSize="13sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvPontuacao"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
             android:textColor="?attr/colorAccent"
             android:textSize="30sp" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/vBarraVertical"
-        android:layout_width="1dp"
-        android:layout_height="110dp"
-        android:background="?attr/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357"
-        tools:ignore="MissingConstraints" />
+    <!--    <View-->
+<!--        android:id="@+id/vBarraVertical"-->
+<!--        android:layout_width="1dp"-->
+<!--        android:layout_height="110dp"-->
+<!--        android:background="?attr/colorAccent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.357"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
-    <LinearLayout
-        android:id="@+id/llConquista"
-        android:layout_width="200dp"
-        android:layout_height="110dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/vBarraVertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357"
-        tools:ignore="MissingConstraints">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/llConquista"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="110dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="@id/vBarraVertical"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.357"-->
+<!--        tools:ignore="MissingConstraints">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp"
-            android:text="Conquered Stamps"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="13sp" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="40dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="Conquered Stamps"-->
+<!--            android:textColor="?attr/colorOnPrimary"-->
+<!--            android:textSize="13sp" />-->
 
-        <TextView
-            android:id="@+id/tvSelosConquistados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:textColor="?attr/colorAccent"
-            android:textSize="30sp" />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/tvSelosConquistados"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="70dp"-->
+<!--            android:textColor="?attr/colorAccent"-->
+<!--            android:textSize="30sp" />-->
+<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

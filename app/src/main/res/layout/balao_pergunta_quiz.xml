@@ -11,7 +11,7 @@
         android:id="@+id/cvBalao"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:cardBackgroundColor="?attr/colorAccent"
+        app:cardBackgroundColor="@color/cinzaClaro"
         app:cardCornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="55dp"
-        app:cardBackgroundColor="?attr/colorSecondaryVariant"
+        app:cardBackgroundColor="@color/cinzaEscuro"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/cvBalao"
         app:layout_constraintStart_toStartOf="@+id/cvBalao">
