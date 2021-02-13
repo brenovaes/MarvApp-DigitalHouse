@@ -62,13 +62,6 @@ class HomeActivity : AppCompatActivity(),
     var listSuggestions = arrayListOf<Suggestions>()
 
 
-    //    var listPopulares: ArrayList<EntesMarvel> = getPopular()
-//    var adapterPopular = PopularAdapter(listPopulares, this)
-//    //modigicar funcao de pegar tamanho sugestões
-
-//    //modigicar funcao de pegar tamanho do historico
-
-
     val viewModelHome by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -115,37 +108,7 @@ class HomeActivity : AppCompatActivity(),
         var context: Context = this
         viewModelHome.getAllH()
         viewModelHome.getHDayDB()
-
-
-        //HERO DAY LOCAL
-//        viewModelHome.retornoHeroDB.observe(this) {
-//            when (it) {
-//                true -> {
-//                    viewModelHome.getCharacter()
-//                }
-//                false -> {
-//                    viewModelHome.retornodataHSaved.observe(this) {
-//
-//                        when (viewModelHome.compareDate(LocalDate.now(), it)) {
-//                            true -> {
-//                                viewModelHome.characterSaved.observe(this) {
-//                                    infoHeroDay(it)
-//                                }
-//                            }
-//                            false -> {
-//                                Log.i("Home", "DATA n é igual")
-//                                viewModelHome.delHero()
-//                                viewModelHome.getCharacter()
-//
-//                            }
-//                        }
-//
-//                    }
-//                }
-//
-//            }
-//
-//        }
+        infoHeroDay()
 
         viewModelHome.checkHeroDayF()
         viewModelHome.docHeroDay.observe(this) {
@@ -155,103 +118,131 @@ class HomeActivity : AppCompatActivity(),
                     viewModelHome.infoHeroD.observe(this) { hero ->
                         viewModelHome.addHeroDayF(hero)
                         viewModelHome.delHeroDB()
-                        infoHeroDay(hero, null)
                     }
                 }
                 false -> {
-                    //maior muda
-//                    menor pega do firebase
 
                     viewModelHome.getHeroDayF()
-                    viewModelHome.retornoHeroDaySavedF.observe(this) { heroFirebase ->
+                    viewModelHome.retornoHeroDaySavedF.observe(this) { heroDayFirebaseRetorno ->
 
-                        viewModelHome.retornoHeroDB.observe(this) {
-                            if (it == true) {
-                                if (viewModelHome.transDate(heroFirebase.dateT)!! < LocalDate.now()) {
-                                    viewModelHome.getCharacter()
-                                    viewModelHome.infoHeroD.observe(this) { hero ->
-                                        viewModelHome.addHeroDayF(hero)
-                                        viewModelHome.addHeroDB(
-                                            hero.idCharacter,
-                                            hero.name,
-                                            hero.extension,
-                                            hero.path,
-                                            hero.comics,
-                                            hero.series,
-                                            hero.stories,
-                                            hero.dateT
+                        viewModelHome.retornoHeroDB.observe(this) {retornoHeroDB ->
+                            when (retornoHeroDB) {
+
+                                true -> {
+                                    var diaHeroF =
+                                            viewModelHome.transDate(heroDayFirebaseRetorno.dateT)
+                                    if (diaHeroF!! < LocalDate.now()) {
+                                        Log.i(
+                                                "VER DB VAZIO Datas são dif firebase menor",
+                                                diaHeroF.toString() + " .." + LocalDate.now().toString()
                                         )
-                                    }
-                                } else {
-                                    viewModelHome.retornoHeroDaySavedF.observe(this) { hero ->
+                                        viewModelHome.getCharacter()
+                                        viewModelHome.infoHeroD.observe(this) { hero ->
+                                            viewModelHome.addHeroDayF(hero)
+                                            viewModelHome.addHeroDB(
+                                                    heroDayFirebaseRetorno.idCharacter,
+                                                    heroDayFirebaseRetorno.name,
+                                                    heroDayFirebaseRetorno.extension,
+                                                    heroDayFirebaseRetorno.path,
+                                                    heroDayFirebaseRetorno.comics,
+                                                    heroDayFirebaseRetorno.series,
+                                                    heroDayFirebaseRetorno.stories,
+                                                    heroDayFirebaseRetorno.dateT
+                                            )
+                                        }
+                                    } else {
+                                        Log.i(
+                                                "VER DB VAZIO Datas são dif firebase maior",
+                                                diaHeroF.toString() + " .." + LocalDate.now().toString()
+                                        )
 
                                         viewModelHome.addHeroDB(
-                                            hero.idCharacter,
-                                            hero.name,
-                                            hero.extension,
-                                            hero.path,
-                                            hero.comics,
-                                            hero.series,
-                                            hero.stories,
-                                            hero.dateT
+                                                heroDayFirebaseRetorno.idCharacter,
+                                                heroDayFirebaseRetorno.name,
+                                                heroDayFirebaseRetorno.extension,
+                                                heroDayFirebaseRetorno.path,
+                                                heroDayFirebaseRetorno.comics,
+                                                heroDayFirebaseRetorno.series,
+                                                heroDayFirebaseRetorno.stories,
+                                                heroDayFirebaseRetorno.dateT
                                         )
+
                                     }
+
                                 }
-
                             }
                         }
-                        if (heroFirebase.dateT != null && viewModelHome.retornodataHeroDB.value != null) {
-                            var dateFirebase = viewModelHome.transDate(heroFirebase.dateT)
-                            var dateDB = viewModelHome.transDate(viewModelHome.retornodataHeroDB.value )
+                        if (heroDayFirebaseRetorno.dateT != null && viewModelHome.retornodataHeroDB.value != null) {
+                            var dateFirebase = viewModelHome.transDate(heroDayFirebaseRetorno.dateT!!)
+                            var dateDB = viewModelHome.transDate(viewModelHome.retornodataHeroDB.value)
+
+                            var heroiDBL = viewModelHome.characterSavedDB.value!!
                             if (dateFirebase != dateDB) {
+                                Log.i(
+                                        "VER tudo preenchido Datas são dif ",
+                                        "f $dateFirebase, db $dateDB"
+                                )
 
-                                //se a data do firebase é menor = true
-//                            pega do firebase e joga no db
-//                                se é menor então faz tudo de nv
 
-//                            firebase é menor então chama tudo e atualiza fb e db
                                 viewModelHome.getHeroDayF()
                                 if (viewModelHome.compareDateHeroD(
-                                        heroFirebase.dateT,
-                                        viewModelHome.retornodataHeroDB.value!!
-                                    )
+                                                heroDayFirebaseRetorno.dateT,
+                                                viewModelHome.retornodataHeroDB.value!!
+                                        )
                                 ) {
+                                    Log.i("VER preenchido Datas são dif firebase menor", "Q")
+
                                     viewModelHome.getCharacter()
                                     viewModelHome.infoHeroD.observe(this) { hero ->
                                         viewModelHome.updateHeroDayF(hero)
                                         viewModelHome.delHeroDB()
                                         viewModelHome.addHeroDB(
-                                            hero.idCharacter,
-                                            hero.name,
-                                            hero.extension,
-                                            hero.path,
-                                            hero.comics,
-                                            hero.series,
-                                            hero.stories,
-                                            hero.dateT
+                                                heroDayFirebaseRetorno.idCharacter,
+                                                heroDayFirebaseRetorno.name,
+                                                heroDayFirebaseRetorno.extension,
+                                                heroDayFirebaseRetorno.path,
+                                                heroDayFirebaseRetorno.comics,
+                                                heroDayFirebaseRetorno.series,
+                                                heroDayFirebaseRetorno.stories,
+                                                heroDayFirebaseRetorno.dateT
                                         )
-                                        infoHeroDay(hero, null)
                                     }
 
                                 } else {
-                                    viewModelHome.retornoHeroDaySavedF.observe(this) {
-                                        viewModelHome.delHeroDB()
-                                        viewModelHome.addHeroDB(
-                                            it.idCharacter,
-                                            it.name,
-                                            it.extension,
-                                            it.path,
-                                            it.comics,
-                                            it.series,
-                                            it.stories,
-                                            it.dateT
-                                        )
-                                        infoHeroDay(heroFirebase, null)
-                                    }
+                                    Log.i("VER preenchido Datas são dif firebase maior ==", "Q")
+                                    viewModelHome.delHeroDB()
+                                    viewModelHome.addHeroDB(
+                                            heroDayFirebaseRetorno.idCharacter,
+                                            heroDayFirebaseRetorno.name,
+                                            heroDayFirebaseRetorno.extension,
+                                            heroDayFirebaseRetorno.path,
+                                            heroDayFirebaseRetorno.comics,
+                                            heroDayFirebaseRetorno.series,
+                                            heroDayFirebaseRetorno.stories,
+                                            heroDayFirebaseRetorno.dateT
+                                    )
+
                                 }
-                            } else {
-                                viewModelHome.characterSavedDB.observe(this) { hero ->
-                                    infoHeroDay(null, hero)
+                            } else if (dateFirebase == LocalDate.now()) {
+                                Log.i("VER preenchido Datas são iguais ate com agr", "Q")
+
+                            } else if (dateFirebase!! < LocalDate.now()) {
+                                Log.i("VER preenchido Datas são iguais fire menor q agr", "Q")
+
+                                viewModelHome.getCharacter()
+                                viewModelHome.infoHeroD.observe(this) { hero ->
+                                    viewModelHome.updateHeroDayF(hero)
+                                    viewModelHome.delHeroDB()
+                                    viewModelHome.addHeroDB(
+                                            heroDayFirebaseRetorno.idCharacter,
+                                            heroDayFirebaseRetorno.name,
+                                            heroDayFirebaseRetorno.extension,
+                                            heroDayFirebaseRetorno.path,
+                                            heroDayFirebaseRetorno.comics,
+                                            heroDayFirebaseRetorno.series,
+                                            heroDayFirebaseRetorno.stories,
+                                            heroDayFirebaseRetorno.dateT
+                                    )
                                 }
                             }
                         }
@@ -265,7 +256,7 @@ class HomeActivity : AppCompatActivity(),
 
 
         cvHeroiDoDia.setOnClickListener {
-            viewModelHome.retornoHeroDaySavedF.observe(this) {
+            viewModelHome.characterSavedDB.observe(this) {
                 detalheHeroDay(it.idCharacter)
             }
 
@@ -419,44 +410,19 @@ class HomeActivity : AppCompatActivity(),
         db = AppDataBase.invoke(this)
     }
 
-    fun infoHeroDay(heroDayF: HeroDay?, heroDayDb: Characters?) {
+    fun infoHeroDay() {
 
-        if (heroDayDb != null) {
-            var heroDay = heroDayDb
+        viewModelHome.characterSavedDB.observe(this){heroDay ->
+            if (heroDay != null){
+                var img = heroDay.path + "/portrait_small" + "." + heroDay.extension
+                Picasso.get().load(img).fit().into(ivHeroiDoDia)
+                tvNomeHeroiDoDia.text = heroDay.name
+                tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
+                tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
+                tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
+            }
 
-            Log.i("HERODAY", heroDay.dateT.toString() )
-            var img = heroDay.path + "." + heroDay.extension
-
-
-            Picasso.get().load(img).fit().into(ivHeroiDoDia)
-            tvNomeHeroiDoDia.text = heroDay.name
-            tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
-            tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
-            tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
-
-        } else if (heroDayF != null) {
-
-
-            var heroDay = heroDayF
-
-            Log.i("HERODAY", heroDay.dateT.toString() )
-            var img = heroDay.path + "." + heroDay.extension
-
-
-            Picasso.get().load(img).fit().into(ivHeroiDoDia)
-            tvNomeHeroiDoDia.text = heroDay.name
-            tvComHeroiDoDia.text = "Comics: " + heroDay.comics?.toString()
-            tvSerHeroiDoDia.text = "Series: " + heroDay.series?.toString()
-            tvStoHeroiDoDia.text = "Stories: " + heroDay.stories?.toString()
         }
-
-
-        val c = Calendar.getInstance()
-
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        Log.i("calender", "$day /$month /$year")
 
     }
 
