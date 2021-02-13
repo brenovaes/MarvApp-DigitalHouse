@@ -18,6 +18,8 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
     var listSelo =  arrayListOf<Selo>()
     lateinit var adapter: SeloAdapter
 
+    var email = FirebaseAuth.getInstance().currentUser!!.email!!
+
     val viewModelQuiz by viewModels<QuizViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -88,12 +90,68 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
          listSelo = getListaSelo()
 
 
-        viewModelQuiz.updatePontuacao()
-        Log.i("PONTOS TOTAL USER SELO", viewModelQuiz.pontosTotalUser.value.toString())
-        if (viewModelQuiz.pontosTotalUser.value == 460) {
-            listSelo.forEach { selo ->
-                if (selo.nomeSelo == "Almost an Avenger") {
-                    selo.imageResource = R.drawable.stamp_avengers_color
+        viewModelQuiz.somaPontos()
+        viewModelQuiz.pontosTotalUser.observe(this){
+            Log.i("PONTOS TOTAL USER SELO", it.toString())
+
+            if (it == 460) {
+                listSelo.forEach { selo ->
+                    if (selo.nomeSelo == "Almost an Avenger") {
+                        selo.imageResource = R.drawable.stamp_avengers_color
+                    }
+                }
+            }
+        }
+
+
+        viewModelQuiz.checkHancking(email)
+        viewModelQuiz.checkH.observe(this){
+            if (it == true) {
+                listSelo.forEach {selo ->
+                    if (selo.nomeSelo == "Knowledge Learner") {
+                        selo.imageResource = R.drawable.stamp_x_school_color
+                    }
+                }
+            }
+        }
+
+        viewModelQuiz.getPontosTrilhas()
+        viewModelQuiz.pontosTrilha01.observe(this){
+            if (it == 100){
+                listSelo.forEach {selo ->
+                    if (selo.nomeSelo == "Marvel Apprentice") {
+                        selo.imageResource = R.drawable.stamp_iron_heart_color
+                    }
+                }
+            }
+        }
+
+        viewModelQuiz.pontosTrilha02.observe(this){
+            if (it == 60){
+                listSelo.forEach {selo ->
+                    if (selo.nomeSelo == "Knowledge Source") {
+                        selo.imageResource = R.drawable.stamp_vision_color
+                    }
+                }
+            }
+        }
+
+        viewModelQuiz.pontosTrilha03.observe(this){
+            if (it == 160){
+                listSelo.forEach {selo ->
+                    if (selo.nomeSelo == "Neighborhood Hero") {
+                        selo.imageResource = R.drawable.stamp_spider_color
+                    }
+                }
+            }
+        }
+
+        viewModelQuiz.pontosTrilha04.observe(this){
+            if (it == 140){
+                listSelo.forEach {selo ->
+                    if (selo.nomeSelo == "Horseman of Apocalypse") {
+                        selo.imageResource = R.drawable.stamp_angel_color
+                    }
                 }
             }
         }
