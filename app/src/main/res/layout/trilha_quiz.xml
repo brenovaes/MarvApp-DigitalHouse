@@ -37,15 +37,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:layout_marginLeft="80dp"
         android:orientation="horizontal">
 
         <include
             android:id="@+id/balao4"
             layout="@layout/balao_pergunta_quiz"
-            android:layout_marginLeft="105dp"
             android:layout_width="70dp"
             android:layout_height="wrap_content" />
-
 
         <include
             android:id="@+id/balao3"
@@ -53,10 +52,6 @@
             android:layout_marginLeft="100dp"
             android:layout_width="70dp"
             android:layout_height="wrap_content" />
-
-
-
-
     </LinearLayout>
 
 </LinearLayout>

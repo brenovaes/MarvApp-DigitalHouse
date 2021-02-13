@@ -30,6 +30,7 @@
         Customize your theme here.
 
         <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
+        <item name="imagelg">@drawable/marvapp_light</item>
         <item name="android:contextPopupMenuStyle">
             @style/Widget.MaterialComponents.PopupMenu.ContextMenu
         </item>

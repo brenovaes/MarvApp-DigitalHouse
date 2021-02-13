@@ -53,12 +53,12 @@ class AlternativaSelecionadaActivity : AppCompatActivity() {
 
 
         if(retorno){
-            tvRetornoRespostaTitulo.text = "CORRETO"
+            tvRetornoRespostaTitulo.text = "CORRECT"
             tvRetornoRespostaTexto.text = "You are getting closer and closer to earning a Stamp"
             ivRetornoResposta.setImageResource(R.drawable.ic_correto)
             intent.putExtra("pontos", pontos+20)
         }else{
-            tvRetornoRespostaTitulo.text = "INCORRETO"
+            tvRetornoRespostaTitulo.text = "INCORRECT"
             tvRetornoRespostaTexto.text = "Maybe you need to read more about the Marvel universe"
             ivRetornoResposta.setImageResource(R.drawable.ic_errado)
             intent.putExtra("pontos", pontos)
