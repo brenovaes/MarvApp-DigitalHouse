@@ -31,6 +31,13 @@ class QuizViewModel(val crTri1: CollectionReference,
     var pontosUser = MutableLiveData<Int>(0)
     var pontosTotalUser = MutableLiveData<Int>(0)
 
+
+    var pontosTrilha01 = MutableLiveData<Int>()
+    var pontosTrilha02 = MutableLiveData<Int>()
+    var pontosTrilha03 = MutableLiveData<Int>()
+    var pontosTrilha04 = MutableLiveData<Int>()
+
+
     var emaill = FirebaseAuth.getInstance().currentUser!!.email!!
     var namee = FirebaseAuth.getInstance().currentUser!!.displayName!!
 
@@ -201,18 +208,35 @@ class QuizViewModel(val crTri1: CollectionReference,
 
             }
         }
-//            return pontosTotalUser.value
             Log.i("SOMA1 ", pontosTotalUser.value.toString())
-//            Log.i("SOMA2 ", pontosTrilhas.ptrilha2.toString())
-//        if (pontosUser.value?.ptrilha2 != null)
-//            pontosTotalUser.value = pontosTotalUser.value?.plus(pontosUser.value!!.ptrilha2)
-//
-//        if (pontosUser.value?.ptrilha3 != null)
-//            pontosTotalUser.value = pontosTotalUser.value?.plus(pontosUser.value!!.ptrilha3)
-//
-//        if (pontosUser.value?.ptrilha4 != null)
-//            pontosTotalUser.value = pontosTotalUser.value?.plus(pontosUser.value!!.ptrilha4)
 
+
+    }
+
+    fun getPontosTrilhas(){
+        crPontosTr.whereEqualTo("emailUser", emaill).whereEqualTo("username", namee).get().
+        addOnSuccessListener { documents ->
+            documents.forEach {
+                var pontosTrilhas = (it.toObject(PontosTrilhas::class.java))
+
+                if ( pontosTrilhas.ptrilha1 != null){
+                    pontosTrilha01.value = pontosTrilhas.ptrilha1!!
+
+                }
+                if ( pontosTrilhas.ptrilha2 != null){
+                    pontosTrilha02.value = pontosTrilhas.ptrilha2!!
+                }
+                if ( pontosTrilhas.ptrilha3 != null){
+                    pontosTrilha03.value = pontosTrilhas.ptrilha3!!
+
+                }
+                if ( pontosTrilhas.ptrilha4 != null){
+                    pontosTrilha04.value = pontosTrilhas.ptrilha4!!
+
+                }
+
+            }
+        }
     }
 
 }
