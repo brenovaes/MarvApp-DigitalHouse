@@ -246,7 +246,7 @@ class QuizViewModel(val crTri1: CollectionReference,
         var lista2 = arrayListOf<Boolean?>()
 
         listaPontos.forEach {
-            if (it != 0){
+            if (it != null && it > 0){
                 lista2.add(true)
             }else{
                 lista2.add(null)

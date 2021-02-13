@@ -252,9 +252,9 @@ class PerguntaActivity : AppCompatActivity() {
 ////            }
 //        }
 
-//        btnDesistir.setOnClickListener{
-//            alertDialogDesistir()
-//        }
+        btnDesistir.setOnClickListener{
+            alertDialogDesistir()
+        }
 
     }
 

@@ -109,12 +109,12 @@ class DetalheHqActivity :
             }
 
             //sem valor pois a função n está sendo chamada
-            viewModelComics.retornoComicsSeries.observe(this) {
-                tvQtdSeriesHq.text = it.data.total.toString()
-                adapterSeries = SeriesComicsAdapter(it.data.results, this)
-                rvSeriesHq.adapter = adapterSeries
-
-            }
+//            viewModelComics.retornoComicsSeries.observe(this) {
+//                tvQtdSeriesHq.text = it.data.total.toString()
+//                adapterSeries = SeriesComicsAdapter(it.data.results, this)
+//                rvSeriesHq.adapter = adapterSeries
+//
+//            }
 
             viewModelComics.retornoComicsEvents.observe(this) {
                 tvQtdEventosHq.text = it.data.total.toString()
@@ -146,8 +146,8 @@ class DetalheHqActivity :
         rvHistoriasHq.setHasFixedSize(true)
 
 
-        rvSeriesHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
-        rvSeriesHq.setHasFixedSize(true)
+//        rvSeriesHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
+//        rvSeriesHq.setHasFixedSize(true)
 
 
         rvEventosHq.layoutManager = LinearLayoutManager(this, HORIZONTAL,false)
