@@ -56,7 +56,7 @@ class CreatorsViewModel(
                 var nome = retornoCreator.value!!.data.results[0].fullName
                 var path = retornoCreator.value!!.data.results[0].thumbnail.path
                 var extension = retornoCreator.value!!.data.results[0].thumbnail.extension
-                var tipo = "Creator"
+                var tipo = "creator"
                 populateCreatorHistory(HistoryDB(id, nome, extension, path, tipo))
 
                 Log.i("getCreator", retornoCreator.value.toString())
@@ -137,7 +137,7 @@ class CreatorsViewModel(
     fun getResCreatorComics(listComics:ArrayList<ResultsCo>) {
         if (listComics.isNotEmpty()) {
             var comic = listComics.random()
-            var suggestion = Suggestions(comic.id, comic.title, comic.thumbnail.extension, comic.thumbnail.path, "Comics")
+            var suggestion = Suggestions(comic.id, comic.title, comic.thumbnail.extension, comic.thumbnail.path, "comics")
             populateSuggestions(suggestion)
         }
     }
