@@ -26,6 +26,8 @@ import kotlinx.android.synthetic.main.fragment_desafios.infoQuiz
 import kotlinx.android.synthetic.main.fragment_desafios.trilhaQuiz
 import kotlinx.android.synthetic.main.info_quiz.view.*
 import kotlinx.android.synthetic.main.trilha_quiz.view.*
+import kotlinx.coroutines.*
+import okhttp3.Dispatcher
 
 
 class DesafiosFragment : Fragment() {
@@ -49,31 +51,45 @@ class DesafiosFragment : Fragment() {
     var trilha = 0
     var email = FirebaseAuth.getInstance().currentUser!!.email
     var user = FirebaseAuth.getInstance().currentUser!!.displayName
+    var startFrag = false
 
     @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-//            viewModelQuiz.checkH.observe(viewLifecycleOwner){
-//            if (viewModelQuiz.checkH.value == null || viewModelQuiz.checkH.value == false){
-//                viewModelQuiz.addPontos(email!!, user!!,0, 0 )
-//            }
+//        if(!startFrag){
+//            startFrag = true
+//            viewModelQuiz.getPontuacao()
 //        }
+
         intentPergunta = Intent(activity, PerguntaActivity::class.java)
         return inflater.inflate(R.layout.fragment_desafios, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(10)
+                viewModelQuiz.getPontuacao()
 
-//
+            }
+
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         //inicialziar os balões
         inicializarBaloes()
-//        viewModelQuiz.getPontuacao(email!!)
+//        viewModelQuiz.updatePontuacao()
+
+//
+//        if(!startFrag){
+//            startFrag = true
+//            viewModelQuiz.getPontuacao()
+//        }
+
         viewModelQuiz.checkH.observe(viewLifecycleOwner){
             if (it == true){
                 viewModelQuiz.pontuacao.observe(viewLifecycleOwner){

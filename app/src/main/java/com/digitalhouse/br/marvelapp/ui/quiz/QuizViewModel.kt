@@ -28,6 +28,9 @@ class QuizViewModel(val crTri1: CollectionReference,
     var pontuacao = MutableLiveData<Pontuacao>()
     var pontuacaoRanking = MutableLiveData<ArrayList<Pontuacao>>()
 
+    var pontosUser = MutableLiveData<Int>(0)
+    var pontosTotalUser = MutableLiveData<Int>(0)
+
     var emaill = FirebaseAuth.getInstance().currentUser!!.email!!
     var namee = FirebaseAuth.getInstance().currentUser!!.displayName!!
 
@@ -72,15 +75,17 @@ class QuizViewModel(val crTri1: CollectionReference,
         viewModelScope.launch {
             Log.i("CHECK H CHAMOU FORA", checkH.value.toString())
 
-            crPontosTr.whereEqualTo("emailUser", userEmail).whereEqualTo("username", "Thalita Neri").get().addOnSuccessListener  { documents ->
+            crPontosTr.whereEqualTo("emailUser", userEmail).whereEqualTo("username", namee).get().addOnSuccessListener  { documents ->
                 Log.i("CHECK USER", userEmail)
 
                 if (!documents.isEmpty){
                     checkH.value = true
                     Log.i("CHECK H TRUE FINAL DENTRO", checkH.value.toString())
+
                 }else{
 
                     addPontos(emaill, namee, 0,0)
+                    addPontuacao()
                 }
             }
 
@@ -115,7 +120,8 @@ class QuizViewModel(val crTri1: CollectionReference,
             var fieldName = "ptrilha${trilha}"
             Log.i("UPDATE NAMEField", "$fieldName")
 
-            crPontosTr.whereEqualTo("emailUser", userEmail).whereEqualTo("username", "Thalita Neri").get().addOnSuccessListener { documents ->
+            crPontosTr.whereEqualTo("emailUser", userEmail).whereEqualTo("username", namee).get().
+            addOnSuccessListener { documents ->
 
 //        crPontosTr.whereArrayContains("emailUser", userEmail).get().addOnSuccessListener { documents ->
 //        crPontosTr.whereEqualTo("emailUser", userEmail).get().addOnSuccessListener { documents ->
@@ -123,17 +129,21 @@ class QuizViewModel(val crTri1: CollectionReference,
                     it.reference.update(
                             "$fieldName", pontos
                     )
+
+//                    somaPontos(it.toObject(PontosTrilhas::class.java))
                 }
             }
-        }
 
+         updatePontuacao()
+        }
 
     }
 
     fun getPontuacao() {
         var lista = arrayListOf<Pontuacao>()
+        updatePontuacao()
 
-        crPontosTr.orderBy("pontos", Query.Direction.DESCENDING).get().addOnSuccessListener {
+        crHank.orderBy("pontos", Query.Direction.DESCENDING).get().addOnSuccessListener {
             it.forEach {
                 var pessoa = it.toObject(Pontuacao::class.java)
                 lista.add(pessoa)
@@ -142,6 +152,66 @@ class QuizViewModel(val crTri1: CollectionReference,
             pontuacaoRanking.value = lista
 
         }
+
+    }
+
+    fun addPontuacao() {
+
+        crHank.document().set(Pontuacao(emaill,0, namee))
+    }
+
+    fun updatePontuacao(){
+        somaPontos()
+        crHank.whereEqualTo("userEmail", emaill).whereEqualTo("username", namee).get().addOnSuccessListener { documents ->
+            documents.forEach { documentsPont ->
+                documentsPont.reference.update(
+                        "pontos", pontosTotalUser.value
+                )
+                Log.i("UPDATE PONTUACAO FOREACH doc", pontosTotalUser.value.toString())
+
+            }
+        }
+
+
+    }
+
+    fun somaPontos(){
+
+        crPontosTr.whereEqualTo("emailUser", emaill).whereEqualTo("username", namee).get().
+        addOnSuccessListener { documents ->
+            documents.forEach {
+                var pontosTrilhas = (it.toObject(PontosTrilhas::class.java))
+
+                if ( pontosTrilhas.ptrilha1 != null){
+                    pontosTotalUser.value = pontosTotalUser.value!! + pontosTrilhas.ptrilha1!!
+
+                }
+                if ( pontosTrilhas.ptrilha2 != null){
+                    pontosTotalUser.value = pontosTotalUser.value!! + pontosTrilhas.ptrilha2!!
+
+                }
+                if ( pontosTrilhas.ptrilha3 != null){
+                    pontosTotalUser.value = pontosTotalUser.value!! + pontosTrilhas.ptrilha3!!
+
+                }
+                if ( pontosTrilhas.ptrilha4 != null){
+                    pontosTotalUser.value = pontosTotalUser.value!! + pontosTrilhas.ptrilha4!!
+
+                }
+
+            }
+        }
+//            return pontosTotalUser.value
+            Log.i("SOMA1 ", pontosTotalUser.value.toString())
+//            Log.i("SOMA2 ", pontosTrilhas.ptrilha2.toString())
+//        if (pontosUser.value?.ptrilha2 != null)
+//            pontosTotalUser.value = pontosTotalUser.value?.plus(pontosUser.value!!.ptrilha2)
+//
+//        if (pontosUser.value?.ptrilha3 != null)
+//            pontosTotalUser.value = pontosTotalUser.value?.plus(pontosUser.value!!.ptrilha3)
+//
+//        if (pontosUser.value?.ptrilha4 != null)
+//            pontosTotalUser.value = pontosTotalUser.value?.plus(pontosUser.value!!.ptrilha4)
 
     }
 

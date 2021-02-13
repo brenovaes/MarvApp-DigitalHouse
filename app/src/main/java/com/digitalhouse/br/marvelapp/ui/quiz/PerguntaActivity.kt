@@ -86,7 +86,7 @@ class PerguntaActivity : AppCompatActivity() {
 //        var trilha = intent.getIntExtra("trilha", 1)
 
         Log.i("TRILHA:", trilha.toString())
-
+        viewModelQuiz.somaPontos()
         when(trilha){
 
             1 -> {
@@ -100,6 +100,7 @@ class PerguntaActivity : AppCompatActivity() {
                             Log.i("UPDATE:", trilha.toString())
 
                             viewModelQuiz.update(email, pontos, trilha)
+
                         } else if (viewModelQuiz.checkH.value == null && viewModelQuiz.checkH.value != true) {
                             Log.i("ADD:", trilha.toString())
 
@@ -130,6 +131,7 @@ class PerguntaActivity : AppCompatActivity() {
                     viewModelQuiz.checkH.observe(this){
                         if (viewModelQuiz.checkH.value == true) {
                             viewModelQuiz.update(email, pontos, trilha)
+
                         } else if (viewModelQuiz.checkH.value == null && viewModelQuiz.checkH.value != true) {
                             viewModelQuiz.addPontos(email, name, trilha, pontos)
                             viewModelQuiz.checkH.value = true
