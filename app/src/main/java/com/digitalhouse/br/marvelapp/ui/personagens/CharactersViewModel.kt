@@ -53,7 +53,7 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
                 var nome = retornoCharacter.value!!.data.results[0].name
                 var path = retornoCharacter.value!!.data.results[0].thumbnail.path
                 var extension = retornoCharacter.value!!.data.results[0].thumbnail.extension
-                var tipo = "Character"
+                var tipo = "character"
                 populateCharactersHistory(HistoryDB(id, nome, extension, path, tipo))
 
 //                Log.i("getCreator", retornoCreator.value.toString())
@@ -127,7 +127,7 @@ class CharactersViewModel(val serviceCharacters: RepositoryCharacters,
     fun getResCharacterComics(listComics: ArrayList<ResultsCo>){
         if (listComics.isNotEmpty()) {
             var comic = listComics.random()
-            var suggestion = Suggestions(comic.id, comic.title, comic.thumbnail.extension, comic.thumbnail.path, "Comics")
+            var suggestion = Suggestions(comic.id, comic.title, comic.thumbnail.extension, comic.thumbnail.path, "comics")
             populateSuggestions(suggestion)
         }
     }

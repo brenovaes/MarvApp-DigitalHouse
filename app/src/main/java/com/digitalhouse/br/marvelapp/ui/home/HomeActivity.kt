@@ -321,17 +321,17 @@ class HomeActivity : AppCompatActivity(),
         var historyType = viewModelHome.retornoHistory.value!![position].type
         var historyId = viewModelHome.retornoHistory.value!![position].id
         when (historyType) {
-            "Comics" -> {
+            "comics" -> {
                 var intent = Intent(this, DetalheHqActivity::class.java)
                 intent.putExtra("idCo", historyId)
                 startActivity(intent)
             }
-            "Creator" -> {
+            "creator" -> {
                 var intent = Intent(this, DetalheCriadorActivity::class.java)
                 intent.putExtra("id", historyId)
                 startActivity(intent)
             }
-            "Character" -> {
+            "character" -> {
                 var intent = Intent(this, DetalhePersonagemActivity::class.java)
                 intent.putExtra("idCh", historyId)
                 startActivity(intent)
@@ -388,17 +388,17 @@ class HomeActivity : AppCompatActivity(),
         var suggestionType = viewModelHome.retornoSuggestions.value!![position].tipo
         var suggestionId = viewModelHome.retornoSuggestions.value!![position].id
         when (suggestionType) {
-            "Comics" -> {
+            "comics" -> {
                 var intent = Intent(this, DetalheHqActivity::class.java)
                 intent.putExtra("idCo", suggestionId)
                 startActivity(intent)
             }
-            "Creator" -> {
+            "creator" -> {
                 var intent = Intent(this, DetalheCriadorActivity::class.java)
                 intent.putExtra("id", suggestionId)
                 startActivity(intent)
             }
-            "Character" -> {
+            "character" -> {
                 var intent = Intent(this, DetalhePersonagemActivity::class.java)
                 intent.putExtra("idCh", suggestionId)
                 startActivity(intent)

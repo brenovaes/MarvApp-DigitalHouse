@@ -8,10 +8,19 @@
     android:layout_marginTop="20dp"
     android:background="?attr/colorPrimary">
 
+    <LinearLayout
+        android:id="@+id/llauout"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvEnunciado"
         android:layout_width="300dp"
-        android:layout_height="120dp"
+        android:layout_height="160dp"
         android:layout_marginTop="50dp"
         android:layout_margin="10dp"
         app:cardCornerRadius="7dp"
@@ -27,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textColor="?attr/colorOnPrimary"
             android:textAlignment="center" />
 
@@ -37,12 +46,10 @@
         android:id="@+id/cvNumeroPergunta"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="280dp"
-        android:layout_marginBottom="90dp"
         app:cardBackgroundColor="?attr/colorAccent"
-        app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cvEnunciado"
-        app:layout_constraintEnd_toEndOf="@+id/cvEnunciado">
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/llauout"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tvNumeroDaPergunta"

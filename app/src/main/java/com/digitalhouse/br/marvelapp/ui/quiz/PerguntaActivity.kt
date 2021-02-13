@@ -115,7 +115,7 @@ class PerguntaActivity : AppCompatActivity() {
                 viewModelQuiz.getPergTrilha01(pergunta.toString())
                 viewModelQuiz.retornoTrilha01.observe(this){
                     tvEnunciadoTexto.text = it.pergunta
-                    cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta/5"
+                    cvNumeroPergunta.tvNumeroDaPergunta.text = "$pergunta"
                     rbAlternativa1.text = it.errada1
                     rbAlternativa2.text = it.errada2
                     rbAlternativa3.text = it.errada3

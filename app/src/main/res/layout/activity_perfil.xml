@@ -84,13 +84,14 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/etEmailP"
+                    android:textSize="22dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="?attr/colorAccent"
                     android:drawableTint="?attr/colorOnPrimary"
-                    android:inputType="textEmailAddress"
+
                     android:textColor="?attr/colorOnPrimary" />
 
                 <TextView
@@ -103,13 +104,13 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/etUsernameP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="22dp"
                     android:backgroundTint="?attr/colorAccent"
                     android:drawableTint="@color/black"
-                    android:inputType="textEmailAddress"
                     android:textColor="?attr/colorOnPrimary" />
 
 <!--                <TextView-->

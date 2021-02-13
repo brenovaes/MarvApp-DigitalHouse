@@ -9,10 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvBarraSeloTotal"
-        android:layout_width="match_parent"
+        android:layout_width="330dp"
         android:layout_height="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         app:cardBackgroundColor="?attr/colorSecondaryVariant"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"

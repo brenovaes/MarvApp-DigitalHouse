@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.digitalhouse.br.marvelapp.*
 import com.digitalhouse.br.marvelapp.ui.perfil.UserAdapter
+import com.facebook.FacebookSdk.getApplicationContext
 import kotlinx.android.synthetic.main.fragment_ranking.*
 
 class RankingFragment : Fragment(), UserAdapter.OnUserClickListener {
@@ -87,6 +90,6 @@ class RankingFragment : Fragment(), UserAdapter.OnUserClickListener {
     }
 
     override fun userClick(position: Int) {
-        TODO("Not yet implemented")
+        Toast.makeText(getApplicationContext(), "This user is on position #${position+1} ", Toast.LENGTH_SHORT).show()
     }
 }
