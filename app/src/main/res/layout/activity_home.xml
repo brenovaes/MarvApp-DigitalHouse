@@ -55,7 +55,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_height="wrap_content"
                 android:text="@string/HeroiDoDia"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="25sp" />
 
             <LinearLayout
