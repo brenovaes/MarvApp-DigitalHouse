@@ -105,10 +105,8 @@ class SelosFragment : Fragment(), SeloAdapter.OnSeloClickListener {
         }
 
 
-        viewModelQuiz.checkHancking(email)
-        viewModelQuiz.checkH.observe(this){
-            if (it == true) {
-
+        viewModelQuiz.pontosTotalUser.observe(this){
+            if (it > 0) {
                 listSelo.forEach {selo ->
                     if (selo.nomeSelo == "Knowledge Learner") {
                         selo.imageResource = R.drawable.stamp_x_school_color
