@@ -119,54 +119,61 @@ class DesafiosFragment : Fragment() {
 
         trilhaQuiz.balao1.setOnClickListener {
             intentPergunta.putExtra("trilha",1)
-            val teste:Int = 2
-            val msg: String
-            if (lista[0] != null){
-                msg = trilhaQuiz.balao2.tvNomeBalao.toString()
-                alertBalaoConcluido(msg)
-            }else{
-                msg = "You haven't started this challenge yet"
-                alertBalaoNaoConcluido(msg)
+            viewModelQuiz.pontosTrilha01.observe(viewLifecycleOwner){
+                val msg: String
+                if (lista[0] != null){
+                    msg = "You've already started this challenge and have: $it points. Do you want to try again?"
+                    alertBalaoConcluido(msg)
+                }else{
+                    msg = "You haven't started this challenge yet"
+                    alertBalaoNaoConcluido(msg)
+                }
             }
+
         }
 
         trilhaQuiz.balao2.setOnClickListener {
             intentPergunta.putExtra("trilha",2)
+            viewModelQuiz.pontosTrilha02.observe(viewLifecycleOwner) {
 
-            val teste:Int = 2
-            val msg: String
-            if (lista[1] != null){
-                msg = trilhaQuiz.balao2.tvNomeBalao.toString()
-                alertBalaoConcluido(msg)
-            }else{
-                msg = "You haven't started this challenge yet"
-                alertBalaoNaoConcluido(msg)
+                val msg: String
+                if (lista[1] != null) {
+                    msg = "You've already started this challenge and have: $it points. Do you want to try again?"
+                    alertBalaoConcluido(msg)
+                } else {
+                    msg = "You haven't started this challenge yet"
+                    alertBalaoNaoConcluido(msg)
+                }
             }
         }
 
         trilhaQuiz.balao3.setOnClickListener {
             intentPergunta.putExtra("trilha",3)
-            val teste:Int = 2
-            val msg: String
-            if (lista[2] != null){
-                msg = trilhaQuiz.balao3.tvNomeBalao.toString()
-                alertBalaoConcluido(msg)
-            }else{
-                msg = "You haven't started this challenge yet"
-                alertBalaoNaoConcluido(msg)
+            viewModelQuiz.pontosTrilha03.observe(viewLifecycleOwner) {
+
+                val msg: String
+                if (lista[2] != null) {
+                    msg = "You've already started this challenge and have: $it points. Do you want to try again?"
+                    alertBalaoConcluido(msg)
+                } else {
+                    msg = "You haven't started this challenge yet"
+                    alertBalaoNaoConcluido(msg)
+                }
             }
         }
 
         trilhaQuiz.balao4.setOnClickListener {
             intentPergunta.putExtra("trilha",4)
-            val teste:Int = 2
-            val msg: String
-            if (lista[3] != null){
-                msg = trilhaQuiz.balao4.tvNomeBalao.toString()
-                alertBalaoConcluido(msg)
-            }else{
-                msg = "You haven't started this challenge yet"
-                alertBalaoNaoConcluido(msg)
+            viewModelQuiz.pontosTrilha04.observe(viewLifecycleOwner) {
+
+                val msg: String
+                if (lista[3] != null) {
+                    msg = "You've already started this challenge and have: $it points. Do you want to try again?"
+                    alertBalaoConcluido(msg)
+                } else {
+                    msg = "You haven't started this challenge yet"
+                    alertBalaoNaoConcluido(msg)
+                }
             }
         }
 
@@ -307,7 +314,8 @@ class DesafiosFragment : Fragment() {
 
         with(builder) {
             setMessage(msg)
-            setNegativeButton("Close", negativeButtonClick)
+            setPositiveButton("Yes", DialogInterface.OnClickListener(function = this@DesafiosFragment.positiveButtonClick))
+            setNegativeButton("No", negativeButtonClick)
             show()
         }
     }
